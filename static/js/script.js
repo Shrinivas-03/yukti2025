@@ -6,7 +6,12 @@ function startCountdown(targetDate) {
 
         if (distance <= 0) {
             clearInterval(countdownInterval);
-            document.getElementById('countdown').innerHTML = "The event has started!";
+            const countdownElement = document.getElementById('countdown');
+            if (countdownElement) {
+                countdownElement.innerHTML = "The event has started!";
+            } else {
+                console.warn("Countdown element not found.");
+            }
             return;
         }
 
@@ -15,10 +20,25 @@ function startCountdown(targetDate) {
         const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
         const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-        document.getElementById('days').textContent = days.toString().padStart(2, '0');
-        document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
-        document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
-        document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+        const daysElement = document.getElementById('days');
+        if (daysElement) {
+            daysElement.textContent = days.toString().padStart(2, '0');
+        }
+
+        const hoursElement = document.getElementById('hours');
+        if (hoursElement) {
+            hoursElement.textContent = hours.toString().padStart(2, '0');
+        }
+
+        const minutesElement = document.getElementById('minutes');
+        if (minutesElement) {
+            minutesElement.textContent = minutes.toString().padStart(2, '0');
+        }
+
+        const secondsElement = document.getElementById('seconds');
+        if (secondsElement) {
+            secondsElement.textContent = seconds.toString().padStart(2, '0');
+        }
     }, 1000);
 }
 
@@ -26,7 +46,19 @@ function startCountdown(targetDate) {
 const eventDate = new Date('February 20, 2025 00:00:00').getTime();
 startCountdown(eventDate);
 
+// Declare these variables in the global scope
+let selectedEvents = [];
+let currentEventSelection = null;
+
 document.addEventListener("DOMContentLoaded", function () {
+    // Declare and initialize addEventBtn and other required elements.
+    const addEventBtn = document.getElementById("add-event-btn");
+    const categorySelect = document.getElementById("category");
+    const eventsContainer = document.getElementById("events-container");
+    const groupSizeContainer = document.getElementById("group-size-container");
+    const groupSizeInput = document.getElementById("group-size");
+    const teamMembersContainer = document.getElementById("team-members-container");
+    const memberInputsContainer = document.getElementById("member-inputs");
     // ...existing variable declarations...
 
     function validateMemberInputs() {
@@ -46,7 +78,10 @@ document.addEventListener("DOMContentLoaded", function () {
     // Modified add event button handler
     if (addEventBtn) {
         addEventBtn.addEventListener("click", function() {
-            if (!currentEventSelection) return;
+            if (!currentEventSelection) {
+                console.log('No event selected');
+                return;
+            }
 
             // Validate team members if it's a team event
             if (currentEventSelection.type === "team" || currentEventSelection.type === "group") {

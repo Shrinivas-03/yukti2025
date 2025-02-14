@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+
+{% block title %}Registration Successful{% endblock %}
+
+{% block content %}
+<div class="success-container">
+    <h1>Registration Successful!</h1>
+    <div class="ack-details">
+        <h2>Acknowledgement ID: {{ ack_id }}</h2>
+        <p>Please save this ID for future reference</p>
+        
+        <div class="registration-details">
+            <h3>Registration Details:</h3>
+            <p><strong>Email:</strong> {{ details.email }}</p>
+            <p><strong>Phone:</strong> {{ details.phone }}</p>
+            <p><strong>College:</strong> {{ details.college }}</p>
+            <p><strong>Total Participants:</strong> {{ details.total_participants }}</p>
+            <p><strong>Total Cost:</strong> ₹{{ details.total_cost }}</p>
+            
+            <h4>Selected Events:</h4>
+            {% for event in details.event_details %}
+            <div class="event-detail">
+                <p><strong>Event:</strong> {{ event.event }}</p>
+                <p><strong>Category:</strong> {{ event.category }}</p>
+                {% if event.members %}
+                <p><strong>Team Members:</strong> {{ event.members|join(", ") }}</p>
+                {% endif %}
+                {% if event.participant %}
+                <p><strong>Participant:</strong> {{ event.participant }}</p>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+        
+        <p class="important-note">Please pay the registration fees at the registration desk on the event day.</p>
+        
+        <div class="button-container">
+            <button onclick="window.location.href='/'">Back to Home</button>
+            <button onclick="window.print()">Print / Download</button>
+            <button onclick="window.location.href='/register'">Back to Registration</button>
+        </div>
+    </div>
+</div>
+
+<style>
+    .success-container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+        border: 1px solid #03e9f4;
+        border-radius: 10px;
+        background-color: #ff0000;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    .ack-details {
+        margin-top: 20px;
+    }
+    .registration-details {
+        margin-top: 20px;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        background-color: #ff0000;
+    }
+    .event-detail {
+        margin-top: 10px;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        background-color: #ff0000;
+    }
+    .important-note {
+        margin-top: 20px;
+        font-weight: bold;
+        color: #d9534f;
+    }
+    .button-container {
+        margin-top: 20px;
+        display: flex;
+        justify-content: space-between;
+    }
+    .button-container button {
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        background-color: #03e9f4;
+        color: #fff;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+    .button-container button:hover {
+        background-color: #029dbb;
+    }
+    @media print {
+        .button-container {
+            display: none;
+        }
+    }
+</style>
+{% endblock %}

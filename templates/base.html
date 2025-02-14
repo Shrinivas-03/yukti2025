@@ -19,7 +19,7 @@
     <!-- Header Section -->
     <header class="header">
         <div class="header-content">
-            <a href="{{ url_for('home.home_page') }}">
+            <a href="{{ url_for('home') }}">
                 <h1 class="fest-title">YUKTI <span>2025</span></h1>
             </a>
             <div class="menu-btn">
@@ -27,19 +27,20 @@
             </div>
             <nav class="navbar">
                 <ul class="nav-links">
-                    <li><a href="#">Home</a></li>
-                    <li><a href="{{ url_for('about.about') }}">About</a></li>
+                    <li><a href="{{ url_for('home') }}">Home</a></li>
+                    <li><a href="{{ url_for('about') }}">About</a></li>
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle">Events</a>
+                        <a href="#">Events</a>
                         <ul class="dropdown-menu">
-                            <li><a href="{{ url_for('events.tech') }}">Tech Events</a></li>
-                            <li><a href="{{ url_for('events.cultural') }}">Cultural Events</a></li>
-                            <li><a href="{{ url_for('events.management') }}">Management Events</a></li>
-                            <li><a href="{{ url_for('events.games') }}">Game Events</a></li>
+                            <li><a href="{{ url_for('tech') }}">Tech</a></li>
+                            <li><a href="{{ url_for('cultural') }}">Cultural Fiesta</a></li>
+                            <li><a href="{{ url_for('management') }}">Entrepreneurial Summit</a></li>
+                            <li><a href="{{ url_for('games') }}">Gaming Tournament</a></li>
                         </ul>
                     </li>
-                    <li><a href="{{ url_for('gallery.gallery') }}">Gallery</a></li>
-                    <li><a href="{{ url_for('registration.register') }}" class="highlighted-link">Register</a></li>
+                    <li><a href="{{ url_for('gallery') }}">Gallery</a></li>
+                    <li><a href="{{ url_for('signin') }}" class="highlighted-link">Register</a></li>
+
                 </ul>
             </nav>
         </div>

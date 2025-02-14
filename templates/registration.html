@@ -7,8 +7,7 @@
     <h1 class="registration-title">YUKTI-2025 Registration</h1>
 
     <div class="registration-form-container">
-        <!-- Removed action/method to let JS handle submission -->
-        <form class="registration-form" id="registrationForm" method="POST" action="{{ url_for('registration.register') }}">
+        <form class="registration-form" id="registrationForm" onsubmit="event.preventDefault(); submitRegistration();">
             <!-- Event Selection Section -->
             <div class="event-selection-section">
                 <div class="form-group">
@@ -38,7 +37,7 @@
 
                 <div id="individual-participant-container" class="form-group hidden">
                     <label for="individual-participant"><strong>Participant Name</strong></label>
-                    <input type="text" id="individual-participant" placeholder="Enter Your Name" required />
+                    <input type="text" id="individual-participant" placeholder="Enter Your Name" />
                 </div>
 
                 <div class="form-group hidden" id="team-members-container">
@@ -90,6 +89,9 @@
 </div>
 
 <script>
+    // Declare selectedEvents globally so that submitRegistration can access it.
+    let selectedEvents = [];
+
     document.addEventListener("DOMContentLoaded", function () {
         const categorySelect = document.getElementById("category");
         const eventsContainer = document.getElementById("events-container");
@@ -104,10 +106,8 @@
         const groupSizeError = document.getElementById("group-size-error");
         const individualParticipantContainer = document.getElementById("individual-participant-container");
         const individualParticipantInput = document.getElementById("individual-participant");
-        const totalParticipantsSpan = document.getElementById("totalParticipants");
         const overallParticipantsSpan = document.getElementById("overallParticipants");
 
-        let selectedEvents = [];
         let currentEventSelection = null;
 
         const COST_PER_EVENT = 200;
@@ -181,7 +181,8 @@
                 memberInput.id = `member-${i}`;
                 memberInput.name = `member-${i}`;
                 memberInput.placeholder = `Member ${i} Name`;
-                memberInput.required = true;
+                // Removed required attribute to prevent invalid form control error
+                // memberInput.required = true;
                 
                 memberDiv.appendChild(memberInput);
                 memberInputsContainer.appendChild(memberDiv);
@@ -302,6 +303,7 @@
                             groupSizeContainer.classList.add("hidden");
                             teamMembersContainer.classList.add("hidden");
                             individualParticipantContainer.classList.remove("hidden");
+                            individualParticipantInput.required = true;
                             individualParticipantInput.value = ""; // clear previous value
                             groupSizeInput.value = 1;
                         }
@@ -361,6 +363,7 @@
                         groupSizeContainer.classList.add("hidden");
                         teamMembersContainer.classList.add("hidden");
                         individualParticipantContainer.classList.remove("hidden");
+                        individualParticipantInput.required = true;
                         individualParticipantInput.value = ""; // clear previous value
                         groupSizeInput.value = 1;
                     }
@@ -433,7 +436,7 @@
             // Start with 0 instead of counting a leader by default.
             const leaderCount = 0;
             const memberInputs = memberInputsContainer.querySelectorAll("input[name^='member-']");
-            totalParticipantsSpan.textContent = leaderCount + memberInputs.length;
+            console.log("Current team members count:", memberInputs.length);
         }
         
         function updateOverallTotalParticipants() {
@@ -473,7 +476,7 @@
     });
 
     async function submitRegistration() {
-        console.log("Submit function called");
+        console.log("Submit function called");  // Debug log
 
         if (selectedEvents.length === 0) {
             alert('Please select at least one event');
@@ -498,6 +501,8 @@
             totalCost: parseFloat(document.querySelector('.total-cost').textContent.replace('Total Cost: ₹', ''))
         };
 
+        console.log("Sending data:", formData);  // Debug log
+
         try {
             const response = await fetch('/register', {
                 method: 'POST',
@@ -507,11 +512,12 @@
                 body: JSON.stringify(formData)
             });
 
+            console.log("Response received:", response);  // Debug log
+
             const data = await response.json();
-            console.log("Server response:", data);
+            console.log("Response data:", data);  // Debug log
 
             if (data.success) {
-                alert(`Registration successful! Your acknowledgement ID is: ${data.ack_id}`);
                 window.location.href = `/acknowledgement/${data.ack_id}`;
             } else {
                 alert('Registration failed: ' + (data.message || 'Unknown error'));
@@ -521,6 +527,7 @@
             alert('An error occurred during registration. Please try again.');
         }
     }
+
 </script>
 
 
