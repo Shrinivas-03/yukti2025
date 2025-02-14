@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}YUKTI 2025 | College Fest{% endblock %}</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Cinzel:wght@700&display=swap"
+        rel="stylesheet">
+    <!-- Link to Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <!-- Link to Custom JS -->
+    <script src="{{ url_for('static', filename='js/script.js') }}" defer></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+
+<body>
+    <!-- Header Section -->
+    <header class="header">
+        <div class="header-content">
+            <a href="{{ url_for('home.home_page') }}">
+                <h1 class="fest-title">YUKTI <span>2025</span></h1>
+            </a>
+            <div class="menu-btn">
+                <i class="fas fa-bars"></i>
+            </div>
+            <nav class="navbar">
+                <ul class="nav-links">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="{{ url_for('about.about') }}">About</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle">Events</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="{{ url_for('events.tech') }}">Tech Events</a></li>
+                            <li><a href="{{ url_for('events.cultural') }}">Cultural Events</a></li>
+                            <li><a href="{{ url_for('events.management') }}">Management Events</a></li>
+                            <li><a href="{{ url_for('events.games') }}">Game Events</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="{{ url_for('gallery.gallery') }}">Gallery</a></li>
+                    <li><a href="{{ url_for('registration.register') }}" class="highlighted-link">Register</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <!-- Dynamic Content Block -->
+    <main style="padding-top: 80px;">
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer Section -->
+    <footer class="footer">
+        <div class="footer-content">
+            <p>&copy; 2025 YUKTI College Fest. All rights reserved.</p>
+            <div class="social-links">
+                <a href="#"><i class="fab fa-facebook"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <style>
+        .header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(0, 0, 0, 0.9);
+            height: 70px; /* Fixed header height */
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .menu-btn {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: white;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .highlighted-link {
+            background: #007bff;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+        }
+
+        .footer {
+            background: rgba(0, 0, 0, 0.9);
+            padding: 1.5rem 0;
+            margin-top: auto;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-links a {
+            color: white;
+            font-size: 1.2rem;
+            transition: color 0.3s;
+        }
+
+        .social-links a:hover {
+            color: #007bff;
+        }
+
+        main {
+            min-height: calc(100vh - 140px); /* Adjust for footer height */
+            padding-top: 80px; /* Match header height plus some spacing */
+        }
+
+        @media (max-width: 768px) {
+            .menu-btn {
+                display: block;
+            }
+
+            .navbar {
+                position: fixed;
+                top: 70px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 70px);
+                background: rgba(0, 0, 0, 0.95);
+                transition: 0.3s;
+            }
+
+            .navbar.active {
+                left: 0;
+            }
+
+            .nav-links {
+                flex-direction: column;
+                align-items: center;
+                padding: 2rem 0;
+                gap: 2rem;
+            }
+
+            .footer-content {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+        }
+
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown-toggle::after {
+            content: '\25BC';
+            margin-left: 0.5rem;
+            font-size: 0.8rem;
+        }
+
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: rgba(0, 0, 0, 0.9);
+            list-style: none;
+            padding: 0.5rem 0;
+            margin: 0;
+            border-radius: 5px;
+            z-index: 1000;
+        }
+
+        .dropdown-menu li {
+            padding: 0.5rem 1rem;
+        }
+
+        .dropdown-menu li a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .dropdown:hover .dropdown-menu {
+            display: block;
+        }
+    </style>
+
+    <script>
+        document.querySelector('.menu-btn').addEventListener('click', () => {
+            document.querySelector('.navbar').classList.toggle('active');
+        });
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.header-content')) {
+                document.querySelector('.navbar').classList.remove('active');
+            }
+        });
+
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                document.querySelector('.navbar').classList.remove('active');
+            });
+        });
+    </script>
+</body>
+
+</html>

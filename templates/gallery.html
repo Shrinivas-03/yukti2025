@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block title %}Gallery - College Fest{% endblock %}
+
+{% block content %}
+    <section class="gallery">
+        <h1>Gallery</h1>
+        <p>Relive the best moments from our College Fest!</p>
+        <div class="gallery-grid">
+            <img src="{{ url_for('static', filename='assests/01.jpg') }}" alt="Event 1">
+            <img src="{{ url_for('static', filename='assests/gallery2.jpg') }}" alt="Event 2">
+            <img src="{{ url_for('static', filename='assests/gallery3.jpg') }}" alt="Event 3">
+            <img src="{{ url_for('static', filename='assests/gallery4.jpg') }}" alt="Event 4">
+            <img src="{{ url_for('static', filename='assests/gallery5.jpg') }}" alt="Event 5">
+            <img src="{{ url_for('static', filename='assests/gallery6.jpg') }}" alt="Event 6">
+        </div>
+    </section>
+{% endblock %}

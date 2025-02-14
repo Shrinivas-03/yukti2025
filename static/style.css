@@ -1,0 +1,20 @@
+.acknowledgement-container {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+.acknowledgement-container h1 {
+    color: #333;
+}
+
+.acknowledgement-container p {
+    margin: 10px 0;
+}
+
+.acknowledgement-container strong {
+    font-weight: bold;
+}

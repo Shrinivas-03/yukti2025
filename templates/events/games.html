@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block title %}Game Events - College Fest{% endblock %}
+
+{% block content %}
+    <section class="event-page mb-5">
+        <h1 class="text-center">Game Events</h1>
+        <p class="text-center">Challenge yourself in exciting gaming competitions.</p>
+    </section>
+
+    <!-- Events Container -->
+    <div class="container py-5">
+        <!-- BGMIII -->
+        <div class="event-card-horizontal mb-5">
+            <div class="event-image">
+                <img src="{{ url_for('static', filename='images/events/bgmi.jpg') }}" alt="BGMIII">
+            </div>
+            <div class="event-content">
+                <h3>BGMIII</h3>
+                <p>Competitive gaming tournament featuring Battlegrounds Mobile India. Squad up and compete for victory in intense battles.</p>
+                <ul class="event-details">
+                    <li><i class="bi bi-people-fill"></i> Team Size: 4 members</li>
+                    <li><i class="bi bi-cash"></i> Registration Fee: ₹400/team</li>
+                    <li><i class="bi bi-trophy-fill"></i> Prizes Worth: ₹15,000</li>
+                </ul>
+                <a href="{{ url_for('registration.register') }}" class="btn btn-register">
+                    <span></span><span></span><span></span><span></span>
+                    Register Now
+                </a>
+            </div>
+        </div>
+    </div>
+
+      <!-- Talaash -->
+      <div class="event-card-horizontal mb-5">
+        <div class="event-image">
+            <img src="{{ url_for('static', filename='images/events/treasure.jpg') }}" alt="Talaash">
+        </div>
+        <div class="event-content">
+            <h3>Talaash</h3>
+            <p>Exciting treasure hunt combining wit, wisdom, and adventure. Solve clues and complete challenges across the campus.</p>
+            <ul class="event-details">
+                <li><i class="bi bi-people-fill"></i> Team Size: 2-3 members</li>
+                <li><i class="bi bi-cash"></i> Registration Fee: ₹300/team</li>
+                <li><i class="bi bi-trophy-fill"></i> Prizes Worth: ₹10,000</li>
+            </ul>
+            <a href="{{ url_for('registration.register') }}" class="btn btn-register">
+                <span></span><span></span><span></span><span></span>
+                Register Now
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

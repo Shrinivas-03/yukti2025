@@ -1,0 +1,529 @@
+{% extends "base.html" %}
+
+{% block title %}Registration - College Fest{% endblock %}
+
+{% block content %}
+<div class="registration-container">
+    <h1 class="registration-title">YUKTI-2025 Registration</h1>
+
+    <div class="registration-form-container">
+        <!-- Removed action/method to let JS handle submission -->
+        <form class="registration-form" id="registrationForm" method="POST" action="{{ url_for('registration.register') }}">
+            <!-- Event Selection Section -->
+            <div class="event-selection-section">
+                <div class="form-group">
+                    <label for="category"><strong>Select Event Category</strong></label>
+                    <select id="category" required>
+                        <option value="" disabled selected>--Select--</option>
+                        <option value="tech">Manthana (Tech Events)</option>
+                        <option value="Cultural">Manoranjana (Cultural Events)</option>
+                        <option value="management">Chintana (Management Events)</option>
+                        <option value="VisualArt">Kalachitrana (VisualArt)</option>
+                        <option value="games">Krida Ratna(Game Events)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label><strong>Select an Event</strong></label>
+                    <div id="events-container" class="events-grid">
+                        <p>Please select a category first.</p>
+                    </div>
+                </div>
+
+                <div class="form-group hidden" id="group-size-container">
+                    <label for="group-size"><strong>Number of Participants</strong></label>
+                    <input type="number" id="group-size" min="1" max="4" value="1" class="group-size-input" />
+                </div>
+                <div id="group-size-error" class="hidden" style="color:red; font-size:0.9rem;"></div>
+
+                <div id="individual-participant-container" class="form-group hidden">
+                    <label for="individual-participant"><strong>Participant Name</strong></label>
+                    <input type="text" id="individual-participant" placeholder="Enter Your Name" required />
+                </div>
+
+                <div class="form-group hidden" id="team-members-container">
+                    <label><strong>Team Members</strong></label>
+                    <div id="member-inputs"></div>
+                </div>
+                <!-- New Total Participants Section -->
+               
+
+                <button type="button" id="add-event-btn" class="add-event-btn" disabled>+ Add Event</button>
+            </div>
+
+            <!-- Selected Events Section -->
+            <div class="selected-events-section hidden">
+                <h3>Selected Events</h3>
+                <div id="selected-events-list"></div>
+            </div>
+
+           
+
+            <!-- Personal Details Section -->
+            <div class="personal-details-section hidden">
+                <div class="form-group">
+                    <label for="college">College Name</label>
+                    <input type="text" id="college" placeholder="Enter your college name" required />
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" placeholder="Enter your email" required />
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">Phone (WhatsApp)</label>
+                    <input type="tel" id="phone" placeholder="Enter your WhatsApp number" required />
+                </div>
+                 <!-- New Overall Total Participants Section -->
+            <div class="overall-participants" id="overall-participants-section" style="margin:10px 0; font-weight:bold;">
+                Overall Total Participants: <span id="overallParticipants">0</span>
+            </div>
+
+                <p class="cost-note">*Accommodation is not available.</p>
+                <p class="total-cost">Total Cost: ₹0</p>
+
+                <button type="submit">Register Now</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const categorySelect = document.getElementById("category");
+        const eventsContainer = document.getElementById("events-container");
+        const groupSizeContainer = document.getElementById("group-size-container");
+        const groupSizeInput = document.getElementById("group-size");
+        const teamMembersContainer = document.getElementById("team-members-container");
+        const memberInputsContainer = document.getElementById("member-inputs");
+        const addEventBtn = document.getElementById("add-event-btn");
+        const selectedEventsList = document.getElementById("selected-events-list");
+        const selectedEventsSection = document.querySelector(".selected-events-section");
+        const personalDetailsSection = document.querySelector(".personal-details-section");
+        const groupSizeError = document.getElementById("group-size-error");
+        const individualParticipantContainer = document.getElementById("individual-participant-container");
+        const individualParticipantInput = document.getElementById("individual-participant");
+        const totalParticipantsSpan = document.getElementById("totalParticipants");
+        const overallParticipantsSpan = document.getElementById("overallParticipants");
+
+        let selectedEvents = [];
+        let currentEventSelection = null;
+
+        const COST_PER_EVENT = 200;
+        
+        const events = {
+            tech: [
+                { name: "Prakalpa Prastuthi (Live Project Expo)", type: "team", cost: 200, minTeam: 1, maxTeam: 3 },
+                { name: "CHANAKSH (CODING EVENT)", type: "individual", cost: 100 },
+                { name: "Robo Samara(Robo War)", type: "team", cost: 300, minTeam: 1, maxTeam: 4},
+                { name: "Robo Samara(Robo Race)", type: "team", cost: 300, minTeam: 1, maxTeam: 4},
+                { name: "Pragyan(Quiz)", type: "team", cost: 300, minTeam: 1, maxTeam: 4},
+                { name: "Vagmita (Elocution)", type: "individual", cost: 200 }
+            ],
+            VisualArt: [
+                
+                { name: "Sthala Chitrapatha (Spot Photography)", type: "individual", cost: 150 },
+                { name: "Chitragatha (Short Film)", type: "team", cost: 400, minTeam: 1, maxTeam: 4 },
+                { name: "RUPEKHA (Sketch Art)", type: "individual", cost: 200 },
+                { name: "Hastakala (Painting)", type: "individual", cost: 150 },
+                { name: "Swachitra (Selfie Point)", type: "individual", cost: 100 },
+            ],
+            Cultural: [
+                { name: "NINAAD (Singing Solo )", type: "individual", cost: 200 },
+                { name: "NINAAD (Singing Group)", type: "team", cost: 200,minTeam:1, maxTeam:10 },
+                { name: "Nritya Saadhana (Dance Solo )", type: "individual", cost: 200 },
+                { name: "Nritya Saadhana (Dance Group)", type: "team", cost: 200 ,minTeam:4, maxTeam:8},
+               
+                { name: "Navyataa (Ramp Walk)", type: "individual", cost: 300 },
+            ],
+            management: [
+               
+                { name: "DAKSH (THE BEST MANAGER)", type: "individual", cost: 300 },
+                { name: "SHRESHTA VITTA (FINANCE) Final", type: "individual", cost: 200 },
+                { name: "MANAVA SANSADHAN (HR)", type: "team", cost: 300, minTeam: 1, maxTeam: 4 },
+                { name: "Sumedha(Start Up)", type: "individual", cost: 150 },
+                { name: "Vipanan(Marketing)", type: "team", cost: 150,minTeam:2 ,maxTeam:2 }
+            ],
+            games: [
+                { name: "BGMI", type: "team", cost: 400, minTeam: 1, maxTeam: 5 },
+                { name: "Talaash", type: "team", cost: 300, minTeam: 1, maxTeam: 5 }
+            ]
+        };
+
+        function updateTotalCost() {
+            const totalCost = selectedEvents.length * COST_PER_EVENT;
+            document.querySelector('.total-cost').textContent = `Total Cost: ₹${totalCost}`;
+        }
+
+        groupSizeInput.addEventListener("change", function() {
+            const numberOfMembers = parseInt(this.value);
+            generateMemberInputs(numberOfMembers);
+        });
+
+        // Modified team member input generator to clamp count between minTeam and maxTeam
+        function generateMemberInputs(count) {
+            memberInputsContainer.innerHTML = '';
+            teamMembersContainer.classList.remove("hidden");
+
+            if (currentEventSelection && currentEventSelection.type === "team") {
+                // Clamp count between event.minTeam and event.maxTeam
+                count = Math.min(Math.max(parseInt(count), currentEventSelection.minTeam), currentEventSelection.maxTeam);
+                groupSizeInput.value = count;
+            }
+
+            for (let i = 1; i <= count; i++) {
+                const memberDiv = document.createElement("div");
+                memberDiv.classList.add("member-input");
+                
+                const memberInput = document.createElement("input");
+                memberInput.type = "text";
+                memberInput.id = `member-${i}`;
+                memberInput.name = `member-${i}`;
+                memberInput.placeholder = `Member ${i} Name`;
+                memberInput.required = true;
+                
+                memberDiv.appendChild(memberInput);
+                memberInputsContainer.appendChild(memberDiv);
+            }
+            updateTotalParticipants();
+        }
+
+        addEventBtn.addEventListener("click", function() {
+            if (currentEventSelection) {
+                const eventDetails = {
+                    category: categorySelect.value,
+                    event: currentEventSelection.name,
+                    type: currentEventSelection.type,
+                    cost: currentEventSelection.cost
+                };
+
+                if (currentEventSelection.type === "team" || currentEventSelection.type === "group") {
+                    eventDetails.members = [];
+                    const memberInputs = document.querySelectorAll("#member-inputs input");
+                    memberInputs.forEach(input => {
+                        if (input.value.trim()) {
+                            eventDetails.members.push(input.value.trim());
+                        }
+                    });
+                } else {
+                    // For individual events, record the participant's name
+                    eventDetails.participant = individualParticipantInput.value.trim();
+                }
+
+                selectedEvents.push(eventDetails);
+                updateSelectedEventsList();
+                updateTotalCost();
+                resetEventSelection();
+                selectedEventsSection.classList.remove("hidden");
+                personalDetailsSection.classList.remove("hidden");
+            }
+        });
+
+        function updateSelectedEventsList() {
+            selectedEventsList.innerHTML = '';
+            selectedEvents.forEach((event, index) => {
+                const eventDiv = document.createElement("div");
+                eventDiv.classList.add("selected-event");
+                
+                let membersText = '';
+                if (event.members && event.members.length > 0) {
+                    membersText = `<br>Members: ${event.members.join(", ")}`;
+                } else if (event.participant) {
+                    membersText = `<br>Participant: ${event.participant}`;
+                }
+
+                eventDiv.innerHTML = `
+                    <span>${event.event} (${event.category})${membersText}</span>
+                    <button type="button" onclick="removeEvent(${index})" class="remove-event-btn">✕</button>
+                `;
+                selectedEventsList.appendChild(eventDiv);
+            });
+            updateOverallTotalParticipants();
+        }
+
+        function resetEventSelection() {
+            const radioInputs = document.querySelectorAll('input[name="event"]');
+            radioInputs.forEach(input => input.checked = false);
+            groupSizeContainer.classList.add("hidden");
+            teamMembersContainer.classList.add("hidden");
+            individualParticipantContainer.classList.add("hidden");
+            currentEventSelection = null;
+            addEventBtn.disabled = true;
+        }
+
+        window.removeEvent = function(index) {
+            selectedEvents.splice(index, 1);
+            updateSelectedEventsList();
+            updateTotalCost(); // Add this line
+            if (selectedEvents.length === 0) {
+                selectedEventsSection.classList.add("hidden");
+                personalDetailsSection.classList.add("hidden");
+            }
+        };
+
+        categorySelect.addEventListener("change", function () {
+            const selectedCategory = categorySelect.value;
+            eventsContainer.innerHTML = '';
+
+            if (selectedCategory && events[selectedCategory]) {
+                events[selectedCategory].forEach(event => {
+                    let div = document.createElement("div");
+                    div.classList.add("event-option");
+
+                    let input = document.createElement("input");
+                    input.type = "radio";
+                    input.name = "event";
+                    input.value = event.name;
+                    input.id = event.name.replace(/\s+/g, "-").toLowerCase();
+
+                    let label = document.createElement("label");
+                    label.htmlFor = input.id;
+                    label.textContent = `${event.name} ${event.type === 'team' ? `(${event.minTeam}-${event.maxTeam} members)` : ''}`;
+
+                    input.addEventListener("change", function () {
+                        currentEventSelection = event;
+                        addEventBtn.disabled = false;
+                        
+                        if (event.type === "team") {
+                            groupSizeContainer.classList.remove("hidden");
+                            teamMembersContainer.classList.remove("hidden");
+                            individualParticipantContainer.classList.add("hidden");
+                            
+                            // Set min and max based on event configuration
+                            groupSizeInput.min = event.minTeam;
+                            groupSizeInput.max = event.maxTeam;
+                            groupSizeInput.value = event.minTeam;
+                            
+                            // Update label to show allowed team size
+                            const sizeLabel = groupSizeContainer.querySelector('label');
+                            sizeLabel.innerHTML = `<strong>Number of Participants (${event.minTeam}-${event.maxTeam})</strong>`;
+                        } else {
+                            groupSizeContainer.classList.add("hidden");
+                            teamMembersContainer.classList.add("hidden");
+                            individualParticipantContainer.classList.remove("hidden");
+                            individualParticipantInput.value = ""; // clear previous value
+                            groupSizeInput.value = 1;
+                        }
+                        
+                        generateMemberInputs(parseInt(groupSizeInput.value));
+                    });
+
+                    div.appendChild(input);
+                    div.appendChild(label);
+                    eventsContainer.appendChild(div);
+                });
+            } else {
+                eventsContainer.innerHTML = '<p>Please select a category first.</p>';
+            }
+        });
+
+        // Validate team size when changed
+        groupSizeInput.addEventListener("change", function() {
+            const value = parseInt(this.value);
+            const min = parseInt(this.min);
+            const max = parseInt(this.max);
+
+            if (value < min) {
+                this.value = min;
+            } else if (value > max) {
+                this.value = max;
+            }
+
+            generateMemberInputs(parseInt(this.value));
+        });
+
+        // Modified event radio button change handler
+        eventsContainer.addEventListener("change", function(e) {
+            if (e.target.type === "radio") {
+                const selectedEvent = events[categorySelect.value].find(event => event.name === e.target.value);
+                if (selectedEvent) {
+                    currentEventSelection = selectedEvent;
+                    addEventBtn.disabled = false;
+
+                    if (selectedEvent.type === "team") {
+                        groupSizeContainer.classList.remove("hidden");
+                        teamMembersContainer.classList.remove("hidden");
+                        individualParticipantContainer.classList.add("hidden");
+                        
+                        // Update input attributes and value
+                        groupSizeInput.min = selectedEvent.minTeam;
+                        groupSizeInput.max = selectedEvent.maxTeam;
+                        groupSizeInput.value = selectedEvent.minTeam;
+                        
+                        // Update label
+                        const sizeLabel = groupSizeContainer.querySelector('label');
+                        sizeLabel.innerHTML = `<strong>Number of Participants (${selectedEvent.minTeam}-${selectedEvent.maxTeam})</strong>`;
+                        
+                        generateMemberInputs(selectedEvent.minTeam);
+                    } else {
+                        // For individual events, hide team inputs and show participant field
+                        groupSizeContainer.classList.add("hidden");
+                        teamMembersContainer.classList.add("hidden");
+                        individualParticipantContainer.classList.remove("hidden");
+                        individualParticipantInput.value = ""; // clear previous value
+                        groupSizeInput.value = 1;
+                    }
+                }
+            }
+        });
+
+        // Group size input validation
+        groupSizeInput.addEventListener("input", function() {
+            if (!currentEventSelection) return;
+            
+            let value = parseInt(this.value) || 0;
+            const min = currentEventSelection.minTeam || 1;
+            const max = currentEventSelection.maxTeam || 1;
+            
+            if (value < min) value = min;
+            if (value > max) value = max;
+            
+            this.value = value;
+            generateMemberInputs(value);
+        });
+
+        // Restrict groupSizeInput value on user input
+        groupSizeInput.addEventListener("input", function() {
+            if (!currentEventSelection || currentEventSelection.type !== "team") return;
+            
+            let value = parseInt(this.value) || currentEventSelection.minTeam;
+            const min = currentEventSelection.minTeam;
+            const max = currentEventSelection.maxTeam;
+            
+            if (value < min || value > max) {
+                groupSizeError.textContent = `Please enter a value between ${min} and ${max}.`;
+                groupSizeError.classList.remove("hidden");
+                addEventBtn.disabled = true;
+            } else {
+                groupSizeError.textContent = "";
+                groupSizeError.classList.add("hidden");
+                addEventBtn.disabled = false;
+                this.value = value;
+                generateMemberInputs(value);
+            }
+        });
+
+        // Add new styles for event options
+        const additionalStyles = `
+            .event-option {
+                border: 2px solid #03e9f4;
+                transition: all 0.3s ease;
+                background: rgba(3, 233, 244, 0.05);
+            }
+
+            .event-option:hover {
+                transform: translateX(10px);
+                box-shadow: 0 0 15px rgba(3, 233, 244, 0.5);
+                background: rgba(3, 233, 244, 0.1);
+            }
+
+            .event-option input[type="radio"]:checked + label {
+                color: #03e9f4;
+                text-shadow: 0 0 5px #03e9f4;
+            }
+        `;
+
+        // Insert the new styles
+        const styleSheet = document.createElement("style");
+        styleSheet.innerText = additionalStyles;
+        document.head.appendChild(styleSheet);
+
+        function updateTotalParticipants() {
+            // Start with 0 instead of counting a leader by default.
+            const leaderCount = 0;
+            const memberInputs = memberInputsContainer.querySelectorAll("input[name^='member-']");
+            totalParticipantsSpan.textContent = leaderCount + memberInputs.length;
+        }
+        
+        function updateOverallTotalParticipants() {
+            let overall = 0;
+            selectedEvents.forEach(ev => {
+                if (ev.type === "team" || ev.type === "group") {
+                    overall += ev.members.length;
+                } else {
+                    overall += 1;
+                }
+            });
+            overallParticipantsSpan.textContent = overall;
+        }
+
+        // Call updateTotalParticipants when any team member input changes
+        memberInputsContainer.addEventListener("input", updateTotalParticipants);
+        
+        // Ensure update after adding a new team select (if applicable)
+        document.getElementById("group-size").addEventListener("change", function(){
+            generateMemberInputs(parseInt(this.value));
+        });
+        
+        // Initial update now shows 0.
+        updateTotalParticipants();
+
+        // Remove or comment out the duplicate event listener block
+        // Remove this block if present:
+        /*
+        document.getElementById('submitBtn').addEventListener('click', async function(e) {
+            e.preventDefault();
+            console.log("Register button clicked");
+            // ...code...
+        });
+        */
+
+        // The inline onclick handler calls submitRegistration(), which is defined below.
+    });
+
+    async function submitRegistration() {
+        console.log("Submit function called");
+
+        if (selectedEvents.length === 0) {
+            alert('Please select at least one event');
+            return;
+        }
+
+        const college = document.getElementById('college').value;
+        const email = document.getElementById('email').value;
+        const phone = document.getElementById('phone').value;
+
+        if (!college || !email || !phone) {
+            alert('Please fill in all required fields');
+            return;
+        }
+
+        const formData = {
+            college: college,
+            email: email,
+            phone: phone,
+            selectedEvents: selectedEvents,
+            totalParticipants: parseInt(document.getElementById('overallParticipants').textContent),
+            totalCost: parseFloat(document.querySelector('.total-cost').textContent.replace('Total Cost: ₹', ''))
+        };
+
+        try {
+            const response = await fetch('/register', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData)
+            });
+
+            const data = await response.json();
+            console.log("Server response:", data);
+
+            if (data.success) {
+                alert(`Registration successful! Your acknowledgement ID is: ${data.ack_id}`);
+                window.location.href = `/acknowledgement/${data.ack_id}`;
+            } else {
+                alert('Registration failed: ' + (data.message || 'Unknown error'));
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            alert('An error occurred during registration. Please try again.');
+        }
+    }
+</script>
+
+
+
+
+{% endblock %}

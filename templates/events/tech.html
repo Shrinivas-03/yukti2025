@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+
+{% block title %}Tech Events - College Fest{% endblock %}
+
+{% block content %}
+    <section class="event-page mb-5">
+        <h1 class="text-center">Tech Events</h1>
+        <p class="text-center">Step into the world of innovation, coding, and technology.</p>
+    </section>
+
+    <!-- Events Container -->
+    <div class="container py-5">
+        <!-- Prakalpa Prastuthi -->
+        <div class="event-card-horizontal mb-5">
+            <div class="event-image">
+                <img src="{{ url_for('static', filename='images/live.jpg') }}" alt="Prakalpa Prastuthi">
+            </div>
+            <div class="event-content">
+                <h3>Prakalpa Prastuthi</h3>
+                <p>Live project expo - Showcase your innovative projects and solutions. Demonstrate working prototypes and engineering excellence.</p>
+                <ul class="event-details">
+                    <li><i class="bi bi-people-fill"></i> Team Size: 2-4 members</li>
+                    <li><i class="bi bi-cash"></i> Registration Fee: ₹200/team</li>
+                    <li><i class="bi bi-trophy-fill"></i> Prizes Worth: ₹10,000</li>
+                </ul>
+                <a href="{{ url_for('registration.register') }}" class="btn btn-register">
+                    <span></span><span></span><span></span><span></span>
+                    Register Now
+                </a>
+            </div>
+        </div>
+
+        <!-- CHANAKSH CODING EVENT -->
+        <div class="event-card-horizontal mb-5">
+            <div class="event-image">
+                <img src="{{ url_for('static', filename='images/events/coding.jpg') }}" alt="CHANAKSH CODING">
+            </div>
+            <div class="event-content">
+                <h3>CHANAKSH CODING EVENT</h3>
+                <p>Test your coding skills in this competitive programming challenge. Solve complex problems and optimize your solutions.</p>
+                <ul class="event-details">
+                    <li><i class="bi bi-person-fill"></i> Individual Participation</li>
+                    <li><i class="bi bi-cash"></i> Registration Fee: ₹100</li>
+                    <li><i class="bi bi-trophy-fill"></i> Prizes Worth: ₹8,000</li>
+                </ul>
+                <a href="{{ url_for('registration.register') }}" class="btn btn-register">
+                    <span></span><span></span><span></span><span></span>
+                    Register Now
+                </a>
+            </div>
+        </div>
+
+        <!-- Robo Samara -->
+        <div class="event-card-horizontal mb-5">
+            <div class="event-image">
+                <img src="{{ url_for('static', filename='images/events/robo.jpg') }}" alt="Robo Samara">
+            </div>
+            <div class="event-content">
+                <h3>Robo Samara</h3>
+                <p>Bolts, Bytes, and Battle - Design and program your robot to compete in exciting challenges and battles.</p>
+                <ul class="event-details">
+                    <li><i class="bi bi-people-fill"></i> Team Size: 2-3 members</li>
+                    <li><i class="bi bi-cash"></i> Registration Fee: ₹300/team</li>
+                    <li><i class="bi bi-trophy-fill"></i> Prizes Worth: ₹15,000</li>
+                </ul>
+                <a href="{{ url_for('registration.register') }}" class="btn btn-register">
+                    <span></span><span></span><span></span><span></span>
+                    Register Now
+                </a>
+            </div>
+        </div>
+
+        <!-- Pragyaan Quiz -->
+        <div class="event-card-horizontal mb-5">
+            <div class="event-image">
+                <img src="{{ url_for('static', filename='images/events/quiz.jpg') }}" alt="Pragyaan Quiz">
+            </div>
+            <div class="event-content">
+                <h3>Pragyaan (Quiz)</h3>
+                <p>Test your knowledge across technology, science, and engineering in this high-stakes quiz competition. Challenge yourself with mind-bending questions and rapid-fire rounds.</p>
+                <ul class="event-details">
+                    <li><i class="bi bi-people-fill"></i> Team Size: 2-3 members</li>
+                    <li><i class="bi bi-cash"></i> Registration Fee: ₹150/team</li>
+                    <li><i class="bi bi-trophy-fill"></i> Prizes Worth: ₹7,000</li>
+                </ul>
+                <a href="{{ url_for('registration.register') }}" class="btn btn-register">
+                    <span></span><span></span><span></span><span></span>
+                    Register Now
+                </a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

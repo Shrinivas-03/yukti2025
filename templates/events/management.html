@@ -1,0 +1,153 @@
+{% extends "base.html" %}
+
+{% block title %}Management Events - College Fest{% endblock %}
+
+{% block content %}
+    <section class="event-page mb-5">
+        <h1 class="text-center">Management Events</h1>
+        <p class="text-center">Showcase your leadership and business acumen through our management challenges.</p>
+    </section>
+
+    <!-- Events Container -->
+    <div class="container py-5">
+        <!-- Vagmita -->
+        <div class="event-card-horizontal mb-5">
+            <div class="event-image">
+                <img src="{{ url_for('static', filename='images/events/elocution.jpg') }}" alt="Vagmita">
+            </div>
+            <div class="event-content">
+                <h3>Vagmita (Elocution)</h3>
+                <p>Express your thoughts with clarity and confidence in this competitive public speaking challenge.</p>
+                <ul class="event-details">
+                    <li><i class="bi bi-person-fill"></i> Individual Participation</li>
+                    <li><i class="bi bi-cash"></i> Registration Fee: ₹200</li>
+                    <li><i class="bi bi-trophy-fill"></i> Prizes Worth: ₹8,000</li>
+                </ul>
+                <a href="{{ url_for('registration.register') }}" class="btn btn-register">
+                    <span></span><span></span><span></span><span></span>
+                    Register Now
+                </a>
+            </div>
+        </div>
+
+        <!-- DAKSH -->
+        <div class="event-card-horizontal mb-5">
+            <div class="event-image">
+                <img src="{{ url_for('static', filename='images/events/best-manager.jpg') }}" alt="DAKSH">
+            </div>
+            <div class="event-content">
+                <h3>DAKSH (THE BEST MANAGER)</h3>
+                <p>Test your managerial skills in this comprehensive challenge featuring real-world business scenarios.</p>
+                <ul class="event-details">
+                    <li><i class="bi bi-person-fill"></i> Individual Participation</li>
+                    <li><i class="bi bi-cash"></i> Registration Fee: ₹300</li>
+                    <li><i class="bi bi-trophy-fill"></i> Prizes Worth: ₹15,000</li>
+                </ul>
+                <a href="{{ url_for('registration.register') }}" class="btn btn-register">
+                    <span></span><span></span><span></span><span></span>
+                    Register Now
+                </a>
+            </div>
+        </div>
+
+        <!-- SHRESHTA VITTA Final -->
+        <div class="event-card-horizontal mb-5">
+            <div class="event-image">
+                <img src="{{ url_for('static', filename='images/events/finance.jpg') }}" alt="SHRESHTA VITTA">
+            </div>
+            <div class="event-content">
+                <h3>SHRESHTA VITTA (FINANCE) Final</h3>
+                <p>Advanced financial analysis and strategy competition for aspiring finance professionals.</p>
+                <ul class="event-details">
+                    <li><i class="bi bi-people-fill"></i> Team Size: 2-3 members</li>
+                    <li><i class="bi bi-cash"></i> Registration Fee: ₹400/team</li>
+                    <li><i class="bi bi-trophy-fill"></i> Prizes Worth: ₹20,000</li>
+                </ul>
+                <a href="{{ url_for('registration.register') }}" class="btn btn-register">
+                    <span></span><span></span><span></span><span></span>
+                    Register Now
+                </a>
+            </div>
+        </div>
+
+        <!-- MANAVA SANSADHAN -->
+        <div class="event-card-horizontal mb-5">
+            <div class="event-image">
+                <img src="{{ url_for('static', filename='images/events/hr.jpg') }}" alt="MANAVA SANSADHAN">
+            </div>
+            <div class="event-content">
+                <h3>MANAVA SANSADHAN (HR)</h3>
+                <p>Human Resource management challenge featuring case studies and practical scenarios.</p>
+                <ul class="event-details">
+                    <li><i class="bi bi-people-fill"></i> Team Size: 2-3 members</li>
+                    <li><i class="bi bi-cash"></i> Registration Fee: ₹300/team</li>
+                    <li><i class="bi bi-trophy-fill"></i> Prizes Worth: ₹12,000</li>
+                </ul>
+                <a href="{{ url_for('registration.register') }}" class="btn btn-register">
+                    <span></span><span></span><span></span><span></span>
+                    Register Now
+                </a>
+            </div>
+        </div>
+
+        <!-- Startup Logo Design -->
+        <div class="event-card-horizontal mb-5">
+            <div class="event-image">
+                <img src="{{ url_for('static', filename='images/events/logo-design.jpg') }}" alt="Logo Design">
+            </div>
+            <div class="event-content">
+                <h3>Startup Logo Design</h3>
+                <p>Create compelling brand identities for startups through innovative logo design.</p>
+                <ul class="event-details">
+                    <li><i class="bi bi-person-fill"></i> Individual Participation</li>
+                    <li><i class="bi bi-cash"></i> Registration Fee: ₹150</li>
+                    <li><i class="bi bi-trophy-fill"></i> Prizes Worth: ₹6,000</li>
+                </ul>
+                <a href="{{ url_for('registration.register') }}" class="btn btn-register">
+                    <span></span><span></span><span></span><span></span>
+                    Register Now
+                </a>
+            </div>
+        </div>
+
+        <!-- Business Plan -->
+        <div class="event-card-horizontal mb-5">
+            <div class="event-image">
+                <img src="{{ url_for('static', filename='images/events/business-plan.jpg') }}" alt="Business Plan">
+            </div>
+            <div class="event-content">
+                <h3>Business Plan</h3>
+                <p>Present your innovative business ideas and comprehensive strategies to industry experts.</p>
+                <ul class="event-details">
+                    <li><i class="bi bi-people-fill"></i> Team Size: 2-4 members</li>
+                    <li><i class="bi bi-cash"></i> Registration Fee: ₹350/team</li>
+                    <li><i class="bi bi-trophy-fill"></i> Prizes Worth: ₹15,000</li>
+                </ul>
+                <a href="{{ url_for('registration.register') }}" class="btn btn-register">
+                    <span></span><span></span><span></span><span></span>
+                    Register Now
+                </a>
+            </div>
+        </div>
+
+        <!-- Marketing Strategy -->
+        <div class="event-card-horizontal mb-5">
+            <div class="event-image">
+                <img src="{{ url_for('static', filename='images/events/marketing.jpg') }}" alt="Marketing Strategy">
+            </div>
+            <div class="event-content">
+                <h3>Marketing Strategy</h3>
+                <p>Develop innovative marketing solutions for real-world business challenges.</p>
+                <ul class="event-details">
+                    <li><i class="bi bi-people-fill"></i> Team Size: 2-3 members</li>
+                    <li><i class="bi bi-cash"></i> Registration Fee: ₹300/team</li>
+                    <li><i class="bi bi-trophy-fill"></i> Prizes Worth: ₹12,000</li>
+                </ul>
+                <a href="{{ url_for('registration.register') }}" class="btn btn-register">
+                    <span></span><span></span><span></span><span></span>
+                    Register Now
+                </a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

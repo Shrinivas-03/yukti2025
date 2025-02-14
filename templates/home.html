@@ -1,0 +1,122 @@
+{% extends "base.html" %}
+
+{% block title %}Home | YUKTI 2025{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero">
+    <div class="hero-content">
+        <section class="hero-section">
+            <div class="hero-content">
+                <h1 class="main-title">Yu<span class="accent">k</span>ti 2<span class="accent">0</span>25</h1>
+                <p class="subtitle">Beyond Imagination</p>
+            </div>
+        </section>
+
+        <!-- Countdown Timer -->
+        <div id="countdown" class="countdown-container">
+            <div class="countdown-box">
+                <span class="countdown-label">Days</span>
+                <span id="days" class="countdown-value">00</span>
+            </div>
+            <div class="countdown-box">
+                <span class="countdown-label">Hours</span>
+                <span id="hours" class="countdown-value">00</span>
+            </div>
+            <div class="countdown-box">
+                <span class="countdown-label">Minutes</span>
+                <span id="minutes" class="countdown-value">00</span>
+            </div>
+            <div class="countdown-box">
+                <span class="countdown-label">Seconds</span>
+                <span id="seconds" class="countdown-value">00</span>
+            </div>
+        </div>
+
+        <a href="{{ url_for('registration.register') }}" class="cta-button">Register Now</a>
+    </div>
+</section>
+<section class="about-festival">
+    <div class="about-container">
+        <h2 class="section-title">About the Festival</h2>
+        <div class="about-card">
+            <p>
+                <span class="highlight">YUKTI</span>, the visionary initiative of Vice-Chancellor Prof. Vidyashankar S.,
+                is a National-Level Techno-Cultural Fest that celebrates innovation, creativity, and cultural
+                excellence. Organized by Visvesvaraya Technological University (VTU) and hosted every year by its
+                regional centers, Yukti has become a vibrant platform for students to showcase their talents, explore
+                cutting-edge ideas, and embrace artistic expression.
+            </p>
+            <p>
+                <span class="highlight">VTU Kalaburagi</span>, This year will be hosting Yukti 2025, and the excitement
+                is bigger than ever! With the theme <span class="theme-highlight">Beyond Imagination</span>, Yukti 2025
+                is set to take place on March 10th and 11th, 2025, inviting participants to step into a future shaped by
+                bold innovation, unbridled creativity, and endless possibilities.
+            </p>
+            <p>
+                Step into <span class="theme-highlight">Beyond Imagination</span> — where the synergy of technology and
+                tradition takes center stage, and your ideas soar to new heights. Yukti 2025 is the place to push
+                boundaries, embrace creativity, and shape the future.
+            </p>
+        </div>
+        <a href="{{ url_for('about.about') }}" class="animated-button">LEARN MORE →</a>
+    </div>
+</section>
+<div class="section-divider"></div>
+<div class="artist-announcement">
+    <h2 class="section-title">Artist Announcement</h2>
+    <div class="artist-card">
+        <div class="card-content">
+            <h3 class="artist-name">Coming Soon</h3>
+            <p class="announcement-text">
+                Get ready to witness an amazing performance! The artist reveal is just around the corner. Stay tuned for
+                more details!
+            </p>
+            <a href="#" class="btn notify-btn">Stay Notified →</a>
+        </div>
+    </div>
+</div>
+<div class="section-divider"></div>
+
+<!-- Events Section -->
+<section class="events">
+    <div class="events-container">
+        <h2 class="section-title">Event Highlights</h2>
+        <div class="event-cards">
+            <div class="event-card">
+                <h3 class="event-title">Tech</h3>
+                <p>Experience groundbreaking technology from the brightest minds. From AI to robotics, this event is
+                    where innovation meets reality.</p>
+                <a href="{{ url_for('events.tech') }}" class="event-button">Explore →</a>
+            </div>
+            <div class="event-card">
+                <h3 class="event-title">Cultural Fiesta</h3>
+                <p>Dive into a celebration of dance, music, and art that transcends boundaries. A night of unforgettable
+                    performances awaits!</p>
+                <a href="{{ url_for('events.cultural') }}" class="event-button">Explore →</a>
+            </div>
+            <div class="event-card">
+                <h3 class="event-title">Entrepreneurial Summit</h3>
+                <p>Pitch your ideas and connect with mentors and investors. Where big dreams are born and realized!</p>
+                <a href="{{ url_for('events.management') }}" class="event-button">Explore →</a>
+            </div>
+            <div class="event-card">
+                <h3 class="event-title">Gaming Tournament</h3>
+                <p>Battle it out in a high-energy gaming arena! Prizes and glory await the ultimate champions.</p>
+                <a href="{{ url_for('events.games') }}" class="event-button">Explore →</a>
+            </div>
+        </div>
+    </div>
+</section>
+<div class="section-divider"></div>
+<div class="brochure-section">
+    <h2 class="section-title">Event Brochure / Rulebook</h2>
+    <p class="section-description">
+        Download our comprehensive event brochure cum rulebook to explore all the exciting events, schedules, and
+        opportunities waiting for you at Yukti 2k25.
+    </p>
+    <a href="#" class="download-btn">
+        <i class="icon-download"></i> Download Brochure / Rulebook (10.7 MB)
+    </a>
+</div>
+{% endblock %}

@@ -1,0 +1,194 @@
+{% extends "base.html" %}
+
+{% block title %}Cultural Events - College Fest{% endblock %}
+
+{% block content %}
+    <section class="event-page mb-5">
+        <h1 class="text-center">Cultural Events</h1>
+        <p class="text-center">Celebrate art, music, dance, and creativity in our vibrant cultural showcase.</p>
+    </section>
+
+    <!-- Events Container -->
+    <div class="container py-5">
+        <!-- NINAAD -->
+        <div class="event-card-horizontal mb-5">
+            <div class="event-image">
+                <img src="{{ url_for('static', filename='assests/NINAAD.webp') }}" alt="NINAAD">
+            </div>
+            <div class="event-content">
+                <h3>NINAAD - Find The Voice Within!</h3>
+                <p>Unleash your vocal talent in this enchanting singing competition. Solo performances that celebrate both classical and contemporary music.</p>
+                <ul class="event-details">
+                    <li><i class="bi bi-person-fill"></i> Individual Participation</li>
+                    <li><i class="bi bi-cash"></i> Registration Fee: ₹200</li>
+                    <li><i class="bi bi-trophy-fill"></i> Prizes Worth: ₹10,000</li>
+                </ul>
+                <a href="{{ url_for('registration.register') }}" class="btn btn-register">
+                    <span></span><span></span><span></span><span></span>
+                    Register Now
+                </a>
+            </div>
+        </div>
+
+        <!-- Nritya Saadhana -->
+        <div class="event-card-horizontal mb-5">
+            <div class="event-image">
+                <img src="{{ url_for('static', filename='assests/Nritya.webp') }}" alt="Nritya Saadhana">
+            </div>
+            <div class="event-content">
+                <h3>Nritya Saadhana</h3>
+                <p>Solo dance competition showcasing classical, contemporary, and freestyle performances. Express yourself through the art of movement.</p>
+                <ul class="event-details">
+                    <li><i class="bi bi-person-fill"></i> Individual Participation</li>
+                    <li><i class="bi bi-cash"></i> Registration Fee: ₹200</li>
+                    <li><i class="bi bi-trophy-fill"></i> Prizes Worth: ₹8,000</li>
+                </ul>
+                <a href="{{ url_for('registration.register') }}" class="btn btn-register">
+                    <span></span><span></span><span></span><span></span>
+                    Register Now
+                </a>
+            </div>
+        </div>
+
+        <!-- NATYA Mayuri -->
+        <div class="event-card-horizontal mb-5">
+            <div class="event-image">
+                <img src="{{ url_for('static', filename='assests/NATYA.webp') }}" alt="NATYA Mayuri">
+            </div>
+            <div class="event-content">
+                <h3>NATYA Mayuri</h3>
+                <p>Group dance extravaganza featuring synchronized performances, cultural fusion, and creative choreography.</p>
+                <ul class="event-details">
+                    <li><i class="bi bi-people-fill"></i> Team Size: 4-8 members</li>
+                    <li><i class="bi bi-cash"></i> Registration Fee: ₹500/team</li>
+                    <li><i class="bi bi-trophy-fill"></i> Prizes Worth: ₹15,000</li>
+                </ul>
+                <a href="{{ url_for('registration.register') }}" class="btn btn-register">
+                    <span></span><span></span><span></span><span></span>
+                    Register Now
+                </a>
+            </div>
+        </div>
+
+        <!-- Navyataa -->
+        <div class="event-card-horizontal mb-5">
+            <div class="event-image">
+                <img src="{{ url_for('static', filename='assests/Ramp_Walk.webp') }}" alt="Navyataa">
+            </div>
+            <div class="event-content">
+                <h3>Navyataa (Ramp Walk)</h3>
+                <p>Showcase your style and confidence on the runway. A fashion event that celebrates creativity, elegance, and personality.</p>
+                <ul class="event-details">
+                    <li><i class="bi bi-person-fill"></i> Individual Participation</li>
+                    <li><i class="bi bi-cash"></i> Registration Fee: ₹300</li>
+                    <li><i class="bi bi-trophy-fill"></i> Prizes Worth: ₹12,000</li>
+                </ul>
+                <a href="{{ url_for('registration.register') }}" class="btn btn-register">
+                    <span></span><span></span><span></span><span></span>
+                    Register Now
+                </a>
+            </div>
+        </div>
+
+        <!-- Sthala Chitrapatha -->
+        <div class="event-card-horizontal mb-5">
+            <div class="event-image">
+                <img src="{{ url_for('static', filename='assests/Sthala.webp') }}" alt="Sthala Chitrapatha">
+            </div>
+            <div class="event-content">
+                <h3>Sthala Chitrapatha</h3>
+                <p>Photography competition capturing moments, emotions, and stories through your lens. Theme-based contest for photography enthusiasts.</p>
+                <ul class="event-details">
+                    <li><i class="bi bi-person-fill"></i> Individual Participation</li>
+                    <li><i class="bi bi-cash"></i> Registration Fee: ₹150</li>
+                    <li><i class="bi bi-trophy-fill"></i> Prizes Worth: ₹7,000</li>
+                </ul>
+                <a href="{{ url_for('registration.register') }}" class="btn btn-register">
+                    <span></span><span></span><span></span><span></span>
+                    Register Now
+                </a>
+            </div>
+        </div>
+
+        <!-- Chitragatha -->
+        <div class="event-card-horizontal mb-5">
+            <div class="event-image">
+                <img src="{{ url_for('static', filename='assests/Short_Film.webp') }}" alt="Chitragatha">
+            </div>
+            <div class="event-content">
+                <h3>Chitragatha (Short Film)</h3>
+                <p>Create compelling short films that tell unique stories. Showcase your filmmaking talent through creative narratives.</p>
+                <ul class="event-details">
+                    <li><i class="bi bi-people-fill"></i> Team Size: 3-6 members</li>
+                    <li><i class="bi bi-cash"></i> Registration Fee: ₹400/team</li>
+                    <li><i class="bi bi-trophy-fill"></i> Prizes Worth: ₹20,000</li>
+                </ul>
+                <a href="{{ url_for('registration.register') }}" class="btn btn-register">
+                    <span></span><span></span><span></span><span></span>
+                    Register Now
+                </a>
+            </div>
+        </div>
+
+        <!-- RUPEKHA -->
+        <div class="event-card-horizontal mb-5">
+            <div class="event-image">
+                <img src="{{ url_for('static', filename='assests/RUPEKHA.webp') }}" alt="RUPEKHA">
+            </div>
+            <div class="event-content">
+                <h3>RUPEKHA</h3>
+                <p>Painting competition exploring themes through colors and creativity. Express your artistic vision on canvas.</p>
+                <ul class="event-details">
+                    <li><i class="bi bi-person-fill"></i> Individual Participation</li>
+                    <li><i class="bi bi-cash"></i> Registration Fee: ₹200</li>
+                    <li><i class="bi bi-trophy-fill"></i> Prizes Worth: ₹8,000</li>
+                </ul>
+                <a href="{{ url_for('registration.register') }}" class="btn btn-register">
+                    <span></span><span></span><span></span><span></span>
+                    Register Now
+                </a>
+            </div>
+        </div>
+
+        <!-- Hastakala -->
+        <div class="event-card-horizontal mb-5">
+            <div class="event-image">
+                <img src="{{ url_for('static', filename='assests/Hastakala.webp') }}" alt="Hastakala">
+            </div>
+            <div class="event-content">
+                <h3>Hastakala</h3>
+                <p>Handicraft competition showcasing traditional and modern crafting skills. Create beautiful artworks using various materials.</p>
+                <ul class="event-details">
+                    <li><i class="bi bi-person-fill"></i> Individual Participation</li>
+                    <li><i class="bi bi-cash"></i> Registration Fee: ₹150</li>
+                    <li><i class="bi bi-trophy-fill"></i> Prizes Worth: ₹6,000</li>
+                </ul>
+                <a href="{{ url_for('registration.register') }}" class="btn btn-register">
+                    <span></span><span></span><span></span><span></span>
+                    Register Now
+                </a>
+            </div>
+        </div>
+
+        <!-- Swachitra -->
+        <div class="event-card-horizontal mb-5">
+            <div class="event-image">
+                <img src="{{ url_for('static', filename='assests/Selfie_Point.webp') }}" alt="Swachitra">
+            </div>
+            <div class="event-content">
+                <h3>Swachitra (Selfie Point)</h3>
+                <p>Creative selfie competition with themed backdrops and props. Capture your best moments at our specially designed selfie points.</p>
+                <ul class="event-details">
+                    <li><i class="bi bi-person-fill"></i> Individual Participation</li>
+                    <li><i class="bi bi-cash"></i> Registration Fee: ₹100</li>
+                    <li><i class="bi bi-trophy-fill"></i> Prizes Worth: ₹5,000</li>
+                </ul>
+                <a href="{{ url_for('registration.register') }}" class="btn btn-register">
+                    <span></span><span></span><span></span><span></span>
+                    Register Now
+                </a>
+            </div>
+        </div>
+
+      
+{% endblock %}
