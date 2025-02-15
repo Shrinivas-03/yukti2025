@@ -11,25 +11,33 @@
         
         <div class="registration-details">
             <h3>Registration Details:</h3>
-            <p><strong>Email:</strong> {{ details.email }}</p>
-            <p><strong>Phone:</strong> {{ details.phone }}</p>
-            <p><strong>College:</strong> {{ details.college }}</p>
-            <p><strong>Total Participants:</strong> {{ details.total_participants }}</p>
-            <p><strong>Total Cost:</strong> ₹{{ details.total_cost }}</p>
+            <div class="personal-info">
+                <p><strong>Email:</strong> {{ details.email }}</p>
+                <p><strong>Phone:</strong> {{ details.phone }}</p>
+                <p><strong>College:</strong> {{ details.college }}</p>
+                <p><strong>Total Participants:</strong> {{ details.total_participants }}</p>
+                <p><strong>Total Cost:</strong> ₹{{ details.total_cost }}</p>
+            </div>
             
-            <h4>Selected Events:</h4>
-            {% for event in details.event_details %}
-            <div class="event-detail">
-                <p><strong>Event:</strong> {{ event.event }}</p>
+            <div class="events-section">
+                <h4>Selected Events:</h4>
+                {% for event in details.event_details %}
+                <div class="event-detail">
+                    <div class="event-header">
+                        <strong>{{ event.event }}</strong> ({{ event.category }})
+                    </div>
+                    <div class="event-participants">
+                        {% if event.members %}
+                            <span class="team-info">Team Members: {{ event.members|join(", ") }}</span>
+                        {% endif %}
+                        {% if event.participant %}
+                            <span class="participant-info">Participant: {{ event.participant }}</span>
+                        {% endif %}
+                    </div>
+                    <div class="event-cost">Cost: ₹{{ event.cost }}</div>
+                </div>
+                {% endfor %}
             </div>
-            {% endfor %}
-
-            {% if details.team_members %}
-            <div class="team-detail">
-                <h4>Team Members:</h4>
-                <p>{{ details.team_members }}</p>
-            </div>
-            {% endif %}
         </div>
         
         <p class="important-note">Please pay the registration fees at the registration desk on the event day.</p>
@@ -48,53 +56,90 @@
         max-width: 800px;
         margin: 0 auto;
         padding: 20px;
-        border: 1px solid #03e9f4;
-        border-radius: 10px;
-        background-color: #ff0000;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        background-color: #fff;
     }
-    .ack-details {
-        margin-top: 20px;
-    }
+    
     .registration-details {
-        margin-top: 20px;
-        padding: 10px;
+        margin: 20px 0;
+        padding: 15px;
         border: 1px solid #ddd;
         border-radius: 5px;
-        background-color: #ff0000;
     }
+    
     .event-detail {
-        margin-top: 10px;
+        margin: 15px 0;
         padding: 10px;
-        border: 1px solid #ddd;
-        border-radius: 5px;
-        background-color: #ff0000;
+        border: 1px solid #eee;
+        border-radius: 4px;
     }
+    
+    .event-header {
+        font-size: 1.1em;
+        margin-bottom: 5px;
+    }
+    
+    .event-participants {
+        margin: 5px 0;
+        color: #666;
+    }
+    
+    .event-cost {
+        color: #0066cc;
+    }
+    
     .important-note {
-        margin-top: 20px;
-        font-weight: bold;
-        color: #d9534f;
+        margin: 20px 0;
+        padding: 10px;
+        background-color: #fff3cd;
+        border: 1px solid #ffeeba;
+        color: #856404;
+        border-radius: 4px;
     }
+    
     .button-container {
         margin-top: 20px;
         display: flex;
-        justify-content: space-between;
+        gap: 10px;
+        justify-content: center;
     }
+    
     .button-container button {
         padding: 10px 20px;
         border: none;
-        border-radius: 5px;
-        background-color: #03e9f4;
-        color: #fff;
+        border-radius: 4px;
+        background-color: #0066cc;
+        color: white;
         cursor: pointer;
-        transition: background-color 0.3s ease;
     }
+    
     .button-container button:hover {
-        background-color: #029dbb;
+        background-color: #0052a3;
     }
+
     @media print {
+        body {
+            background-color: white;
+        }
+        
+        .success-container {
+            box-shadow: none;
+            margin: 0;
+            padding: 10px;
+        }
+        
         .button-container {
             display: none;
+        }
+        
+        .event-detail {
+            page-break-inside: avoid;
+            border: 1px solid #000;
+        }
+        
+        .important-note {
+            border: 1px solid #000;
+            background-color: white;
+            color: black;
         }
     }
 </style>
