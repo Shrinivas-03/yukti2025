@@ -21,18 +21,19 @@
             {% for event in details.event_details %}
             <div class="event-detail">
                 <p><strong>Event:</strong> {{ event.event }}</p>
-                <p><strong>Category:</strong> {{ event.category }}</p>
-                {% if event.members %}
-                <p><strong>Team Members:</strong> {{ event.members|join(", ") }}</p>
-                {% endif %}
-                {% if event.participant %}
-                <p><strong>Participant:</strong> {{ event.participant }}</p>
-                {% endif %}
             </div>
             {% endfor %}
+
+            {% if details.team_members %}
+            <div class="team-detail">
+                <h4>Team Members:</h4>
+                <p>{{ details.team_members }}</p>
+            </div>
+            {% endif %}
         </div>
         
         <p class="important-note">Please pay the registration fees at the registration desk on the event day.</p>
+        <p class="registration-date">Registration Date: {{ details.registration_date }}</p>
         
         <div class="button-container">
             <button onclick="window.location.href='/'">Back to Home</button>
