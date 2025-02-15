@@ -1,61 +1,135 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Sign In</title>
-    <style>
-        /* Theme styles */
-        body {
-            background-color: #f4f4f4;
-            font-family: Arial, sans-serif;
-            color: #333;
-            margin: 0;
-            padding: 20px;
-        }
-        form {
-            background: #fff;
-            padding: 20px;
-            border-radius: 5px;
-            max-width: 400px;
-            margin: auto;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-        }
-        label, input, button {
-            display: block;
-            width: 100%;
-            margin-bottom: 10px;
-        }
-        button {
-            background-color: #2a7ae2;
-            color: #fff;
-            border: none;
-            padding: 10px;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        button:hover {
-            background-color: #1f5bb5;
-        }
-        .info {
-            text-align: center;
-            font-size: 14px;
-            color: #555;
-            margin-bottom: 15px;
-        }
-    </style>
-</head>
-<body>
-    {% if error %}
-    <p style="color:red;">{{ error }}</p>
-    {% endif %}
-    <div class="info">
-        Registration is allowed through colleges only.
+{% extends "base.html" %}
+
+{% block title %}SignIn | YUKTI 2025{% endblock %}
+
+{% block content %}
+
+<style>
+    /* Sign In Section Theme */
+    body {
+        background: linear-gradient(145deg, rgba(45, 49, 56, 0.9), rgba(32, 34, 39, 0.95));
+        font-family: 'Cinzel', serif;
+        color: #e0e0e0;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+    }
+
+    main {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .signin-section {
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    form {
+        background: rgba(45, 49, 56, 0.9);
+        padding: 2rem;
+        border-radius: 15px;
+        max-width: 400px;
+        width: 90%;
+        box-shadow: 0 8px 15px rgba(0, 0, 0, 0.4);
+        color: #e0e0e0;
+        margin-bottom: 1.5rem; /* Adjust for spacing */
+    }
+
+    form label {
+        display: block;
+        font-size: 1rem;
+        text-align: left;
+        margin-bottom: 0.5rem;
+    }
+
+    form input {
+        width: 100%;
+        padding: 0.8rem;
+        font-size: 1rem;
+        background: rgba(32, 34, 39, 0.8);
+        border: 2px solid #ff6700;
+        border-radius: 10px;
+        outline: none;
+        color: #ffffff;
+        margin-bottom: 1rem;
+        transition: border-color 0.3s ease;
+    }
+
+    form input:focus {
+        border-color: #ff6700;
+        box-shadow: 0 0 8px rgba(255, 103, 0, 0.8);
+    }
+
+    form button {
+        background: #ff6700;
+        color: #ffffff;
+        border: none;
+        padding: 0.8rem 1.5rem;
+        font-size: 1rem;
+        font-weight: bold;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+        width: 100%;
+    }
+
+    form button:hover {
+        background: #e65c00;
+        transform: translateY(-3px);
+        box-shadow: 0 8px 15px rgba(255, 103, 0, 0.4);
+    }
+
+    /* Adjusting text alignment above the sign-in section */
+    .info {
+        font-size: 0.9rem;
+        color: #ffffff;
+        text-align: center;
+    }
+
+    .info a {
+        color: #ff6700;
+        font-weight: bold;
+        text-decoration: none;
+        margin-top: 0.3rem;
+    }
+
+    .info a:hover {
+        text-decoration: underline;
+    }
+
+    p.error {
+        color: #ff4d4d;
+        font-size: 0.9rem;
+        margin-bottom: 1rem;
+        text-align: center;
+    }
+</style>
+
+<main>
+    <div class="signin-section">
+        <h1 style="margin-bottom: 10px;">Sign In</h1>
+        {% if error %}
+        <p class="error">{{ error }}</p>
+        {% endif %}
+        <form method="POST" action="{{ url_for('signin') }}">
+            <label for="user_id">User ID:</label>
+            <input type="text" name="user_id" id="user_id" placeholder="Enter your User ID" required>
+            <label for="password">Password:</label>
+            <input type="password" name="password" id="password" placeholder="Enter your password" required>
+            <button type="submit">Sign In</button>
+        </form>
+        <div class="info">
+            Registration is allowed through colleges only. <br>
+            <a href="#">Need help?</a>
+        </div>
     </div>
-    <form method="POST" action="{{ url_for('signin') }}">
-        <label for="user_id">User ID:</label>
-        <input type="text" name="user_id" id="user_id" required>
-        <label for="password">Password:</label>
-        <input type="password" name="password" id="password" required>
-        <button type="submit">Sign In</button>
-    </form>
-</body>
-</html>
+</main>
+
+{% endblock %}

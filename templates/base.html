@@ -40,13 +40,13 @@
                     </li>
                     <li><a href="{{ url_for('gallery') }}">Gallery</a></li>
                     <li><a href="{{ url_for('signin') }}" class="highlighted-link">Register</a></li>
-
                 </ul>
             </nav>
         </div>
     </header>
+    
     <!-- Dynamic Content Block -->
-    <main style="padding-top: 80px;">
+    <main class="main-content">
         {% block content %}{% endblock %}
     </main>
 
@@ -56,59 +56,156 @@
             <p>&copy; 2025 YUKTI College Fest. All rights reserved.</p>
             <div class="social-links">
                 <a href="#"><i class="fab fa-facebook"></i></a>
-                <a href="#"><i class="fab fa-instagram"></i></a>
-                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="https://www.instagram.com/vtu_cpgs_kalaburagi?igsh=MXJkNnVsMzJqaDkxcw%3D%3D&utm_source=qr" target="_blank"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-x"></i></a>
             </div>
         </div>
     </footer>
 
     <style>
+        /* General Styles */
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            color: #f5f5f5;
+            background: #121212;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .main-content {
+            flex: 1;
+            margin-top: 70px; /* Height of the fixed header */
+            padding: 20px;
+            width: 100%;
+            box-sizing: border-box;
+            position: relative;
+        }
+
+        /* Updated Navbar Styles */
         .header {
             position: fixed;
             top: 0;
+            left: 0;
             width: 100%;
             z-index: 1000;
-            background: rgba(0, 0, 0, 0.9);
-            height: 70px; /* Fixed header height */
+            background: rgba(30, 30, 30, 0.95);
+            backdrop-filter: blur(10px);
+            height: 70px;
+            /* Sleek dark-gray background with transparency */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            /* Subtle shadow for depth */
         }
 
-        .header-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1rem 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
+        .header-content a h1:hover{
+            color: #ff571b;
+        }
+
+
+        .nav-links a {
+            font-size: 1rem;
+            color: #e0e0e0;
+            /* Light gray for better readability on dark background */
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #1e90ff;
+            /* Soft blue hover effect */
+        }
+
+        .highlighted-link {
+            background: #1e90ff;
+            /* Blue button for contrast */
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            color: #fff;
+            transition: background 0.3s ease;
+        }
+
+        .highlighted-link:hover {
+            background: #00bfff;
+            /* Lighter cyan hover effect */
+        }
+
+        .dropdown-menu {
+            background: rgba(40, 40, 40, 0.95);
+            /* Slightly lighter dropdown background */
+            border: 1px solid #333;
+            /* Border to separate dropdown visually */
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
+            /* Shadow for depth */
+        }
+
+        .dropdown-menu li a {
+            color: #ddd;
+            /* Lighter text in dropdown for readability */
+        }
+
+        .dropdown-menu li a:hover {
+            color: #1e90ff;
+            /* Consistent blue hover effect */
         }
 
         .menu-btn {
             display: none;
-            font-size: 1.5rem;
+            font-size: 1.8rem;
+            color: #fff;
+            /* White menu icon for consistency */
             cursor: pointer;
-            color: white;
         }
 
-        .nav-links {
-            display: flex;
-            gap: 2rem;
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .navbar {
+                background: rgba(20, 20, 20, 0.95);
+                /* Dark background for the mobile menu */
+            }
+        }
+
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: #222;
             list-style: none;
-        }
-
-        .nav-links a {
-            color: white;
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-
-        .highlighted-link {
-            background: #007bff;
-            padding: 0.5rem 1rem;
+            padding: 0.5rem;
             border-radius: 5px;
+            z-index: 1000;
         }
 
+        .dropdown-menu li {
+            margin: 0;
+        }
+
+        .dropdown-menu li a {
+            color: #fff;
+            padding: 0.5rem;
+            display: block;
+        }
+
+        .dropdown:hover .dropdown-menu {
+            display: block;
+        }
+
+        /* Footer Styles */
         .footer {
-            background: rgba(0, 0, 0, 0.9);
-            padding: 1.5rem 0;
+            background: #111;
+            color: #ccc;
+            padding: 1.5rem 1rem;
+            width: 100%;
+            box-sizing: border-box;
             margin-top: auto;
         }
 
@@ -118,7 +215,8 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 0 2rem;
+            flex-wrap: wrap;
+            text-align: center;
         }
 
         .social-links {
@@ -127,20 +225,16 @@
         }
 
         .social-links a {
+            font-size: 1.5rem;
             color: white;
-            font-size: 1.2rem;
-            transition: color 0.3s;
+            transition: color 0.3s ease;
         }
 
         .social-links a:hover {
-            color: #007bff;
+            color: #1e90ff;
         }
 
-        main {
-            min-height: calc(100vh - 140px); /* Adjust for footer height */
-            padding-top: 80px; /* Match header height plus some spacing */
-        }
-
+        /* Responsive Styles */
         @media (max-width: 768px) {
             .menu-btn {
                 display: block;
@@ -152,8 +246,12 @@
                 left: -100%;
                 width: 100%;
                 height: calc(100vh - 70px);
+                flex-direction: column;
+                align-items: center;
                 background: rgba(0, 0, 0, 0.95);
-                transition: 0.3s;
+                padding: 2rem;
+                transition: left 0.3s ease;
+                z-index: 999;
             }
 
             .navbar.active {
@@ -162,72 +260,26 @@
 
             .nav-links {
                 flex-direction: column;
-                align-items: center;
-                padding: 2rem 0;
-                gap: 2rem;
+                gap: 1.5rem;
             }
 
             .footer-content {
                 flex-direction: column;
-                gap: 1rem;
-                text-align: center;
             }
-        }
-
-        .dropdown {
-            position: relative;
-        }
-
-        .dropdown-toggle::after {
-            content: '\25BC';
-            margin-left: 0.5rem;
-            font-size: 0.8rem;
-        }
-
-        .dropdown-menu {
-            display: none;
-            position: absolute;
-            top: 100%;
-            left: 0;
-            background: rgba(0, 0, 0, 0.9);
-            list-style: none;
-            padding: 0.5rem 0;
-            margin: 0;
-            border-radius: 5px;
-            z-index: 1000;
-        }
-
-        .dropdown-menu li {
-            padding: 0.5rem 1rem;
-        }
-
-        .dropdown-menu li a {
-            color: white;
-            text-decoration: none;
-        }
-
-        .dropdown:hover .dropdown-menu {
-            display: block;
         }
     </style>
 
     <script>
+        // Toggle mobile menu
         document.querySelector('.menu-btn').addEventListener('click', () => {
             document.querySelector('.navbar').classList.toggle('active');
         });
 
-        // Close mobile menu when clicking outside
+        // Close menu when clicking outside
         document.addEventListener('click', (e) => {
             if (!e.target.closest('.header-content')) {
                 document.querySelector('.navbar').classList.remove('active');
             }
-        });
-
-        // Close mobile menu when clicking a link
-        document.querySelectorAll('.nav-links a').forEach(link => {
-            link.addEventListener('click', () => {
-                document.querySelector('.navbar').classList.remove('active');
-            });
         });
     </script>
 </body>
