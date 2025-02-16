@@ -128,6 +128,44 @@
     .registration-form button[type="submit"]:active {
         transform: scale(0.95);
     }
+
+    /* Loading Button Styles */
+    .registration-form button[type="submit"] {
+        position: relative;
+        overflow: hidden;
+    }
+
+    .registration-form button[type="submit"].loading {
+        pointer-events: none;
+        opacity: 0.8;
+    }
+
+    .registration-form button[type="submit"] .spinner {
+        display: none;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        width: 20px;
+        height: 20px;
+        border: 3px solid transparent;
+        border-top-color: #1C1C1C;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+    }
+
+    .registration-form button[type="submit"].loading .spinner {
+        display: block;
+    }
+
+    .registration-form button[type="submit"].loading span {
+        visibility: hidden;
+    }
+
+    @keyframes spin {
+        0% { transform: translate(-50%, -50%) rotate(0deg); }
+        100% { transform: translate(-50%, -50%) rotate(360deg); }
+    }
 </style>
 
 <!-- Update the main structure -->
@@ -211,7 +249,10 @@
                     <p class="cost-note">*Accommodation is not available.</p>
                     <p class="total-cost">Total Cost: ₹0</p>
 
-                    <button type="submit">Register Now</button>
+                    <button type="submit">
+                        <div class="spinner"></div>
+                        <span>Register Now</span>
+                    </button>
                 </div>
             </form>
         </div>
@@ -606,34 +647,41 @@
     });
 
     async function submitRegistration() {
-        console.log("Submit function called");  // Debug log
-
-        if (selectedEvents.length === 0) {
-            alert('Please select at least one event');
-            return;
-        }
-
-        const college = document.getElementById('college').value;
-        const email = document.getElementById('email').value;
-        const phone = document.getElementById('phone').value;
-
-        if (!college || !email || !phone) {
-            alert('Please fill in all required fields');
-            return;
-        }
-
-        const formData = {
-            college: college,
-            email: email,
-            phone: phone,
-            selectedEvents: selectedEvents,
-            totalParticipants: parseInt(document.getElementById('overallParticipants').textContent),
-            totalCost: parseFloat(document.querySelector('.total-cost').textContent.replace('Total Cost: ₹', ''))
-        };
-
-        console.log("Sending data:", formData);  // Debug log
-
+        const submitBtn = document.querySelector('button[type="submit"]');
+        
         try {
+            // Add loading state
+            submitBtn.classList.add('loading');
+            
+            console.log("Submit function called");  // Debug log
+
+            if (selectedEvents.length === 0) {
+                alert('Please select at least one event');
+                submitBtn.classList.remove('loading');
+                return;
+            }
+
+            const college = document.getElementById('college').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+
+            if (!college || !email || !phone) {
+                alert('Please fill in all required fields');
+                submitBtn.classList.remove('loading');
+                return;
+            }
+
+            const formData = {
+                college: college,
+                email: email,
+                phone: phone,
+                selectedEvents: selectedEvents,
+                totalParticipants: parseInt(document.getElementById('overallParticipants').textContent),
+                totalCost: parseFloat(document.querySelector('.total-cost').textContent.replace('Total Cost: ₹', ''))
+            };
+
+            console.log("Sending data:", formData);  // Debug log
+
             const response = await fetch('/register', {
                 method: 'POST',
                 headers: {
@@ -651,10 +699,14 @@
                 window.location.href = `/acknowledgement/${data.ack_id}`;
             } else {
                 alert('Registration failed: ' + (data.message || 'Unknown error'));
+                // Remove loading state if failed
+                submitBtn.classList.remove('loading');
             }
         } catch (error) {
             console.error('Error:', error);
             alert('An error occurred during registration. Please try again.');
+            // Remove loading state if error
+            submitBtn.classList.remove('loading');
         }
     }
 
