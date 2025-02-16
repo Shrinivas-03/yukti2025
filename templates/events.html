@@ -214,6 +214,26 @@
                     </details>
                 </div>
             </div>
+            <!-- Kalachitrana event Card -->
+            <div class="card">
+                <img class="card-img-top" src="{{ url_for('static', filename='assets/tech.png') }}" alt="Tech Events">
+                <div class="card-body">
+                    <h5 class="card-title">Kalachitrana</h5>
+                    <p class="card-text">Show the world through your lens</p>
+                    <!-- Added event section for Tech -->
+                    <details>
+                        <summary>View Tech Events</summary>
+                        <ul>
+                            <li>STHALA CHITRAPATHA (Spot Photography)</li>
+                            <li>CHITRAGATHA (Short Film)</li>
+                            <li>RUPEKHA (Sketch Art)</li>
+                            <li>HASTAKALA (Painting)</li>
+                            <li>SWACHITRA (Selfie Point)</li>
+                        </ul>
+                        <a href="{{ url_for('kalachitrana') }}" class="btn btn-register">View More</a>
+                    </details>
+                </div>
+            </div>
             <!-- Management Events Card -->
             <div class="card">
                 <img class="card-img-top" src="{{ url_for('static', filename='assets/management.jpg') }}" alt="Management Events">

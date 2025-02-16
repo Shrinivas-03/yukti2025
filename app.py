@@ -1,4 +1,3 @@
-import os
 from flask import Flask, render_template, request, redirect, url_for, flash, jsonify
 from datetime import datetime
 import random
@@ -8,10 +7,9 @@ import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 
-app = Flask(
-    __name__,
+app = Flask(__name__, 
     static_url_path='/static',
-    static_folder=os.path.join(os.path.dirname(os.path.abspath(__file__)), 'static')  # updated to use absolute path
+    static_folder='static'
 )
 app.secret_key = "sdjksafbsahifgahif56549"
 
@@ -93,10 +91,6 @@ def about():
 def gallery():
     return render_template('gallery.html')
 
-@app.route('/events')
-def events():
-    return render_template('events.html')
-
 @app.route('/tech')
 def tech():
     return render_template('events/tech.html')
@@ -109,9 +103,17 @@ def cultural():
 def management():
     return render_template('events/management.html')
 
+@app.route('/kalachitrana')
+def kalachitrana():
+    return render_template('events/kalachitrana.html')
+
 @app.route('/games')
 def games():
     return render_template('events/games.html')
+
+@app.route('/events')
+def events():
+    return render_template('events.html')
 
 @app.route('/signin', methods=['GET', 'POST'])
 def signin():
