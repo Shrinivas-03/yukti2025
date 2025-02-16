@@ -1,3 +1,4 @@
+import os
 from flask import Flask, render_template, request, redirect, url_for, flash, jsonify
 from datetime import datetime
 import random
@@ -7,9 +8,10 @@ import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 
-app = Flask(__name__, 
+app = Flask(
+    __name__,
     static_url_path='/static',
-    static_folder='static'
+    static_folder=os.path.join(os.path.dirname(os.path.abspath(__file__)), 'static')  # updated to use absolute path
 )
 app.secret_key = "sdjksafbsahifgahif56549"
 

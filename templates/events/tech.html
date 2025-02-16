@@ -3,74 +3,477 @@
 {% block title %}Tech Events - College Fest{% endblock %}
 
 {% block content %}
-<style>
-  .main-content { margin-top: 80px; }
-</style>
-<div class="main-content">
     <section class="event-page mb-5">
         <h1 class="text-center">Tech Events</h1>
         <p class="text-center">Step into the world of innovation, coding, and technology.</p>
     </section>
 
-    <!-- Events Container -->
     <div class="container py-5">
+        <style>
+            /* Copy exact styles from cultural.html */
+            .event-page {
+                background: linear-gradient(135deg, #1C1C1C 0%, #2d1f1f 100%);
+                position: relative;
+                padding: 6rem 0 4rem;
+                overflow: hidden;
+            }
+
+            .event-page::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: 
+                    linear-gradient(90deg, transparent 50%, rgba(255, 215, 0, 0.05) 100%),
+                    radial-gradient(circle at 50% 50%, rgba(255, 215, 0, 0.1) 0%, transparent 50%);
+                animation: shimmer 10s infinite linear;
+            }
+
+            .event-page h1 {
+                font-size: 4.5rem;
+                background: linear-gradient(45deg, #FFD700, #ff6b00, #FFD700);
+                -webkit-background-clip: text;
+                background-clip: text;
+                color: transparent;
+                margin-bottom: 1.5rem;
+                font-family: 'Orbitron', sans-serif;
+                text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
+            }
+
+            /* Card and container styles */
+            .event-card-horizontal {
+                background: rgba(28, 28, 28, 0.95);
+                backdrop-filter: blur(10px);
+                border: 1px solid rgba(255, 215, 0, 0.1);
+                border-radius: 20px;
+                margin: 3rem auto;
+                max-width: 1000px;
+                position: relative;
+                overflow: hidden;
+                transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+                padding: 1.5rem;
+            }
+
+            .event-content {
+                padding: 1.5rem;
+            }
+
+            .event-details {
+                margin-top: 1rem;
+                font-size: 1rem;
+            }
+
+            /* Button styles */
+            .button-container {
+                display: flex;
+                gap: 1.5rem;
+                margin-top: 2rem;
+                justify-content: center;
+            }
+
+            .btn-read-more, .btn-register {
+                padding: 1rem 2.5rem;
+                font-size: 1rem;
+                font-weight: 600;
+                letter-spacing: 2px;
+                border-radius: 8px;
+                position: relative;
+                overflow: hidden;
+                z-index: 1;
+                transition: all 0.4s ease;
+            }
+
+            .btn-read-more {
+                background: transparent;
+                color: #FFD700;
+                border: 2px solid #FFD700;
+                cursor: pointer;
+            }
+
+            .btn-register {
+                background: linear-gradient(45deg, #8B0000, #cc0000);
+                color: #FFD700;
+                border: none;
+            }
+
+            .btn-read-more:hover, .btn-register:hover {
+                transform: translateY(-3px);
+                box-shadow: 0 5px 15px rgba(255, 215, 0, 0.3);
+            }
+
+            /* Expanded content styles */
+            .expanded-content {
+                display: none;
+                opacity: 0;
+                transition: opacity 0.3s ease;
+                padding: 50px;
+                background: rgba(45, 49, 56, 0.8);
+                border-radius: 8px;
+                margin-top: 1rem;
+            }
+
+            .expanded-content.active {
+                display: block;
+                opacity: 1;
+            }
+
+            /* Animations */
+            @keyframes shimmer {
+                0% { background-position: -1000px 0; }
+                100% { background-position: 1000px 0; }
+            }
+
+            /* Responsive styles */
+            @media (max-width: 768px) {
+                .event-page h1 { font-size: 2.5rem; }
+                .event-content h3 { font-size: 1.8rem; }
+                .button-container { flex-direction: column; }
+            }
+        </style>
+
         <!-- Prakalpa Prastuthi -->
         <div class="event-card-horizontal mb-5">
             <div class="event-image">
-                <img src="{{ url_for('static', filename='assets/live.jpg') }}" alt="Prakalpa Prastuthi">
+                <img src="{{ url_for('static', filename='images/events/project-presentation.jpg') }}" alt="PRAKALPA PRASTUTHI">
             </div>
             <div class="event-content">
-                <h3>Prakalpa Prastuthi</h3>
-                <p>Live project expo - Showcase your innovative projects and solutions. Demonstrate working prototypes and engineering excellence.</p>
-                <ul class="event-details">
-                    <li><i class="bi bi-people-fill"></i> Team Size: 2-4 members</li>
-                    <li><i class="bi bi-cash"></i> Registration Fee: ₹200/team</li>
-                    <li><i class="bi bi-trophy-fill"></i> Prizes Worth: ₹10,000</li>
-                </ul>
-                <a href="{{ url_for('signin') }}" class="btn btn-register">
+                <h3>PRAKALPA PRASTUTHI</h3>
+                <div class="event-description">
+                    <p>A technical project presentation platform showcasing innovative solutions in emerging technologies.</p>
+                    <div class="expanded-content">
+                        <strong>🔧 Technical Specifications</strong>
+                        <ul>
+                            <li>Projects based on recent Technologies like IOT, Machine learning, and Image processing</li>
+                            <li>Tools used for implementation: Python, MATLAB</li>
+                        </ul>
+                        
+                        <strong>📋 Terms and Conditions</strong>
+                        <ul>
+                            <li>Maximum of three participants per team</li>
+                            <li>Ten minutes will be given to a team to present a maximum of 20 slides to the jury</li>
+                            <li>Participants must bring their laptops or components/devices to demonstrate the project</li>
+                            <li>Participants need to submit a brief synopsis report to the jury at presentation</li>
+                            <li>The demonstration will be evaluated based on spot modifications in the project</li>
+                            <li>Winner selection based on project novelty, presentation, and spot modifications</li>
+                        </ul>
+                        
+                        <strong>👨‍🏫 Faculty Coordinators</strong>
+                        <ul>
+                            <li>Dr. Megha Rani R - Chairman</li>
+                            <li>Prof. Shobha Biradar - Member</li>
+                            <li>Prof. Udaykumar Tippa - Member</li>
+                            <li>Prof. Ambika S. - Member</li>
+                        </ul>
+                        
+                        <strong>👥 Student Coordinators</strong>
+                        <ul>
+                            <li>Chandan - 9591631915</li>
+                            <li>B. A. Siddharth - 9632708519</li>
+                            <li>Bhagwan - 9945670140</li>
+                            <li>Basavaraj H. G. - 9663513263</li>
+                            <li>Giridhar G. V. - 8050466116</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <button class="btn-read-more" onclick="toggleDescription(this)">
                     <span></span><span></span><span></span><span></span>
-                    Register Now
-                </a>
+                    Read More
+                </button>
+                
+                <ul class="event-details">
+                    <li><i class="bi bi-people-fill"></i> Team Size: Up to 3 members</li>
+                    <li><i class="bi bi-clock-fill"></i> Presentation Time: 10 minutes</li>
+                    <li><i class="bi bi-laptop-fill"></i> Bring your own device</li>
+                </ul>
+
+                <div class="button-container">
+                    <a href="{{ url_for('register') }}" class="btn btn-register">
+                        <span></span><span></span><span></span><span></span>
+                        Register Now
+                    </a>
+                </div>
             </div>
         </div>
 
         <!-- CHANAKSH CODING EVENT -->
         <div class="event-card-horizontal mb-5">
             <div class="event-image">
-                <img src="{{ url_for('static', filename='assets/coding.webp') }}" alt="CHANAKSH CODING">
+                <img src="{{ url_for('static', filename='images/events/coding.jpg') }}" alt="CHANAKSH CODING">
             </div>
             <div class="event-content">
                 <h3>CHANAKSH CODING EVENT</h3>
-                <p>Test your coding skills in this competitive programming challenge. Solve complex problems and optimize your solutions.</p>
+                <div class="event-description">
+                    <p>Test your coding skills in this competitive programming challenge featuring Java programming, debugging, and problem-solving.</p>
+                    <div class="expanded-content">
+                        <strong>🔧 Technical Requirements</strong>
+                        <ul>
+                            <li>Programming Language: Java</li>
+                            <li>Participants must bring their own laptops</li>
+                            <li>Development environment for Java programming</li>
+                        </ul>
+                        
+                        <strong>📋 Competition Format</strong>
+                        <ul>
+                            <li><strong>Round 1 - Debug Round (Bug Blaster)</strong>
+                                <ul>
+                                    <li>30 minutes duration</li>
+                                    <li>Debug 5 problems</li>
+                                    <li>Qualification for next round based on performance</li>
+                                </ul>
+                            </li>
+                            <li><strong>Round 2 - Choose your challenge (Tech it out)</strong>
+                                <ul>
+                                    <li>60 minutes duration</li>
+                                    <li>Problems selected through lucky draw</li>
+                                    <li>Winners judged by problem count and execution time</li>
+                                </ul>
+                            </li>
+                            <li><strong>Round 3 - Final Round (Logic Legends)</strong>
+                                <ul>
+                                    <li>Time-based problem solving</li>
+                                    <li>Focus on optimal solutions</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                        <strong>📜 Rules & Regulations</strong>
+                        <ul>
+                            <li>Individual participation only</li>
+                            <li>Zero tolerance for plagiarism - immediate disqualification</li>
+                            <li>Submitted results are final</li>
+                            <li>Round-specific criteria announced before each round</li>
+                            <li>Overall performance determines winners</li>
+                            <li>Organizers reserve right to modify rules</li>
+                        </ul>
+                        
+                        <strong>👨‍🏫 Faculty Coordinators</strong>
+                        <ul>
+                            <li>Dr. Swaroopa Shastri - Chairman</li>
+                            <li>Dr. Savita S. G - Member</li>
+                            <li>Prof. Rani - Member</li>
+                            <li>Prof. Kaveri Hulimani - Member</li>
+                        </ul>
+                        
+                        <strong>👥 Student Coordinators</strong>
+                        <ul>
+                            <li>Vishal Swamy - 7406952805</li>
+                            <li>Ravidra Kumar - 8050259617</li>
+                            <li>Narasareddy - 7483673004</li>
+                            <li>Shreedhar - 8105447201</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <button class="btn-read-more" onclick="toggleDescription(this)">
+                    <span></span><span></span><span></span><span></span>
+                    Read More
+                </button>
+                
                 <ul class="event-details">
                     <li><i class="bi bi-person-fill"></i> Individual Participation</li>
-                    <li><i class="bi bi-cash"></i> Registration Fee: ₹100</li>
-                    <li><i class="bi bi-trophy-fill"></i> Prizes Worth: ₹8,000</li>
+                    <li><i class="bi bi-laptop-fill"></i> Bring Your Own Laptop</li>
+                    <li><i class="bi bi-trophy-fill"></i> Multiple Rounds</li>
                 </ul>
-                <a href="{{ url_for('signin') }}" class="btn btn-register">
-                    <span></span><span></span><span></span><span></span>
-                    Register Now
-                </a>
+
+                <div class="button-container">
+                    <a href="{{ url_for('register') }}" class="btn btn-register">
+                        <span></span><span></span><span></span><span></span>
+                        Register Now
+                    </a>
+                </div>
             </div>
         </div>
 
         <!-- Robo Samara -->
         <div class="event-card-horizontal mb-5">
             <div class="event-image">
-                <img src="{{ url_for('static', filename='assets/Robo_Samara.webp') }}" alt="Robo Samara">
+                <img src="{{ url_for('static', filename='images/events/robo.jpg') }}" alt="Robo Samara">
             </div>
             <div class="event-content">
                 <h3>Robo Samara</h3>
-                <p>Bolts, Bytes, and Battle - Design and program your robot to compete in exciting challenges and battles.</p>
+                <div class="event-description">
+                    <p>Bolts, Bytes, and Battle - Design and program your robot to compete in exciting challenges and battles.</p>
+                    <div class="expanded-content">
+                        <!-- Additional details like specifications, rules, coordinators etc -->
+                    </div>
+                </div>
+                
+                <button class="btn-read-more" onclick="toggleDescription(this)">
+                    <span></span><span></span><span></span><span></span>
+                    Read More
+                </button>
+                
                 <ul class="event-details">
                     <li><i class="bi bi-people-fill"></i> Team Size: 2-3 members</li>
                     <li><i class="bi bi-cash"></i> Registration Fee: ₹300/team</li>
                     <li><i class="bi bi-trophy-fill"></i> Prizes Worth: ₹15,000</li>
                 </ul>
-                <a href="{{ url_for('signin') }}" class="btn btn-register">
+
+                <div class="button-container">
+                    <a href="{{ url_for('register') }}" class="btn btn-register">
+                        <span></span><span></span><span></span><span></span>
+                        Register Now
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Robo War -->
+        <div class="event-card-horizontal mb-5">
+            <div class="event-image">
+                <img src="{{ url_for('static', filename='images/events/robo-war.jpg') }}" alt="Robo War">
+            </div>
+            <div class="event-content">
+                <h3>ROBO SAMARA (Robo War)</h3>
+                <div class="event-description">
+                    <p>Build a robot whose task is to push the opposing robot out of the circular ring or flip it over. Different robots compete one-on-one against each other in a knock-out tournament.</p>
+                    <div class="expanded-content">
+                        <strong>ROBO SPECIFICATION:</strong>
+                        <ol>
+                            <li>The dimensions of the robot used for robowar should not be more than 400 mm x 400 mm (length x breadth).</li>
+                            <li>The maximum permissible weight for the robot is 9-12 kg.</li>
+                            <li>The robot should not be split intentionally into components or parts during the match.</li>
+                            <li>The machine can be wired/wireless.</li>
+                            <li>The robot must be self-powered, AC power supply will not be provided, except for charging your batteries (in the breaks only).</li>
+                            <li>If the bot is not ready or stops in between the match, is disqualified.</li>
+                            <li>The length of the wire (for wired bots) should be long enough to cover the whole arena and the wire should remain slack during the complete game.</li>
+                        </ol>
+
+                        <strong>GAMEPLAY RULES:</strong>
+                        <ol>
+                            <li>Each match consists of two rounds.</li>
+                            <li>Each round will contain 3 raids of each team and each raid will be of 30 seconds. there will be two teams, the Alpha team and the Beta team.</li>
+                            <li>A toss will decide the side of the arena which the winning team wants.</li>
+                            <li>If there is an entangling of wires then the game is paused and the game will start from the same locations as the bots. Technical breaks can be used by both teams which last for 40 seconds and can be used only once per game (including tie breaker round)</li>
+                            <li>The time between each round is 1 minute. Hand touching during the game to avoid the bot from falling outside the arena will lead to the bot being considered as fallen and necessary points will be given to the opposite team.</li>
+                            <li>The final decision will be in the hands of the judges.</li>
+                        </ol>
+
+                        <strong>Faculty Coordinators:</strong>
+                        <ul>
+                            <li>Prof. Shilpa B. Kodli - Chairman</li>
+                            <li>Prof. Bharati S. Pochal - Member</li>
+                            <li>Prof. Shilpa Joshi - Member</li>
+                            <li>Prof. Vijaylakshmi - Member</li>
+                        </ul>
+
+                        <strong>Student Coordinators:</strong>
+                        <ul>
+                            <li>Bhagtashree - 8147265651</li>
+                            <li>Rajesh K. J. - 9886735300</li>
+                            <li>Preetham - 8431776252</li>
+                            <li>Anita - 9353169359</li>
+                            <li>Soumya R - 7676276943</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <button class="btn-read-more" onclick="toggleDescription(this)">
                     <span></span><span></span><span></span><span></span>
-                    Register Now
-                </a>
+                    Read More
+                </button>
+                
+                <ul class="event-details">
+                    <li><i class="bi bi-people-fill"></i> Team Size: 2-4 members</li>
+                    <li><i class="bi bi-cash"></i> Registration Fee: ₹500/team</li>
+                    <li><i class="bi bi-trophy-fill"></i> Prizes Worth: ₹20,000</li>
+                </ul>
+
+                <div class="button-container">
+                    <a href="{{ url_for('register') }}" class="btn btn-register">
+                        <span></span><span></span><span></span><span></span>
+                        Register Now
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Robo Race -->
+        <div class="event-card-horizontal mb-5">
+            <div class="event-image">
+                <img src="{{ url_for('static', filename='images/events/robo-race.jpg') }}" alt="Robo Race">
+            </div>
+            <div class="event-content">
+                <h3>ROBO SAMARA (Robo Race)</h3>
+                <div class="event-description">
+                    <p>In this competition, the contestant or team of contestants design a robot either wired or wireless within the specified dimensions that can operated manually. The robot that will complete the specified task in the least time will be the winner.</p>
+                    <div class="expanded-content">
+                        <strong>THE ROBO SPECIFICATIONS:</strong>
+                        <ol>
+                            <li>The machine can be wired/wireless.</li>
+                            <li>The machine must be controlled manually.</li>
+                            <li>The maximum dimension of the bot should be 300mm x 300mm x 300mm (L x B x H), failing which the team will be disqualified from the competition.</li>
+                            <li>The total weight of the bot should not exceed 5 kg.</li>
+                            <li>The machine must not be made from Lego parts or any ready-made assembly kits, and it must be powered electrically only. The use of an IC engine is not allowed.</li>
+                            <li>The robot can be powered by a power source such as a battery fixed on the robot or by a stationary power source connected to the robot by a cord.</li>
+                            <li>Potential between any two points on the robot should not exceed 12v.</li>
+                            <li>Participants should keep spare batteries, otherwise, it may lead to disqualification if the bot is not ready or stops in between the races.</li>
+                            <li>The length of the wire (for wired bots) should be long enough, and the wire should remain slack during the complete race.</li>
+                        </ol>
+
+                        <strong>GAMEPLAY RULES:</strong>
+                        <ol>
+                            <li>The Robot will be placed at the start line. the robot starts when the timer starts.</li>
+                            <li>The Robot should remain on track, otherwise, it has to start from the last checkpoint crossed, though the timer will not be stopped. there are penalties for each obstacle skipped. penalties will be added to the total time.</li>
+                            <li>The timer will stop as soon as the robot crosses the finish line.</li>
+                            <li>Scoring and penalty rules will be announced on the day of the event.</li>
+                        </ol>
+
+                        <strong>RACETRACK:</strong>
+                        <ol>
+                            <li>There will be only one start and one finish line. the track surface and course line may have unevenness.</li>
+                            <li>There will be certain obstacles in the racetrack, which will try to slow down the robot.</li>
+                        </ol>
+
+                        <strong>RULES AND REGULATIONS:</strong>
+                        <ol>
+                            <li>A team can have a maximum of 4 members.</li>
+                            <li>One team member is elected as the robot handler. only that team member is permitted to control the robot during the game.</li>
+                            <li>All other team members must remain outside the game zone.</li>
+                            <li>Unethical behavior could lead to disqualification.</li>
+                            <li>Robots or participants that cause deliberate interference with other robots or damage to the arena will be disqualified.</li>
+                            <li>All decisions about scoring, game play, timing, and participation, made by the organizing committee are final.</li>
+                            <li>The decision of the judges will be final and abiding. Arguments with judges in any form will lead to the disqualification of the team.</li>
+                        </ol>
+
+                        <strong>Faculty Coordinators:</strong>
+                        <ul>
+                            <li>Prof. Shilpa B. Kodli - Chairman</li>
+                            <li>Prof. Bharati S. Pochal - Member</li>
+                            <li>Prof. Shilpa Joshi - Member</li>
+                            <li>Prof. Vijaylakshmi - Member</li>
+                        </ul>
+
+                        <strong>Student Coordinators:</strong>
+                        <ul>
+                            <li>Chetan P - 9620466796</li>
+                            <li>Vishal V. - 8123222713</li>
+                            <li>Abhishek R. - 9945856905</li>
+                            <li>Laxmikant - 9972081976</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <button class="btn-read-more" onclick="toggleDescription(this)">
+                    <span></span><span></span><span></span><span></span>
+                    Read More
+                </button>
+                
+                <ul class="event-details">
+                    <li><i class="bi bi-people-fill"></i> Team Size: Up to 4 members</li>
+                    <li><i class="bi bi-cash"></i> Registration Fee: ₹400/team</li>
+                    <li><i class="bi bi-trophy-fill"></i> Prizes Worth: ₹15,000</li>
+                </ul>
+
+                <div class="button-container">
+                    <a href="{{ url_for('register') }}" class="btn btn-register">
+                        <span></span><span></span><span></span><span></span>
+                        Register Now
+                    </a>
+                </div>
             </div>
         </div>
 
@@ -80,19 +483,229 @@
                 <img src="{{ url_for('static', filename='images/events/quiz.jpg') }}" alt="Pragyaan Quiz">
             </div>
             <div class="event-content">
-                <h3>Pragyaan (Quiz)</h3>
-                <p>Test your knowledge across technology, science, and engineering in this high-stakes quiz competition. Challenge yourself with mind-bending questions and rapid-fire rounds.</p>
+                <h3>PRAGYAN (Quiz)</h3>
+                <div class="event-description">
+                    <p>Test your knowledge across technology, science, engineering, and general awareness in this comprehensive quiz competition.</p>
+                    <div class="expanded-content">
+                        <strong>BASIC RULES OF THE COMPETITION:</strong>
+                        <ol>
+                            <li>Only team entries are allowed, and the team shall consist of two persons. There is no limit to teams from a single institution. A valid ID of the college or institution is mandatory for the participants.</li>
+                            <li>The decision of the quiz master will be final and will not be subjected to any change.</li>
+                            <li>The participants shall not be allowed to use mobile or other electronic instruments during the quiz time.</li>
+                            <li>The questions shall be in the form of multiple choice, true/false statements, specific answer questions, etc.</li>
+                            <li>Audience/Supporters shall not give any hints or clues to the competitors.</li>
+                            <li>Replacement of any participant of a team is not allowed after registration.</li>
+                        </ol>
+
+                        <strong>PRELIMINARY ROUND:</strong>
+                        <ul>
+                            <li>Each team will be given a set of question papers containing 25 multiple-choice objective-type questions.</li>
+                            <li>Time limit: 25 minutes</li>
+                            <li>Each question will carry 1 mark</li>
+                            <li>Only the top 4 teams will be selected for final or stage rounds</li>
+                            <li>In case of a tie between 2 or more teams, a further 5 questions will be asked for final selection</li>
+                        </ul>
+
+                        <strong>FINAL QUIZ/STAGE ROUND:</strong>
+                        <p>The final round will comprise of the following rounds:</p>
+                        <ol>
+                            <li>Round 1: Indian History</li>
+                            <li>Round 2: Indian Geography</li>
+                            <li>Round 3: Indian constitution/Polity</li>
+                            <li>Round 4: Sports/Entertainment</li>
+                            <li>Round 5: Mental ability/Aptitude</li>
+                            <li>Round 6: Science and Technology</li>
+                            <li>Round 7: Current affairs</li>
+                            <li>Round 8: Audio/Visual round</li>
+                            <li>Round 9: Rapid fire round</li>
+                        </ol>
+
+                        <strong>Final Round Rules:</strong>
+                        <ul>
+                            <li>10 marks will be awarded for the correct answer</li>
+                            <li>Response time: 30 seconds per question (2 minutes for mental ability/aptitude round)</li>
+                            <li>No pass option available</li>
+                            <li>Team discussion is allowed</li>
+                            <li>Rapid-fire round: 5 questions per team (10 marks for correct, -5 for wrong answer)</li>
+                            <li>Surprise round in case of tie in the final round</li>
+                        </ul>
+
+                        <strong>Faculty Coordinators:</strong>
+                        <ul>
+                            <li>Dr. Shailaja Kheni - Chairman</li>
+                            <li>Prof. Sharankumar Gobbur - Member</li>
+                            <li>Prof. Saniya Farheen - Member</li>
+                            <li>Prof. Swapna B - Member</li>
+                        </ul>
+
+                        <strong>Student Coordinators:</strong>
+                        <ul>
+                            <li>Guruprasad</li>
+                            <li>Shashwata</li>
+                            <li>Bhomika</li>
+                            <li>Namrata</li>
+                            <li>Shashank</li>
+                            <li>Gururaj</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <button class="btn-read-more" onclick="toggleDescription(this)">
+                    <span></span><span></span><span></span><span></span>
+                    Read More
+                </button>
+                
                 <ul class="event-details">
-                    <li><i class="bi bi-people-fill"></i> Team Size: 2-3 members</li>
+                    <li><i class="bi bi-people-fill"></i> Team Size: 2 members</li>
                     <li><i class="bi bi-cash"></i> Registration Fee: ₹150/team</li>
                     <li><i class="bi bi-trophy-fill"></i> Prizes Worth: ₹7,000</li>
                 </ul>
-                <a href="{{ url_for('signin') }}" class="btn btn-register">
-                    <span></span><span></span><span></span><span></span>
-                    Register Now
-                </a>
+
+                <div class="button-container">
+                    <a href="{{ url_for('register') }}" class="btn btn-register">
+                        <span></span><span></span><span></span><span></span>
+                        Register Now
+                    </a>
+                </div>
             </div>
         </div>
+
+        <!-- Vagmita -->
+        <div class="event-card-horizontal mb-5">
+            <div class="event-image">
+                <img src="{{ url_for('static', filename='images/events/elocution.jpg') }}" alt="Vagmita">
+            </div>
+            <div class="event-content">
+                <h3>VAGMITA (Elocution)</h3>
+                <div class="event-description">
+                    <p>Express your thoughts with clarity and confidence in this competitive public speaking challenge.</p>
+                    <div class="expanded-content">
+                        <strong>TOPICS FOR THE CONTEST:</strong>
+                        <ol>
+                            <li>Viksit Bharat</li>
+                            <li>Social media and youth</li>
+                            <li>Agriculture and environmental challenges</li>
+                            <li>Technology's impact on social relationships</li>
+                            <li>Kannada literature and culture</li>
+                            <li>Religion and Science</li>
+                            <li>Effect of COVID-19 on education</li>
+                            <li>Chandrayana-3 (Indian lunar exploration)</li>
+                            <li>Role of RBI in Indian economy</li>
+                        </ol>
+
+                        <strong>TERMS AND CONDITIONS:</strong>
+                        <ol>
+                            <li>The Languages of the oration shall be in English, Hindi, and Kannada only.</li>
+                            <li>Each participant will be given a time limit not exceeding 3 minutes to speak on the topic.</li>
+                            <li>Avoid political and religiously sensitive matters.</li>
+                            <li>The candidate must be a student.</li>
+                            <li>Students must not go out of the topic.</li>
+                            <li>Depending upon the number of entries for competition organizing committee may conduct preliminary rounds.</li>
+                            <li>The marks will be based on the content, oratory skills, convincing ability, proficiency, and other relevant factors.</li>
+                            <li>The decision of the judges shall be final.</li>
+                        </ol>
+
+                        <strong>Faculty Coordinators:</strong>
+                        <ul>
+                            <li>Dr. Babu Reddy - Chairman</li>
+                            <li>Dr. Vidyavathi Reddy - Member</li>
+                            <li>Prof. Soumya Patil - Member</li>
+                            <li>Prof. Shivakumar Kalgi - Member</li>
+                        </ul>
+
+                        <strong>Student Coordinators:</strong>
+                        <ul>
+                            <li>Kalyanamma - 7411294835</li>
+                            <li>Lavanya - 8792442001</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <button class="btn-read-more" onclick="toggleDescription(this)">
+                    <span></span><span></span><span></span><span></span>
+                    Read More
+                </button>
+                
+                <ul class="event-details">
+                    <li><i class="bi bi-person-fill"></i> Individual Participation</li>
+                    <li><i class="bi bi-clock-fill"></i> Time Limit: 3 minutes</li>
+                    <li><i class="bi bi-cash"></i> Registration Fee: ₹200</li>
+                    <li><i class="bi bi-trophy-fill"></i> Prizes Worth: ₹8,000</li>
+                </ul>
+
+                <div class="button-container">
+                    <a href="{{ url_for('register') }}" class="btn btn-register">
+                        <span></span><span></span><span></span><span></span>
+                        Register Now
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            function toggleDescription(button) {
+                const eventCard = button.closest('.event-card-horizontal');
+                const expandedContent = eventCard.querySelector('.expanded-content');
+                
+                if (expandedContent.style.display === 'none' || !expandedContent.style.display) {
+                    expandedContent.style.display = 'block';
+                    setTimeout(() => {
+                        expandedContent.style.opacity = '1';
+                        button.innerHTML = `<span></span><span></span><span></span><span></span> Show Less`;
+                    }, 10);
+                } else {
+                    expandedContent.style.opacity = '0';
+                    setTimeout(() => {
+                        expandedContent.style.display = 'none';
+                        button.innerHTML = `<span></span><span></span><span></span><span></span> Read More`;
+                    }, 300);
+                }
+            }
+
+            // Initialize all expanded content sections to be hidden on page load
+            document.addEventListener('DOMContentLoaded', function() {
+                document.querySelectorAll('.expanded-content').forEach(content => {
+                    content.style.display = 'none';
+                    content.style.opacity = '0';
+                });
+            });
+        </script>
+
     </div>
-</div>
+
+   
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+<script>
+    // Same toggle function from games page
+    function toggleDescription(button) {
+        const eventCard = button.closest('.event-card-horizontal');
+        const expandedContent = eventCard.querySelector('.expanded-content');
+        
+        if (expandedContent.style.display === 'none' || !expandedContent.style.display) {
+            expandedContent.style.display = 'block';
+            setTimeout(() => {
+                expandedContent.style.opacity = '1';
+                button.innerHTML = `<span></span><span></span><span></span><span></span> Show Less`;
+            }, 10);
+        } else {
+            expandedContent.style.opacity = '0';
+            setTimeout(() => {
+                expandedContent.style.display = 'none';
+                button.innerHTML = `<span></span><span></span><span></span><span></span> Read More`;
+            }, 300);
+        }
+    }
+
+    // Initialize on page load
+    document.addEventListener('DOMContentLoaded', function() {
+        document.querySelectorAll('.expanded-content').forEach(content => {
+            content.style.display = 'none';
+            content.style.opacity = '0';
+        });
+    });
+</script>
+
 {% endblock %}

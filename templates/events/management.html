@@ -3,151 +3,503 @@
 {% block title %}Management Events - College Fest{% endblock %}
 
 {% block content %}
-<style>
-  .main-content { margin-top: 80px; }
-</style>
-<div class="main-content">
-    <section class="event-page mb-5">
-        <h1 class="text-center">Management Events</h1>
-        <p class="text-center">Showcase your leadership and business acumen through our management challenges.</p>
-    </section>
+<section class="event-page mb-5">
+    <h1 class="text-center">Management Events</h1>
+    <p class="text-center">Showcase your business acumen and leadership skills.</p>
+</section>
 
-    <!-- Events Container -->
-    <div class="container py-5">
-        <!-- Vagmita -->
-        <div class="event-card-horizontal mb-5">
-            <div class="event-image">
-                <img src="{{ url_for('static', filename='images/events/elocution.jpg') }}" alt="Vagmita">
-            </div>
-            <div class="event-content">
-                <h3>Vagmita (Elocution)</h3>
-                <p>Express your thoughts with clarity and confidence in this competitive public speaking challenge.</p>
-                <ul class="event-details">
-                    <li><i class="bi bi-person-fill"></i> Individual Participation</li>
-                    <li><i class="bi bi-cash"></i> Registration Fee: ₹200</li>
-                    <li><i class="bi bi-trophy-fill"></i> Prizes Worth: ₹8,000</li>
-                </ul>
-                <a href="{{ url_for('signin') }}" class="btn btn-register">
-                    <span></span><span></span><span></span><span></span>
-                    Register Now
-                </a>
-            </div>
+<div class="container py-5">
+    <style>
+        /* Copy styles from games.html */
+        .event-page {
+            background: linear-gradient(135deg, #1C1C1C 0%, #2d1f1f 100%);
+            position: relative;
+            padding: 6rem 0 4rem;
+            overflow: hidden;
+        }
+
+        .event-page::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                linear-gradient(90deg, transparent 50%, rgba(255, 215, 0, 0.05) 100%),
+                radial-gradient(circle at 50% 50%, rgba(255, 215, 0, 0.1) 0%, transparent 50%);
+            animation: shimmer 10s infinite linear;
+        }
+
+        .event-page h1 {
+            font-size: 4.5rem;
+            background: linear-gradient(45deg, #FFD700, #ff6b00, #FFD700);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 1.5rem;
+            font-family: 'Orbitron', sans-serif;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
+        }
+
+        /* Card and content styles */
+        .event-card-horizontal {
+            background: rgba(28, 28, 28, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 215, 0, 0.1);
+            border-radius: 20px;
+            margin: 3rem auto;
+            max-width: 1000px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            padding: 1.5rem;
+        }
+
+        .event-content {
+            padding: 1.5rem;
+        }
+
+        .event-details {
+            margin-top: 1rem;
+            font-size: 1rem;
+        }
+
+        /* Button styles */
+        .button-container {
+            display: flex;
+            gap: 1.5rem;
+            margin-top: 2rem;
+            justify-content: center;
+        }
+
+        .btn-read-more, .btn-register {
+            padding: 1rem 2.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            border-radius: 8px;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            transition: all 0.4s ease;
+        }
+
+        .btn-read-more {
+            background: transparent;
+            color: #FFD700;
+            border: 2px solid #FFD700;
+            cursor: pointer;
+        }
+
+        .btn-register {
+            background: linear-gradient(45deg, #8B0000, #cc0000);
+            color: #FFD700;
+            border: none;
+        }
+
+        .btn-read-more:hover, .btn-register:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(255, 215, 0, 0.3);
+        }
+
+        /* Expanded content styles */
+        .expanded-content {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            padding: 50px;
+            background: rgba(45, 49, 56, 0.8);
+            border-radius: 8px;
+            margin-top: 1rem;
+        }
+
+        .expanded-content.active {
+            display: block;
+            opacity: 1;
+        }
+
+        /* Animations */
+        @keyframes shimmer {
+            0% { background-position: -1000px 0; }
+            100% { background-position: 1000px 0; }
+        }
+
+        /* Responsive styles */
+        @media (max-width: 768px) {
+            .event-page h1 { font-size: 2.5rem; }
+            .event-content h3 { font-size: 1.8rem; }
+            .button-container { flex-direction: column; }
+        }
+    </style>
+
+    <!-- DAKSH -->
+    <div class="event-card-horizontal mb-5">
+        <div class="event-image">
+            <img src="{{ url_for('static', filename='images/events/best-manager.jpg') }}" alt="DAKSH">
         </div>
-
-        <!-- DAKSH -->
-        <div class="event-card-horizontal mb-5">
-            <div class="event-image">
-                <img src="{{ url_for('static', filename='images/events/best-manager.jpg') }}" alt="DAKSH">
-            </div>
-            <div class="event-content">
-                <h3>DAKSH (THE BEST MANAGER)</h3>
+        <div class="event-content">
+            <h3>DAKSH (THE BEST MANAGER)</h3>
+            <div class="event-description">
+                <p class="quote">"It's hard to beat a person who never gives up."</p>
                 <p>Test your managerial skills in this comprehensive challenge featuring real-world business scenarios.</p>
-                <ul class="event-details">
-                    <li><i class="bi bi-person-fill"></i> Individual Participation</li>
-                    <li><i class="bi bi-cash"></i> Registration Fee: ₹300</li>
-                    <li><i class="bi bi-trophy-fill"></i> Prizes Worth: ₹15,000</li>
-                </ul>
-                <a href="{{ url_for('signin') }}" class="btn btn-register">
+                <div class="expanded-content">
+                    <p>Prepare for a thrilling journey as you dive into the Action and Excitement of the ultimate managerial challenge! Embark on an extraordinary journey, striving to elevate to the highly sought title of the best manager in the business world. Showcase your grit and determination across the realms of management function. Unleash your innate managerial instincts, strategically navigating your path to victory because this is your golden opportunity for absolute domination. What's the holdup? Seize the moment and let the conquest begin!</p>
+
+                    <strong>EVENT GUIDELINES:</strong>
+                    <ul>
+                        <li>This is an individual event.</li>
+                        <li>All participants must be at the venue 45 minutes before the event starts.</li>
+                        <li>There will be 4 rounds.</li>
+                        <li>The details for each round will be explained before it begins.</li>
+                        <li>For technical events, having a laptop is mandatory.</li>
+                        <li>The coordinators' decisions are final, and judging criteria will be explained in advance.</li>
+                        <li>The dress code is formal.</li>
+                        <li>English will be the medium of communication.</li>
+                        <li>Judges' decisions will be considered final and binding.</li>
+                    </ul>
+
+                    <strong>ROUND 1: APTITUDE TEST (25 Marks)</strong>
+                    <p>This round is designed to specifically assess the candidate's problem-solving, prioritization, numerical skills as well as general knowledge. This is an elimination round, consisting of 25 questions each carrying 1 mark.</p>
+
+                    <strong>ROUND 2: RAPID FIRE ROUND (PSYCHOMETRIC TEST) (25 Marks)</strong>
+                    <p>Psychometric tests are a standard and scientific method used to measure an individual's mental capabilities and behavioral styles. They are concerned with the objective measurement of skills and knowledge, abilities, attitudes, and personality traits like intelligence and other cognitive abilities. This is an elimination round, consisting of 25 questions each carrying 1 mark.</p>
+
+                    <strong>ROUND 3: SITUATION ANALYSIS (25 Marks)</strong>
+                    <ul>
+                        <li>This round will test the participant's critical thinking and prompt decision-making skills along with their oratory skills concerning modern business situations.</li>
+                        <li>A situation will be provided to the participant's on-the-spot, upon which, the participants are expected to come up with a solution.</li>
+                        <li>60 seconds of preparation time will be allotted to each participant.</li>
+                        <li>Each participant will be allotted a time of 3 minutes to present their analysis in front of the judges' panel.</li>
+                    </ul>
+
+                    <strong>ROUND 4: PERSONAL INTERVIEW (25 Marks)</strong>
+                    <ul>
+                        <li>A personal interview will be conducted by a panel of judges.</li>
+                        <li>The candidate's CV needs to be submitted to the coordinator on the day of the event.</li>
+                        <li>The candidates will be evaluated for their Quality of Resume, Body Language, and Justification of Answers.</li>
+                    </ul>
+
+                    <strong>Faculty Coordinators:</strong>
+                    <ul>
+                        <li>Dr. K. Shivaraman Gouda - Chairman</li>
+                        <li>Prof. Sanjay Pattanshetty - Member</li>
+                    </ul>
+
+                    <strong>Student Coordinators:</strong>
+                    <ul>
+                        <li>Mallikarjun - 7892568754</li>
+                        <li>Asif - 7406860007</li>
+                        <li>Vaishnavi Patil - 8951387220</li>
+                        <li>Priya Saware - 9606263341</li>
+                        <li>Jyoti - 9686026173</li>
+                        <li>Radhika - 9535660986</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <button class="btn-read-more" onclick="toggleDescription(this)">
+                <span></span><span></span><span></span><span></span>
+                Read More
+            </button>
+            
+            <ul class="event-details">
+                <li><i class="bi bi-person-fill"></i> Individual Participation</li>
+                <li><i class="bi bi-cash"></i> Registration Fee: ₹300</li>
+                <li><i class="bi bi-trophy-fill"></i> Prizes Worth: ₹15,000</li>
+            </ul>
+
+            <div class="button-container">
+                <a href="{{ url_for('register') }}" class="btn btn-register">
                     <span></span><span></span><span></span><span></span>
                     Register Now
                 </a>
             </div>
         </div>
+    </div>
 
-        <!-- SHRESHTA VITTA Final -->
-        <div class="event-card-horizontal mb-5">
-            <div class="event-image">
-                <img src="{{ url_for('static', filename='images/events/finance.jpg') }}" alt="SHRESHTA VITTA">
+    <!-- SHRESHTA VITTA Final -->
+    <div class="event-card-horizontal mb-5">
+        <div class="event-image">
+            <img src="{{ url_for('static', filename='images/events/finance.jpg') }}" alt="SHRESHTA VITTA">
+        </div>
+        <div class="event-content">
+            <h3>SHRESHTA VITTA (FINANCE) Final</h3>
+            <div class="event-description">
+                <p class="quote-kannada">"ಅಪಾಯವಿಲ್ಲದೆ ಸಂಪಾದಿಸಿ, ವಿಷಾದವಿಲ್ಲದೆ ನೀಡಿ: ವಿಜಯೋತ್ಸವಕ್ಕಾಗಿ ನಿಮ್ಮ ಪ್ರತಿಭೆಗಳನ್ನು ವ್ಯಾಪಾರ ಮಾಡಿ!"</p>
+                <p class="quote">"Earn without Risk, Give without Regret: Trade Your Talents for Triumph!"</p>
+                <p>Money won is twice as sweet as money earned. Win the money neither by gambling nor by investing in a stock game and it's the one opportunity to get money by giving an equivalent in return.</p>
+                <div class="expanded-content">
+                    <strong>Event Rounds:</strong>
+                    <ul>
+                        <li>First Round - Case Study Analysis</li>
+                        <li>Second Round - FinQuest: Dive into the Depths (Pick and Speak)</li>
+                        <li>Final Round - Mock Trading</li>
+                    </ul>
+
+                    <strong>Faculty Coordinators:</strong>
+                    <ul>
+                        <li>Prof. Manjunath Awalakki - Chairman</li>
+                        <li>Prof. Rahul Moolbharathi - Member</li>
+                    </ul>
+
+                    <strong>Student Coordinators:</strong>
+                    <ul>
+                        <li>Ashwin Kumar - 8277466247</li>
+                        <li>Arun Rajput - 8880163300</li>
+                        <li>Narsingh - 9035691013</li>
+                        <li>Sagar Tengli - 8088502918</li>
+                        <li>Anjali U. - 8073041200</li>
+                    </ul>
+                </div>
             </div>
-            <div class="event-content">
-                <h3>SHRESHTA VITTA (FINANCE) Final</h3>
-                <p>Advanced financial analysis and strategy competition for aspiring finance professionals.</p>
-                <ul class="event-details">
-                    <li><i class="bi bi-people-fill"></i> Team Size: 2-3 members</li>
-                    <li><i class="bi bi-cash"></i> Registration Fee: ₹400/team</li>
-                    <li><i class="bi bi-trophy-fill"></i> Prizes Worth: ₹20,000</li>
-                </ul>
-                <a href="{{ url_for('signin') }}" class="btn btn-register">
+            
+            <button class="btn-read-more" onclick="toggleDescription(this)">
+                <span></span><span></span><span></span><span></span>
+                Read More
+            </button>
+            
+            <ul class="event-details">
+                <li><i class="bi bi-people-fill"></i> Team Size: 2-3 members</li>
+                <li><i class="bi bi-cash"></i> Registration Fee: ₹400/team</li>
+                <li><i class="bi bi-trophy-fill"></i> Prizes Worth: ₹20,000</li>
+            </ul>
+
+            <div class="button-container">
+                <a href="{{ url_for('register') }}" class="btn btn-register">
                     <span></span><span></span><span></span><span></span>
                     Register Now
                 </a>
             </div>
         </div>
+    </div>
 
-        <!-- MANAVA SANSADHAN -->
-        <div class="event-card-horizontal mb-5">
-            <div class="event-image">
-                <img src="{{ url_for('static', filename='images/events/hr.jpg') }}" alt="MANAVA SANSADHAN">
-            </div>
-            <div class="event-content">
-                <h3>MANAVA SANSADHAN (HR)</h3>
+    <!-- MANAVA SANSADHAN -->
+    <div class="event-card-horizontal mb-5">
+        <div class="event-image">
+            <img src="{{ url_for('static', filename='images/events/hr.jpg') }}" alt="MANAVA SANSADHAN">
+        </div>
+        <div class="event-content">
+            <h3>MANAVA SANSADHAN (HR)</h3>
+            <div class="event-description">
                 <p>Human Resource management challenge featuring case studies and practical scenarios.</p>
-                <ul class="event-details">
-                    <li><i class="bi bi-people-fill"></i> Team Size: 2-3 members</li>
-                    <li><i class="bi bi-cash"></i> Registration Fee: ₹300/team</li>
-                    <li><i class="bi bi-trophy-fill"></i> Prizes Worth: ₹12,000</li>
-                </ul>
-                <a href="{{ url_for('signin') }}" class="btn btn-register">
+                <div class="expanded-content">
+                    <strong>RULES & REGULATIONS:</strong>
+                    <p>There will be 3 levels:</p>
+                    <ul>
+                        <li>Level 1: Quiz</li>
+                        <li>Level 2: Group Discussion</li>
+                        <li>Level 3: Personal Interview</li>
+                    </ul>
+
+                    <strong>DETAILS:</strong>
+                    <ul>
+                        <li>The quiz contains 20 questions (10 minutes)</li>
+                        <li>Group discussion includes debates/case studies (20 minutes)</li>
+                        <li>Personal interview by: Dr. Rekha Patil and Dr. Rajshekar Basvapattan</li>
+                    </ul>
+
+                    <strong>Faculty Coordinators:</strong>
+                    <ul>
+                        <li>Dr. Rekha N. patil - Chairman</li>
+                        <li>Dr. Rajshekhar Basavapattan - Member</li>
+                    </ul>
+
+                    <strong>Student Coordinators:</strong>
+                    <ul>
+                        <li>Saniya Moosa - 8618573867</li>
+                        <li>Asfiya - 6361264134</li>
+                        <li>Khutaja - 6364155204</li>
+                        <li>Subiya - 8123079877</li>
+                        <li>Vishal - 9880567835</li>
+                        <li>Deepak K. - 7349122013</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <button class="btn-read-more" onclick="toggleDescription(this)">
+                <span></span><span></span><span></span><span></span>
+                Read More
+            </button>
+            
+            <ul class="event-details">
+                <li><i class="bi bi-people-fill"></i> Team Size: 2-3 members</li>
+                <li><i class="bi bi-cash"></i> Registration Fee: ₹300/team</li>
+                <li><i class="bi bi-trophy-fill"></i> Prizes Worth: ₹12,000</li>
+            </ul>
+
+            <div class="button-container">
+                <a href="{{ url_for('register') }}" class="btn btn-register">
                     <span></span><span></span><span></span><span></span>
                     Register Now
                 </a>
             </div>
         </div>
+    </div>
 
-        <!-- Startup Logo Design -->
-        <div class="event-card-horizontal mb-5">
-            <div class="event-image">
-                <img src="{{ url_for('static', filename='images/events/logo-design.jpg') }}" alt="Logo Design">
-            </div>
-            <div class="event-content">
-                <h3>Startup Logo Design</h3>
+    <!-- Startup Logo Design -->
+    <div class="event-card-horizontal mb-5">
+        <div class="event-image">
+            <img src="{{ url_for('static', filename='images/events/logo-design.jpg') }}" alt="Logo Design">
+        </div>
+        <div class="event-content">
+            <h3>Startup Logo Design</h3>
+            <div class="event-description">
                 <p>Create compelling brand identities for startups through innovative logo design.</p>
-                <ul class="event-details">
-                    <li><i class="bi bi-person-fill"></i> Individual Participation</li>
-                    <li><i class="bi bi-cash"></i> Registration Fee: ₹150</li>
-                    <li><i class="bi bi-trophy-fill"></i> Prizes Worth: ₹6,000</li>
-                </ul>
-                <a href="{{ url_for('signin') }}" class="btn btn-register">
+                <div class="expanded-content">
+                    <strong>🎯 Event Format</strong>
+                    <ul>
+                        <li>Logo design competition</li>
+                        <li>Brand identity creation</li>
+                        <li>Presentation of designs</li>
+                        <li>Feedback and iteration</li>
+                    </ul>
+                    
+                    <strong>📋 Guidelines</strong>
+                    <ul>
+                        <li>Individual participation only</li>
+                        <li>Bring design software/tools</li>
+                        <li>Business casual dress code</li>
+                        <li>Time management is crucial</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <button class="btn-read-more" onclick="toggleDescription(this)">
+                <span></span><span></span><span></span><span></span>
+                Read More
+            </button>
+            
+            <ul class="event-details">
+                <li><i class="bi bi-person-fill"></i> Individual Participation</li>
+                <li><i class="bi bi-cash"></i> Registration Fee: ₹150</li>
+                <li><i class="bi bi-trophy-fill"></i> Prizes Worth: ₹6,000</li>
+            </ul>
+
+            <div class="button-container">
+                <a href="{{ url_for('register') }}" class="btn btn-register">
                     <span></span><span></span><span></span><span></span>
                     Register Now
                 </a>
             </div>
         </div>
+    </div>
 
-        <!-- Business Plan -->
-        <div class="event-card-horizontal mb-5">
-            <div class="event-image">
-                <img src="{{ url_for('static', filename='images/events/business-plan.jpg') }}" alt="Business Plan">
+    <!-- SUMEDHA (Business Start-up) -->
+    <div class="event-card-horizontal mb-5">
+        <div class="event-image">
+            <img src="{{ url_for('static', filename='images/events/startup.jpg') }}" alt="SUMEDHA">
+        </div>
+        <div class="event-content">
+            <h3>SUMEDHA (Business Start-up)</h3>
+            <div class="event-description">
+                <p>Transform your innovative business ideas into reality through our comprehensive startup challenge.</p>
+                <div class="expanded-content">
+                    <strong>RULES & REGULATIONS:</strong>
+                    <ol>
+                        <li>A team must include a minimum of two members and a maximum of five members.</li>
+                        <li>Each team may submit up to three business ideas in separate sheets.</li>
+                        <li>One idea per team will be shortlisted by the Jury and the results will be announced.</li>
+                        <li>A mentor among the faculty will be assigned to each team.</li>
+                        <li>A business proposal has to be subsequently submitted.</li>
+                        <li>A 10-minute presentation (elevator pitch) to be given to the Jury.</li>
+                        <li>Five teams will be shortlisted for the final competition.</li>
+                        <li>The rules of the competition may be amended by either organizers / Jury from time to time.</li>
+                        <li>The Jury reserves the right to disqualify any entry and its decision is final and binding on all the stakeholders.</li>
+                        <li>Privacy will be maintained</li>
+                    </ol>
+
+                    <strong>Faculty Coordinators:</strong>
+                    <ul>
+                        <li>Dr. Shubhangi D. C. - Chairman (IPR)</li>
+                        <li>Dr. B. Shambhu Lingappa - Chairman</li>
+                        <li>Dr. Shailaja Kheni - Member</li>
+                    </ul>
+
+                    <strong>Student Coordinators:</strong>
+                    <ul>
+                        <li>Deepak - 8050290826</li>
+                        <li>Anusha - 9663844136</li>
+                        <li>Chandrakala - 9986826481</li>
+                        <li>Akash - 9108817430</li>
+                    </ul>
+                </div>
             </div>
-            <div class="event-content">
-                <h3>Business Plan</h3>
-                <p>Present your innovative business ideas and comprehensive strategies to industry experts.</p>
-                <ul class="event-details">
-                    <li><i class="bi bi-people-fill"></i> Team Size: 2-4 members</li>
-                    <li><i class="bi bi-cash"></i> Registration Fee: ₹350/team</li>
-                    <li><i class="bi bi-trophy-fill"></i> Prizes Worth: ₹15,000</li>
-                </ul>
-                <a href="{{ url_for('signin') }}" class="btn btn-register">
+            
+            <button class="btn-read-more" onclick="toggleDescription(this)">
+                <span></span><span></span><span></span><span></span>
+                Read More
+            </button>
+            
+            <ul class="event-details">
+                <li><i class="bi bi-people-fill"></i> Team Size: 2-5 members</li>
+                <li><i class="bi bi-cash"></i> Registration Fee: ₹500/team</li>
+                <li><i class="bi bi-trophy-fill"></i> Prizes Worth: ₹25,000</li>
+            </ul>
+
+            <div class="button-container">
+                <a href="{{ url_for('register') }}" class="btn btn-register">
                     <span></span><span></span><span></span><span></span>
                     Register Now
                 </a>
             </div>
         </div>
+    </div>
 
-        <!-- Marketing Strategy -->
-        <div class="event-card-horizontal mb-5">
-            <div class="event-image">
-                <img src="{{ url_for('static', filename='images/events/marketing.jpg') }}" alt="Marketing Strategy">
+    <!-- VIPANAN (Marketing) -->
+    <div class="event-card-horizontal mb-5">
+        <div class="event-image">
+            <img src="{{ url_for('static', filename='images/events/marketing.jpg') }}" alt="VIPANAN">
+        </div>
+        <div class="event-content">
+            <h3>VIPANAN (Marketing)</h3>
+            <div class="event-description">
+                <p class="quote">"Drive Desire, Spark Action, Elevate Your Business"</p>
+                <p>Do you have the innovation to stand out in the marketing world?
+                Vipanan, a dynamic marketing event, provides a platform for students to showcase their skills, ignite their creativity, and unleash their clever wits on a global stage.</p>
+                <div class="expanded-content">
+                    <strong>EVENT GUIDELINES:</strong>
+                    <ul>
+                        <li>Teams consist of 2 members at this event.</li>
+                        <li>Bring college ID cards.</li>
+                        <li>Bring personal laptops, internet dongles, pen drives, calculators, etc.</li>
+                        <li>Specific rules for each round.</li>
+                        <li>Disqualification for rule violations.</li>
+                        <li>Clarify doubts before the event starts.</li>
+                        <li>Judges' decisions are final.</li>
+                    </ul>
+
+                    <strong>Faculty Coordinators:</strong>
+                    <ul>
+                        <li>Dr. Satish Uplaonkar - Chairman</li>
+                        <li>Dr. Sharangoud Biradar - Member</li>
+                    </ul>
+
+                    <strong>Student Coordinators:</strong>
+                    <ul>
+                        <li>Md. Fayaz - 7795437857</li>
+                        <li>Laxmi Ganachari - 8147499657</li>
+                        <li>Bhuvaneshwari - 7022355053</li>
+                        <li>Md. Furkan - 7676854954</li>
+                        <li>Ramesh Patil - 8095179115</li>
+                        <li>G. Harshita - 8867577689</li>
+                    </ul>
+                </div>
             </div>
-            <div class="event-content">
-                <h3>Marketing Strategy</h3>
-                <p>Develop innovative marketing solutions for real-world business challenges.</p>
-                <ul class="event-details">
-                    <li><i class="bi bi-people-fill"></i> Team Size: 2-3 members</li>
-                    <li><i class="bi bi-cash"></i> Registration Fee: ₹300/team</li>
-                    <li><i class="bi bi-trophy-fill"></i> Prizes Worth: ₹12,000</li>
-                </ul>
-                <a href="{{ url_for('signin') }}" class="btn btn-register">
+            
+            <button class="btn-read-more" onclick="toggleDescription(this)">
+                <span></span><span></span><span></span><span></span>
+                Read More
+            </button>
+            
+            <ul class="event-details">
+                <li><i class="bi bi-people-fill"></i> Team Size: 2 members</li>
+                <li><i class="bi bi-cash"></i> Registration Fee: ₹300/team</li>
+                <li><i class="bi bi-trophy-fill"></i> Prizes Worth: ₹12,000</li>
+            </ul>
+
+            <div class="button-container">
+                <a href="{{ url_for('register') }}" class="btn btn-register">
                     <span></span><span></span><span></span><span></span>
                     Register Now
                 </a>
@@ -155,4 +507,34 @@
         </div>
     </div>
 </div>
+
+<script>
+    // Same toggle function from games.html
+    function toggleDescription(button) {
+        const eventCard = button.closest('.event-card-horizontal');
+        const expandedContent = eventCard.querySelector('.expanded-content');
+        
+        if (expandedContent.style.display === 'none' || !expandedContent.style.display) {
+            expandedContent.style.display = 'block';
+            setTimeout(() => {
+                expandedContent.style.opacity = '1';
+                button.innerHTML = `<span></span><span></span><span></span><span></span> Show Less`;
+            }, 10);
+        } else {
+            expandedContent.style.opacity = '0';
+            setTimeout(() => {
+                expandedContent.style.display = 'none';
+                button.innerHTML = `<span></span><span></span><span></span><span></span> Read More`;
+            }, 300);
+        }
+    }
+
+    // Initialize on page load
+    document.addEventListener('DOMContentLoaded', function() {
+        document.querySelectorAll('.expanded-content').forEach(content => {
+            content.style.display = 'none';
+            content.style.opacity = '0';
+        });
+    });
+</script>
 {% endblock %}

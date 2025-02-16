@@ -3,10 +3,6 @@
 {% block title %}Cultural Events - College Fest{% endblock %}
 
 {% block content %}
-<style>
-  .main-content { margin-top: 80px; }
-</style>
-<div class="main-content">
     <section class="event-page mb-5">
         <h1 class="text-center">Cultural Events</h1>
         <p class="text-center">Celebrate art, music, dance, and creativity in our vibrant cultural showcase.</p>
@@ -18,182 +14,431 @@
         <div class="event-card-horizontal mb-5">
             <div class="event-image">
                 <img src="{{ url_for('static', filename='assets/NINAAD.webp') }}" alt="NINAAD">
+                <!-- Ensure that the file 'NINAAD.webp' exists in /d:/college yukti fest/yukti2025/static/assets -->
             </div>
             <div class="event-content">
-                <h3>NINAAD - Find The Voice Within!</h3>
-                <p>Unleash your vocal talent in this enchanting singing competition. Solo performances that celebrate both classical and contemporary music.</p>
+                <h3>NINAAD (Singing - Solo & Group)</h3>
+                <div class="event-description">
+                    <p>Unleash your vocal talent in this enchanting singing competition. Solo performances that celebrate both classical and contemporary music.</p>
+                    <div class="expanded-content">
+                        <strong>Solo Singing - Semiclassical/Retro 1970's - 1980's</strong>
+                        <p class="mb-3">TERMS AND CONDITIONS:</p>
+                        <ol>
+                            <li>Each performance has a 3-minute time limit.</li>
+                            <li>Participants will not be allowed to refer to lyrics while singing.</li>
+                            <li>The participant will be judged on the song selection, vocal clarity, rhythm, and audience appeal.</li>
+                            <li>Copy of lyrics should be sent to the coordinators well before the event.</li>
+                            <li>Karaoke and musical instruments are not allowed.</li>
+                            <li>The choice of song is open to the participants but the song should not have any slang or derogatory language.</li>
+                        </ol>
+                        <div>
+                            <br>
+                        </div>
+                        <strong>Pop or Rock (Rock out with your socks out)</strong>
+                        <p class="mb-3">TERMS AND CONDITIONS:</p>
+                        <ol>
+                            <li>A team should have a minimum of 4 maximum of 10 members.</li>
+                            <li>Time duration 15 mins (including set-up and clearance).</li>
+                            <li>The participant has to bring their musical gear.</li>
+                            <li>Instruments of all kinds are welcomed.</li>
+                        </ol>
+                        <div>
+                            <br>
+                        </div>
+                        <strong>Faculty Coordinators:</strong>
+                        <ul>
+                            <li>Dr. Swaroopa Shastri - Chairman</li>
+                            <li>Prof. Shilpa Joshi - Member</li>
+                            <li>Prof. Vijayalakshmi - Member</li>
+                        </ul>
+                        <div>
+                            <br>
+                        </div>
+                        <strong>Student Coordinators:</strong>
+                        <ul>
+                            <li>Mahalaxmi - 8747935698</li>
+                            <li>Bhagyashree S. K. - 6364077916</li>
+                            <li>Jyohi - 9148696704</li>
+                            <li>Sneha - 9108148184</li>
+                            <li>Bhagyashree - 8431180672</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <button class="btn-read-more" onclick="toggleDescription(this)">
+                    <span></span><span></span><span></span><span></span>
+                    Read More
+                </button>
+                
                 <ul class="event-details">
-                    <li><i class="bi bi-person-fill"></i> Individual Participation</li>
-                    <li><i class="bi bi-cash"></i> Registration Fee: ₹200</li>
+                    <li><i class="bi bi-people-fill"></i> Solo or Group (4-10 members)</li>
+                    <li><i class="bi bi-cash"></i> Registration Fee: ₹200/solo, ₹600/group</li>
                     <li><i class="bi bi-trophy-fill"></i> Prizes Worth: ₹10,000</li>
                 </ul>
-                <a href="{{ url_for('register') }}" class="btn btn-register">
-                    <span></span><span></span><span></span><span></span>
-                    Register Now
-                </a>
+
+                <div class="button-container">
+                    <a href="{{ url_for('register') }}" class="btn btn-register">
+                        <span></span><span></span><span></span><span></span>
+                        Register Now
+                    </a>
+                </div>
             </div>
         </div>
 
-        <!-- Nritya Saadhana -->
+        <!-- NRITYA SAADHANA -->
         <div class="event-card-horizontal mb-5">
             <div class="event-image">
                 <img src="{{ url_for('static', filename='assets/Nritya.webp') }}" alt="Nritya Saadhana">
+                <!-- Verify image exists in the static/assets folder -->
             </div>
             <div class="event-content">
-                <h3>Nritya Saadhana</h3>
-                <p>Solo dance competition showcasing classical, contemporary, and freestyle performances. Express yourself through the art of movement.</p>
-                <ul class="event-details">
-                    <li><i class="bi bi-person-fill"></i> Individual Participation</li>
-                    <li><i class="bi bi-cash"></i> Registration Fee: ₹200</li>
-                    <li><i class="bi bi-trophy-fill"></i> Prizes Worth: ₹8,000</li>
-                </ul>
-                <a href="{{ url_for('register') }}" class="btn btn-register">
+                <h3>NRITYA SAADHANA (Dance - Solo & Group)</h3>
+                <div class="event-description">
+                    <p>Express yourself through dance in this dynamic performance competition showcasing both solo and group talents.</p>
+                    <div class="expanded-content">
+                        <strong>RULES & REGULATIONS:</strong>
+                        <ol>
+                            <li>The time limit is 4-10 mins for each performance.</li>
+                            <li>Solo/Group performances both are allowed.</li>
+                            <li>Group Dance can have 4-8 members.</li>
+                            <li>The participants are requested to bring a USB with uploaded Music/song. Each File must be clearly labeled.</li>
+                            <li>No props/costumes will be provided by the coordinator.</li>
+                            <li>A green room would be provided for changing purposes.</li>
+                            <li>Dance performance should not convey any indecent gesture.</li>
+                            <li>The judge's decision will be fair and final.</li>
+                            <li>The dance should not end with negative emotions.</li>
+                        </ol>
+                        <div>
+                            <br>
+                        </div>
+                        <strong>Faculty Coordinators:</strong>
+                        <ul>
+                            <li>Dr. Shailaja Kheni - Chairman</li>
+                            <li>Dr. Savita S. G. - Member</li>
+                            <li>Prof. Neha Deshmukh - Member</li>
+                            <li>Prof. Ashwini Sangam - Member</li>
+                        </ul>
+                        <div>
+                            <br>
+                        </div>
+                        <strong>Student Coordinators:</strong>
+                        <ul>
+                            <li>Bhavaneshwari - 8050512133</li>
+                            <li>Madhavi - 8971185007</li>
+                            <li>Pallavi - 9036028660</li>
+                            <li>Bharath - 9148392676</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <button class="btn-read-more" onclick="toggleDescription(this)">
                     <span></span><span></span><span></span><span></span>
-                    Register Now
-                </a>
+                    Read More
+                </button>
+                
+                <ul class="event-details">
+                    <li><i class="bi bi-people-fill"></i> Solo or Group (4-8 members)</li>
+                    <li><i class="bi bi-cash"></i> Registration Fee: ₹200/solo, ₹500/group</li>
+                    <li><i class="bi bi-trophy-fill"></i> Prizes Worth: ₹15,000</li>
+                </ul>
+
+                <div class="button-container">
+                    <a href="{{ url_for('register') }}" class="btn btn-register">
+                        <span></span><span></span><span></span><span></span>
+                        Register Now
+                    </a>
+                </div>
             </div>
         </div>
 
-        <!-- NATYA Mayuri -->
-        <div class="event-card-horizontal mb-5">
-            <div class="event-image">
-                <img src="{{ url_for('static', filename='assets/NATYA.webp') }}" alt="NATYA Mayuri">
-            </div>
-            <div class="event-content">
-                <h3>NATYA Mayuri</h3>
-                <p>Group dance extravaganza featuring synchronized performances, cultural fusion, and creative choreography.</p>
-                <ul class="event-details">
-                    <li><i class="bi bi-people-fill"></i> Team Size: 4-8 members</li>
-                    <li><i class="bi bi-cash"></i> Registration Fee: ₹500/team</li>
-                    <li><i class="bi bi-trophy-fill"></i> Prizes Worth: ₹15,000</li>
-                </ul>
-                <a href="{{ url_for('register') }}" class="btn btn-register">
-                    <span></span><span></span><span></span><span></span>
-                    Register Now
-                </a>
-            </div>
-        </div>
+      
 
         <!-- Navyataa -->
         <div class="event-card-horizontal mb-5">
             <div class="event-image">
                 <img src="{{ url_for('static', filename='assets/Ramp_Walk.webp') }}" alt="Navyataa">
+                <!-- Verify image file 'Ramp_Walk.webp' is present in /d:/college yukti fest/yukti2025/static/assets -->
             </div>
             <div class="event-content">
-                <h3>Navyataa (Ramp Walk)</h3>
-                <p>Showcase your style and confidence on the runway. A fashion event that celebrates creativity, elegance, and personality.</p>
+                <h3>NAVYATAA (Ramp Walk)</h3>
+                <div class="event-description">
+                    <p>Showcase your style and confidence on the runway. A fashion event that celebrates creativity, elegance, and personality.</p>
+                    <div class="expanded-content">
+                        <strong>RULES AND REGULATIONS:</strong>
+                        <ol>
+                            <li>The theme for the event will be: Be Bold For Change.</li>
+                            <li>Single, Pair, and Group ramp walks are allowed.</li>
+                            <li>Vulgarity is strongly prohibited. Any form of obscenity will lead to debarring the team from the contest.</li>
+                            <li>Ramp walk will be judged on costumes, theme, walking stance, attitude, and tagline.</li>
+                            <li>Each group should have one tagline representing their group and the theme (Be Bold For Change).</li>
+                            <li>The decision of the judges will be final and binding.</li>
+                            <li>All costumes are permitted, which should maintain decency.</li>
+                            <li>Green Room will be provided for changing purposes.</li>
+                            <li>Participants should carry their costumes.</li>
+                        </ol>
+                        <div>
+                            <br>
+                        </div>
+                        <strong>Faculty Coordinators:</strong>
+                        <ul>
+                            <li>Dr. Rekha N. Patil - Chairman</li>
+                            <li>Prof. Neha Deshmukh - Member</li>
+                            <li>Prof. Unnati Ukanal - Member</li>
+                            <li>Prof. Pooja Marab - Member</li>
+                        </ul>
+                        <div>
+                            <br>
+                        </div>
+                        <strong>Student Coordinators:</strong>
+                        <ul>
+                            <li>Anjali S. - 6361073516</li>
+                            <li>Amar</li>
+                            <li>Bhavani - 9731511019</li>
+                            <li>Ankita - 9972551106</li>
+                            <li>Tayaba - 9019193765</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <button class="btn-read-more" onclick="toggleDescription(this)">
+                    <span></span><span></span><span></span><span></span>
+                    Read More
+                </button>
+                
                 <ul class="event-details">
-                    <li><i class="bi bi-person-fill"></i> Individual Participation</li>
-                    <li><i class="bi bi-cash"></i> Registration Fee: ₹300</li>
+                    <li><i class="bi bi-people-fill"></i> Individual/Pair/Group</li>
+                    <li><i class="bi bi-cash"></i> Registration Fee: ₹300/participant</li>
                     <li><i class="bi bi-trophy-fill"></i> Prizes Worth: ₹12,000</li>
                 </ul>
-                <a href="{{ url_for('register') }}" class="btn btn-register">
-                    <span></span><span></span><span></span><span></span>
-                    Register Now
-                </a>
+
+                <div class="button-container">
+                    <a href="{{ url_for('register') }}" class="btn btn-register">
+                        <span></span><span></span><span></span><span></span>
+                        Register Now
+                    </a>
+                </div>
             </div>
         </div>
 
-        <!-- Sthala Chitrapatha -->
-        <div class="event-card-horizontal mb-5">
-            <div class="event-image">
-                <img src="{{ url_for('static', filename='assets/Sthala.webp') }}" alt="Sthala Chitrapatha">
-            </div>
-            <div class="event-content">
-                <h3>Sthala Chitrapatha</h3>
-                <p>Photography competition capturing moments, emotions, and stories through your lens. Theme-based contest for photography enthusiasts.</p>
-                <ul class="event-details">
-                    <li><i class="bi bi-person-fill"></i> Individual Participation</li>
-                    <li><i class="bi bi-cash"></i> Registration Fee: ₹150</li>
-                    <li><i class="bi bi-trophy-fill"></i> Prizes Worth: ₹7,000</li>
-                </ul>
-                <a href="{{ url_for('register') }}" class="btn btn-register">
-                    <span></span><span></span><span></span><span></span>
-                    Register Now
-                </a>
-            </div>
-        </div>
+        <style>
+            /* Enhanced Page Header */
+            .event-page {
+                background: linear-gradient(135deg, #1C1C1C 0%, #2d1f1f 100%);
+                position: relative;
+                padding: 6rem 0 4rem;
+                overflow: hidden;
+            }
 
-        <!-- Chitragatha -->
-        <div class="event-card-horizontal mb-5">
-            <div class="event-image">
-                <img src="{{ url_for('static', filename='assets/Short_Film.webp') }}" alt="Chitragatha">
-            </div>
-            <div class="event-content">
-                <h3>Chitragatha (Short Film)</h3>
-                <p>Create compelling short films that tell unique stories. Showcase your filmmaking talent through creative narratives.</p>
-                <ul class="event-details">
-                    <li><i class="bi bi-people-fill"></i> Team Size: 3-6 members</li>
-                    <li><i class="bi bi-cash"></i> Registration Fee: ₹400/team</li>
-                    <li><i class="bi bi-trophy-fill"></i> Prizes Worth: ₹20,000</li>
-                </ul>
-                <a href="{{ url_for('register') }}" class="btn btn-register">
-                    <span></span><span></span><span></span><span></span>
-                    Register Now
-                </a>
-            </div>
-        </div>
+            .event-page::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: 
+                    linear-gradient(90deg, transparent 50%, rgba(255, 215, 0, 0.05) 100%),
+                    radial-gradient(circle at 50% 50%, rgba(255, 215, 0, 0.1) 0%, transparent 50%);
+                animation: shimmer 10s infinite linear;
+            }
 
-        <!-- RUPEKHA -->
-        <div class="event-card-horizontal mb-5">
-            <div class="event-image">
-                <img src="{{ url_for('static', filename='assets/RUPEKHA.webp') }}" alt="RUPEKHA">
-            </div>
-            <div class="event-content">
-                <h3>RUPEKHA</h3>
-                <p>Painting competition exploring themes through colors and creativity. Express your artistic vision on canvas.</p>
-                <ul class="event-details">
-                    <li><i class="bi bi-person-fill"></i> Individual Participation</li>
-                    <li><i class="bi bi-cash"></i> Registration Fee: ₹200</li>
-                    <li><i class="bi bi-trophy-fill"></i> Prizes Worth: ₹8,000</li>
-                </ul>
-                <a href="{{ url_for('register') }}" class="btn btn-register">
-                    <span></span><span></span><span></span><span></span>
-                    Register Now
-                </a>
-            </div>
-        </div>
+            .event-page h1 {
+                font-size: 4.5rem;
+                background: linear-gradient(45deg, #FFD700, #ff6b00, #FFD700);
+                -webkit-background-clip: text;
+                background-clip: text;
+                color: transparent;
+                margin-bottom: 1.5rem;
+                font-family: 'Orbitron', sans-serif;
+                text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
+            }
 
-        <!-- Hastakala -->
-        <div class="event-card-horizontal mb-5">
-            <div class="event-image">
-                <img src="{{ url_for('static', filename='assets/Hastakala.webp') }}" alt="Hastakala">
-            </div>
-            <div class="event-content">
-                <h3>Hastakala</h3>
-                <p>Handicraft competition showcasing traditional and modern crafting skills. Create beautiful artworks using various materials.</p>
-                <ul class="event-details">
-                    <li><i class="bi bi-person-fill"></i> Individual Participation</li>
-                    <li><i class="bi bi-cash"></i> Registration Fee: ₹150</li>
-                    <li><i class="bi bi-trophy-fill"></i> Prizes Worth: ₹6,000</li>
-                </ul>
-                <a href="{{ url_for('register') }}" class="btn btn-register">
-                    <span></span><span></span><span></span><span></span>
-                    Register Now
-                </a>
-            </div>
-        </div>
+            /* Modernized Event Cards */
+            .event-card-horizontal {
+                background: rgba(28, 28, 28, 0.95);
+                backdrop-filter: blur(10px);
+                border: 1px solid rgba(255, 215, 0, 0.1);
+                border-radius: 20px;
+                margin: 3rem auto;
+                max-width: 1000px;
+                position: relative;
+                overflow: hidden;
+                transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+                padding: 1.5rem;  /* Added internal padding */
+            }
 
-        <!-- Swachitra -->
-        <div class="event-card-horizontal mb-5">
-            <div class="event-image">
-                <img src="{{ url_for('static', filename='assets/Selfie_Point.webp') }}" alt="Swachitra">
-            </div>
-            <div class="event-content">
-                <h3>Swachitra (Selfie Point)</h3>
-                <p>Creative selfie competition with themed backdrops and props. Capture your best moments at our specially designed selfie points.</p>
-                <ul class="event-details">
-                    <li><i class="bi bi-person-fill"></i> Individual Participation</li>
-                    <li><i class="bi bi-cash"></i> Registration Fee: ₹100</li>
-                    <li><i class="bi bi-trophy-fill"></i> Prizes Worth: ₹5,000</li>
-                </ul>
-                <a href="{{ url_for('register') }}" class="btn btn-register">
-                    <span></span><span></span><span></span><span></span>
-                    Register Now
-                </a>
-            </div>
-        </div>
+            .event-card-horizontal::before {
+                content: '';
+                position: absolute;
+                inset: 0;
+                background: linear-gradient(45deg, 
+                    transparent 0%, 
+                    rgba(255, 215, 0, 0.1) 50%, 
+                    transparent 100%);
+                opacity: 0;
+                transition: opacity 0.4s ease;
+            }
 
+            .event-card-horizontal:hover::before {
+                opacity: 1;
+            }
+
+            /* Enhanced Image Container */
+            .event-image {
+                width: 220px;
+                height: 220px;
+                border-radius: 50%;
+                position: relative;
+                overflow: hidden;
+                border: 3px solid transparent;
+                background: linear-gradient(145deg, #FFD700, #ff6b00) border-box;
+                -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+                mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);  /* added standard property */
+                mask-composite: exclude;
+            }
+
+            .event-image img {
+                transform: scale(1.1);
+                transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            }
+
+            .event-card-horizontal:hover .event-image img {
+                transform: scale(1.2) rotate(3deg);
+            }
+
+            /* Enhanced Content Styling */
+            .event-content h3 {
+                font-size: 2.2rem;
+                color: #FFD700;
+                margin: 1.5rem 0;
+                font-family: 'Cinzel', serif;
+                position: relative;
+                display: inline-block;
+            }
+
+            .event-content h3::after {
+                content: '';
+                position: absolute;
+                bottom: -10px;
+                left: 0;
+                width: 100%;
+                height: 2px;
+                background: linear-gradient(90deg, transparent, #FFD700, transparent);
+            }
+
+            .event-content {
+                padding: 1.5rem; /* Added padding for inner spacing */
+            }
+
+            .event-details {
+                margin-top: 1rem;  /* Better separation from content above */
+                font-size: 1rem;
+            }
+
+            /* Enhanced Button Styling */
+            .button-container {
+                display: flex;
+                gap: 1.5rem;
+                margin-top: 2rem;
+                justify-content: center;
+            }
+
+            .btn-read-more, .btn-register {
+                padding: 1rem 2.5rem;  /* Increased button padding for a refined look */
+                font-size: 1rem;
+                font-weight: 600;
+                letter-spacing: 2px;
+                border-radius: 8px;
+                position: relative;
+                overflow: hidden;
+                z-index: 1;
+                transition: all 0.4s ease;
+            }
+
+            .btn-read-more {
+                background: transparent;
+                color: #FFD700;
+                border: 2px solid #FFD700;
+                cursor: pointer;  /* added pointer cursor */
+            }
+
+            .btn-register {
+                background: linear-gradient(45deg, #8B0000, #cc0000);
+                color: #FFD700;
+                border: none;
+            }
+
+            .btn-read-more:hover, .btn-register:hover {
+                transform: translateY(-3px);
+                box-shadow: 0 5px 15px rgba(255, 215, 0, 0.3);
+            }
+
+            /* Animations */
+            @keyframes shimmer {
+                0% { background-position: -1000px 0; }
+                100% { background-position: 1000px 0; }
+            }
+
+            @media (max-width: 768px) {
+                .event-page h1 {
+                    font-size: 2.5rem;
+                }
+                .event-image {
+                    width: 180px;
+                    height: 180px;
+                }
+                .event-content h3 {
+                    font-size: 1.8rem;
+                }
+                .button-container {
+                    flex-direction: column;
+                }
+            }
+
+            /* Add these rules to hide and show the expanded content */
+            .expanded-content {
+                display: none;
+                opacity: 0;
+                transition: opacity 0.3s ease;
+                padding: 50px;              /* Added padding */
+                background: rgba(45, 49, 56, 0.8);  /* Updated background to match site theme */
+                border-radius: 8px;         /* Rounded corners */
+                margin-top: 1rem;           /* Separation from above content */
+            }
+            .expanded-content.active {
+                display: block;
+                opacity: 1;
+            }
+        </style>
+        
+        <script>
+    function toggleDescription(button) {
+        const eventCard = button.closest('.event-card-horizontal');
+        const expandedContent = eventCard.querySelector('.expanded-content');
+        
+        // Toggle display and opacity
+        if (expandedContent.style.display === 'none' || !expandedContent.style.display) {
+            expandedContent.style.display = 'block';
+            setTimeout(() => {
+                expandedContent.style.opacity = '1';
+                button.innerHTML = `<span></span><span></span><span></span><span></span> Show Less`;
+            }, 10);
+        } else {
+            expandedContent.style.opacity = '0';
+            setTimeout(() => {
+                expandedContent.style.display = 'none';
+                button.innerHTML = `<span></span><span></span><span></span><span></span> Read More`;
+            }, 300);
+        }
+    }
+
+    // Initialize all expanded content sections to be hidden on page load
+    document.addEventListener('DOMContentLoaded', function() {
+        document.querySelectorAll('.expanded-content').forEach(content => {
+            content.style.display = 'none';
+            content.style.opacity = '0';
+        });
+    });
+</script>
       
-</div>
 {% endblock %}

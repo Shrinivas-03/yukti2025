@@ -3,31 +3,232 @@
 {% block title %}Game Events - College Fest{% endblock %}
 
 {% block content %}
-<style>
-  .main-content { margin-top: 80px; }
-</style>
-<div class="main-content">
-    <section class="event-page mb-5">
-        <h1 class="text-center">Game Events</h1>
-        <p class="text-center">Challenge yourself in exciting gaming competitions.</p>
-    </section>
+<section class="event-page mb-5">
+    <h1 class="text-center">Game Events</h1>
+    <p class="text-center">Challenge yourself in exciting gaming competitions.</p>
+</section>
 
-    <!-- Events Container -->
-    <div class="container py-5">
-        <!-- BGMIII -->
-        <div class="event-card-horizontal mb-5">
-            <div class="event-image">
-                <img src="{{ url_for('static', filename='images/events/bgmi.jpg') }}" alt="BGMIII">
+<div class="container py-5">
+    <!-- Copy the style structure from cultural.html -->
+    <style>
+        /* Copy exact same styles from cultural.html */
+        .event-page {
+            background: linear-gradient(135deg, #1C1C1C 0%, #2d1f1f 100%);
+            position: relative;
+            padding: 6rem 0 4rem;
+            overflow: hidden;
+        }
+
+        .event-page::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                linear-gradient(90deg, transparent 50%, rgba(255, 215, 0, 0.05) 100%),
+                radial-gradient(circle at 50% 50%, rgba(255, 215, 0, 0.1) 0%, transparent 50%);
+            animation: shimmer 10s infinite linear;
+        }
+
+        .event-page h1 {
+            font-size: 4.5rem;
+            background: linear-gradient(45deg, #FFD700, #ff6b00, #FFD700);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 1.5rem;
+            font-family: 'Orbitron', sans-serif;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
+        }
+
+        /* Exact same card and content styles */
+        .event-card-horizontal {
+            background: rgba(28, 28, 28, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 215, 0, 0.1);
+            border-radius: 20px;
+            margin: 3rem auto;
+            max-width: 1000px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            padding: 1.5rem;  /* Added internal padding */
+        }
+
+        /* Match expanded content styling */
+        .expanded-content {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            padding: 50px;              /* Added padding */
+            background: rgba(45, 49, 56, 0.8);
+            border-radius: 8px;
+            margin-top: 1rem;           /* Separation from above content */
+        }
+
+        .expanded-content.active {
+            display: block;
+            opacity: 1;
+        }
+
+        /* Match button styling */
+        .btn-read-more {
+            background: transparent;
+            color: #FFD700;
+            border: 2px solid #FFD700;
+            cursor: pointer;
+            padding: 1rem 2.5rem;
+            margin-bottom: 5x;
+            font-size: 1rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            border-radius: 8px;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            transition: all 0.4s ease;
+        }
+
+        .btn-read-more:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(255, 215, 0, 0.3);
+        }
+
+        /* Enhanced Button Styling copied from cultural.html */
+        .button-container {
+            display: flex;
+            gap: 1.5rem;
+            margin-top: 2rem;
+            justify-content: center;
+        }
+
+        .btn-read-more, .btn-register {
+            padding: 1rem 2.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            border-radius: 8px;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            transition: all 0.4s ease;
+        }
+
+        .btn-read-more {
+            background: transparent;
+            color: #FFD700;
+            border: 2px solid #FFD700;
+            cursor: pointer;
+        }
+
+        .btn-register {
+            background: linear-gradient(45deg, #8B0000, #cc0000);
+            color: #FFD700;
+            border: none;
+        }
+
+        .btn-read-more:hover, .btn-register:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(255, 215, 0, 0.3);
+        }
+
+        /* Adding padding styles from cultural.html */
+        .event-content {
+            padding: 1.5rem; /* Added padding for inner spacing */
+        }
+
+        .event-details {
+            margin-top: 1rem;  /* Better separation from content above */
+            font-size: 1rem;
+        }
+
+        /* Keep the same animations */
+        @keyframes shimmer {
+            0% { background-position: -1000px 0; }
+            100% { background-position: 1000px 0; }
+        }
+
+        /* Keep the same responsive styles */
+        @media (max-width: 768px) {
+            .event-page h1 { font-size: 2.5rem; }
+            .event-content h3 { font-size: 1.8rem; }
+            .button-container { flex-direction: column; }
+        }
+    </style>
+
+    <!-- BGMI Event Card -->
+    <div class="event-card-horizontal mb-5">
+        <div class="event-image">
+            <img src="{{ url_for('static', filename='assets/bgmi.webp') }}" alt="BGMI">
+        </div>
+        <div class="event-content">
+            <h3>BGMI (BATTLEGROUNDS MOBILE INDIA)</h3>
+            <div class="event-description">
+                <p>Battle it out in India's most popular mobile battle royale game. Compete in squads and prove your tactical supremacy!</p>
+                <div class="expanded-content">
+                    <!-- Content structure similar to cultural events -->
+                    <strong>GUIDELINES:</strong>
+                    <ol>
+                        <li>College ID is compulsory.</li>
+                        <li>It is a 4(+1) player-team tournament. A 4 man-starter roster and up to 1 substitute.</li>
+                        <li>Emulators are not allowed in any game mode organized. The player will be disqualified if found using any kind of emulator.</li>
+                        <li>Any game modifying tools except the 'GFX tool' is not allowed.</li>
+                        <li>Players can play on Android/ios tablets/ phones only.</li>
+                        <li>Only in-game voice chat should be used after the game is started till its completion. Bring your headphones/earphones.</li>
+                        <li>Any use of unfair means such as aimbot, triggebot, or ESP will be disqualified.</li>
+                        <li>Should a team/player fail to join the room in time, their squad will be disqualified.</li>
+                        <li>Waiting time is at most 10 minutes between games.</li>
+                        <li>Exiting a game without good reason will disqualify the team.</li>
+                        <li>The exploitation of bugs that hinder fair play will result in disqualification.</li>
+                        <li>Organizers would not be held responsible for connectivity issues on the participant's side.</li>
+                        <li>The entry fee would not be refunded under any circumstances.</li>
+                        <li>Organizers reserve the right to accept or reject any entry without a reason thereof.</li>
+                        <li>Participants are requested to remain ready a least 30 minutes before the start of any match. Late entries would not be allowed.</li>
+                    </ol>
+                    <div><br></div>
+                    <strong>REQUIREMENTS:</strong>
+                    <div class="requirements">
+                        <strong>Faculty Coordinators:</strong>
+                        <ul>
+                            <li>Prof. Rahul Moolbharathi - Chairman</li>
+                            <li>Prof. Kiran Patil - Member</li>
+                            <li>Mr. Vijaykumar Patil - Member</li>
+                            <li>Ms. Akshata Awate - Member</li>
+                        </ul>
+
+                        <strong>Student Coordinators:</strong>
+                        <ul>
+                            <li>Prashant Biradar - 8431700872</li>
+                            <li>Sangamesh Belure</li>
+                            <li>Aishwarya More</li>
+                            <li>Vishwa Walande</li>
+                            <li>Siddesh</li>
+                            <li>Rahul</li>
+                            <li>Dnyaneshwar</li>
+                            <li>Kiran</li>
+                            <li>Manupriya</li>
+                            <li>Kaif</li>
+                            <li>Darshan</li>
+                        </ul>
+                    </div>
+                </div>
             </div>
-            <div class="event-content">
-                <h3>BGMIII</h3>
-                <p>Competitive gaming tournament featuring Battlegrounds Mobile India. Squad up and compete for victory in intense battles.</p>
-                <ul class="event-details">
-                    <li><i class="bi bi-people-fill"></i> Team Size: 4 members</li>
-                    <li><i class="bi bi-cash"></i> Registration Fee: ₹400/team</li>
-                    <li><i class="bi bi-trophy-fill"></i> Prizes Worth: ₹15,000</li>
-                </ul>
-                <a href="{{ url_for('signin') }}" class="btn btn-register">
+            
+            <button class="btn-read-more" onclick="toggleDescription(this)">
+                <span></span><span></span><span></span><span></span>
+                Read More
+            </button>
+            
+            <ul class="event-details">
+                <li><i class="bi bi-people-fill"></i> Team Size: 4+1 members</li>
+                <li><i class="bi bi-cash"></i> Registration Fee: ₹400/team</li>
+                <li><i class="bi bi-trophy-fill"></i> Prizes Worth: ₹15,000</li>
+            </ul>
+
+            <div class="button-container">
+                <a href="{{ url_for('register') }}" class="btn btn-register">
                     <span></span><span></span><span></span><span></span>
                     Register Now
                 </a>
@@ -35,25 +236,108 @@
         </div>
     </div>
 
-      <!-- Talaash -->
-      <div class="event-card-horizontal mb-5">
+    <!-- TALAASH Event Card -->
+    <div class="event-card-horizontal mb-5">
         <div class="event-image">
-            <img src="{{ url_for('static', filename='images/events/treasure.jpg') }}" alt="Talaash">
+            <img src="{{ url_for('static', filename='images/events/treasure.jpg') }}" alt="TALAASH">
         </div>
         <div class="event-content">
-            <h3>Talaash</h3>
-            <p>Exciting treasure hunt combining wit, wisdom, and adventure. Solve clues and complete challenges across the campus.</p>
+            <h3>TALAASH (Treasure Hunt)</h3>
+            <div class="event-description">
+                <p class="quote">"Khelo Dimag se, dhundo maze se"</p>
+                <p>An exciting treasure hunt that combines wit, wisdom, and teamwork to solve clues and find the ultimate prize.</p>
+                <div class="expanded-content">
+                    <strong>RULES AND REGULATIONS:</strong>
+                    <ol>
+                        <li>Each team can have a maximum of 5 members. Each team will be assigned a color code (i.e. piece of paper of their color).</li>
+                        <li>Team color code will be assigned with performing a task.</li>
+                        <li>The clues are found to be in a particular order.</li>
+                        <li>All the clues of the team are different and located at different places but the final destination, the treasure is the same. The team that finds the treasure is the Winner.</li>
+                        <li>Each identified clue carries 10 points.</li>
+                        <li>A team cannot skip a clue. Skipping clue leads to the Negative marking (only one chance will be given).</li>
+                        <li>The time given to find each clue for each time is 10 minutes only.</li>
+                        <li>If Participants find another team's clue by any chance they are not supposed to tamper with it.</li>
+                        <li>A violation of this rule could disqualification of the team.</li>
+                        <li>Players of your team should not destroy property belongings if found doing so they will be disqualified and will be charged with a penalty.</li>
+                        <li>Disqualification will be done if any team is found Malpracting</li>
+                        <li>Help from the volunteers, friends, and discussion among other team members leads to Negative marking and disqualification</li>
+                        <li>Mobile Phones are strictly banned while playing the game if found direct disqualification.</li>
+                    </ol>
+
+                    <strong>Faculty Coordinators:</strong>
+                    <ul>
+                        <li>Mr. Sharan Patil - Chairman</li>
+                        <li>Mr. Mallikarjun - Member</li>
+                        <li>Mr. Ramdas Rathod - Member</li>
+                        <li>Ms. Sunitha - Member</li>
+                        <li>Ms. Sudha M - Member</li>
+                    </ul>
+
+                    <strong>Student Coordinators:</strong>
+                    <ul>
+                        <li>Abhishek Pawar - 8197775213</li>
+                        <li>Ranjita - 8147115170</li>
+                        <li>Ayesha - 8088445457</li>
+                        <li>Prabhuling K - 8105578472</li>
+                        <li>Anjali - 8884236065</li>
+                        <li>Vikas C. - 8123264580</li>
+                        <li>Abhishek Navale - 7676084780</li>
+                        <li>Naveen Patil - 7411301177</li>
+                        <li>Karthik - 9845034598</li>
+                        <li>Vaishnavi S. - 9035532004</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <button class="btn-read-more" onclick="toggleDescription(this)">
+                <span></span><span></span><span></span><span></span>
+                Read More
+            </button>
+            
             <ul class="event-details">
-                <li><i class="bi bi-people-fill"></i> Team Size: 2-3 members</li>
+                <li><i class="bi bi-people-fill"></i> Team Size: Up to 5 members</li>
                 <li><i class="bi bi-cash"></i> Registration Fee: ₹300/team</li>
                 <li><i class="bi bi-trophy-fill"></i> Prizes Worth: ₹10,000</li>
             </ul>
-            <a href="{{ url_for('signin') }}" class="btn btn-register">
-                <span></span><span></span><span></span><span></span>
-                Register Now
-            </a>
+
+            <div class="button-container">
+                <a href="{{ url_for('register') }}" class="btn btn-register">
+                    <span></span><span></span><span></span><span></span>
+                    Register Now
+                </a>
+            </div>
         </div>
     </div>
-</div>
+
+    <!-- Use the same JavaScript from cultural.html -->
+    <script>
+        // Same toggle function as cultural.html
+        function toggleDescription(button) {
+            const eventCard = button.closest('.event-card-horizontal');
+            const expandedContent = eventCard.querySelector('.expanded-content');
+            
+            if (expandedContent.style.display === 'none' || !expandedContent.style.display) {
+                expandedContent.style.display = 'block';
+                setTimeout(() => {
+                    expandedContent.style.opacity = '1';
+                    button.innerHTML = `<span></span><span></span><span></span><span></span> Show Less`;
+                }, 10);
+            } else {
+                expandedContent.style.opacity = '0';
+                setTimeout(() => {
+                    expandedContent.style.display = 'none';
+                    button.innerHTML = `<span></span><span></span><span></span><span></span> Read More`;
+                }, 300);
+            }
+        }
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.expanded-content').forEach(content => {
+                content.style.display = 'none';
+                content.style.opacity = '0';
+            });
+        });
+    </script>
 </div>
 {% endblock %}
