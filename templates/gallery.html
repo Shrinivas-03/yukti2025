@@ -6,14 +6,48 @@
 <style>
     .main-content {
         margin-top: 80px;
-        background: rgba(30, 30, 30, 0.95);
         min-height: 100vh;
+        background: linear-gradient(
+            45deg,
+            #1C1C1C,
+            #2E2E2E,
+            #1C1C1C,
+            #2d1f1f,
+            #1C1C1C
+        );
+        background-size: 400% 400%;
+        animation: gradientFlow 15s ease infinite;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .main-content::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: 
+            linear-gradient(to right, rgba(255, 215, 0, 0.1) 1px, transparent 1px),
+            linear-gradient(to bottom, rgba(255, 215, 0, 0.1) 1px, transparent 1px);
+        background-size: 30px 30px;
+        transform: perspective(500px) rotateX(45deg) scale(2);
+        animation: gridFloat 20s linear infinite;
+        pointer-events: none;
+        opacity: 0.2;
     }
 
     .gallery {
+        position: relative;
+        z-index: 1;
         max-width: 1200px;
         margin: 0 auto;
         padding: 2rem;
+        background: rgba(30, 30, 30, 0.8);
+        backdrop-filter: blur(10px);
+        border-radius: 15px;
+        box-shadow: 0 0 30px rgba(0, 0, 0, 0.4);
     }
 
     .gallery h1 {
@@ -44,12 +78,14 @@
         border-radius: 10px;
         border: 2px solid #8B0000;
         transition: all 0.3s ease;
+        backdrop-filter: blur(5px);
+        background: rgba(46, 46, 46, 0.7);
     }
 
     .gallery-item:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 5px 15px rgba(255, 215, 0, 0.2);
-        border-color: #FFD700;
+        transform: translateY(-5px) scale(1.02);
+        box-shadow: 0 5px 15px rgba(255, 215, 0, 0.3);
+        border-color: rgba(255, 215, 0, 0.5);
     }
 
     .gallery-item img {
@@ -79,6 +115,27 @@
         opacity: 1;
     }
 
+    @keyframes gradientFlow {
+        0% {
+            background-position: 0% 50%;
+        }
+        50% {
+            background-position: 100% 50%;
+        }
+        100% {
+            background-position: 0% 50%;
+        }
+    }
+
+    @keyframes gridFloat {
+        0% {
+            transform: perspective(500px) rotateX(45deg) translateY(0) scale(2);
+        }
+        100% {
+            transform: perspective(500px) rotateX(45deg) translateY(-30px) scale(2);
+        }
+    }
+
     @media (max-width: 768px) {
         .gallery-grid {
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -98,22 +155,22 @@
         <p>Relive the best moments from our College Fest!</p>
         <div class="gallery-grid">
             <div class="gallery-item">
-                <img src="{{ url_for('static', filename='assests/01.jpg') }}" alt="Event 1">
+                <img src="{{ url_for('static', filename='assets/01.webp') }}" alt="Event 1">
             </div>
             <div class="gallery-item">
-                <img src="{{ url_for('static', filename='assests/gallery2.jpg') }}" alt="Event 2">
+                <img src="{{ url_for('static', filename='assets/02.jpg') }}" alt="Event 2">
             </div>
             <div class="gallery-item">
-                <img src="{{ url_for('static', filename='assests/gallery3.jpg') }}" alt="Event 3">
+                <img src="{{ url_for('static', filename='assets/03.jpg') }}" alt="Event 3">
             </div>
             <div class="gallery-item">
-                <img src="{{ url_for('static', filename='assests/gallery4.jpg') }}" alt="Event 4">
+                <img src="{{ url_for('static', filename='assets/04.jpg') }}" alt="Event 4">
             </div>
             <div class="gallery-item">
-                <img src="{{ url_for('static', filename='assests/gallery5.jpg') }}" alt="Event 5">
+                <img src="{{ url_for('static', filename='assets/05.jpg') }}" alt="Event 5">
             </div>
             <div class="gallery-item">
-                <img src="{{ url_for('static', filename='assests/gallery6.jpg') }}" alt="Event 6">
+                <img src="{{ url_for('static', filename='assets/06.jpg') }}" alt="Event 6">
             </div>
         </div>
     </section>
