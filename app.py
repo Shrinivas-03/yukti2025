@@ -64,6 +64,20 @@ def generate_ack_id():
     random_chars = ''.join(random.choices(string.ascii_uppercase + string.digits, k=5))
     return f"YUKTI-{timestamp}-{random_chars}"
 
+@app.template_filter('format_datetime')
+def format_datetime(value):
+    try:
+        # Parse the ISO format datetime string
+        if isinstance(value, str):
+            dt = datetime.fromisoformat(value.replace('Z', '+00:00'))
+        else:
+            dt = value
+        # Format it in a more readable way
+        return dt.strftime("%B %d, %Y at %I:%M %p")
+    except Exception as e:
+        print(f"Date formatting error: {str(e)}")
+        return value
+
 # Basic routes remain the same
 @app.route('/')
 def home():

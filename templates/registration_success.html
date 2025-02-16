@@ -41,7 +41,10 @@
         </div>
         
         <p class="important-note">Please pay the registration fees at the registration desk on the event day.</p>
-        <p class="registration-date">Registration Date: {{ details.registration_date }}</p>
+        <p class="registration-date">
+            <span class="date-label">Registration Date:</span> 
+            <span class="date-value">{{ details.registration_date|format_datetime }}</span>
+        </p>
         
         <div class="button-container">
             <button onclick="window.location.href='/'">Back to Home</button>
@@ -54,91 +57,182 @@
 <style>
     .success-container {
         max-width: 800px;
-        margin: 0 auto;
-        padding: 20px;
-        background-color: #fff;
+        margin: 2rem auto;
+        padding: 2rem;
+        background: rgba(30, 30, 30, 0.95);
+        border: 2px solid #FFD700; /* Gold border */
+        border-radius: 10px;
+        box-shadow: 0 0 20px rgba(255, 215, 0, 0.2); /* Gold glow */
+        color: #C0C0C0; /* Silver text */
     }
-    
+
+    .success-container h1 {
+        color: #FFD700;
+        text-align: center;
+        font-size: 2.5rem;
+        margin-bottom: 1.5rem;
+        text-transform: uppercase;
+        text-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+    }
+
+    .ack-details {
+        background: rgba(46, 46, 46, 0.8);
+        padding: 2rem;
+        border-radius: 8px;
+        border: 1px solid #8B0000; /* Rust Red */
+    }
+
+    .ack-details h2 {
+        color: #FFD700;
+        margin-bottom: 1rem;
+        font-size: 1.8rem;
+    }
+
     .registration-details {
-        margin: 20px 0;
-        padding: 15px;
-        border: 1px solid #ddd;
-        border-radius: 5px;
+        margin: 2rem 0;
+        padding: 1.5rem;
+        background: rgba(20, 20, 20, 0.8);
+        border: 1px solid #CD7F32; /* Bronze */
+        border-radius: 6px;
     }
-    
+
+    .personal-info {
+        margin-bottom: 2rem;
+        padding: 1rem;
+        border-left: 3px solid #FFD700;
+    }
+
     .event-detail {
-        margin: 15px 0;
-        padding: 10px;
-        border: 1px solid #eee;
-        border-radius: 4px;
+        background: rgba(40, 40, 40, 0.9);
+        margin: 1rem 0;
+        padding: 1rem;
+        border-radius: 6px;
+        border: 1px solid #8B0000;
+        transition: transform 0.3s ease;
     }
-    
+
+    .event-detail:hover {
+        transform: translateX(10px);
+        box-shadow: 0 0 15px rgba(255, 215, 0, 0.1);
+    }
+
     .event-header {
-        font-size: 1.1em;
-        margin-bottom: 5px;
+        color: #FFD700;
+        font-size: 1.2rem;
+        margin-bottom: 0.5rem;
     }
-    
+
     .event-participants {
-        margin: 5px 0;
-        color: #666;
+        color: #C0C0C0;
+        margin: 0.5rem 0;
     }
-    
+
     .event-cost {
-        color: #0066cc;
+        color: #CD7F32; /* Bronze */
+        font-weight: bold;
     }
-    
+
     .important-note {
-        margin: 20px 0;
-        padding: 10px;
-        background-color: #fff3cd;
-        border: 1px solid #ffeeba;
-        color: #856404;
-        border-radius: 4px;
+        margin: 2rem 0;
+        padding: 1rem;
+        background: rgba(139, 0, 0, 0.2); /* Rust Red background */
+        border: 1px solid #8B0000;
+        color: #FFD700;
+        border-radius: 6px;
+        text-align: center;
+        font-weight: bold;
     }
-    
-    .button-container {
-        margin-top: 20px;
+
+    .registration-date {
+        color: #C0C0C0;
+        text-align: right;
+        font-style: normal;
+        margin-top: 1.5rem;
+        padding: 0.5rem 1rem;
+        background: rgba(40, 40, 40, 0.9);
+        border-radius: 4px;
         display: flex;
-        gap: 10px;
+        justify-content: flex-end;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .date-label {
+        color: #FFD700; /* Gold */
+        font-weight: bold;
+    }
+
+    .date-value {
+        color: #CD7F32; /* Bronze */
+        font-family: 'Consolas', monospace;
+        letter-spacing: 1px;
+    }
+
+    .button-container {
+        display: flex;
+        gap: 1rem;
         justify-content: center;
+        margin-top: 2rem;
     }
-    
+
     .button-container button {
-        padding: 10px 20px;
+        background: #FFD700;
+        color: #1C1C1C;
         border: none;
-        border-radius: 4px;
-        background-color: #0066cc;
-        color: white;
+        padding: 0.8rem 1.5rem;
+        border-radius: 5px;
         cursor: pointer;
+        font-weight: bold;
+        text-transform: uppercase;
+        transition: all 0.3s ease;
+        border: 2px solid transparent;
     }
-    
+
     .button-container button:hover {
-        background-color: #0052a3;
+        background: #1C1C1C;
+        color: #FFD700;
+        border: 2px solid #FFD700;
+        box-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
     }
 
     @media print {
         body {
-            background-color: white;
+            background: white;
+            color: black;
         }
-        
+
         .success-container {
             box-shadow: none;
+            border: 1px solid #000;
             margin: 0;
-            padding: 10px;
+            padding: 20px;
+            background: white;
         }
-        
+
+        .event-detail {
+            border: 1px solid #000;
+            background: white;
+            page-break-inside: avoid;
+        }
+
         .button-container {
             display: none;
         }
-        
-        .event-detail {
-            page-break-inside: avoid;
-            border: 1px solid #000;
-        }
-        
+
         .important-note {
             border: 1px solid #000;
-            background-color: white;
+            background: white;
+            color: black;
+        }
+
+        .registration-date {
+            background: none;
+            color: black;
+            border-top: 1px solid #000;
+            padding-top: 1rem;
+        }
+
+        .date-label, .date-value {
             color: black;
         }
     }
