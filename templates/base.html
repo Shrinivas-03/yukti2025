@@ -29,24 +29,15 @@
                 <ul class="nav-links">
                     <li><a href="{{ url_for('home') }}">Home</a></li>
                     <li><a href="{{ url_for('about') }}">About</a></li>
-                    <li class="dropdown">
-                        <a href="#">Events</a>
-                        <ul class="dropdown-menu">
-                            <li><a href="{{ url_for('tech') }}">Tech</a></li>
-                            <li><a href="{{ url_for('cultural') }}">Cultural Fiesta</a></li>
-                            <li><a href="{{ url_for('management') }}">Entrepreneurial Summit</a></li>
-                            <li><a href="{{ url_for('games') }}">Gaming Tournament</a></li>
-                        </ul>
-                    </li>
+                    <li><a href="{{ url_for('events') }}">Events</a></li>
                     <li><a href="{{ url_for('gallery') }}">Gallery</a></li>
                     <li><a href="{{ url_for('signin') }}" class="highlighted-link">Register</a></li>
                 </ul>
             </nav>
         </div>
     </header>
-    
     <!-- Dynamic Content Block -->
-    <main class="main-content">
+    <main>
         {% block content %}{% endblock %}
     </main>
 
@@ -57,7 +48,7 @@
             <div class="social-links">
                 <a href="#"><i class="fab fa-facebook"></i></a>
                 <a href="https://www.instagram.com/vtu_cpgs_kalaburagi?igsh=MXJkNnVsMzJqaDkxcw%3D%3D&utm_source=qr" target="_blank"><i class="fab fa-instagram"></i></a>
-                <a href="#"><i class="fab fa-x"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
             </div>
         </div>
     </footer>
@@ -69,9 +60,6 @@
             font-family: 'Poppins', sans-serif;
             color: #f5f5f5;
             background: #121212;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
         }
 
         a {
@@ -79,26 +67,16 @@
             text-decoration: none;
         }
 
-        .main-content {
-            flex: 1;
-            margin-top: 70px; /* Height of the fixed header */
-            padding: 20px;
-            width: 100%;
-            box-sizing: border-box;
-            position: relative;
-        }
-
         /* Updated Navbar Styles */
         .header {
             position: fixed;
             top: 0;
-            left: 0;
             width: 100%;
             z-index: 1000;
-            background: rgba(30, 30, 30, 0.95);
-            backdrop-filter: blur(10px);
-            height: 70px;
+            background: rgba(30, 30, 30, 0.9);
             /* Sleek dark-gray background with transparency */
+            height: 70px;
+            /* Fixed header height */
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
             /* Subtle shadow for depth */
         }
@@ -204,9 +182,6 @@
             background: #111;
             color: #ccc;
             padding: 1.5rem 1rem;
-            width: 100%;
-            box-sizing: border-box;
-            margin-top: auto;
         }
 
         .footer-content {
