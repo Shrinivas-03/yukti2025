@@ -1,0 +1,317 @@
+{% extends "base.html" %}
+
+{% block title %}Events - YUKTI 2025{% endblock %}
+
+{% block content %}
+<style>
+    /* Add margin-top to prevent navbar overlap */
+    .event-overview {
+        margin-top: 80px; /* Height of navbar + some extra space */
+        text-align: center;
+        padding: 3rem 1rem;
+        background: rgba(30, 30, 30, 0.95);
+    }
+    .event-overview h1 {
+        font-size: 2.5rem;
+        color: #FFD700;
+        text-transform: uppercase;
+        margin-bottom: 1.5rem;
+    }
+    .event-overview p {
+        font-size: 1.2rem;
+        color: #C0C0C0;
+        margin-bottom: 2rem;
+    }
+    /* Limit container width on larger devices */
+    .container {
+         max-width: 800px;
+         margin: 0 auto;
+    }
+
+    .card {
+        background: rgba(46, 46, 46, 0.8);
+        border: 1px solid #8B0000;
+        border-radius: 10px;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        width: 100%;
+        max-width: 600px; /* Larger width for desktop */
+    }
+    .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 5px 15px rgba(255,215,0,0.2);
+    }
+    .card-img-top {
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+        width: 100%;
+        height: 160px; /* reduced image height */
+        object-fit: cover;
+    }
+    .card-body {
+        padding: 1rem;
+    }
+    .card-title {
+        color: #FFD700;
+        text-transform: uppercase;
+        font-size: 1.2rem;
+        margin-bottom: 0.5rem;
+    }
+    .card-text {
+        color: #C0C0C0;
+        font-size: 0.9rem;
+        margin-bottom: 1rem;
+    }
+    .btn.btn-register {
+        background: #FFD700;
+        color: #1C1C1C;
+        padding: 0.5rem 1rem;
+        border: none;
+        border-radius: 5px;
+        transition: background 0.3s ease;
+    }
+    .btn.btn-register:hover {
+        background: #1C1C1C;
+        color: #FFD700;
+        border: 2px solid #FFD700;
+    }
+    @media (max-width: 768px) {
+        .row {
+            flex-direction: column;
+            gap: 20px;
+            align-items: center;
+        }
+        .card {
+            max-width: 90%; /* Responsive width for mobile devices */
+        }
+        .container {
+            max-width: 100%;
+            padding: 0 1rem;
+        }
+    }
+    /* Add grid layout for cards */
+    .row {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        align-items: center;
+    }
+    .card.clickable { cursor: pointer; transition: transform 0.3s ease; }
+    .card.clickable:active { transform: scale(0.95); }
+    
+    /* Modal styles */
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 2000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0,0,0,0.7);
+    }
+    .modal-content {
+        background: #1c1c1c;
+        margin: 10% auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%;
+        max-width: 600px;
+        border-radius: 10px;
+        color: #fff;
+    }
+    .close {
+        float: right;
+        font-size: 1.5rem;
+        cursor: pointer;
+    }
+    /* Enhanced styling for details event sections */
+    .card-body details {
+        border: 1px solid #8B0000;
+        border-radius: 5px;
+        padding: 10px;
+        background: rgba(46, 46, 46, 0.9);
+        box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+        margin-top: 15px;
+        transition: background 0.3s ease;
+    }
+    .card-body details summary {
+        cursor: pointer;
+        font-weight: bold;
+        outline: none;
+        list-style: none;
+        margin-bottom: 10px;
+    }
+    .card-body details:hover {
+        background: rgba(0, 0, 0, 0.2);
+    }
+    .card-body details[open] {
+        background: rgba(0, 0, 0, 0.25);
+    }
+    .card-body details ul {
+        margin: 10px 0;
+        padding-left: 20px;
+        list-style-type: none;
+        text-align: center;
+    }
+    .card-body details ul li {
+        background: #333;
+        margin: 5px 0;
+        padding: 5px 10px;
+        border-radius: 3px;
+        color: #FFD700;
+    }
+    .card-body details a.btn.btn-register {
+        margin-top: 10px;
+        display: inline-block;
+    }
+</style>
+<section class="event-overview">
+    <h1 class="text-center">Explore Our Events</h1>
+    <p class="text-center">Choose from a diverse range of challenges and showcases.</p>
+    <div class="container py-5">
+        <div class="row">
+            <!-- Tech Events Card -->
+            <div class="card">
+                <img class="card-img-top" src="{{ url_for('static', filename='assets/tech.png') }}" alt="Tech Events">
+                <div class="card-body">
+                    <h5 class="card-title">Tech Events</h5>
+                    <p class="card-text">Innovative challenges and coding competitions await.</p>
+                    <!-- Added event section for Tech -->
+                    <details>
+                        <summary>View Tech Events</summary>
+                        <ul>
+                            <li>Prakalpa Prastuthi</li>
+                            <li>CHANAKSH CODING EVENT</li>
+                            <li>Robo Samara</li>
+                            <li>Pragyaan Quiz</li>
+                        </ul>
+                        <a href="{{ url_for('tech') }}" class="btn btn-register">View More</a>
+                    </details>
+                </div>
+            </div>
+            <!-- Cultural Events Card -->
+            <div class="card">
+                <img class="card-img-top" src="{{ url_for('static', filename='assets/cultural.jpg') }}" alt="Cultural Events">
+                <div class="card-body">
+                    <h5 class="card-title">Cultural Fiesta</h5>
+                    <p class="card-text">Experience art, dance, and soul-stirring performances.</p>
+                    <!-- Added event section for Cultural -->
+                    <details>
+                        <summary>View Cultural Events</summary>
+                        <ul>
+                            <li>NINAAD - Find The Voice Within!</li>
+                            <li>Nritya Saadhana</li>
+                            <li>NATYA Mayuri</li>
+                            <li>Navyataa (Ramp Walk)</li>
+                            <li>Sthala Chitrapatha</li>
+                            <li>Chitragatha (Short Film)</li>
+                            <li>RUPEKHA</li>
+                            <li>Hastakala</li>
+                            <li>Swachitra (Selfie Point)</li>
+                        </ul>
+                        <a href="{{ url_for('cultural') }}" class="btn btn-register">View More</a>
+                    </details>
+                </div>
+            </div>
+            <!-- Management Events Card -->
+            <div class="card">
+                <img class="card-img-top" src="{{ url_for('static', filename='assets/management.jpg') }}" alt="Management Events">
+                <div class="card-body">
+                    <h5 class="card-title">Management</h5>
+                    <p class="card-text">Engage in business challenges and entrepreneurial summits.</p>
+                    <!-- Added event section for Management -->
+                    <details>
+                        <summary>View Management Events</summary>
+                        <ul>
+                            <li>Vagmita (Elocution)</li>
+                            <li>DAKSH (The Best Manager)</li>
+                            <li>SHRESHTA VITTA (Finance) Final</li>
+                            <li>MANAVA SANSADHAN (HR)</li>
+                            <li>Startup Logo Design</li>
+                            <li>Business Plan</li>
+                            <li>Marketing Strategy</li>
+                        </ul>
+                        <a href="{{ url_for('management') }}" class="btn btn-register">View More</a>
+                    </details>
+                </div>
+            </div>
+            <!-- Gaming Events Card -->
+            <div class="card">
+                <img class="card-img-top" src="{{ url_for('static', filename='assets/gaming.jpg') }}" alt="Gaming Events">
+                <div class="card-body">
+                    <h5 class="card-title">Gaming</h5>
+                    <p class="card-text">Join high-octane tournaments and e-sport battles.</p>
+                    <!-- Added event section for Gaming -->
+                    <details>
+                        <summary>View Gaming Events</summary>
+                        <ul>
+                            <li>BGMIII</li>
+                            <li>Talaash</li>
+                        </ul>
+                        <a href="{{ url_for('games') }}" class="btn btn-register">View More</a>
+                    </details>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+  const modal = document.getElementById('event-modal');
+  const modalBody = document.getElementById('modal-body');
+  const closeBtn = modal.querySelector('.close');
+  
+  // Get all clickable cards
+  const cards = document.querySelectorAll('.card.clickable');
+  
+  cards.forEach(card => {
+    card.addEventListener('click', function(){
+      // Scale animation on click
+      card.style.transform = 'scale(1.05)';
+      
+      // Load modal content based on category
+      const category = card.getAttribute('data-category');
+      let content = "";
+      if(category === "tech"){
+        content = `<h2>Tech Events</h2>
+                   <!-- ...reference events/tech.html content... -->`;
+      } else if(category === "cultural"){
+        content = `<h2>Cultural Events</h2>
+                   <!-- ...reference events/cultural.html content... -->`;
+      } else if(category === "management"){
+        content = `<h2>Management Events</h2>
+                   <!-- ...reference events/management.html content... -->`;
+      } else if(category === "gaming"){
+        content = `<h2>Gaming Events</h2>
+                   <!-- ...reference events/games.html content... -->`;
+      }
+      modalBody.innerHTML = content;
+      modal.style.display = "block";
+    });
+  });
+  
+  // Prevent clicks on "View More" buttons from propagating to the card
+  const viewMoreBtns = document.querySelectorAll('.card .btn.btn-register');
+  viewMoreBtns.forEach(btn => {
+    btn.addEventListener('click', function(e) {
+      e.stopPropagation();
+    });
+  });
+  
+  // Close modal and reset card scale
+  closeBtn.addEventListener('click', function(){
+    modal.style.display = "none";
+    cards.forEach(card => card.style.transform = 'scale(1)');
+  });
+  
+  window.addEventListener('click', function(event) {
+    if (event.target == modal) {
+      modal.style.display = "none";
+      cards.forEach(card => card.style.transform = 'scale(1)');
+    }
+  });
+});
+</script>
+{% endblock %}

@@ -3,88 +3,218 @@
 {% block title %}Registration - College Fest{% endblock %}
 
 {% block content %}
-<div class="registration-container">
-    <h1 class="registration-title">YUKTI-2025 Registration</h1>
+<style>
+    body {
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+    }
+    
+    .registration-container {
+        max-width: 1200px;
+        margin: 100px auto 0; /* Increased from 80px to 100px for more space */
+        padding: 20px;
+        flex: 1; /* This makes the container take up available space */
+    }
+    
+    /* Add padding at the bottom to prevent content from being hidden by footer */
+    .registration-form-container {
+        margin-bottom: 2rem;
+    }
+    
+    /* Ensure footer stays at bottom */
+    .footer {
+        margin-top: auto;
+    }
 
-    <div class="registration-form-container">
-        <form class="registration-form" id="registrationForm" onsubmit="event.preventDefault(); submitRegistration();">
-            <!-- Event Selection Section -->
-            <div class="event-selection-section">
-                <div class="form-group">
-                    <label for="category"><strong>Select Event Category</strong></label>
-                    <select id="category" required>
-                        <option value="" disabled selected>--Select--</option>
-                        <option value="tech">Manthana (Tech Events)</option>
-                        <option value="Cultural">Manoranjana (Cultural Events)</option>
-                        <option value="management">Chintana (Management Events)</option>
-                        <option value="VisualArt">Kalachitrana (VisualArt)</option>
-                        <option value="games">Krida Ratna(Game Events)</option>
-                    </select>
-                </div>
+    .registration-title {
+        text-align: center;
+        margin-bottom: 40px; /* Increased bottom margin */
+        color: #FFD700; /* Added gold color to match theme */
+        font-size: 2.5rem;
+    }
 
-                <div class="form-group">
-                    <label><strong>Select an Event</strong></label>
-                    <div id="events-container" class="events-grid">
-                        <p>Please select a category first.</p>
+    .registration-form-container {
+        background: rgba(40, 40, 40, 0.95);
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Main wrapper styles */
+    .page-wrapper {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        padding-bottom: 80px; /* Space for footer */
+    }
+
+    /* Registration container styles */
+    .registration-container {
+        max-width: 1200px;
+        margin: 100px auto 2rem; /* Top margin for navbar, bottom margin for footer */
+        padding: 20px;
+        flex: 1;
+        width: 90%; /* Responsive width */
+    }
+
+    /* Form container styles */
+    .registration-form-container {
+        background: rgba(40, 40, 40, 0.95);
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+        margin-bottom: 2rem;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+        .registration-container {
+            width: 95%;
+            margin: 80px auto 1rem;
+            padding: 15px;
+        }
+        
+        .registration-form-container {
+            padding: 20px;
+        }
+    }
+
+    /* Enhanced Register Button Styles */
+    .registration-form button[type="submit"] {
+        background: #FFD700;
+        color: #1C1C1C;
+        padding: 12px 30px;
+        border: 2px solid #FFD700;
+        border-radius: 5px;
+        font-size: 1.1rem;
+        font-weight: bold;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        margin-top: 20px;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .registration-form button[type="submit"]:hover {
+        background: transparent;
+        color: #FFD700;
+        box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+        transform: translateY(-2px);
+    }
+
+    .registration-form button[type="submit"]::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+            120deg,
+            transparent,
+            rgba(255, 215, 0, 0.2),
+            transparent
+        );
+        transition: 0.5s;
+    }
+
+    .registration-form button[type="submit"]:hover::before {
+        left: 100%;
+    }
+
+    .registration-form button[type="submit"]:active {
+        transform: scale(0.95);
+    }
+</style>
+
+<!-- Update the main structure -->
+<div class="page-wrapper">
+    <div class="registration-container">
+        <h1 class="registration-title">YUKTI-2025 Registration</h1>
+
+        <div class="registration-form-container">
+            <form class="registration-form" id="registrationForm" onsubmit="event.preventDefault(); submitRegistration();">
+                <!-- Event Selection Section -->
+                <div class="event-selection-section">
+                    <div class="form-group">
+                        <label for="category"><strong>Select Event Category</strong></label>
+                        <select id="category" required>
+                            <option value="" disabled selected>--Select--</option>
+                            <option value="tech">Manthana (Tech Events)</option>
+                            <option value="Cultural">Manoranjana (Cultural Events)</option>
+                            <option value="management">Chintana (Management Events)</option>
+                            <option value="VisualArt">Kalachitrana (VisualArt)</option>
+                            <option value="games">Krida Ratna(Game Events)</option>
+                        </select>
                     </div>
+
+                    <div class="form-group">
+                        <label><strong>Select an Event</strong></label>
+                        <div id="events-container" class="events-grid">
+                            <p>Please select a category first.</p>
+                        </div>
+                    </div>
+
+                    <div class="form-group hidden" id="group-size-container">
+                        <label for="group-size"><strong>Number of Participants</strong></label>
+                        <input type="number" id="group-size" min="1" max="4" value="1" class="group-size-input" />
+                    </div>
+                    <div id="group-size-error" class="hidden" style="color:red; font-size:0.9rem;"></div>
+
+                    <div id="individual-participant-container" class="form-group hidden">
+                        <label for="individual-participant"><strong>Participant Name</strong></label>
+                        <input type="text" id="individual-participant" placeholder="Enter Your Name" />
+                    </div>
+
+                    <div class="form-group hidden" id="team-members-container">
+                        <label><strong>Team Members</strong></label>
+                        <div id="member-inputs"></div>
+                    </div>
+                    <!-- New Total Participants Section -->
+                
+
+                    <button type="button" id="add-event-btn" class="add-event-btn" disabled>+ Add Event</button>
                 </div>
 
-                <div class="form-group hidden" id="group-size-container">
-                    <label for="group-size"><strong>Number of Participants</strong></label>
-                    <input type="number" id="group-size" min="1" max="4" value="1" class="group-size-input" />
-                </div>
-                <div id="group-size-error" class="hidden" style="color:red; font-size:0.9rem;"></div>
-
-                <div id="individual-participant-container" class="form-group hidden">
-                    <label for="individual-participant"><strong>Participant Name</strong></label>
-                    <input type="text" id="individual-participant" placeholder="Enter Your Name" />
+                <!-- Selected Events Section -->
+                <div class="selected-events-section hidden">
+                    <h3>Selected Events</h3>
+                    <div id="selected-events-list"></div>
                 </div>
 
-                <div class="form-group hidden" id="team-members-container">
-                    <label><strong>Team Members</strong></label>
-                    <div id="member-inputs"></div>
-                </div>
-                <!-- New Total Participants Section -->
-               
+            
 
-                <button type="button" id="add-event-btn" class="add-event-btn" disabled>+ Add Event</button>
-            </div>
+                <!-- Personal Details Section -->
+                <div class="personal-details-section hidden">
+                    <div class="form-group">
+                        <label for="college">College Name</label>
+                        <input type="text" id="college" placeholder="Enter your college name" required />
+                    </div>
 
-            <!-- Selected Events Section -->
-            <div class="selected-events-section hidden">
-                <h3>Selected Events</h3>
-                <div id="selected-events-list"></div>
-            </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" placeholder="Enter your email" required />
+                    </div>
 
-           
-
-            <!-- Personal Details Section -->
-            <div class="personal-details-section hidden">
-                <div class="form-group">
-                    <label for="college">College Name</label>
-                    <input type="text" id="college" placeholder="Enter your college name" required />
+                    <div class="form-group">
+                        <label for="phone">Phone (WhatsApp)</label>
+                        <input type="tel" id="phone" placeholder="Enter your WhatsApp number" required />
+                    </div>
+                    <!-- New Overall Total Participants Section -->
+                <div class="overall-participants" id="overall-participants-section" style="margin:10px 0; font-weight:bold;">
+                    Overall Total Participants: <span id="overallParticipants">0</span>
                 </div>
 
-                <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="email" id="email" placeholder="Enter your email" required />
+                    <p class="cost-note">*Accommodation is not available.</p>
+                    <p class="total-cost">Total Cost: ₹0</p>
+
+                    <button type="submit">Register Now</button>
                 </div>
-
-                <div class="form-group">
-                    <label for="phone">Phone (WhatsApp)</label>
-                    <input type="tel" id="phone" placeholder="Enter your WhatsApp number" required />
-                </div>
-                 <!-- New Overall Total Participants Section -->
-            <div class="overall-participants" id="overall-participants-section" style="margin:10px 0; font-weight:bold;">
-                Overall Total Participants: <span id="overallParticipants">0</span>
-            </div>
-
-                <p class="cost-note">*Accommodation is not available.</p>
-                <p class="total-cost">Total Cost: ₹0</p>
-
-                <button type="submit">Register Now</button>
-            </div>
-        </form>
+            </form>
+        </div>
     </div>
 </div>
 

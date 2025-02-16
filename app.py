@@ -91,6 +91,10 @@ def about():
 def gallery():
     return render_template('gallery.html')
 
+@app.route('/events')
+def events():
+    return render_template('events.html')
+
 @app.route('/tech')
 def tech():
     return render_template('events/tech.html')

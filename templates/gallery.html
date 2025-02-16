@@ -1,49 +1,121 @@
 {% extends "base.html" %}
 
-{% block title %}Gallery - College Fest{% endblock %}
+{% block title %}Gallery - YUKTI 2025{% endblock %}
 
 {% block content %}
 <style>
+    .main-content {
+        margin-top: 80px;
+        background: rgba(30, 30, 30, 0.95);
+        min-height: 100vh;
+    }
+
     .gallery {
         max-width: 1200px;
         margin: 0 auto;
-        padding: 20px;
+        padding: 2rem;
     }
 
     .gallery h1 {
         text-align: center;
-        margin-bottom: 30px;
+        color: #FFD700;
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+        text-transform: uppercase;
+    }
+
+    .gallery p {
+        text-align: center;
+        color: #C0C0C0;
+        margin-bottom: 2rem;
+        font-size: 1.2rem;
     }
 
     .gallery-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-        gap: 20px;
-        padding: 20px;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 1.5rem;
+        padding: 1rem;
     }
 
-    .gallery-grid img {
+    .gallery-item {
+        position: relative;
+        overflow: hidden;
+        border-radius: 10px;
+        border: 2px solid #8B0000;
+        transition: all 0.3s ease;
+    }
+
+    .gallery-item:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 5px 15px rgba(255, 215, 0, 0.2);
+        border-color: #FFD700;
+    }
+
+    .gallery-item img {
         width: 100%;
         height: 300px;
         object-fit: cover;
-        border-radius: 10px;
         transition: transform 0.3s ease;
     }
 
-    .gallery-grid img:hover {
-        transform: scale(1.05);
+    .gallery-item:hover img {
+        transform: scale(1.1);
+    }
+
+    .gallery-item::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 30%;
+        background: linear-gradient(transparent, rgba(0,0,0,0.7));
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+
+    .gallery-item:hover::after {
+        opacity: 1;
+    }
+
+    @media (max-width: 768px) {
+        .gallery-grid {
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            padding: 0.5rem;
+        }
+
+        .gallery {
+            padding: 1rem;
+        }
     }
 </style>
+
+<div class="main-content">
     <section class="gallery">
         <h1>Gallery</h1>
         <p>Relive the best moments from our College Fest!</p>
         <div class="gallery-grid">
-            <img src="{{ url_for('static', filename='assests/01.jpg') }}" alt="Event 1">
-            <img src="{{ url_for('static', filename='assests/gallery2.jpg') }}" alt="Event 2">
-            <img src="{{ url_for('static', filename='assests/gallery3.jpg') }}" alt="Event 3">
-            <img src="{{ url_for('static', filename='assests/gallery4.jpg') }}" alt="Event 4">
-            <img src="{{ url_for('static', filename='assests/gallery5.jpg') }}" alt="Event 5">
-            <img src="{{ url_for('static', filename='assests/gallery6.jpg') }}" alt="Event 6">
+            <div class="gallery-item">
+                <img src="{{ url_for('static', filename='assests/01.jpg') }}" alt="Event 1">
+            </div>
+            <div class="gallery-item">
+                <img src="{{ url_for('static', filename='assests/gallery2.jpg') }}" alt="Event 2">
+            </div>
+            <div class="gallery-item">
+                <img src="{{ url_for('static', filename='assests/gallery3.jpg') }}" alt="Event 3">
+            </div>
+            <div class="gallery-item">
+                <img src="{{ url_for('static', filename='assests/gallery4.jpg') }}" alt="Event 4">
+            </div>
+            <div class="gallery-item">
+                <img src="{{ url_for('static', filename='assests/gallery5.jpg') }}" alt="Event 5">
+            </div>
+            <div class="gallery-item">
+                <img src="{{ url_for('static', filename='assests/gallery6.jpg') }}" alt="Event 6">
+            </div>
         </div>
     </section>
+</div>
 {% endblock %}

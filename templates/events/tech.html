@@ -3,6 +3,10 @@
 {% block title %}Tech Events - College Fest{% endblock %}
 
 {% block content %}
+<style>
+  .main-content { margin-top: 80px; }
+</style>
+<div class="main-content">
     <section class="event-page mb-5">
         <h1 class="text-center">Tech Events</h1>
         <p class="text-center">Step into the world of innovation, coding, and technology.</p>
@@ -13,7 +17,7 @@
         <!-- Prakalpa Prastuthi -->
         <div class="event-card-horizontal mb-5">
             <div class="event-image">
-                <img src="{{ url_for('static', filename='images/live.jpg') }}" alt="Prakalpa Prastuthi">
+                <img src="{{ url_for('static', filename='assets/live.jpg') }}" alt="Prakalpa Prastuthi">
             </div>
             <div class="event-content">
                 <h3>Prakalpa Prastuthi</h3>
@@ -33,7 +37,7 @@
         <!-- CHANAKSH CODING EVENT -->
         <div class="event-card-horizontal mb-5">
             <div class="event-image">
-                <img src="{{ url_for('static', filename='images/events/coding.jpg') }}" alt="CHANAKSH CODING">
+                <img src="{{ url_for('static', filename='assets/coding.webp') }}" alt="CHANAKSH CODING">
             </div>
             <div class="event-content">
                 <h3>CHANAKSH CODING EVENT</h3>
@@ -53,7 +57,7 @@
         <!-- Robo Samara -->
         <div class="event-card-horizontal mb-5">
             <div class="event-image">
-                <img src="{{ url_for('static', filename='images/events/robo.jpg') }}" alt="Robo Samara">
+                <img src="{{ url_for('static', filename='assets/Robo_Samara.webp') }}" alt="Robo Samara">
             </div>
             <div class="event-content">
                 <h3>Robo Samara</h3>
@@ -90,4 +94,5 @@
             </div>
         </div>
     </div>
+</div>
 {% endblock %}
