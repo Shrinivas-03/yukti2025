@@ -319,10 +319,29 @@
 
     /* About Section */
     .about-festival {
-        background-color: #2E2E2E;
-        /* Dark Gray */
+        background: linear-gradient(45deg, #1C1C1C, #2E2E2E);
         padding: 50px 20px;
         text-align: center;
+    }
+
+    .about-container {
+        position: relative;
+        z-index: 1;
+        background: rgba(46, 46, 46, 0.7);
+        backdrop-filter: blur(5px);
+        border-radius: 15px;
+        padding: 2rem;
+        box-shadow: 0 8px 15px rgba(0, 0, 0, 0.4);
+        border: 2px solid #ff6600;  /* Added orange border */
+        transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+        max-width: 800px;
+        margin: 0 auto;
+    }
+
+    .about-container:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 30px rgba(3, 233, 244, 0.4);
+        border-color: #03e9f4;
     }
 
     .about-festival .about-container {
@@ -337,11 +356,9 @@
     }
 
     .about-festival .animated-button {
-        background: #FFD700;
-        /* Gold */
+        background: #03e9f4;  /* Changed from #FFD700 to solid blue */
         color: #1C1C1C;
-        border: 2px solid #8B0000;
-        /* Rust Red */
+        border: 2px solid #03e9f4;  /* Changed border color to match */
         padding: 10px 20px;
         font-weight: bold;
         text-transform: uppercase;
@@ -352,19 +369,17 @@
     }
 
     .about-festival .animated-button:hover {
-        background: #CD7F32;
-        /* Bronze */
-        color: #FFF;
-        border-color: #FFD700;
-        /* Gold on hover */
+        background: transparent;  /* Changed hover state */
+        color: #03e9f4;  /* Text color changes to blue on hover */
+        border-color: #03e9f4;
     }
 
     /* Events Section */
     .events {
         background-color: #1C1C1C;
         /* Black */
-        color: #FFD700;
-        /* Gold */
+        color: #ff6600;
+        /* Orange */
         padding: 50px 20px;
         text-align: center;
     }
@@ -379,8 +394,8 @@
     .events .event-card {
         background: #2E2E2E;
         /* Dark Gray */
-        border: 2px solid #8B0000;
-        /* Rust Red */
+        border: 2px solid #ff6600;
+        /* Orange */
         color: #C0C0C0;
         /* Silver */
         border-radius: 10px;
@@ -392,20 +407,20 @@
 
     .events .event-card:hover {
         transform: scale(1.05);
-        border-color: #CD7F32;
-        /* Bronze */
+        border-color: #03e9f4;
+        /* Blue */
     }
 
     .events .event-title {
         font-size: 1.5rem;
         margin-bottom: 15px;
-        color: #FFD700;
-        /* Gold */
+        color: #ff6600;
+        /* Orange */
     }
 
     .events .event-button {
-        background-color: #FFD700;
-        /* Gold */
+        background-color: #03e9f4;
+        /* Blue */
         color: #1C1C1C;
         /* Black text */
         padding: 10px 15px;
@@ -419,9 +434,11 @@
     }
 
     .events .event-button:hover {
-        background-color: #CD7F32;
-        /* Bronze */
-        color: #FFF;
+        background: transparent;
+        color: #03e9f4;
+        /* Blue */
+        border: 2px solid #03e9f4;
+        /* Blue border */
     }
 
     /* Brochure Section */
@@ -431,11 +448,22 @@
         text-align: center;
         color: #C0C0C0;
         /* Silver */
+        border: 2px solid #ff6600;  /* Added orange border */
+        border-radius: 15px;
+        margin: 2rem auto;
+        max-width: 1000px;
+        box-shadow: 0 8px 15px rgba(0, 0, 0, 0.4);
+        transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    }
+
+    .brochure-section:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 30px rgba(3, 233, 244, 0.4);
+        border-color: #03e9f4;
     }
 
     .brochure-section .download-btn {
-        background-color: #FFD700;
-        /* Gold */
+        background-color: #03e9f4;  /* Changed to blue */
         color: #1C1C1C;
         padding: 10px 20px;
         font-weight: bold;
@@ -444,12 +472,13 @@
         text-decoration: none;
         display: inline-block;
         transition: all 0.3s ease;
+        border: 2px solid #03e9f4;  /* Added border */
     }
 
     .brochure-section .download-btn:hover {
-        background-color: #CD7F32;
-        /* Bronze */
-        color: #FFF;
+        background: transparent;
+        color: #03e9f4;
+        border-color: #03e9f4;
     }
 
     /* Updated Hero Title Animation Styles */
