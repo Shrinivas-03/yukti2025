@@ -166,6 +166,21 @@
         0% { transform: translate(-50%, -50%) rotate(0deg); }
         100% { transform: translate(-50%, -50%) rotate(360deg); }
     }
+
+    .utr-hint {
+        font-size: 0.8rem;
+        color: #888;
+        margin-top: 5px;
+    }
+    
+    #utr-number {
+        border: 2px solid #FFD700;
+        background: rgba(255, 215, 0, 0.1);
+    }
+    
+    #utr-number:focus {
+        box-shadow: 0 0 5px rgba(255, 215, 0, 0.5);
+    }
 </style>
 
 <!-- Update the main structure -->
@@ -246,8 +261,19 @@
                     Overall Total Participants: <span id="overallParticipants">0</span>
                 </div>
 
+                    <div class="form-group">
+                        <label for="utr-number">UTR Number</label>
+                        <input type="text" 
+                               id="utr-number" 
+                               name="utr-number" 
+                               placeholder="Enter UTR/Transaction Number" 
+                               required />
+                        <p class="utr-hint">Enter the UTR number from your payment transaction</p>
+                    </div>
+
                     <p class="cost-note">*Accommodation is not available.</p>
                     <p class="total-cost">Total Cost: ₹0</p>
+                    
 
                     <button type="submit">
                         <div class="spinner"></div>
@@ -650,11 +676,10 @@
         const submitBtn = document.querySelector('button[type="submit"]');
         
         try {
-            // Add loading state
             submitBtn.classList.add('loading');
-            
-            console.log("Submit function called");  // Debug log
+            console.log("Starting spot registration submission");
 
+            // Validate form
             if (selectedEvents.length === 0) {
                 alert('Please select at least one event');
                 submitBtn.classList.remove('loading');
@@ -664,9 +689,10 @@
             const college = document.getElementById('college').value;
             const email = document.getElementById('email').value;
             const phone = document.getElementById('phone').value;
+            const utrNumber = document.getElementById('utr-number').value;
 
-            if (!college || !email || !phone) {
-                alert('Please fill in all required fields');
+            if (!college || !email || !phone || !utrNumber) {
+                alert('Please fill in all required fields including UTR number');
                 submitBtn.classList.remove('loading');
                 return;
             }
@@ -675,14 +701,16 @@
                 college: college,
                 email: email,
                 phone: phone,
+                utrNumber: utrNumber,
                 selectedEvents: selectedEvents,
                 totalParticipants: parseInt(document.getElementById('overallParticipants').textContent),
                 totalCost: parseFloat(document.querySelector('.total-cost').textContent.replace('Total Cost: ₹', ''))
             };
 
-            console.log("Sending data:", formData);  // Debug log
+            console.log("Sending spot registration data:", formData);
 
-            const response = await fetch('/register', {
+            // Use the correct endpoint for spot registration
+            const response = await fetch('/spot-register', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -690,22 +718,19 @@
                 body: JSON.stringify(formData)
             });
 
-            console.log("Response received:", response);  // Debug log
-
+            console.log("Server response status:", response.status);
+            
             const data = await response.json();
-            console.log("Response data:", data);  // Debug log
+            console.log("Server response data:", data);
 
             if (data.success) {
-                window.location.href = `/acknowledgement/${data.ack_id}`;
+                window.location.href = `/spot-acknowledgement/${data.ack_id}`;
             } else {
-                alert('Registration failed: ' + (data.message || 'Unknown error'));
-                // Remove loading state if failed
-                submitBtn.classList.remove('loading');
+                throw new Error(data.message || 'Registration failed');
             }
         } catch (error) {
-            console.error('Error:', error);
-            alert('An error occurred during registration. Please try again.');
-            // Remove loading state if error
+            console.error("Registration error details:", error);
+            alert(`Registration failed: ${error.message}`);
             submitBtn.classList.remove('loading');
         }
     }

@@ -205,5 +205,95 @@ def show_ack(ack_id):
         flash('Error fetching registration details')
         return redirect(url_for('register'))
 
+@app.route('/spot-register', methods=['GET', 'POST'])
+@login_required(allowed_pages=['spot'])
+def spot_register():
+    if request.method == "POST":
+        try:
+            print("Received POST request at /spot-register")  # Debug log
+            data = request.get_json(silent=True)
+            
+            if not data:
+                print("No JSON data received")  # Debug log
+                return jsonify({'success': False, 'message': 'No data received'})
+            
+            print("Received data:", data)  # Debug log
+            
+            ack_id = generate_ack_id()
+            
+            # Prepare registration data
+            registration_data = {
+                'ack_id': ack_id,
+                'email': data['email'],
+                'phone': data['phone'],
+                'college': data['college'],
+                'total_participants': data['totalParticipants'],
+                'total_cost': data['totalCost'],
+                'event_details': data['selectedEvents'],
+                'registration_date': datetime.now().isoformat(),
+                'utr_number': data['utrNumber']
+            }
+            
+            print("Attempting to insert data:", registration_data)  # Debug log
+            
+            # Insert into Supabase
+            response = supabase.table('spot_registrations').insert(registration_data).execute()
+            print("Supabase response:", response)  # Debug log
+            
+            if response.data:
+                print(f"Successfully created registration with ack_id: {ack_id}")  # Debug log
+                return jsonify({
+                    'success': True,
+                    'ack_id': ack_id
+                })
+            else:
+                print("Registration failed - no data in response")  # Debug log
+                return jsonify({
+                    'success': False,
+                    'message': 'Registration failed'
+                })
+                
+        except Exception as e:
+            print(f"Error in spot registration: {str(e)}")  # Debug log
+            return jsonify({
+                'success': False,
+                'message': str(e)
+            })
+    
+    return render_template("spot.html")
+
+@app.route('/spot-acknowledgement/<ack_id>')
+@login_required(allowed_pages=['spot', 'admin'])
+def show_spot_ack(ack_id):
+    try:
+        # Query spot_registrations table instead of registrations
+        response = supabase.table('spot_registrations').select('*').eq('ack_id', ack_id).execute()
+        
+        if response.data and len(response.data) > 0:
+            registration = response.data[0]
+            details = {
+                'email': registration['email'],
+                'phone': registration['phone'],
+                'college': registration['college'],
+                'total_participants': registration['total_participants'],
+                'total_cost': registration['total_cost'],
+                'event_details': registration['event_details'],
+                'registration_date': registration['registration_date'],
+                'utr_number': registration['utr_number']  # Include UTR number in details
+            }
+            
+            return render_template('spot_success.html', 
+                ack_id=ack_id,
+                details=details
+            )
+            
+        flash('Registration not found')
+        return redirect(url_for('spot_register'))
+            
+    except Exception as e:
+        print(f"Error fetching registration: {str(e)}")
+        flash('Error fetching registration details')
+        return redirect(url_for('spot_register'))
+
 if __name__ == "__main__":
     app.run(debug=True)
