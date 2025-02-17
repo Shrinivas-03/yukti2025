@@ -5,6 +5,12 @@
 {% block content %}
 <!-- Hero Section -->
 <section class="hero carnival-hero">
+    <!-- Add video background -->
+    <video class="hero-video" autoplay muted loop playsinline>
+        <source src="{{ url_for('static', filename='assets/bg-video.mp4') }}" type="video/mp4">
+    </video>
+    <div class="video-overlay"></div>
+    
     <div class="grid-background"></div>
     <div class="hero-content">
         <div class="hero-section">
@@ -630,6 +636,45 @@
     .artist-announcement {
         background: linear-gradient(45deg, #1C1C1C, #2E2E2E);
         /* ...existing artist-announcement styles... */
+    }
+
+    .hero-video {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        z-index: 0;
+    }
+
+    .video-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.6);
+        /* Dark overlay for better text visibility */
+        z-index: 1;
+    }
+
+    .hero-content {
+        position: relative;
+        z-index: 2;
+        /* Place content above video */
+    }
+
+    /* Mobile optimization */
+    @media (max-width: 768px) {
+        .hero-video {
+            /* Optional: Show a static image on mobile */
+            display: none;
+        }
+        
+        .carnival-hero {
+            background: linear-gradient(135deg, #1C1C1C 0%, #2d1f1f 100%);
+        }
     }
 </style>
 {% endblock %}
