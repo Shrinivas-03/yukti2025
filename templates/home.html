@@ -6,7 +6,7 @@
 <!-- Hero Section -->
 <section class="hero carnival-hero">
     <!-- Add video background -->
-    <video class="hero-video" autoplay muted loop playsinline>
+    <video class="hero-video" autoplay muted loop playsinline poster="{{ url_for('static', filename='assets/poster.jpg') }}" preload="metadata">
         <source src="{{ url_for('static', filename='assets/bg-video.mp4') }}" type="video/mp4">
     </video>
     <div class="video-overlay"></div>
@@ -674,6 +674,413 @@
         
         .carnival-hero {
             background: linear-gradient(135deg, #1C1C1C 0%, #2d1f1f 100%);
+        }
+    }
+
+    /* Enhanced Responsive Design */
+
+    /* General Responsive Typography */
+    html {
+        font-size: 16px; /* Base font size */
+    }
+
+    @media (max-width: 1200px) {
+        html { font-size: 15px; }
+    }
+
+    @media (max-width: 992px) {
+        html { font-size: 14px; }
+    }
+
+    @media (max-width: 768px) {
+        html { font-size: 13px; }
+    }
+
+    @media (max-width: 576px) {
+        html { font-size: 12px; }
+    }
+
+    /* Hero Section Responsiveness */
+    .hero-content .main-title {
+        font-size: 7.5rem;
+    }
+
+    .hero-content .subtitle {
+        font-size: 3rem;
+    }
+
+    @media (max-width: 1200px) {
+        .hero-content .main-title { font-size: 6rem; }
+        .hero-content .subtitle { font-size: 2.5rem; }
+    }
+
+    @media (max-width: 992px) {
+        .hero-content .main-title { font-size: 5rem; }
+        .hero-content .subtitle { font-size: 2rem; }
+    }
+
+    @media (max-width: 768px) {
+        .hero-content .main-title { font-size: 4rem; }
+        .hero-content .subtitle { font-size: 1.8rem; }
+        .hero { padding: 60px 15px; }
+    }
+
+    @media (max-width: 576px) {
+        .hero-content .main-title { font-size: 3rem; }
+        .hero-content .subtitle { font-size: 1.5rem; }
+        .hero { padding: 40px 10px; }
+    }
+
+    /* Countdown Timer Responsiveness */
+    .countdown-container {
+        display: flex;
+        justify-content: center;
+        gap: 1.5rem;
+        flex-wrap: wrap;
+        padding: 1rem;
+    }
+
+    .countdown-box {
+        min-width: 120px;
+        padding: 1rem;
+    }
+
+    @media (max-width: 768px) {
+        .countdown-container {
+            gap: 1rem;
+        }
+        .countdown-box {
+            min-width: 100px;
+            padding: 0.8rem;
+        }
+        .countdown-value {
+            font-size: 2rem;
+        }
+        .countdown-label {
+            font-size: 0.9rem;
+        }
+    }
+
+    @media (max-width: 576px) {
+        .countdown-container {
+            gap: 0.5rem;
+        }
+        .countdown-box {
+            min-width: 80px;
+            padding: 0.6rem;
+        }
+        .countdown-value {
+            font-size: 1.5rem;
+        }
+        .countdown-label {
+            font-size: 0.8rem;
+        }
+    }
+
+    /* Event Cards Responsiveness */
+    .event-cards {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 2rem;
+        padding: 1rem;
+    }
+
+    @media (max-width: 992px) {
+        .event-cards {
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .event-cards {
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1rem;
+        }
+        .event-card {
+            padding: 1rem;
+        }
+        .event-title {
+            font-size: 1.2rem;
+        }
+    }
+
+    /* About Section Responsiveness */
+    .about-container {
+        width: 90%;
+        max-width: 1200px;
+        padding: 2rem;
+    }
+
+    @media (max-width: 768px) {
+        .about-container {
+            width: 95%;
+            padding: 1.5rem;
+        }
+        .about-text {
+            font-size: 0.9rem;
+        }
+    }
+
+    /* Artist Card Responsiveness */
+    .artist-card {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 2rem;
+    }
+
+    @media (max-width: 768px) {
+        .artist-card {
+            padding: 1.5rem;
+        }
+        .artist-name {
+            font-size: 1.8rem;
+        }
+        .announcement-text {
+            font-size: 0.9rem;
+        }
+    }
+
+    /* Brochure Section Responsiveness */
+    .brochure-section {
+        width: 90%;
+        max-width: 1000px;
+        padding: 2rem;
+    }
+
+    @media (max-width: 768px) {
+        .brochure-section {
+            width: 95%;
+            padding: 1.5rem;
+        }
+        .section-title {
+            font-size: 1.8rem;
+        }
+        .section-description {
+            font-size: 0.9rem;
+        }
+        .download-btn {
+            padding: 0.8rem 1.5rem;
+            font-size: 0.9rem;
+        }
+    }
+
+    /* Button Responsiveness */
+    .btn, .cta-button, .event-button, .download-btn {
+        padding: 0.8rem 1.6rem;
+        font-size: 1rem;
+    }
+
+    @media (max-width: 768px) {
+        .btn, .cta-button, .event-button, .download-btn {
+            padding: 0.6rem 1.2rem;
+            font-size: 0.9rem;
+        }
+    }
+
+    /* Touch Device Optimizations */
+    @media (hover: none) {
+        .event-card:hover,
+        .about-container:hover,
+        .btn:hover {
+            transform: none !important;
+        }
+        
+        .btn, .cta-button, .event-button, .download-btn {
+            -webkit-tap-highlight-color: transparent;
+        }
+    }
+
+    /* High-DPI Screen Optimizations */
+    @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+        .grid-background {
+            background-size: 25px 25px;
+        }
+    }
+
+    /* Landscape Mode Optimization */
+    @media (max-height: 500px) and (orientation: landscape) {
+        .hero {
+            min-height: 100vh;
+            padding: 1rem;
+        }
+        
+        .hero-content .main-title {
+            font-size: 3rem;
+        }
+        
+        .hero-content .subtitle {
+            font-size: 1.5rem;
+        }
+        
+        .countdown-container {
+            margin: 1rem 0;
+        }
+    }
+
+    /* Print Media Optimization */
+    @media print {
+        .hero-video,
+        .video-overlay,
+        .grid-background,
+        .countdown-container,
+        .cta {
+            display: none;
+        }
+        
+        .hero-content .main-title {
+            color: #000;
+            text-shadow: none;
+        }
+    }
+
+    /* Accessibility Improvements */
+    @media (prefers-reduced-motion: reduce) {
+        * {
+            animation: none !important;
+            transition: none !important;
+        }
+    }
+
+    /* Dark Mode Support */
+    @media (prefers-color-scheme: dark) {
+        .about-container,
+        .event-card,
+        .artist-card,
+        .brochure-section {
+            background: rgba(28, 28, 28, 0.95);
+        }
+    }
+
+    /* Add these styles after your existing styles */
+
+    /* Header/Navbar Height Management */
+    :root {
+        --navbar-height: 70px; /* Define navbar height as a CSS variable */
+    }
+
+    /* Adjust main content to account for fixed navbar */
+    main {
+        padding-top: var(--navbar-height); /* Add padding equal to navbar height */
+    }
+
+    /* Update hero section padding */
+    .hero.carnival-hero {
+        padding-top: calc(var(--navbar-height) + 2rem); /* Add extra padding for better spacing */
+        min-height: 100vh;
+    }
+
+    /* Responsive adjustments for mobile */
+    @media (max-width: 768px) {
+        :root {
+            --navbar-height: 60px; /* Slightly smaller navbar on mobile */
+        }
+
+        .hero.carnival-hero {
+            padding-top: calc(var(--navbar-height) + 1rem);
+        }
+
+        .hero-content .main-title {
+            margin-top: 2rem; /* Add space between navbar and title */
+        }
+
+        /* Adjust content when menu is open */
+        .navbar.active + main {
+            padding-top: 100vh; /* Push content down when mobile menu is open */
+        }
+    }
+
+    /* Landscape mode optimization */
+    @media (max-height: 500px) and (orientation: landscape) {
+        .hero.carnival-hero {
+            padding-top: calc(var(--navbar-height) + 0.5rem);
+            min-height: 120vh; /* Ensure enough scroll space in landscape */
+        }
+    }
+
+    /* Device-specific adjustments */
+    @supports (-webkit-touch-callout: none) {
+        /* iOS-specific padding to handle notch */
+        .hero.carnival-hero {
+            padding-top: calc(var(--navbar-height) + env(safe-area-inset-top, 2rem));
+        }
+    }
+
+    /* Enhanced Video Background Handling */
+    .carnival-hero {
+        position: relative;
+        overflow: hidden;
+        min-height: 100vh; /* Ensure minimum height on all devices */
+    }
+
+    .hero-video {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        z-index: 0;
+    }
+
+    .video-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.6);
+        z-index: 1;
+    }
+
+    /* Responsive Video Adjustments */
+    @media (max-width: 768px) {
+        .carnival-hero {
+            min-height: 80vh; /* Reduced height on mobile */
+        }
+
+        .hero-video {
+            display: block; /* Keep video visible */
+            height: 80vh; /* Match container height */
+        }
+
+        .video-overlay {
+            background: rgba(0, 0, 0, 0.7); /* Darker overlay for better text visibility */
+        }
+
+        .hero-content {
+            padding: 1rem; /* Add padding for better spacing */
+        }
+    }
+
+    /* Device-Specific Optimizations */
+    @media (orientation: landscape) and (max-height: 500px) {
+        .carnival-hero {
+            min-height: 120vh; /* Taller in landscape to ensure content fits */
+        }
+        
+        .hero-video {
+            height: 120vh;
+        }
+    }
+
+    /* iOS Safari Fixes */
+    @supports (-webkit-touch-callout: none) {
+        .carnival-hero {
+            height: -webkit-fill-available;
+        }
+        
+        .hero-video {
+            position: fixed; /* Better performance on iOS */
+            height: 100%;
+            width: 100%;
+        }
+    }
+
+    /* Low-bandwidth optimization */
+    @media (prefers-reduced-data: reduce) {
+        .hero-video {
+            content-visibility: auto;
         }
     }
 </style>

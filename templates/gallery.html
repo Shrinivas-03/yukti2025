@@ -65,6 +65,7 @@
         font-size: 1.2rem;
     }
 
+    /* Enhanced Responsive Gallery Grid */
     .gallery-grid {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -72,6 +73,7 @@
         padding: 1rem;
     }
 
+    /* Responsive Image Container */
     .gallery-item {
         position: relative;
         overflow: hidden;
@@ -80,6 +82,7 @@
         transition: all 0.3s ease;
         backdrop-filter: blur(5px);
         background: rgba(46, 46, 46, 0.7);
+        aspect-ratio: 16/9; /* Maintain image aspect ratio */
     }
 
     .gallery-item:hover {
@@ -90,9 +93,11 @@
 
     .gallery-item img {
         width: 100%;
-        height: 300px;
+        height: 100%;
         object-fit: cover;
         transition: transform 0.3s ease;
+        background: rgba(0, 0, 0, 0.1); /* Placeholder while loading */
+        animation: imageLoad 0.3s ease-in;
     }
 
     .gallery-item:hover img {
@@ -136,15 +141,80 @@
         }
     }
 
-    @media (max-width: 768px) {
+    /* Responsive Breakpoints */
+    @media (max-width: 1200px) {
         .gallery-grid {
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.25rem;
+        }
+    }
+
+    @media (max-width: 992px) {
+        .gallery-grid {
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
             gap: 1rem;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .gallery-grid {
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 0.75rem;
             padding: 0.5rem;
         }
+        
+        .gallery-item {
+            aspect-ratio: 4/3; /* Slightly different ratio for mobile */
+        }
+    }
 
-        .gallery {
-            padding: 1rem;
+    @media (max-width: 576px) {
+        .gallery-grid {
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 0.5rem;
+        }
+    }
+
+    /* Touch Device Optimizations */
+    @media (hover: none) {
+        .gallery-item:hover {
+            transform: none;
+        }
+        
+        .gallery-item img {
+            transform: none;
+        }
+    }
+
+    /* High-DPI Screen Support */
+    @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+        .gallery-item {
+            border-width: 1px;
+        }
+    }
+
+    /* Landscape Mode Optimization */
+    @media (orientation: landscape) and (max-height: 500px) {
+        .gallery-grid {
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+        }
+    }
+
+    /* Progressive Loading Animation */
+    @keyframes imageLoad {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+
+    /* Print Media Optimization */
+    @media print {
+        .gallery-grid {
+            display: block;
+        }
+        
+        .gallery-item {
+            page-break-inside: avoid;
+            margin-bottom: 1rem;
         }
     }
 </style>
@@ -155,22 +225,22 @@
         <p>Relive the best moments from our College Fest!</p>
         <div class="gallery-grid">
             <div class="gallery-item">
-                <img src="{{ url_for('static', filename='assets/01.webp') }}" alt="Event 1">
+                <img src="{{ url_for('static', filename='assets/01.webp') }}" alt="Event 1" loading="lazy">
             </div>
             <div class="gallery-item">
-                <img src="{{ url_for('static', filename='assets/02.jpg') }}" alt="Event 2">
+                <img src="{{ url_for('static', filename='assets/02.jpg') }}" alt="Event 2" loading="lazy">
             </div>
             <div class="gallery-item">
-                <img src="{{ url_for('static', filename='assets/03.jpg') }}" alt="Event 3">
+                <img src="{{ url_for('static', filename='assets/03.jpg') }}" alt="Event 3" loading="lazy">
             </div>
             <div class="gallery-item">
-                <img src="{{ url_for('static', filename='assets/04.jpg') }}" alt="Event 4">
+                <img src="{{ url_for('static', filename='assets/04.jpg') }}" alt="Event 4" loading="lazy">
             </div>
             <div class="gallery-item">
-                <img src="{{ url_for('static', filename='assets/05.jpg') }}" alt="Event 5">
+                <img src="{{ url_for('static', filename='assets/05.jpg') }}" alt="Event 5" loading="lazy">
             </div>
             <div class="gallery-item">
-                <img src="{{ url_for('static', filename='assets/06.jpg') }}" alt="Event 6">
+                <img src="{{ url_for('static', filename='assets/06.jpg') }}" alt="Event 6" loading="lazy">
             </div>
         </div>
     </section>
