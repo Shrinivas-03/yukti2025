@@ -6,11 +6,12 @@
 <!-- Hero Section -->
 <section class="hero carnival-hero">
     <!-- Add video background -->
-    <video class="hero-video" autoplay muted loop playsinline poster="{{ url_for('static', filename='assets/poster.jpg') }}" preload="metadata">
+    <video class="hero-video" autoplay muted loop playsinline
+        poster="{{ url_for('static', filename='assets/poster.jpg') }}" preload="metadata">
         <source src="{{ url_for('static', filename='assets/bg-video.mp4') }}" type="video/mp4">
     </video>
     <div class="video-overlay"></div>
-    
+
     <div class="grid-background"></div>
     <div class="hero-content">
         <div class="college-section">
@@ -89,7 +90,8 @@
                 Get ready to witness an amazing performance! The artist reveal is just around the corner. Stay tuned for
                 more details!
             </p>
-            <a href="https://www.instagram.com/vtu_cpgs_kalaburagi?igsh=MXJkNnVsMzJqaDkxcw%3D%3D&utm_source=qr" target="_blank" class="btn notify-btn carnival-button">Stay Notified →</a>
+            <a href="https://www.instagram.com/vtu_cpgs_kalaburagi?igsh=MXJkNnVsMzJqaDkxcw%3D%3D&utm_source=qr"
+                target="_blank" class="btn notify-btn carnival-button">Stay Notified →</a>
         </div>
     </div>
 </div>
@@ -190,7 +192,7 @@
         width: 100%;
         height: 100%;
         background-image: linear-gradient(#FFD700 1px, transparent 1px),
-                         linear-gradient(90deg, #FFD700 1px, transparent 1px);
+            linear-gradient(90deg, #FFD700 1px, transparent 1px);
         background-size: 50px 50px;
         opacity: 0.1;
         transform: perspective(500px) rotateX(60deg);
@@ -202,6 +204,7 @@
         0% {
             background-position: 0 0;
         }
+
         100% {
             background-position: 0 50px;
         }
@@ -221,16 +224,17 @@
         left: 0;
         width: 100%;
         height: 100%;
-        background: radial-gradient(circle at center, 
-                                  rgba(255, 215, 0, 0.1) 0%,
-                                  rgba(0, 0, 0, 0.5) 100%);
+        background: radial-gradient(circle at center,
+                rgba(255, 215, 0, 0.1) 0%,
+                rgba(0, 0, 0, 0.5) 100%);
         pointer-events: none;
     }
 
     .hero-content {
         position: relative;
         z-index: 2;
-        margin-top: -3vh; /* Added negative margin to shift upward */
+        margin-top: -3vh;
+        /* Added negative margin to shift upward */
     }
 
     /* Hero Section */
@@ -320,6 +324,17 @@
         }
     }
 
+    @keyframes appear{
+    from{
+        opacity: 0;
+        scale: 0.5;
+    }
+    to{
+        opacity: 1;
+        scale: 1;
+    }
+}
+
     /* Section Divider */
     .section-divider {
         height: 2px;
@@ -343,7 +358,8 @@
         border-radius: 15px;
         padding: 2rem;
         box-shadow: 0 8px 15px rgba(0, 0, 0, 0.4);
-        border: 2px solid #ff6600;  /* Added orange border */
+        border: 2px solid #ff6600;
+        /* Added orange border */
         transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
         max-width: 800px;
         margin: 0 auto;
@@ -367,9 +383,11 @@
     }
 
     .about-festival .animated-button {
-        background: #03e9f4;  /* Changed from #FFD700 to solid blue */
+        background: #03e9f4;
+        /* Changed from #FFD700 to solid blue */
         color: #1C1C1C;
-        border: 2px solid #03e9f4;  /* Changed border color to match */
+        border: 2px solid #03e9f4;
+        /* Changed border color to match */
         padding: 10px 20px;
         font-weight: bold;
         text-transform: uppercase;
@@ -380,8 +398,10 @@
     }
 
     .about-festival .animated-button:hover {
-        background: transparent;  /* Changed hover state */
-        color: #03e9f4;  /* Text color changes to blue on hover */
+        background: transparent;
+        /* Changed hover state */
+        color: #03e9f4;
+        /* Text color changes to blue on hover */
         border-color: #03e9f4;
     }
 
@@ -459,7 +479,8 @@
         text-align: center;
         color: #C0C0C0;
         /* Silver */
-        border: 2px solid #ff6600;  /* Added orange border */
+        border: 2px solid #ff6600;
+        /* Added orange border */
         border-radius: 15px;
         margin: 2rem auto;
         max-width: 1000px;
@@ -474,7 +495,8 @@
     }
 
     .brochure-section .download-btn {
-        background-color: #03e9f4;  /* Changed to blue */
+        background-color: #03e9f4;
+        /* Changed to blue */
         color: #1C1C1C;
         padding: 10px 20px;
         font-weight: bold;
@@ -483,7 +505,8 @@
         text-decoration: none;
         display: inline-block;
         transition: all 0.3s ease;
-        border: 2px solid #03e9f4;  /* Added border */
+        border: 2px solid #03e9f4;
+        /* Added border */
     }
 
     .brochure-section .download-btn:hover {
@@ -526,9 +549,12 @@
     }
 
     @keyframes pulse {
-        0%, 100% {
+
+        0%,
+        100% {
             transform: scale(1);
         }
+
         50% {
             transform: scale(1.1);
         }
@@ -541,6 +567,7 @@
         .hero-content .main-title {
             font-size: 4rem;
         }
+
         .hero-content .subtitle {
             font-size: 2rem;
         }
@@ -559,7 +586,7 @@
         left: 0;
         width: 100%;
         height: 100%;
-        background-image: 
+        background-image:
             linear-gradient(to right, rgba(255, 215, 0, 0.1) 1px, transparent 1px),
             linear-gradient(to bottom, rgba(255, 215, 0, 0.1) 1px, transparent 1px);
         background-size: 30px 30px;
@@ -583,6 +610,7 @@
         0% {
             transform: perspective(500px) rotateX(45deg) translateY(0) scale(2);
         }
+
         100% {
             transform: perspective(500px) rotateX(45deg) translateY(-30px) scale(2);
         }
@@ -608,7 +636,7 @@
         left: 0;
         width: 100%;
         height: 100%;
-        background-image: 
+        background-image:
             linear-gradient(to right, rgba(255, 215, 0, 0.1) 1px, transparent 1px),
             linear-gradient(to bottom, rgba(255, 215, 0, 0.1) 1px, transparent 1px);
         background-size: 25px 25px;
@@ -632,6 +660,7 @@
         0% {
             transform: perspective(700px) rotateX(45deg) translateY(0) scale(2.5);
         }
+
         100% {
             transform: perspective(700px) rotateX(45deg) translateY(-25px) scale(2.5);
         }
@@ -676,7 +705,7 @@
             /* Optional: Show a static image on mobile */
             display: none;
         }
-        
+
         .carnival-hero {
             background: linear-gradient(135deg, #1C1C1C 0%, #2d1f1f 100%);
         }
@@ -686,23 +715,32 @@
 
     /* General Responsive Typography */
     html {
-        font-size: 16px; /* Base font size */
+        font-size: 16px;
+        /* Base font size */
     }
 
     @media (max-width: 1200px) {
-        html { font-size: 15px; }
+        html {
+            font-size: 15px;
+        }
     }
 
     @media (max-width: 992px) {
-        html { font-size: 14px; }
+        html {
+            font-size: 14px;
+        }
     }
 
     @media (max-width: 768px) {
-        html { font-size: 13px; }
+        html {
+            font-size: 13px;
+        }
     }
 
     @media (max-width: 576px) {
-        html { font-size: 12px; }
+        html {
+            font-size: 12px;
+        }
     }
 
     /* Hero Section Responsiveness */
@@ -715,25 +753,51 @@
     }
 
     @media (max-width: 1200px) {
-        .hero-content .main-title { font-size: 6rem; }
-        .hero-content .subtitle { font-size: 2.5rem; }
+        .hero-content .main-title {
+            font-size: 6rem;
+        }
+
+        .hero-content .subtitle {
+            font-size: 2.5rem;
+        }
     }
 
     @media (max-width: 992px) {
-        .hero-content .main-title { font-size: 5rem; }
-        .hero-content .subtitle { font-size: 2rem; }
+        .hero-content .main-title {
+            font-size: 5rem;
+        }
+
+        .hero-content .subtitle {
+            font-size: 2rem;
+        }
     }
 
     @media (max-width: 768px) {
-        .hero-content .main-title { font-size: 4rem; }
-        .hero-content .subtitle { font-size: 1.8rem; }
-        .hero { padding: 60px 15px; }
+        .hero-content .main-title {
+            font-size: 4rem;
+        }
+
+        .hero-content .subtitle {
+            font-size: 1.8rem;
+        }
+
+        .hero {
+            padding: 60px 15px;
+        }
     }
 
     @media (max-width: 576px) {
-        .hero-content .main-title { font-size: 3rem; }
-        .hero-content .subtitle { font-size: 1.5rem; }
-        .hero { padding: 40px 10px; }
+        .hero-content .main-title {
+            font-size: 3rem;
+        }
+
+        .hero-content .subtitle {
+            font-size: 1.5rem;
+        }
+
+        .hero {
+            padding: 40px 10px;
+        }
     }
 
     /* Countdown Timer Responsiveness */
@@ -754,13 +818,16 @@
         .countdown-container {
             gap: 1rem;
         }
+
         .countdown-box {
             min-width: 100px;
             padding: 0.8rem;
         }
+
         .countdown-value {
             font-size: 2rem;
         }
+
         .countdown-label {
             font-size: 0.9rem;
         }
@@ -770,13 +837,16 @@
         .countdown-container {
             gap: 0.5rem;
         }
+
         .countdown-box {
             min-width: 80px;
             padding: 0.6rem;
         }
+
         .countdown-value {
             font-size: 1.5rem;
         }
+
         .countdown-label {
             font-size: 0.8rem;
         }
@@ -802,9 +872,11 @@
             grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
             gap: 1rem;
         }
+
         .event-card {
             padding: 1rem;
         }
+
         .event-title {
             font-size: 1.2rem;
         }
@@ -822,6 +894,7 @@
             width: 95%;
             padding: 1.5rem;
         }
+
         .about-text {
             font-size: 0.9rem;
         }
@@ -838,9 +911,11 @@
         .artist-card {
             padding: 1.5rem;
         }
+
         .artist-name {
             font-size: 1.8rem;
         }
+
         .announcement-text {
             font-size: 0.9rem;
         }
@@ -858,12 +933,15 @@
             width: 95%;
             padding: 1.5rem;
         }
+
         .section-title {
             font-size: 1.8rem;
         }
+
         .section-description {
             font-size: 0.9rem;
         }
+
         .download-btn {
             padding: 0.8rem 1.5rem;
             font-size: 0.9rem;
@@ -871,13 +949,20 @@
     }
 
     /* Button Responsiveness */
-    .btn, .cta-button, .event-button, .download-btn {
+    .btn,
+    .cta-button,
+    .event-button,
+    .download-btn {
         padding: 0.8rem 1.6rem;
         font-size: 1rem;
     }
 
     @media (max-width: 768px) {
-        .btn, .cta-button, .event-button, .download-btn {
+
+        .btn,
+        .cta-button,
+        .event-button,
+        .download-btn {
             padding: 0.6rem 1.2rem;
             font-size: 0.9rem;
         }
@@ -885,19 +970,24 @@
 
     /* Touch Device Optimizations */
     @media (hover: none) {
+
         .event-card:hover,
         .about-container:hover,
         .btn:hover {
             transform: none !important;
         }
-        
-        .btn, .cta-button, .event-button, .download-btn {
+
+        .btn,
+        .cta-button,
+        .event-button,
+        .download-btn {
             -webkit-tap-highlight-color: transparent;
         }
     }
 
     /* High-DPI Screen Optimizations */
-    @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    @media (-webkit-min-device-pixel-ratio: 2),
+    (min-resolution: 192dpi) {
         .grid-background {
             background-size: 25px 25px;
         }
@@ -909,15 +999,15 @@
             min-height: 100vh;
             padding: 1rem;
         }
-        
+
         .hero-content .main-title {
             font-size: 3rem;
         }
-        
+
         .hero-content .subtitle {
             font-size: 1.5rem;
         }
-        
+
         .countdown-container {
             margin: 1rem 0;
         }
@@ -925,6 +1015,7 @@
 
     /* Print Media Optimization */
     @media print {
+
         .hero-video,
         .video-overlay,
         .grid-background,
@@ -932,7 +1023,7 @@
         .cta {
             display: none;
         }
-        
+
         .hero-content .main-title {
             color: #000;
             text-shadow: none;
@@ -949,6 +1040,7 @@
 
     /* Dark Mode Support */
     @media (prefers-color-scheme: dark) {
+
         .about-container,
         .event-card,
         .artist-card,
@@ -961,24 +1053,28 @@
 
     /* Header/Navbar Height Management */
     :root {
-        --navbar-height: 70px; /* Define navbar height as a CSS variable */
+        --navbar-height: 70px;
+        /* Define navbar height as a CSS variable */
     }
 
     /* Adjust main content to account for fixed navbar */
     main {
-        padding-top: var(--navbar-height); /* Add padding equal to navbar height */
+        padding-top: var(--navbar-height);
+        /* Add padding equal to navbar height */
     }
 
     /* Update hero section padding */
     .hero.carnival-hero {
-        padding-top: calc(var(--navbar-height) + 2rem); /* Add extra padding for better spacing */
+        padding-top: calc(var(--navbar-height) + 2rem);
+        /* Add extra padding for better spacing */
         min-height: 100vh;
     }
 
     /* Responsive adjustments for mobile */
     @media (max-width: 768px) {
         :root {
-            --navbar-height: 60px; /* Slightly smaller navbar on mobile */
+            --navbar-height: 60px;
+            /* Slightly smaller navbar on mobile */
         }
 
         .hero.carnival-hero {
@@ -986,12 +1082,14 @@
         }
 
         .hero-content .main-title {
-            margin-top: 2rem; /* Add space between navbar and title */
+            margin-top: 2rem;
+            /* Add space between navbar and title */
         }
 
         /* Adjust content when menu is open */
-        .navbar.active + main {
-            padding-top: 100vh; /* Push content down when mobile menu is open */
+        .navbar.active+main {
+            padding-top: 100vh;
+            /* Push content down when mobile menu is open */
         }
     }
 
@@ -999,12 +1097,14 @@
     @media (max-height: 500px) and (orientation: landscape) {
         .hero.carnival-hero {
             padding-top: calc(var(--navbar-height) + 0.5rem);
-            min-height: 120vh; /* Ensure enough scroll space in landscape */
+            min-height: 120vh;
+            /* Ensure enough scroll space in landscape */
         }
     }
 
     /* Device-specific adjustments */
     @supports (-webkit-touch-callout: none) {
+
         /* iOS-specific padding to handle notch */
         .hero.carnival-hero {
             padding-top: calc(var(--navbar-height) + env(safe-area-inset-top, 2rem));
@@ -1015,7 +1115,8 @@
     .carnival-hero {
         position: relative;
         overflow: hidden;
-        min-height: 100vh; /* Ensure minimum height on all devices */
+        min-height: 100vh;
+        /* Ensure minimum height on all devices */
     }
 
     .hero-video {
@@ -1041,29 +1142,35 @@
     /* Responsive Video Adjustments */
     @media (max-width: 768px) {
         .carnival-hero {
-            min-height: 80vh; /* Reduced height on mobile */
+            min-height: 80vh;
+            /* Reduced height on mobile */
         }
 
         .hero-video {
-            display: block; /* Keep video visible */
-            height: 80vh; /* Match container height */
+            display: block;
+            /* Keep video visible */
+            height: 80vh;
+            /* Match container height */
         }
 
         .video-overlay {
-            background: rgba(0, 0, 0, 0.7); /* Darker overlay for better text visibility */
+            background: rgba(0, 0, 0, 0.7);
+            /* Darker overlay for better text visibility */
         }
 
         .hero-content {
-            padding: 1rem; /* Add padding for better spacing */
+            padding: 1rem;
+            /* Add padding for better spacing */
         }
     }
 
     /* Device-Specific Optimizations */
     @media (orientation: landscape) and (max-height: 500px) {
         .carnival-hero {
-            min-height: 120vh; /* Taller in landscape to ensure content fits */
+            min-height: 120vh;
+            /* Taller in landscape to ensure content fits */
         }
-        
+
         .hero-video {
             height: 120vh;
         }
@@ -1074,9 +1181,10 @@
         .carnival-hero {
             height: -webkit-fill-available;
         }
-        
+
         .hero-video {
-            position: fixed; /* Better performance on iOS */
+            position: fixed;
+            /* Better performance on iOS */
             height: 100%;
             width: 100%;
         }

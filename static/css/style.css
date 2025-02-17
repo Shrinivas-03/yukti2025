@@ -106,180 +106,6 @@ a{
     color: #121212;
 }
 
-/* Dropdown Menu Styling */
-.dropdown {
-    position: relative;
-}
-
-.dropdown-toggle {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-}
-
-.dropdown-toggle::after {
-    content: '▾';
-    display: inline-block;
-    margin-left: 5px;
-    transition: transform 0.3s ease;
-}
-
-.dropdown:hover .dropdown-toggle::after {
-    transform: rotate(180deg);
-}
-
-/* Enhanced Dropdown Menu Styling */
-.dropdown-menu {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    background: rgba(18, 18, 18, 0.95);
-    backdrop-filter: blur(10px);
-    min-width: 200px;
-    border-radius: 10px;
-    padding: 10px 0;
-    opacity: 0;
-    visibility: hidden;
-    transform: translateY(-10px);
-    transition: all 0.3s ease;
-    border: 2px solid #03e9f4;
-    box-shadow: 0 0 20px rgba(3, 233, 244, 0.3);
-}
-
-.dropdown:hover .dropdown-menu {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0);
-}
-
-.dropdown-menu li {
-    margin: 0;
-    position: relative;
-    overflow: hidden;
-}
-
-/* Enhanced Event Links Styling */
-.dropdown-menu a {
-    display: block;
-    padding: 12px 25px;
-    transition: all 0.3s ease;
-    position: relative;
-    z-index: 1;
-}
-
-/* Tech Events Styling */
-.dropdown-menu a[href*="tech"] {
-    color: #03e9f4;
-}
-
-.dropdown-menu a[href*="tech"]::before {
-    background: rgba(3, 233, 244, 0.1);
-}
-
-.dropdown-menu a[href*="tech"]:hover {
-    text-shadow: 0 0 5px #03e9f4,
-                 0 0 25px #03e9f4,
-                 0 0 50px #03e9f4;
-}
-
-.dropdown-menu li a[href*="tech"]::after {
-    background: #03e9f4;
-}
-
-/* Cultural Events Styling */
-.dropdown-menu a[href*="cultural"] {
-    color: #03e9f4;
-}
-
-.dropdown-menu a[href*="cultural"]::before {
-    background: rgba(3, 233, 244, 0.1);
-}
-
-.dropdown-menu a[href*="cultural"]:hover {
-    text-shadow: 0 0 5px #03e9f4,
-                 0 0 25px #03e9f4,
-                 0 0 50px #03e9f4;
-}
-
-.dropdown-menu li a[href*="cultural"]::after {
-    background: #03e9f4;
-}
-
-/* Management Events Styling */
-.dropdown-menu a[href*="management"] {
-    color: #58f7f7;
-}
-
-.dropdown-menu a[href*="management"]::before {
-    background: rgba(88, 247, 247, 0.1);
-}
-
-.dropdown-menu a[href*="management"]:hover {
-    text-shadow: 0 0 5px #58f7f7,
-                 0 0 25px #58f7f7,
-                 0 0 50px #58f7f7;
-}
-
-.dropdown-menu li a[href*="management"]::after {
-    background: #58f7f7;
-}
-
-/* Common hover effects for all event links */
-.dropdown-menu a::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    transition: all 0.5s ease;
-    z-index: -1;
-}
-
-.dropdown-menu a:hover::before {
-    left: 0;
-}
-
-.dropdown-menu li:hover a {
-    transform: translateX(10px);
-    padding-left: 35px;
-}
-
-.dropdown-menu li a::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    height: 1px;
-    transform: scaleX(0);
-    transform-origin: right;
-    transition: transform 0.5s ease;
-}
-
-.dropdown-menu li:hover a::after {
-    transform: scaleX(1);
-    transform-origin: left;
-}
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-    .dropdown-menu {
-        position: static;
-        background: transparent;
-        border: none;
-        box-shadow: none;
-        padding: 0;
-        opacity: 1;
-        visibility: visible;
-        transform: none;
-    }
-
-    .dropdown-menu a {
-        padding: 8px 20px 8px 40px;
-    }
-}
-
 /* Hero Section */
 .hero {
     text-align: center;
@@ -401,15 +227,15 @@ a{
     color: #fff;
     padding: 60px 20px;
     position: relative;
-    animation: appear linear;
-    animation-timeline: view();
-    animation-range: entry 0% cover 40%;
 }
 
 .about-container {
     max-width: 900px;
     margin: 0 auto;
     text-align: center;
+    animation: appear linear;
+    animation-timeline: view();
+    animation-range: entry 0% cover 40%;
 }
 
 .about-container .section-title {
@@ -496,9 +322,7 @@ a{
 .artist-announcement {
     margin: 50px 0;
     text-align: center;
-    animation: appear linear;
-    animation-timeline: view();
-    animation-range: entry 0% cover 40%;
+    
 }
 
 .artist-announcement .section-title {
@@ -580,9 +404,6 @@ a{
     max-width: 1200px;
     margin: 0 auto;
     text-align: center;
-    animation: translate linear;
-    animation-timeline: view();
-    animation-range: entry 0% cover 40%;
 }
 
 .events-container .section-title {
