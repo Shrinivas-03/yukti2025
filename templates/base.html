@@ -19,21 +19,29 @@
     <!-- Header Section -->
     <header class="header">
         <div class="header-content">
-            <a href="{{ url_for('home') }}">
-                <h1 class="fest-title">YUKTI <span>2025</span></h1>
-            </a>
-            <div class="menu-btn">
-                <i class="fas fa-bars"></i>
+            <div class="left-section">
+                <a href="https://vtu.ac.in/" target="_blank" class="logo-link">
+                    <img src="{{ url_for('static', filename='assets/vtu-logo.webp') }}" alt="VTU Logo" class="vtu-logo">
+                </a>
+                <a href="{{ url_for('home') }}" class="title-link">
+                    <h1 class="college-name">VTU KALABURAGI</h1>
+                    <p class="college-subtitle">center for PG studies</p>
+                </a>
             </div>
-            <nav class="navbar">
-                <ul class="nav-links">
-                    <li><a href="{{ url_for('home') }}">Home</a></li>
-                    <li><a href="{{ url_for('about') }}">About</a></li>
-                    <li><a href="{{ url_for('events') }}">Events</a></li>
-                    <li><a href="{{ url_for('gallery') }}">Gallery</a></li>
-                    <li><a href="{{ url_for('signin') }}" class="highlighted-link">Register</a></li>
-                </ul>
-            </nav>
+            <div class="right-section">
+                <div class="menu-btn">
+                    <i class="fas fa-bars"></i>
+                </div>
+                <nav class="navbar">
+                    <ul class="nav-links">
+                        <li><a href="{{ url_for('home') }}">Home</a></li>
+                        <li><a href="{{ url_for('about') }}">About</a></li>
+                        <li><a href="{{ url_for('events') }}">Events</a></li>
+                        <li><a href="{{ url_for('gallery') }}">Gallery</a></li>
+                        <li><a href="{{ url_for('signin') }}" class="highlighted-link">Register</a></li>
+                    </ul>
+                </nav>
+            </div>
         </div>
     </header>
     <!-- Dynamic Content Block -->
@@ -108,7 +116,7 @@
             z-index: 1000;
             background: rgba(30, 30, 30, 0.9);
             /* Sleek dark-gray background with transparency */
-            height: 70px;
+            height: 80px;
             /* Fixed header height */
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
             /* Subtle shadow for depth */
@@ -365,10 +373,10 @@
 
             .navbar {
                 position: fixed;
-                top: 70px;
+                top: 80px;
                 left: -100%;
                 width: 100%;
-                height: calc(100vh - 70px);
+                height: calc(100vh - 80px);
                 flex-direction: column;
                 align-items: center;
                 background: rgba(0, 0, 0, 0.95);
@@ -389,6 +397,174 @@
             .footer-content {
                 flex-direction: column;
             }
+        }
+
+        /* Logo and Header Styling */
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+            height: 80px;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-link {
+            display: flex;
+            align-items: center;
+            padding: 0.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .logo-link:hover {
+            transform: scale(1.05);
+        }
+
+        .vtu-logo {
+            height: 60px;
+            width: auto;
+            border-radius: 50%;
+            border: 2px solid #ff6700;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+        }
+
+        .title-link {
+            margin: 0 auto;
+            text-decoration: none;
+        }
+
+        .fest-title {
+            font-size: 2rem;
+            font-weight: bold;
+            background: linear-gradient(45deg, #FFD700, #FFA500);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .college-name {
+            font-size: 1.8rem;
+            color: #ff6600;
+            margin: 0;
+            font-weight: bold;
+            line-height: 1.2;
+        }
+
+        .college-subtitle {
+            color: #e0e0e0;
+            font-size: 0.9rem;
+            margin: 0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .header-content {
+                padding: 0 1rem;
+            }
+            
+            .vtu-logo {
+                height: 45px;
+            }
+            
+            .fest-title {
+                font-size: 1.5rem;
+            }
+            
+            .menu-btn {
+                margin-left: auto;
+            }
+
+            .college-name {
+                font-size: 1.4rem;
+            }
+            
+            .college-subtitle {
+                font-size: 0.8rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .vtu-logo {
+                height: 40px;
+            }
+            
+            .fest-title {
+                font-size: 1.2rem;
+            }
+        }
+
+        /* High contrast and dark mode support */
+        @media (prefers-contrast: more) {
+            .vtu-logo {
+                filter: none;
+            }
+        }
+
+        @media (prefers-color-scheme: dark) {
+            .vtu-logo {
+                filter: brightness(1.2) contrast(1.1);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                padding: 0 1rem;
+            }
+            
+            .vtu-logo {
+                height: 35px;
+            }
+            
+            .fest-title {
+                font-size: 1.4rem;
+            }
+            
+            .left-section {
+                gap: 0.5rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .vtu-logo {
+                height: 30px;
+            }
+            
+            .fest-title {
+                font-size: 1.2rem;
+            }
+        }
+
+        /* Print optimization */
+        @media print {
+            .header {
+                position: static;
+                box-shadow: none;
+            }
+            .vtu-logo {
+                filter: none;
+                print-color-adjust: exact;
+            }
+        }
+
+        .left-section {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .right-section {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
         }
     </style>
 
