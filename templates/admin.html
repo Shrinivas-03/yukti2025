@@ -11,12 +11,88 @@
             <a href="{{ url_for('logout') }}" class="logout-btn">Logout</a>
         </div>
         
+        <!-- Event Categories Section -->
+        <div class="event-categories">
+            <h2>Event Categories</h2>
+            <div class="category-dropdowns">
+                <!-- Technical Events -->
+                <div class="dropdown">
+                    <button class="dropdown-btn">
+                        <span>Technical Events</span>
+                        <span class="arrow-symbol">▼</span>
+                    </button>
+                    <div class="dropdown-content">
+                        <a href="#">Prakalpa Prastuthi</a>
+                        <a href="#">Chanaksh Coding</a>
+                        <a href="#">Robo Samara</a>
+                        <a href="#">Pragyaan Quiz</a>
+                        <a href="#">Vagmita</a>
+                    </div>
+                </div>
+
+                <!-- Cultural Events -->
+                <div class="dropdown">
+                    <button class="dropdown-btn">
+                        <span>Cultural Events</span>
+                        <span class="arrow-symbol">▼</span>
+                    </button>
+                    <div class="dropdown-content">
+                        <a href="#">Ninaad</a>
+                        <a href="#">Nritya Saadhana</a>
+                        <a href="#">Natya Mayuri</a>
+                        <a href="#">Navyataa</a>
+                    </div>
+                </div>
+
+                <!-- Management Events -->
+                <div class="dropdown">
+                    <button class="dropdown-btn">
+                        <span>Management Events</span>
+                        <span class="arrow-symbol">▼</span>
+                    </button>
+                    <div class="dropdown-content">
+                        <a href="#">Daksh</a>
+                        <a href="#">Shreshta Vitta</a>
+                        <a href="#">Manava Sansadhan</a>
+                        <a href="#">Startup Logo Design</a>
+                        <a href="#">Business Plan</a>
+                    </div>
+                </div>
+
+                <!-- Kalachitrana Events -->
+                <div class="dropdown">
+                    <button class="dropdown-btn">
+                        <span>Kalachitrana Events</span>
+                        <span class="arrow-symbol">▼</span>
+                    </button>
+                    <div class="dropdown-content">
+                        <a href="#">STHALA CHITRAPATHA</a>
+                        <a href="#">CHITRAGATHA</a>
+                        <a href="#">RUPEKHA</a>
+                        <a href="#">HASTAKALA</a>
+                        <a href="#">SWACHITRA</a>
+                    </div>
+                </div>
+
+                <!-- Gaming Events -->
+                <div class="dropdown">
+                    <button class="dropdown-btn">
+                        <span>Gaming Events</span>
+                        <span class="arrow-symbol">▼</span>
+                    </button>
+                    <div class="dropdown-content">
+                        <a href="#">BGMI</a>
+                        <a href="#">Talaash</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div class="dashboard-actions">
             <h2>Quick Actions</h2>
             <div class="action-buttons">
                 <button onclick="window.location.href='#'">View All Registrations</button>
                 <button onclick="window.location.href='#'">Export Data</button>
-                <button onclick="window.location.href='#'">Manage Users</button>
             </div>
         </div>
     </div>
@@ -25,7 +101,8 @@
 <style>
     .admin-container {
         max-width: 1200px;
-        margin: 2rem auto;
+        margin: 8rem auto;
+        margin-top: 8rem;
         padding: 20px;
     }
 
@@ -82,5 +159,114 @@
         background: #FFC500;
         transform: translateY(-2px);
     }
+
+    /* Event Categories Styling */
+    .event-categories {
+        margin-top: 2rem;
+        padding: 1rem;
+        background: rgba(30, 30, 30, 0.5);
+        border-radius: 8px;
+    }
+
+    .category-dropdowns {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1rem;
+        margin-top: 1rem;
+    }
+
+    /* Dropdown Styling */
+    .dropdown {
+        position: relative;
+        display: inline-block;
+        width: 100%;
+    }
+
+    .dropdown-btn {
+        width: 100%;
+        padding: 1rem;
+        background: #FFD700;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-weight: bold;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        transition: all 0.3s ease;
+        user-select: none; /* Prevent text selection */
+    }
+
+    .arrow-symbol {
+        font-size: 0.8em;
+        margin-left: 10px;
+        transition: transform 0.3s ease;
+    }
+
+    .dropdown:hover .arrow-symbol {
+        transform: rotate(180deg);
+    }
+
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        width: 100%;
+        background: rgba(40, 40, 40, 0.95);
+        border: 1px solid #FFD700;
+        border-radius: 4px;
+        z-index: 1000;
+        margin-top: 5px;
+    }
+
+    .dropdown-content a {
+        color: #FFD700;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+        transition: all 0.3s ease;
+    }
+
+    .dropdown-content a:hover {
+        background: rgba(255, 215, 0, 0.1);
+    }
+
+    .dropdown:hover .dropdown-content {
+        display: block;
+    }
+
+    .dropdown:hover .dropdown-btn {
+        background: #FFC500;
+    }
 </style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const dropdowns = document.querySelectorAll('.dropdown');
+        
+        dropdowns.forEach(dropdown => {
+            const btn = dropdown.querySelector('.dropdown-btn');
+            const content = dropdown.querySelector('.dropdown-content');
+            
+            // Make the entire button clickable
+            btn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                // Close all other dropdowns
+                document.querySelectorAll('.dropdown-content').forEach(dc => {
+                    if (dc !== content) {
+                        dc.style.display = 'none';
+                    }
+                });
+                // Toggle current dropdown
+                content.style.display = content.style.display === 'block' ? 'none' : 'block';
+            });
+        });
+
+        // Close dropdowns when clicking outside
+        window.addEventListener('click', function() {
+            document.querySelectorAll('.dropdown-content').forEach(dropdown => {
+                dropdown.style.display = 'none';
+            });
+        });
+    });
+</script>
 {% endblock %}
