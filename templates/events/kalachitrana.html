@@ -10,7 +10,7 @@
 
 <div class="container py-5">
     <style>
-        /* Copy exact same styles from games.html */
+        /* Copy existing page styling from tech.html */
         .event-page {
             background: linear-gradient(135deg, #1C1C1C 0%, #2d1f1f 100%);
             position: relative;
@@ -42,18 +42,45 @@
             text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
         }
 
-        /* Card and container styles */
+        /* Updated Event Card Styling to match Tech page */
         .event-card-horizontal {
-            background: rgba(28, 28, 28, 0.95);
+            display: flex;
+            flex-direction: column;
+            background: rgba(18, 18, 18, 0.95);
+            border: 2px solid #58f7f7;
+            border-radius: 15px;
+            overflow: hidden;
             backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 215, 0, 0.1);
-            border-radius: 20px;
-            margin: 3rem auto;
-            max-width: 1000px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            max-width: 800px;
+            margin: 2rem auto;
+        }
+
+        /* Updated Image Container to match Tech page */
+        .event-card-horizontal .event-image {
+            width: 100%;
+            height: 25px;
             position: relative;
             overflow: hidden;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            padding: 1.5rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #121212;
+        }
+
+        .event-card-horizontal .event-image img {
+            width: 25%;
+            height: 25%;
+            margin-top: 12px;
+            object-fit: cover;
+            object-position: center;
+            transition: transform 0.5s ease, filter 0.3s ease;
+        }
+
+        .event-card-horizontal:hover .event-image img {
+            transform: scale(1.05);
+            filter: brightness(1.1);
         }
 
         .event-content {
@@ -136,7 +163,7 @@
     <!-- Sthala Chitrapatha -->
     <div class="event-card-horizontal mb-5">
         <div class="event-image">
-            <img src="{{ url_for('static', filename='assests/Sthala.webp') }}" alt="Sthala Chitrapatha">
+            <img src="{{ url_for('static', filename='assets/logos/Sthala.webp') }}" alt="Sthala Chitrapatha">
         </div>
         <div class="event-content">
             <h3>STHALA CHITRAPATHA (Spot Photography)</h3>
@@ -201,7 +228,7 @@
     <!-- Chitragatha -->
     <div class="event-card-horizontal mb-5">
         <div class="event-image">
-            <img src="{{ url_for('static', filename='assests/Short_Film.webp') }}" alt="Chitragatha">
+            <img src="{{ url_for('static', filename='assets/logos/Short_Film.webp') }}" alt="Chitragatha">
         </div>
         <div class="event-content">
             <h3>CHITRAGATHA (Short Film)</h3>
@@ -269,7 +296,7 @@
     <!-- RUPEKHA -->
     <div class="event-card-horizontal mb-5">
         <div class="event-image">
-            <img src="{{ url_for('static', filename='assests/RUPEKHA.webp') }}" alt="RUPEKHA">
+            <img src="{{ url_for('static', filename='assets/logos/RUPEKHA.webp') }}" alt="RUPEKHA">
         </div>
         <div class="event-content">
             <h3>RUPEKHA (Sketch Art)</h3>
@@ -350,7 +377,7 @@
     <!-- Hastakala -->
     <div class="event-card-horizontal mb-5">
         <div class="event-image">
-            <img src="{{ url_for('static', filename='assests/Hastakala.webp') }}" alt="Hastakala">
+            <img src="{{ url_for('static', filename='assets/logos/Hastakala.webp') }}" alt="Hastakala">
         </div>
         <div class="event-content">
             <h3>HASTAKALA (Painting)</h3>
@@ -420,7 +447,7 @@
     <!-- Swachitra -->
     <div class="event-card-horizontal mb-5">
         <div class="event-image">
-            <img src="{{ url_for('static', filename='assests/Selfie_Point.webp') }}" alt="Swachitra">
+            <img src="{{ url_for('static', filename='assets/logos/Selfie_Point.webp') }}" alt="Swachitra">
         </div>
         <div class="event-content">
             <h3>SWACHITRA (Selfie Point)</h3>
@@ -479,7 +506,7 @@
     </div>
 
     <script>
-        // Same toggle function from games.html
+        // Same toggle function from tech.html
         function toggleDescription(button) {
             const eventCard = button.closest('.event-card-horizontal');
             const expandedContent = eventCard.querySelector('.expanded-content');
