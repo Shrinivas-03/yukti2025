@@ -10,10 +10,10 @@
             <p>Welcome, {{ session.user_id }}</p>
             <a href="{{ url_for('logout') }}" class="logout-btn">Logout</a>
         </div>
-        
-        <!-- Event Categories Section -->
+
+        <!-- Event Categories Section First -->
         <div class="event-categories">
-            <h2>Event Categories</h2>
+            <h2>Select Event Category and Event</h2>
             <div class="category-dropdowns">
                 <!-- Technical Events -->
                 <div class="dropdown">
@@ -22,11 +22,12 @@
                         <span class="arrow-symbol">▼</span>
                     </button>
                     <div class="dropdown-content">
-                        <a href="#">Prakalpa Prastuthi</a>
-                        <a href="#">Chanaksh Coding</a>
-                        <a href="#">Robo Samara</a>
-                        <a href="#">Pragyaan Quiz</a>
-                        <a href="#">Vagmita</a>
+                        <a href="#" data-category="tech">Prakalpa Prastuthi</a>
+                        <a href="#" data-category="tech">CHANAKSH (CODING EVENT)</a>
+                        <a href="#" data-category="tech">Robo Samara(Robo War)</a>
+                        <a href="#" data-category="tech">Robo Samara(Robo Race)</a>
+                        <a href="#" data-category="tech">Pragyan Quiz</a>
+                        <a href="#" data-category="tech">Vagmita</a>
                     </div>
                 </div>
 
@@ -37,10 +38,11 @@
                         <span class="arrow-symbol">▼</span>
                     </button>
                     <div class="dropdown-content">
-                        <a href="#">Ninaad</a>
-                        <a href="#">Nritya Saadhana</a>
-                        <a href="#">Natya Mayuri</a>
-                        <a href="#">Navyataa</a>
+                        <a href="#" data-category="cultural">NINAAD (Singing Solo)</a>
+                        <a href="#" data-category="cultural">NINAAD (Singing Group)</a>
+                        <a href="#" data-category="cultural">Nritya Saadhana (Dance Solo)</a>
+                        <a href="#" data-category="cultural">Nritya Saadhana (Dance Group)</a>
+                        <a href="#" data-category="cultural">Navyataa (Ramp Walk)</a>
                     </div>
                 </div>
 
@@ -51,11 +53,11 @@
                         <span class="arrow-symbol">▼</span>
                     </button>
                     <div class="dropdown-content">
-                        <a href="#">Daksh</a>
-                        <a href="#">Shreshta Vitta</a>
-                        <a href="#">Manava Sansadhan</a>
-                        <a href="#">Startup Logo Design</a>
-                        <a href="#">Business Plan</a>
+                        <a href="#" data-category="management">DAKSH (THE BEST MANAGER)</a>
+                        <a href="#" data-category="management">SHRESHTA VITTA (FINANCE)</a>
+                        <a href="#" data-category="management">MANAVA SANSADHAN (HR)</a>
+                        <a href="#" data-category="management">Sumedha (Start Up)</a>
+                        <a href="#" data-category="management">Vipanan (Marketing)</a>
                     </div>
                 </div>
 
@@ -66,11 +68,11 @@
                         <span class="arrow-symbol">▼</span>
                     </button>
                     <div class="dropdown-content">
-                        <a href="#">STHALA CHITRAPATHA</a>
-                        <a href="#">CHITRAGATHA</a>
-                        <a href="#">RUPEKHA</a>
-                        <a href="#">HASTAKALA</a>
-                        <a href="#">SWACHITRA</a>
+                        <a href="#" data-category="VisualArt">Sthala Chitrapatha (Spot Photography)</a>
+                        <a href="#" data-category="VisualArt">Chitragatha (Short Film)</a>
+                        <a href="#" data-category="VisualArt">RUPEKHA (Sketch Art)</a>
+                        <a href="#" data-category="VisualArt">Hastakala (Painting)</a>
+                        <a href="#" data-category="VisualArt">Swachitra (Selfie Point)</a>
                     </div>
                 </div>
 
@@ -81,19 +83,29 @@
                         <span class="arrow-symbol">▼</span>
                     </button>
                     <div class="dropdown-content">
-                        <a href="#">BGMI</a>
-                        <a href="#">Talaash</a>
+                        <a href="#" data-category="games">BGMI</a>
+                        <a href="#" data-category="games">Talaash</a>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="dashboard-actions">
-            <h2>Quick Actions</h2>
-            <div class="action-buttons">
-                <button onclick="window.location.href='#'">View All Registrations</button>
-                <button onclick="window.location.href='#'">Export Data</button>
+        <!-- Registration Type Section -->
+        <div class="registration-types" id="registration-type-section" style="display: none;">
+            <h2>Select Registration Type</h2>
+            <div class="type-buttons">
+                <button onclick="showRegistrationData('regular')" class="type-btn">Regular Registrations</button>
+                <button onclick="showRegistrationData('spot')" class="type-btn">Spot Registrations</button>
             </div>
+        </div>
+
+        <!-- Registration Display Section -->
+        <div id="registrations-display" class="registrations-section">
+            <!-- Content will be loaded dynamically -->
+        </div>
+        <!-- Add download button below the table -->
+        <div class="download-section" style="text-align: center; margin-top: 1rem;">
+            <button id="download-btn" class="download-btn" style="padding: 0.8rem 1.5rem; background: #FFD700; color: #1C1C1C; border: none; border-radius: 4px; cursor: pointer;">Download CSV</button>
         </div>
     </div>
 </div>
@@ -237,6 +249,127 @@
     .dropdown:hover .dropdown-btn {
         background: #FFC500;
     }
+
+    /* Registration Types Section Styling */
+    .registration-types {
+        margin: 2rem 0;
+        padding: 1.5rem;
+        background: rgba(30, 30, 30, 0.5);
+        border-radius: 8px;
+        border: 1px solid #FFD700;
+    }
+
+    .type-dropdowns {
+        max-width: 400px;
+        margin: 1rem auto;
+    }
+
+    .registrations-section {
+        margin-top: 1.5rem;
+        padding: 1rem;
+        background: rgba(40, 40, 40, 0.95);
+        border-radius: 6px;
+        display: none; /* Initially hidden */
+    }
+
+    /* Maintain consistent dropdown styling */
+    .registration-types .dropdown-btn {
+        background: linear-gradient(145deg, #FFD700, #FFC800);
+        color: #1C1C1C;
+        text-transform: uppercase;
+        font-weight: bold;
+        letter-spacing: 1px;
+    }
+
+    .registration-types .dropdown-content {
+        background: rgba(40, 40, 40, 0.98);
+    }
+
+    .registration-types .dropdown-content a {
+        color: #FFD700;
+        font-weight: 500;
+        border-bottom: 1px solid rgba(255, 215, 0, 0.1);
+    }
+
+    .registration-types .dropdown-content a:last-child {
+        border-bottom: none;
+    }
+
+    .registration-types .dropdown-content a:hover {
+        background: rgba(255, 215, 0, 0.1);
+        transform: translateX(5px);
+    }
+
+    .registrations-table {
+        margin-top: 20px;
+        overflow-x: auto;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        background: rgba(30, 30, 30, 0.9);
+        border-radius: 8px;
+        overflow: hidden;
+    }
+
+    th, td {
+        padding: 12px 15px;
+        text-align: left;
+        border-bottom: 1px solid rgba(255, 215, 0, 0.1);
+    }
+
+    th {
+        background: #FFD700;
+        color: #1C1C1C;
+        font-weight: bold;
+        text-transform: uppercase;
+    }
+
+    td {
+        color: #C0C0C0;
+    }
+
+    tbody tr:hover {
+        background: rgba(255, 215, 0, 0.1);
+    }
+
+    .error {
+        color: #ff6b6b;
+        padding: 10px;
+        background: rgba(255, 107, 107, 0.1);
+        border-radius: 4px;
+        text-align: center;
+    }
+
+    .loading {
+        text-align: center;
+        padding: 20px;
+        color: #FFD700;
+    }
+
+    .type-buttons {
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+        margin: 1rem 0;
+    }
+
+    .type-btn {
+        padding: 0.8rem 1.5rem;
+        background: #FFD700;
+        color: #1C1C1C;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-weight: bold;
+        transition: all 0.3s ease;
+    }
+
+    .type-btn:hover {
+        background: #FFC500;
+        transform: translateY(-2px);
+    }
 </style>
 
 <script>
@@ -268,5 +401,343 @@
             });
         });
     });
+
+    async function showRegistrations(type) {
+        const displaySection = document.getElementById('registrations-display');
+        displaySection.style.display = 'block';
+        displaySection.innerHTML = `<h3>${type === 'regular' ? 'Regular' : 'Spot'} Registrations</h3>
+            <div class="loading">Loading registrations...</div>`;
+
+        try {
+            const response = await fetch(`/api/get-registrations?type=${type}`);
+            const data = await response.json();
+            
+            if (data.success && data.registrations) {
+                let tableHtml = `
+                    <div class="registrations-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Ack ID</th>
+                                    <th>College</th>
+                                    <th>Email</th>
+                                    <th>Phone</th>
+                                    <th>Events</th>
+                                    ${type === 'spot' ? '<th>UTR Number</th>' : ''}
+                                </tr>
+                            </thead>
+                            <tbody>
+                `;
+
+                data.registrations.forEach(reg => {
+                    const events = reg.event_details.map(e => e.event).join(', ');
+                    tableHtml += `
+                        <tr>
+                            <td>${reg.ack_id}</td>
+                            <td>${reg.college}</td>
+                            <td>${reg.email}</td>
+                            <td>${reg.phone}</td>
+                            <td>${events}</td>
+                            ${type === 'spot' ? `<td>${reg.utr_number || '-'}</td>` : ''}
+                        </tr>
+                    `;
+                });
+
+                tableHtml += `
+                            </tbody>
+                        </table>
+                    </div>
+                `;
+
+                displaySection.innerHTML = `
+                    <h3>${type === 'regular' ? 'Regular' : 'Spot'} Registrations</h3>
+                    ${data.registrations.length ? tableHtml : '<p>No registrations found.</p>'}
+                `;
+            } else {
+                displaySection.innerHTML = '<p class="error">Failed to load registrations</p>';
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            displaySection.innerHTML = '<p class="error">Error loading registrations</p>';
+        }
+    }
+
+    function showEventRegistrations(eventName, category) {
+        const displaySection = document.getElementById('registrations-display');
+        displaySection.style.display = 'block';
+        displaySection.innerHTML = `<h3>Registrations for ${eventName}</h3>
+            <div class="loading">Loading event details...</div>`;
+
+        console.log(`Fetching registrations for ${eventName} in ${category}`);  // Debug log
+
+        fetch(`/api/get-event-registrations?event=${encodeURIComponent(eventName)}&category=${encodeURIComponent(category)}`)
+            .then(response => response.json())
+            .then(data => {
+                console.log('Response data:', data);  // Debug log
+                
+                if (data.success) {
+                    if (data.registrations.length === 0) {
+                        displaySection.innerHTML = `
+                            <h3>Registrations for ${eventName}</h3>
+                            <p>No registrations found for this event.</p>
+                        `;
+                        return;
+                    }
+
+                    let tableHtml = `
+                        <h3>Registrations for ${eventName}</h3>
+                        <table class="event-registrations">
+                            <thead>
+                                <tr>
+                                    <th>Ack ID</th>
+                                    <th>College</th>
+                                    <th>Email</th>
+                                    <th>Phone</th>
+                                    <th>Team Members</th>
+                                    <th>Registration Type</th>
+                                    <th>UTR Number</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                    `;
+
+                    data.registrations.forEach(reg => {
+                        tableHtml += `
+                            <tr>
+                                <td>${reg.ack_id}</td>
+                                <td>${reg.college}</td>
+                                <td>${reg.email}</td>
+                                <td>${reg.phone}</td>
+                                <td>${reg.team_members || '-'}</td>
+                                <td>${reg.type}</td>
+                                <td>${reg.utr_number || '-'}</td>
+                            </tr>
+                        `;
+                    });
+
+                    tableHtml += '</tbody></table>';
+                    displaySection.innerHTML = tableHtml;
+                } else {
+                    displaySection.innerHTML = `
+                        <h3>Error</h3>
+                        <p class="error">${data.message || 'Failed to load registrations'}</p>
+                    `;
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);  // Debug log
+                displaySection.innerHTML = '<p class="error">Error loading event registrations</p>';
+            });
+    }
+
+    // Modify event link click handlers
+    document.querySelectorAll('.dropdown-content a').forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            const eventName = this.textContent;
+            const category = this.closest('.dropdown').querySelector('.dropdown-btn span').textContent;
+            showEventRegistrations(eventName, category);
+        });
+    });
+
+    // Add this to handle event category clicks
+    document.querySelectorAll('.event-categories .dropdown-content a').forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            const eventName = this.textContent;
+            const category = this.closest('.dropdown').querySelector('.dropdown-btn span').textContent;
+            showEventRegistrations(eventName, category);
+        });
+    });
+
+    let selectedEvent = null;
+    let selectedCategory = null;
+
+    // Modified event click handler
+    document.querySelectorAll('.dropdown-content a').forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            selectedEvent = this.textContent;
+            selectedCategory = this.getAttribute('data-category');
+            
+            // Show registration type section
+            document.getElementById('registration-type-section').style.display = 'block';
+            
+            // Clear previous results
+            document.getElementById('registrations-display').innerHTML = 
+                `<h3>Selected Event: ${selectedEvent}</h3>
+                 <p>Please select a registration type above to view registrations.</p>`;
+        });
+    });
+
+    // Global variable to track current registration type (default to 'regular')
+    let currentType = 'regular';
+
+    // Update global type when loading data
+    async function showRegistrationData(type) {
+        currentType = type;
+        if (!selectedEvent || !selectedCategory) {
+            alert('Please select an event first');
+            return;
+        }
+
+        const displaySection = document.getElementById('registrations-display');
+        displaySection.style.display = 'block';
+        displaySection.innerHTML = `
+            <h3>Loading ${type} registrations for ${selectedEvent}...</h3>
+            <div class="loading">Please wait...</div>
+        `;
+
+        try {
+            console.log(`Fetching registrations for ${selectedEvent} (${type})`);  // Debug log
+            
+            const response = await fetch(`/api/get-event-registrations?event=${encodeURIComponent(selectedEvent)}&type=${type}`);
+            const data = await response.json();
+            
+            console.log('Response:', data);  // Debug log
+
+            if (data.success) {
+                if (!data.registrations || data.registrations.length === 0) {
+                    displaySection.innerHTML = `
+                        <h3>${type} Registrations for ${selectedEvent}</h3>
+                        <p>No registrations found.</p>
+                    `;
+                    return;
+                }
+
+                let tableHtml = `
+                    <h3>${type} Registrations for ${selectedEvent}</h3>
+                    <div class="registrations-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Ack ID</th>
+                                    <th>College</th>
+                                    <th>Email</th>
+                                    <th>Phone</th>
+                                    <th>Participant/Team</th>
+                                    <th>Event Cost</th>
+                                    ${type === 'spot' ? '<th>UTR Number</th>' : ''}
+                                </tr>
+                            </thead>
+                            <tbody>
+                `;
+
+                data.registrations.forEach(reg => {
+                    tableHtml += `
+                        <tr>
+                            <td>${reg.ack_id}</td>
+                            <td>${reg.college}</td>
+                            <td>${reg.email}</td>
+                            <td>${reg.phone}</td>
+                            <td>${reg.team_members || '-'}</td>
+                            <td>₹${reg.event_cost}</td>
+                            ${type === 'spot' ? `<td>${reg.utr_number || '-'}</td>` : ''}
+                        </tr>
+                    `;
+                });
+
+                tableHtml += `
+                            </tbody>
+                        </table>
+                    </div>
+                `;
+
+                displaySection.innerHTML = tableHtml;
+            } else {
+                displaySection.innerHTML = `
+                    <h3>Error</h3>
+                    <p class="error">${data.message || 'Failed to load registrations'}</p>
+                `;
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            displaySection.innerHTML = '<p class="error">Error loading registrations</p>';
+        }
+    }
+
+    // Add event listener to download button
+    document.getElementById('download-btn').addEventListener('click', function() {
+        if (!selectedEvent) {
+            alert("Please select an event before downloading.");
+            return;
+        }
+        window.location.href = `/api/download-registrations?type=${currentType}&event=${encodeURIComponent(selectedEvent)}`;
+    });
+
+    function generateMemberInputs(count) {
+        memberInputsContainer.innerHTML = '';
+        teamMembersContainer.classList.remove("hidden");
+
+        // Create a form to contain the inputs
+        const form = document.createElement('form');
+        form.id = 'team-members-form';
+        
+        if (currentEventSelection && currentEventSelection.type === "team") {
+            count = Math.min(Math.max(parseInt(count), currentEventSelection.minTeam), currentEventSelection.maxTeam);
+            groupSizeInput.value = count;
+        }
+
+        for (let i = 1; i <= count; i++) {
+            const memberDiv = document.createElement("div");
+            memberDiv.classList.add("member-input");
+            
+            const memberInput = document.createElement("input");
+            memberInput.type = "text";
+            memberInput.id = `member-${i}`;
+            memberInput.name = `member-${i}`;
+            memberInput.placeholder = `Member ${i} Name`;
+            // Make required but handle validation manually
+            memberInput.setAttribute('data-required', 'true');
+            
+            memberDiv.appendChild(memberInput);
+            form.appendChild(memberDiv);
+        }
+
+        memberInputsContainer.appendChild(form);
+        updateTotalParticipants();
+    }
+
+    // Modify the validation in the add event button handler
+    addEventBtn.addEventListener("click", function() {
+        if (currentEventSelection) {
+            // Check if all member inputs are filled
+            const memberInputs = document.querySelectorAll("#member-inputs input[data-required='true']");
+            let allFilled = true;
+            memberInputs.forEach(input => {
+                if (!input.value.trim()) {
+                    allFilled = false;
+                    input.classList.add('invalid');
+                } else {
+                    input.classList.remove('invalid');
+                }
+            });
+
+            if (!allFilled) {
+                alert("Please fill in all team member names!");
+                return;
+            }
+
+            // Rest of your existing add event code...
+            const eventDetails = {
+                category: categorySelect.value,
+                event: currentEventSelection.name,
+                type: currentEventSelection.type,
+                cost: currentEventSelection.cost
+            };
+
+            // ... rest of your existing code
+        }
+    });
+
+    // Add CSS for invalid inputs
+    const style = document.createElement('style');
+    style.textContent = `
+        .invalid {
+            border-color: red !important;
+            background-color: rgba(255, 0, 0, 0.1) !important;
+        }
+    `;
+    document.head.appendChild(style);
 </script>
 {% endblock %}

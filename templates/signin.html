@@ -94,28 +94,35 @@
     }
 
     /* Adjusting text alignment above the sign-in section */
-    .info {
-        font-size: 0.9rem;
-        color: #ffffff;
-        text-align: center;
-    }
-
-    .info a {
-        color: #ff6700;
-        font-weight: bold;
-        text-decoration: none;
-        margin-top: 0.3rem;
-    }
-
-    .info a:hover {
-        text-decoration: underline;
-    }
-
     p.error {
         color: #ff4d4d;
         font-size: 0.9rem;
         margin-bottom: 1rem;
         text-align: center;
+    }
+
+    .help-link {
+        color: #25d366; /* WhatsApp green color */
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        transition: all 0.3s ease;
+    }
+
+    .help-link:hover {
+        color: #128C7E;
+        text-decoration: underline;
+    }
+
+    .help-link i {
+        font-size: 1.2em;
+    }
+
+    .help-section {
+        text-align: center;
+        margin-top: 10px;
+        color: #e0e0e0;
     }
 </style>
 
@@ -132,9 +139,13 @@
             <input type="password" name="password" id="password" placeholder="Enter your password" required>
             <button type="submit">Sign In</button>
         </form>
-        <div class="info">
+        <div class="help-section">
             Registration is allowed through colleges only. <br>
-            <a href="#">Need help?</a>
+            <p>Need help? 
+                <a href="https://wa.me/+919880156660" target="_blank" class="help-link">
+                    <i class="fab fa-whatsapp"></i> Contact Support
+                </a>
+            </p>
         </div>
     </div>
 </main>
