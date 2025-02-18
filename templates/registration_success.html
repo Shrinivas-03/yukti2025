@@ -16,7 +16,7 @@
                 <p><strong>Phone:</strong> {{ details.phone }}</p>
                 <p><strong>College:</strong> {{ details.college }}</p>
                 <p><strong>Total Participants:</strong> {{ details.total_participants }}</p>
-                <p><strong>Total Cost:</strong> ₹{{ details.total_cost }}</p>
+                <p><strong>Total Cost:</strong> ₹{{ details.total_cost }}</p>  <!-- This will now show correct total -->
             </div>
             
             <div class="events-section">
@@ -34,7 +34,7 @@
                             <span class="participant-info">Participant: {{ event.participant }}</span>
                         {% endif %}
                     </div>
-                    <div class="event-cost">Cost: ₹{{ event.cost }}</div>
+                    <div class="event-cost">Cost: ₹{{ event.cost }}</div>  <!-- Individual event cost -->
                 </div>
                 {% endfor %}
             </div>
