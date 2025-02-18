@@ -10,133 +10,248 @@
 
 <div class="container py-5">
     <style>
-        /* Copy styles from games.html */
-        .event-page {
-            background: linear-gradient(135deg, #1C1C1C 0%, #2d1f1f 100%);
-            position: relative;
-            padding: 6rem 0 4rem;
-            overflow: hidden;
-        }
+        /* Header and Page Styling from cultural.html */
+            /* Copy exact styles from cultural.html */
+            .event-page {
+                background: linear-gradient(135deg, #1C1C1C 0%, #2d1f1f 100%);
+                position: relative;
+                padding: 6rem 0 4rem;
+                overflow: hidden;
+            }
 
-        .event-page::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: 
-                linear-gradient(90deg, transparent 50%, rgba(255, 215, 0, 0.05) 100%),
-                radial-gradient(circle at 50% 50%, rgba(255, 215, 0, 0.1) 0%, transparent 50%);
-            animation: shimmer 10s infinite linear;
-        }
+            .event-page::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: 
+                    linear-gradient(90deg, transparent 50%, rgba(255, 215, 0, 0.05) 100%),
+                    radial-gradient(circle at 50% 50%, rgba(255, 215, 0, 0.1) 0%, transparent 50%);
+                animation: shimmer 10s infinite linear;
+            }
 
-        .event-page h1 {
-            font-size: 4.5rem;
-            background: linear-gradient(45deg, #FFD700, #ff6b00, #FFD700);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            margin-bottom: 1.5rem;
-            font-family: 'Orbitron', sans-serif;
-            text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
-        }
+            .event-page h1 {
+                font-size: 4.5rem;
+                background: linear-gradient(45deg, #FFD700, #ff6b00, #FFD700);
+                -webkit-background-clip: text;
+                background-clip: text;
+                color: transparent;
+                margin-bottom: 1.5rem;
+                font-family: 'Orbitron', sans-serif;
+                text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
+            }
 
-        /* Card and content styles */
-        .event-card-horizontal {
-            background: rgba(28, 28, 28, 0.95);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 215, 0, 0.1);
-            border-radius: 20px;
-            margin: 3rem auto;
-            max-width: 1000px;
-            position: relative;
-            overflow: hidden;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            padding: 1.5rem;
-        }
+            /* Card and container styles */
+            .event-card-horizontal {
+                display: flex;
+                flex-direction: column;
+                background: rgba(18, 18, 18, 0.95);
+                border: 2px solid #58f7f7;
+                border-radius: 15px;
+                overflow: hidden;
+                backdrop-filter: blur(10px);
+                box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+                transition: transform 0.3s ease, box-shadow 0.3s ease;
+                max-width: 800px; /* Reduced from 1000px for better readability */
+                margin: 2rem auto;
+            }
 
-        .event-content {
-            padding: 1.5rem;
-        }
+            .event-card-horizontal .event-image {
+                width: 100%;
+                height: 25px; /* Reduced height */
+                position: relative;
+                overflow: hidden;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                background: #121212;
+            }
 
-        .event-details {
-            margin-top: 1rem;
-            font-size: 1rem;
-        }
+            .event-card-horizontal .event-image img {
+                width: 25%;
+                height: 25%;
+                margin-top: 12px;
+                object-fit: cover; /* Maintain aspect ratio */
+                object-position: center; /* Center the image */
+                transition: transform 0.5s ease, filter 0.3s ease;
+            }
 
-        /* Button styles */
-        .button-container {
-            display: flex;
-            gap: 1.5rem;
-            margin-top: 2rem;
-            justify-content: center;
-        }
+            .event-card-horizontal:hover .event-image img {
+                transform: scale(1.05);
+                filter: brightness(1.1);
+            }
 
-        .btn-read-more, .btn-register {
-            padding: 1rem 2.5rem;
-            font-size: 1rem;
-            font-weight: 600;
-            letter-spacing: 2px;
-            border-radius: 8px;
-            position: relative;
-            overflow: hidden;
-            z-index: 1;
-            transition: all 0.4s ease;
-        }
+            .event-card-horizontal .event-image::after {
+                content: '';
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                height: 50%;
+                background: linear-gradient(to bottom, 
+                                  rgba(18, 18, 18, 0) 0%,
+                                  rgba(18, 18, 18, 0.95) 100%);
+                pointer-events: none;
+            }
 
-        .btn-read-more {
-            background: transparent;
-            color: #FFD700;
-            border: 2px solid #FFD700;
-            cursor: pointer;
-        }
+            .event-card-horizontal .event-content {
+                padding: 1.5rem;
+                background: linear-gradient(180deg, rgba(18, 18, 18, 0.95) 0%, rgba(18, 18, 18, 1) 100%);
+            }
 
-        .btn-register {
-            background: linear-gradient(45deg, #8B0000, #cc0000);
-            color: #FFD700;
-            border: none;
-        }
+            .event-card-horizontal h3 {
+                font-size: 2rem;
+                margin-bottom: 1rem;
+                background: linear-gradient(45deg, #ff4500, #ff8c00);
+                -webkit-background-clip: text;
+                background-clip: text;
+                color: transparent;
+                text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            }
 
-        .btn-read-more:hover, .btn-register:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(255, 215, 0, 0.3);
-        }
+            .event-card-horizontal .event-description p {
+                font-size: 1.1rem;
+                line-height: 1.6;
+                color: #e0e0e0;
+                margin-bottom: 1.5rem;
+            }
 
-        /* Expanded content styles */
-        .expanded-content {
-            display: none;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            padding: 50px;
-            background: rgba(45, 49, 56, 0.8);
-            border-radius: 8px;
-            margin-top: 1rem;
-        }
+            .event-details {
+                background: rgba(0, 0, 0, 0.2);
+                padding: 1.5rem;
+                border-radius: 10px;
+                margin: 1.5rem 0;
+            }
 
-        .expanded-content.active {
-            display: block;
-            opacity: 1;
-        }
+            .event-details li {
+                margin-bottom: 0.8rem;
+                font-size: 1rem;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            }
 
-        /* Animations */
-        @keyframes shimmer {
-            0% { background-position: -1000px 0; }
-            100% { background-position: 1000px 0; }
-        }
+            .event-details li i {
+                color: #58f7f7;
+                font-size: 1.2rem;
+            }
 
-        /* Responsive styles */
-        @media (max-width: 768px) {
-            .event-page h1 { font-size: 2.5rem; }
-            .event-content h3 { font-size: 1.8rem; }
-            .button-container { flex-direction: column; }
-        }
+            /* Enhanced Button Container */
+            .button-container {
+                display: flex;
+                gap: 1rem;
+                margin-top: 2rem;
+                justify-content: center;
+            }
+
+            /* Responsive adjustments */
+            @media (max-width: 768px) {
+                .event-card-horizontal {
+                    margin: 1.5rem 1rem;
+                }
+
+                .event-card-horizontal .event-image {
+                    height: 180px; /* Even smaller on mobile */
+                }
+
+                .event-card-horizontal h3 {
+                    font-size: 1.5rem;
+                }
+
+                .event-card-horizontal .event-content {
+                    padding: 1.5rem;
+                }
+            }
+
+            @media (max-width: 480px) {
+                .event-card-horizontal .event-image {
+                    height: 160px; /* Smallest size for mobile */
+                }
+            }
+
+            .event-content {
+                padding: 1.5rem;
+            }
+
+            .event-details {
+                margin-top: 1rem;
+                font-size: 1rem;
+            }
+
+            /* Button styles */
+            .button-container {
+                display: flex;
+                gap: 1.5rem;
+                margin-top: 2rem;
+                justify-content: center;
+            }
+
+            .btn-read-more, .btn-register {
+                padding: 1rem 2.5rem;
+                font-size: 1rem;
+                font-weight: 600;
+                letter-spacing: 2px;
+                border-radius: 8px;
+                position: relative;
+                overflow: hidden;
+                z-index: 1;
+                transition: all 0.4s ease;
+            }
+
+            .btn-read-more {
+                background: transparent;
+                color: #FFD700;
+                border: 2px solid #FFD700;
+                cursor: pointer;
+            }
+
+            .btn-register {
+                background: linear-gradient(45deg, #8B0000, #cc0000);
+                color: #FFD700;
+                border: none;
+            }
+
+            .btn-read-more:hover, .btn-register:hover {
+                transform: translateY(-3px);
+                box-shadow: 0 5px 15px rgba(255, 215, 0, 0.3);
+            }
+
+            /* Expanded content styles */
+            .expanded-content {
+                display: none;
+                opacity: 0;
+                transition: opacity 0.3s ease;
+                padding: 50px;
+                background: rgba(45, 49, 56, 0.8);
+                border-radius: 8px;
+                margin-top: 1rem;
+            }
+
+            .expanded-content.active {
+                display: block;
+                opacity: 1;
+            }
+
+            /* Animations */
+            @keyframes shimmer {
+                0% { background-position: -1000px 0; }
+                100% { background-position: 1000px 0; }
+            }
+
+            /* Responsive styles */
+            @media (max-width: 768px) {
+                .event-page h1 { font-size: 2.5rem; }
+                .event-content h3 { font-size: 1.8rem; }
+                .button-container { flex-direction: column; }
+            }
     </style>
 
     <!-- DAKSH -->
     <div class="event-card-horizontal mb-5">
         <div class="event-image">
-            <img src="{{ url_for('static', filename='images/events/best-manager.jpg') }}" alt="DAKSH">
+            <img src="{{ url_for('static', filename='assets/logos/DAKSH.webp') }}" alt="DAKSH">
         </div>
         <div class="event-content">
             <h3>DAKSH (THE BEST MANAGER)</h3>
@@ -221,10 +336,10 @@
     <!-- SHRESHTA VITTA Final -->
     <div class="event-card-horizontal mb-5">
         <div class="event-image">
-            <img src="{{ url_for('static', filename='images/events/finance.jpg') }}" alt="SHRESHTA VITTA">
+            <img src="{{ url_for('static', filename='assets/logos/finance.webp') }}" alt="SHRESHTA VITTA">
         </div>
         <div class="event-content">
-            <h3>SHRESHTA VITTA (FINANCE) Final</h3>
+            <h3>SHRESHTA VITTA (FINANCE)</h3>
             <div class="event-description">
                 <p class="quote-kannada">"ಅಪಾಯವಿಲ್ಲದೆ ಸಂಪಾದಿಸಿ, ವಿಷಾದವಿಲ್ಲದೆ ನೀಡಿ: ವಿಜಯೋತ್ಸವಕ್ಕಾಗಿ ನಿಮ್ಮ ಪ್ರತಿಭೆಗಳನ್ನು ವ್ಯಾಪಾರ ಮಾಡಿ!"</p>
                 <p class="quote">"Earn without Risk, Give without Regret: Trade Your Talents for Triumph!"</p>
@@ -277,7 +392,7 @@
     <!-- MANAVA SANSADHAN -->
     <div class="event-card-horizontal mb-5">
         <div class="event-image">
-            <img src="{{ url_for('static', filename='images/events/hr.jpg') }}" alt="MANAVA SANSADHAN">
+            <img src="{{ url_for('static', filename='assets/logos/HR.webp') }}" alt="MANAVA SANSADHAN">
         </div>
         <div class="event-content">
             <h3>MANAVA SANSADHAN (HR)</h3>
@@ -449,7 +564,7 @@
     <!-- VIPANAN (Marketing) -->
     <div class="event-card-horizontal mb-5">
         <div class="event-image">
-            <img src="{{ url_for('static', filename='images/events/marketing.jpg') }}" alt="VIPANAN">
+            <img src="{{ url_for('static', filename='assets/logos/marketing.webp') }}" alt="VIPANAN">
         </div>
         <div class="event-content">
             <h3>VIPANAN (Marketing)</h3>
@@ -509,7 +624,7 @@
 </div>
 
 <script>
-    // Same toggle function from games.html
+    // Same toggle function from tech.html
     function toggleDescription(button) {
         const eventCard = button.closest('.event-card-horizontal');
         const expandedContent = eventCard.querySelector('.expanded-content');

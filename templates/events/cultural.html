@@ -13,7 +13,7 @@
         <!-- NINAAD -->
         <div class="event-card-horizontal mb-5">
             <div class="event-image">
-                <img src="{{ url_for('static', filename='assets/NINAAD.webp') }}" alt="NINAAD">
+                <img src="{{ url_for('static', filename='assets/logos/NINAAD.webp') }}" alt="NINAAD">
                 <!-- Ensure that the file 'NINAAD.webp' exists in /d:/college yukti fest/yukti2025/static/assets -->
             </div>
             <div class="event-content">
@@ -88,7 +88,7 @@
         <!-- NRITYA SAADHANA -->
         <div class="event-card-horizontal mb-5">
             <div class="event-image">
-                <img src="{{ url_for('static', filename='assets/Nritya.webp') }}" alt="Nritya Saadhana">
+                <img src="{{ url_for('static', filename='assets/logos/Nritya.webp') }}" alt="Nritya Saadhana">
                 <!-- Verify image exists in the static/assets folder -->
             </div>
             <div class="event-content">
@@ -156,7 +156,7 @@
         <!-- Navyataa -->
         <div class="event-card-horizontal mb-5">
             <div class="event-image">
-                <img src="{{ url_for('static', filename='assets/Ramp_Walk.webp') }}" alt="Navyataa">
+                <img src="{{ url_for('static', filename='assets/logos/Ramp_Walk.webp') }}" alt="Navyataa">
                 <!-- Verify image file 'Ramp_Walk.webp' is present in /d:/college yukti fest/yukti2025/static/assets -->
             </div>
             <div class="event-content">
@@ -255,16 +255,17 @@
 
             /* Modernized Event Cards */
             .event-card-horizontal {
-                background: rgba(28, 28, 28, 0.95);
-                backdrop-filter: blur(10px);
-                border: 1px solid rgba(255, 215, 0, 0.1);
-                border-radius: 20px;
-                margin: 3rem auto;
-                max-width: 1000px;
-                position: relative;
+                display: flex;
+                flex-direction: column;
+                background: rgba(18, 18, 18, 0.95);
+                border: 2px solid #58f7f7;
+                border-radius: 15px;
                 overflow: hidden;
-                transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-                padding: 1.5rem;  /* Added internal padding */
+                backdrop-filter: blur(10px);
+                box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+                transition: transform 0.3s ease, box-shadow 0.3s ease;
+                max-width: 800px; /* Reduced from 1000px for better readability */
+                margin: 2rem auto;
             }
 
             .event-card-horizontal::before {
@@ -284,27 +285,45 @@
             }
 
             /* Enhanced Image Container */
-            .event-image {
-                width: 220px;
-                height: 220px;
-                border-radius: 50%;
+            
+            .event-card-horizontal .event-image {
+                width: 100%;
+                height: 25px; /* Reduced height */
                 position: relative;
                 overflow: hidden;
-                border: 3px solid transparent;
-                background: linear-gradient(145deg, #FFD700, #ff6b00) border-box;
-                -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
-                mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);  /* added standard property */
-                mask-composite: exclude;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                background: #121212;
             }
 
-            .event-image img {
-                transform: scale(1.1);
-                transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            .event-card-horizontal .event-image img {
+                width: 25%;
+                height: 25%;
+                margin-top: 12px;
+                object-fit: cover; /* Maintain aspect ratio */
+                object-position: center; /* Center the image */
+                transition: transform 0.5s ease, filter 0.3s ease;
             }
 
             .event-card-horizontal:hover .event-image img {
-                transform: scale(1.2) rotate(3deg);
+                transform: scale(1.05);
+                filter: brightness(1.1);
             }
+
+            .event-card-horizontal .event-image::after {
+                content: '';
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                height: 50%;
+                background: linear-gradient(to bottom, 
+                                  rgba(18, 18, 18, 0) 0%,
+                                  rgba(18, 18, 18, 0.95) 100%);
+                pointer-events: none;
+            }
+
 
             /* Enhanced Content Styling */
             .event-content h3 {
@@ -384,7 +403,6 @@
                     font-size: 2.5rem;
                 }
                 .event-image {
-                    width: 180px;
                     height: 180px;
                 }
                 .event-content h3 {
@@ -392,6 +410,12 @@
                 }
                 .button-container {
                     flex-direction: column;
+                }
+            }
+
+            @media (max-width: 480px) {
+                .event-image {
+                    height: 160px;
                 }
             }
 

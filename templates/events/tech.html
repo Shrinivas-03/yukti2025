@@ -44,16 +44,130 @@
 
             /* Card and container styles */
             .event-card-horizontal {
-                background: rgba(28, 28, 28, 0.95);
+                display: flex;
+                flex-direction: column;
+                background: rgba(18, 18, 18, 0.95);
+                border: 2px solid #58f7f7;
+                border-radius: 15px;
+                overflow: hidden;
                 backdrop-filter: blur(10px);
-                border: 1px solid rgba(255, 215, 0, 0.1);
-                border-radius: 20px;
-                margin: 3rem auto;
-                max-width: 1000px;
+                box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+                transition: transform 0.3s ease, box-shadow 0.3s ease;
+                max-width: 800px; /* Reduced from 1000px for better readability */
+                margin: 2rem auto;
+            }
+
+            .event-card-horizontal .event-image {
+                width: 100%;
+                height: 25px; /* Reduced height */
                 position: relative;
                 overflow: hidden;
-                transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                background: #121212;
+            }
+
+            .event-card-horizontal .event-image img {
+                width: 25%;
+                height: 25%;
+                margin-top: 12px;
+                object-fit: cover; /* Maintain aspect ratio */
+                object-position: center; /* Center the image */
+                transition: transform 0.5s ease, filter 0.3s ease;
+            }
+
+            .event-card-horizontal:hover .event-image img {
+                transform: scale(1.05);
+                filter: brightness(1.1);
+            }
+
+            .event-card-horizontal .event-image::after {
+                content: '';
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                height: 50%;
+                background: linear-gradient(to bottom, 
+                                  rgba(18, 18, 18, 0) 0%,
+                                  rgba(18, 18, 18, 0.95) 100%);
+                pointer-events: none;
+            }
+
+            .event-card-horizontal .event-content {
                 padding: 1.5rem;
+                background: linear-gradient(180deg, rgba(18, 18, 18, 0.95) 0%, rgba(18, 18, 18, 1) 100%);
+            }
+
+            .event-card-horizontal h3 {
+                font-size: 2rem;
+                margin-bottom: 1rem;
+                background: linear-gradient(45deg, #ff4500, #ff8c00);
+                -webkit-background-clip: text;
+                background-clip: text;
+                color: transparent;
+                text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            }
+
+            .event-card-horizontal .event-description p {
+                font-size: 1.1rem;
+                line-height: 1.6;
+                color: #e0e0e0;
+                margin-bottom: 1.5rem;
+            }
+
+            .event-details {
+                background: rgba(0, 0, 0, 0.2);
+                padding: 1.5rem;
+                border-radius: 10px;
+                margin: 1.5rem 0;
+            }
+
+            .event-details li {
+                margin-bottom: 0.8rem;
+                font-size: 1rem;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            }
+
+            .event-details li i {
+                color: #58f7f7;
+                font-size: 1.2rem;
+            }
+
+            /* Enhanced Button Container */
+            .button-container {
+                display: flex;
+                gap: 1rem;
+                margin-top: 2rem;
+                justify-content: center;
+            }
+
+            /* Responsive adjustments */
+            @media (max-width: 768px) {
+                .event-card-horizontal {
+                    margin: 1.5rem 1rem;
+                }
+
+                .event-card-horizontal .event-image {
+                    height: 180px; /* Even smaller on mobile */
+                }
+
+                .event-card-horizontal h3 {
+                    font-size: 1.5rem;
+                }
+
+                .event-card-horizontal .event-content {
+                    padding: 1.5rem;
+                }
+            }
+
+            @media (max-width: 480px) {
+                .event-card-horizontal .event-image {
+                    height: 160px; /* Smallest size for mobile */
+                }
             }
 
             .event-content {
@@ -136,7 +250,7 @@
         <!-- Prakalpa Prastuthi -->
         <div class="event-card-horizontal mb-5">
             <div class="event-image">
-                <img src="{{ url_for('static', filename='images/events/project-presentation.jpg') }}" alt="PRAKALPA PRASTUTHI">
+                <img src="{{ url_for('static', filename='assets/logos/project_expo.webp') }}" alt="PRAKALPA PRASTUTHI">
             </div>
             <div class="event-content">
                 <h3>PRAKALPA PRASTUTHI</h3>
@@ -201,7 +315,7 @@
         <!-- CHANAKSH CODING EVENT -->
         <div class="event-card-horizontal mb-5">
             <div class="event-image">
-                <img src="{{ url_for('static', filename='images/events/coding.jpg') }}" alt="CHANAKSH CODING">
+                <img src="{{ url_for('static', filename='assets/logos/coding.webp') }}" alt="CHANAKSH CODING">
             </div>
             <div class="event-content">
                 <h3>CHANAKSH CODING EVENT</h3>
@@ -290,7 +404,7 @@
         <!-- Robo Samara -->
         <div class="event-card-horizontal mb-5">
             <div class="event-image">
-                <img src="{{ url_for('static', filename='images/events/robo.jpg') }}" alt="Robo Samara">
+                <img src="{{ url_for('static', filename='assets/logos/Robo_Samara.webp') }}" alt="Robo Samara">
             </div>
             <div class="event-content">
                 <h3>Robo Samara</h3>
@@ -324,7 +438,7 @@
         <!-- Robo War -->
         <div class="event-card-horizontal mb-5">
             <div class="event-image">
-                <img src="{{ url_for('static', filename='images/events/robo-war.jpg') }}" alt="Robo War">
+                <img src="{{ url_for('static', filename='assets/logos/Robo_Samara.webp') }}" alt="Robo War">
             </div>
             <div class="event-content">
                 <h3>ROBO SAMARA (Robo War)</h3>
@@ -394,7 +508,7 @@
         <!-- Robo Race -->
         <div class="event-card-horizontal mb-5">
             <div class="event-image">
-                <img src="{{ url_for('static', filename='images/events/robo-race.jpg') }}" alt="Robo Race">
+                <img src="{{ url_for('static', filename='assets/logos/Robo_Samara.webp') }}" alt="Robo Race">
             </div>
             <div class="event-content">
                 <h3>ROBO SAMARA (Robo Race)</h3>
@@ -573,7 +687,7 @@
         <!-- Vagmita -->
         <div class="event-card-horizontal mb-5">
             <div class="event-image">
-                <img src="{{ url_for('static', filename='images/events/elocution.jpg') }}" alt="Vagmita">
+                <img src="{{ url_for('static', filename='assets/logos/elocution.webp') }}" alt="Vagmita">
             </div>
             <div class="event-content">
                 <h3>VAGMITA (Elocution)</h3>
