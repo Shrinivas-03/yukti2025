@@ -177,6 +177,148 @@
     .error-border {
         border: 1px solid #ff4444 !important;
     }
+
+    .payment-section {
+        display: none;
+        margin-top: 30px;
+        padding: 20px;
+        background: rgba(40, 40, 40, 0.95);
+        border-radius: 10px;
+        text-align: center;
+        transition: all 0.5s ease;
+        transform: translateY(-20px);
+        opacity: 0;
+    }
+
+    .payment-section.show {
+        display: block;
+        transform: translateY(0);
+        opacity: 1;
+    }
+
+    .qr-code-container {
+        margin: 20px auto;
+        max-width: 300px;
+    }
+
+    .qr-code-container img {
+        width: 100%;
+        height: auto;
+        border: 3px solid #FFD700;
+        border-radius: 10px;
+    }
+
+    .utr-input-container {
+        margin: 20px 0;
+    }
+
+    .utr-input-container input {
+        padding: 10px;
+        width: 100%;
+        max-width: 300px;
+        border: 2px solid #FFD700;
+        background: rgba(0, 0, 0, 0.3);
+        color: #fff;
+        border-radius: 5px;
+        margin-top: 10px;
+    }
+
+    .proceed-btn {
+        background: #FFD700;
+        color: #1C1C1C;
+        padding: 12px 30px;
+        border: 2px solid #FFD700;
+        border-radius: 5px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .proceed-btn:hover {
+        background: transparent;
+        color: #FFD700;
+    }
+
+    .registration-form-container.payment-active {
+        transform: translateY(-20px);
+        transition: transform 0.5s ease;
+    }
+
+    .bank-details {
+        margin: 20px 0;
+        padding: 15px;
+        border: 1px solid #FFD700;
+        border-radius: 5px;
+        background: rgba(0, 0, 0, 0.2);
+    }
+
+    .bank-details h3 {
+        color: #FFD700;
+        margin-bottom: 15px;
+    }
+
+    .account-details {
+        display: flex;
+        justify-content: space-around;
+        flex-wrap: wrap;
+        gap: 20px;
+        margin: 15px 0;
+    }
+
+    .account-detail-item {
+        color: #fff;
+        padding: 8px 15px;
+        background: rgba(255, 215, 0, 0.1);
+        border-radius: 5px;
+        text-align: center;
+    }
+
+    .payment-divider {
+        margin: 30px 0;
+        text-align: center;
+        position: relative;
+    }
+
+    .payment-divider::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 50%;
+        width: 40%;
+        height: 1px;
+        background: #FFD700;
+    }
+
+    .payment-divider::after {
+        content: '';
+        position: absolute;
+        right: 0;
+        top: 50%;
+        width: 40%;
+        height: 1px;
+        background: #FFD700;
+    }
+
+    .payment-divider span {
+        background: rgba(40, 40, 40, 0.95);
+        padding: 0 15px;
+        color: #FFD700;
+    }
+
+    .dd-input-container {
+        margin: 20px 0;
+    }
+
+    .dd-input-container input {
+        padding: 10px;
+        width: 100%;
+        max-width: 300px;
+        border: 2px solid #FFD700;
+        background: rgba(0, 0, 0, 0.3);
+        color: #fff;
+        border-radius: 5px;
+        margin-top: 10px;
+    }
 </style>
 
 <!-- Update the main structure -->
@@ -268,6 +410,43 @@
                     </button>
                 </div>
             </form>
+            <div class="payment-section" id="paymentSection">
+                <h2 style="color: #FFD700; margin-bottom: 20px;">Complete Payment</h2>
+                <p>Please scan the QR code to pay ₹<span id="paymentAmount">0</span></p>
+                
+                
+
+                <div class="qr-code-container">
+                    <img src="/static/assets/qr-code-payment.png" alt="Payment QR Code">
+                </div>
+        
+                <div class="utr-input-container">
+                    <label for="utr" style="color: #fff;">Enter UTR Number / Transaction ID</label>
+                    <input type="text" id="utr" placeholder="Enter UTR number" required>
+                </div>
+
+                <div class="payment-divider">
+                    <span>OR</span>
+                </div>
+
+                <div class="bank-details">
+                    <h3>The Finance officer, VTU Belagavi</h3>
+                    <div class="account-details">
+                        <div class="account-detail-item">A/C no: 110226756934</div>
+                        <div class="account-detail-item">Bank: Canara Bank</div>
+                        <div class="account-detail-item">IFSC: CNRB0001829</div>
+                    </div>
+                </div>
+
+                <div class="dd-input-container">
+                    <label for="dd" style="color: #fff;">Pay by DD (Demand Draft Number)</label>
+                    <input type="text" id="dd" placeholder="Enter DD number">
+                </div>
+        
+                <button type="button" class="proceed-btn" onclick="verifyPayment()">
+                    Verify & Proceed
+                </button>
+            </div>
         </div>
     </div>
 </div>
@@ -711,14 +890,9 @@
         const submitBtn = document.querySelector('button[type="submit"]');
         
         try {
-            // Add loading state
-            submitBtn.classList.add('loading');
-            
-            console.log("Submit function called");  // Debug log
-
+            // Basic validation
             if (selectedEvents.length === 0) {
                 alert('Please select at least one event');
-                submitBtn.classList.remove('loading');
                 return;
             }
 
@@ -728,21 +902,45 @@
 
             if (!college || !email || !phone) {
                 alert('Please fill in all required fields');
-                submitBtn.classList.remove('loading');
                 return;
             }
 
-            const formData = {
-                college: college,
-                email: email,
-                phone: phone,
-                selectedEvents: selectedEvents,
-                totalParticipants: parseInt(document.getElementById('overallParticipants').textContent),
-                totalCost: parseFloat(document.querySelector('.total-cost').textContent.replace('Total Cost: ₹', ''))
-            };
+            // Show payment section
+            const paymentSection = document.getElementById('paymentSection');
+            const registrationForm = document.querySelector('.registration-form-container');
+            const totalCost = document.querySelector('.total-cost').textContent.replace('Total Cost: ₹', '');
+            
+            document.getElementById('paymentAmount').textContent = totalCost;
+            registrationForm.classList.add('payment-active');
+            paymentSection.classList.add('show');
+            
+            // Scroll to payment section
+            paymentSection.scrollIntoView({ behavior: 'smooth' });
+        } catch (error) {
+            console.error('Error:', error);
+            alert('An error occurred. Please try again.');
+        }
+    }
 
-            console.log("Sending data:", formData);  // Debug log
+    async function verifyPayment() {
+        const utrNumber = document.getElementById('utr').value.trim();
+        const ddNumber = document.getElementById('dd').value.trim();
+        
+        if (!utrNumber && !ddNumber) {
+            alert('Please enter either UTR number or DD number');
+            return;
+        }
 
+        // Here you'll add the actual payment verification logic
+        // For now, we'll just proceed to acknowledgment page
+        const formData = {
+            // ... your existing form data ...
+            utrNumber: utrNumber || null,
+            ddNumber: ddNumber || null,
+            paymentMethod: utrNumber ? 'utr' : 'dd'
+        };
+
+        try {
             const response = await fetch('/register', {
                 method: 'POST',
                 headers: {
@@ -751,26 +949,17 @@
                 body: JSON.stringify(formData)
             });
 
-            console.log("Response received:", response);  // Debug log
-
             const data = await response.json();
-            console.log("Response data:", data);  // Debug log
-
             if (data.success) {
                 window.location.href = `/acknowledgement/${data.ack_id}`;
             } else {
                 alert('Registration failed: ' + (data.message || 'Unknown error'));
-                // Remove loading state if failed
-                submitBtn.classList.remove('loading');
             }
         } catch (error) {
             console.error('Error:', error);
             alert('An error occurred during registration. Please try again.');
-            // Remove loading state if error
-            submitBtn.classList.remove('loading');
         }
     }
-
 </script>
 
 
