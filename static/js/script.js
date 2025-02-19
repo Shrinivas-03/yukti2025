@@ -43,7 +43,7 @@ function startCountdown(targetDate) {
 }
 
 // Example: Set countdown to February 20, 2025
-const eventDate = new Date('February 20, 2025 00:00:00').getTime();
+const eventDate = new Date('February 25, 2025 00:00:00').getTime();
 startCountdown(eventDate);
 
 // Declare these variables in the global scope
