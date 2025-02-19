@@ -14,6 +14,9 @@ from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from dotenv import load_dotenv
 import cryptography
+from PIL import Image
+import uuid
+import json
 load_dotenv()  # Load the .env file
 
 
@@ -69,7 +72,6 @@ def send_registration_email(to_email, ack_id, details):
             <p><strong>Team Members:</strong> {details['team_members']}</p>
             <p><strong>Total Cost:</strong> ₹{details['total_cost']}</p>
             {f'<p><strong>UTR Number:</strong> {details["utr_number"]}</p>' if 'utr_number' in details else ''}
-            <p><em>Please pay the registration fees at the registration desk on the event day.</em></p>
             <p>Thank you for registering!</p>
         </body>
         </html>
@@ -221,54 +223,181 @@ def admin():
 def spot():
     return render_template('spot.html')
 
+def compress_image(image_file, max_size_kb=100):
+    try:
+        print(f"Starting image compression for file: {image_file.filename}")
+        # Open the image
+        img = Image.open(image_file)
+        
+        # Convert to RGB if necessary
+        if img.mode in ('RGBA', 'P'):
+            print(f"Converting image from {img.mode} to RGB")
+            img = img.convert('RGB')
+        
+        # Initial quality
+        quality = 95
+        output = io.BytesIO()
+        
+        # Resize if too large
+        max_dimension = 1500
+        if max(img.size) > max_dimension:
+            ratio = max_dimension / max(img.size)
+            new_size = tuple(int(dim * ratio) for dim in img.size)
+            print(f"Resizing image from {img.size} to {new_size}")
+            img = img.resize(new_size, Image.LANCZOS)
+        
+        # Compress until file size is under max_size_kb
+        while quality > 5:
+            output = io.BytesIO()
+            img.save(output, format='JPEG', quality=quality, optimize=True)
+            size_kb = len(output.getvalue()) / 1024
+            print(f"Compressed size at quality {quality}: {size_kb:.2f}KB")
+            if size_kb <= max_size_kb:
+                break
+            quality -= 5
+        
+        output.seek(0)
+        print("Image compression completed successfully")
+        return output
+    except Exception as e:
+        print(f"Error in compress_image: {str(e)}")
+        raise
+
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == "POST":
         try:
-            data = request.get_json(silent=True)
-            if not data:
-                return jsonify({'success': False, 'message': 'No data received'})
+            # Get form data
+            payment_proof = request.files.get('paymentProof')
+            utr_number = request.form.get('utrNumber')
+            dd_number = request.form.get('ddNumber')
+            payment_method = request.form.get('paymentMethod')
             
-            ack_id = generate_ack_id()
+            print(f"Received payment_method: {payment_method}")
+            print(f"UTR number: {utr_number}")
+            print(f"DD number: {dd_number}")
+            print(f"Payment proof file: {payment_proof.filename if payment_proof else 'No file'}")
             
-            # Prepare registration data for Supabase
+            data = json.loads(request.form.get('registrationData'))
+            
+            # Validate payment method and requirements
+            if (payment_method == 'utr'):
+                if not payment_proof:
+                    return jsonify({
+                        'success': False, 
+                        'message': 'Payment proof image is required for UTR payment'
+                    })
+                if not utr_number:
+                    return jsonify({
+                        'success': False, 
+                        'message': 'UTR number is required for UTR payment'
+                    })
+            elif payment_method == 'dd':
+                if not dd_number:
+                    return jsonify({
+                        'success': False, 
+                        'message': 'DD number is required for DD payment'
+                    })
+            
+            file_url = None
+            if payment_method == 'utr' and payment_proof:
+                try:
+                    # Check file type
+                    allowed_extensions = {'png', 'jpg', 'jpeg'}
+                    if '.' not in payment_proof.filename or \
+                       payment_proof.filename.rsplit('.', 1)[1].lower() not in allowed_extensions:
+                        return jsonify({
+                            'success': False,
+                            'message': 'Invalid file type. Please upload PNG or JPEG images only.'
+                        })
+                    
+                    # Compress and upload image
+                    compressed_image = compress_image(payment_proof, max_size_kb=100)
+                    timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+                    unique_id = str(uuid.uuid4())[:8]
+                    file_extension = os.path.splitext(payment_proof.filename)[1]
+                    new_filename = f"payment_{timestamp}_{unique_id}{file_extension}"
+                    
+                    file_path = f"payment_proofs/{new_filename}"
+                    print(f"Uploading to path: {file_path}")
+                    
+                    # Upload to Supabase
+                    upload_response = supabase.storage.from_('payment').upload(
+                        path=file_path,
+                        file=compressed_image.getvalue(),
+                        file_options={"content-type": "image/jpeg"}
+                    )
+                    print(f"Upload response: {upload_response}")
+                    
+                    # Get public URL
+                    file_url = supabase.storage.from_('payment').get_public_url(file_path)
+                    print(f"File URL: {file_url}")
+                    
+                except Exception as e:
+                    print(f"Error processing image: {str(e)}")
+                    return jsonify({
+                        'success': False,
+                        'message': f'Error processing payment proof: {str(e)}'
+                    })
+
+            # Create registration record with correct column names
             registration_data = {
-                'ack_id': ack_id,
+                'ack_id': generate_ack_id(),
                 'email': data['email'],
                 'phone': data['phone'],
                 'college': data['college'],
                 'total_participants': data['totalParticipants'],
                 'total_cost': data['totalCost'],
                 'registration_date': datetime.now().isoformat(),
-                'event_details': data['selectedEvents']  # Already in JSON format from frontend
+                'event_details': data['selectedEvents'],
+                'utr_number': utr_number if payment_method == 'utr' else None,  # Store in utr_number column
+                'DD': dd_number if payment_method == 'dd' else None,  # Store in DD column
+                'payment_proof_url': file_url
             }
             
+            # Only add payment_method if it's supported by the database
+            if payment_method in ['utr', 'dd']:
+                registration_data['payment_method'] = payment_method
+
             # Insert into Supabase
             response = supabase.table('registrations').insert(registration_data).execute()
             
-            if response.data:
-                # Send confirmation email
-                email_details = {
-                    'event_name': ", ".join(event['event'] for event in data['selectedEvents']),
-                    'college': data['college'],
-                    'team_members': ", ".join(
-                        ", ".join(event.get('members', [])) if event.get('members') 
-                        else event.get('participant', '') 
-                        for event in data['selectedEvents']
-                    ),
-                    'total_cost': data['totalCost']
-                }
-                send_registration_email(data['email'], ack_id, email_details)
-                
-                return jsonify({
-                    'success': True,
-                    'ack_id': ack_id
-                })
-            else:
+            if not response.data:
                 return jsonify({
                     'success': False,
-                    'message': 'Registration failed'
+                    'message': 'Failed to save registration'
                 })
+
+            # Prepare email details
+            email_details = {
+                'event_name': ", ".join(event['event'] for event in data['selectedEvents']),
+                'college': data['college'],
+                'team_members': ", ".join(
+                    ", ".join(event.get('members', [])) if event.get('members') 
+                    else event.get('participant', '') 
+                    for event in data['selectedEvents']
+                ),
+                'total_cost': data['totalCost'],
+                'payment_method': payment_method
+            }
+
+            # Add payment details to email
+            if payment_method == 'utr':
+                email_details['utr_number'] = utr_number
+            elif payment_method == 'dd':
+                email_details['dd_number'] = dd_number
+
+            # Send confirmation email
+            email_sent = send_registration_email(data['email'], registration_data['ack_id'], email_details)
+            
+            if not email_sent:
+                print(f"Warning: Failed to send email to {data['email']}")
+
+            return jsonify({
+                'success': True,
+                'ack_id': registration_data['ack_id'],
+                'message': 'Registration successful' + ('' if email_sent else ' (email delivery failed)')
+            })
                 
         except Exception as e:
             print(f"Registration Error: {str(e)}")
@@ -427,9 +556,9 @@ def get_matching_registrations(table_name, norm_event, reg_type):
         for event in reg['event_details']:
             stored_event = event.get('event', '')
             norm_stored = normalize_event_name(stored_event)
-            print(f"[{table_name}] Searching if '{norm_event}' is in '{norm_stored}'")
-            # Use universal substring matching
-            if norm_event in norm_stored:
+            print(f"[{table_name}] Comparing '{norm_event}' with '{norm_stored}'")
+            # Use exact match instead of substring matching
+            if norm_event == norm_stored:
                 reg_data = {
                     'ack_id': reg['ack_id'],
                     'college': reg['college'],
@@ -437,14 +566,14 @@ def get_matching_registrations(table_name, norm_event, reg_type):
                     'phone': reg['phone'],
                     'event_cost': event.get('cost', 0),
                     'type': reg_type,
-                    'team_members': ''
+                    'team_members': '',
+                    'utr_number': reg.get('utr_number', ''),
+                    'DD': reg.get('DD', '') or reg.get('dd', '')
                 }
                 if event.get('type') == 'team' and event.get('members'):
                     reg_data['team_members'] = ', '.join(event['members'])
                 elif event.get('participant'):
                     reg_data['team_members'] = event['participant']
-                if reg_type == 'spot':
-                    reg_data['utr_number'] = reg.get('utr_number', '')
                 matches.append(reg_data)
                 print(f"Added registration from {table_name}: {reg_data}")
     return matches
@@ -501,7 +630,9 @@ def get_registrations():
                 'email': reg['email'],
                 'phone': reg['phone'],
                 'event_details': reg['event_details'],
-                'utr_number': reg.get('utr_number') if reg_type == 'spot' else None
+                'payment_method': reg.get('payment_method'),
+                'utr_number': reg.get('utr_number'),
+                'DD': reg.get('DD') or reg.get('dd')
             } for reg in response.data]
             
             return jsonify({
@@ -543,45 +674,111 @@ def download_registrations():
             table_name = 'spot_registrations' if reg_type == 'spot' else 'registrations'
             response = supabase.table(table_name).select('*').execute()
             for reg in response.data:
-                # Process event_details field as CSV string
                 events_joined = ", ".join([e.get('event', '') for e in reg.get('event_details', [])])
-                utr = reg.get('utr_number', '') if reg_type == 'spot' else ''
                 matches.append({
                     'ack_id': reg.get('ack_id', ''),
                     'college': reg.get('college', ''),
                     'email': reg.get('email', ''),
                     'phone': reg.get('phone', ''),
-                    'events': events_joined,
-                    'utr_number': utr
+                    'team_members': events_joined,
+                    'utr_number': reg.get('utr_number', ''),
+                    'DD': reg.get('DD', '') or reg.get('dd', '')
                 })
 
         # Prepare CSV output from matches
         output = io.StringIO()
         writer = csv.writer(output)
-        header = ['Ack ID', 'College', 'Email', 'Phone', 'Participant', 'UTR Number']
+        header = ['Ack ID', 'College', 'Email', 'Phone', 'Participant/Team', 'UTR Number', 'DD Number']
         writer.writerow(header)
         for reg in matches:
-            # In our matching logic, team_members already appears as a string if available.
             writer.writerow([
                 reg.get('ack_id', ''),
                 reg.get('college', ''),
                 reg.get('email', ''),
                 reg.get('phone', ''),
-                reg.get('team_members', reg.get('events', '')),
-                reg.get('utr_number', '')
+                reg.get('team_members', ''),
+                reg.get('utr_number', ''),
+                reg.get('DD', '')
             ])
         csv_output = output.getvalue()
         output.close()
+
         return Response(
             csv_output,
             mimetype="text/csv",
-            headers={"Content-Disposition": f"attachment;filename=registrations_{reg_type}.csv"}
+            headers={"Content-Disposition": f"attachment;filename=registrations_{reg_type}_{event_name or 'all'}.csv"}
         )
     except Exception as e:
         print(f"Error in download_registrations: {str(e)}")
         return jsonify({'success': False, 'message': str(e)})
 
+@app.route('/api/search-registration/<ack_id>')
+@login_required(allowed_pages=['admin'])
+def search_registration(ack_id):
+    try:
+        # Search in registrations table
+        response = supabase.table('registrations').select('*').eq('ack_id', ack_id).execute()
+        
+        if not response.data:
+            # If not found in registrations, try spot_registrations
+            response = supabase.table('spot_registrations').select('*').eq('ack_id', ack_id).execute()
+        
+        if response.data and len(response.data) > 0:
+            registration = response.data[0]
+            print(f"Found registration: {registration}")  # Debug log
+            
+            # Handle payment proof URL
+            payment_proof_url = registration.get('payment_proof_url')
+            if payment_proof_url:
+                print(f"Original payment_proof_url: {payment_proof_url}")  # Debug log
+                
+                try:
+                    # Always regenerate the public URL
+                    if payment_proof_url.startswith('payment_proofs/'):
+                        file_path = payment_proof_url
+                    else:
+                        # Extract path from full URL if needed
+                        file_path = payment_proof_url.split('/payment/')[-1]
+                    
+                    # Get fresh public URL with proper CORS headers
+                    payment_proof_url = supabase.storage.from_('payment').create_signed_url(
+                        path=file_path,
+                        expires_in=3600  # URL valid for 1 hour
+                    )
+                    print(f"Generated signed URL: {payment_proof_url}")
+                    
+                    if isinstance(payment_proof_url, dict) and 'signedURL' in payment_proof_url:
+                        payment_proof_url = payment_proof_url['signedURL']
+                    
+                except Exception as e:
+                    print(f"Error generating signed URL: {str(e)}")
+                    payment_proof_url = None
+            
+            return jsonify({
+                'success': True,
+                'registration': {
+                    'email': registration['email'],
+                    'college': registration['college'],
+                    'phone': registration['phone'],
+                    'payment_method': registration.get('payment_method', 'Not specified'),
+                    'utr_number': registration.get('utr_number'),
+                    'DD': registration.get('DD') or registration.get('dd'),
+                    'payment_proof_url': payment_proof_url
+                }
+            })
+        
+        return jsonify({
+            'success': False,
+            'message': 'Registration not found'
+        })
+        
+    except Exception as e:
+        print(f"Error searching registration: {str(e)}")
+        return jsonify({
+            'success': False,
+            'message': str(e)
+        })
+
 if __name__ == "__main__":
 
     app.run(debug=app.config['DEBUG'])
-

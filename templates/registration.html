@@ -319,6 +319,56 @@
         border-radius: 5px;
         margin-top: 10px;
     }
+
+    .image-upload-container {
+        margin: 20px 0;
+        padding: 15px;
+        border: 2px dashed #FFD700;
+        border-radius: 5px;
+        text-align: center;
+        background: rgba(0, 0, 0, 0.2);
+    }
+
+    .image-upload-container label {
+        display: block;
+        color: #FFD700;
+        margin-bottom: 10px;
+        font-weight: bold;
+    }
+
+    .image-upload-container input[type="file"] {
+        display: none;
+    }
+
+    .upload-btn {
+        background: transparent;
+        color: #FFD700;
+        padding: 10px 20px;
+        border: 2px solid #FFD700;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: inline-block;
+        margin-top: 10px;
+    }
+
+    .upload-btn:hover {
+        background: #FFD700;
+        color: #1C1C1C;
+    }
+
+    .image-preview {
+        max-width: 300px;
+        margin: 15px auto;
+        display: none;
+    }
+
+    .image-preview img {
+        width: 100%;
+        height: auto;
+        border-radius: 5px;
+        border: 2px solid #FFD700;
+    }
 </style>
 
 <!-- Update the main structure -->
@@ -419,7 +469,16 @@
                 <div class="qr-code-container">
                     <img src="/static/assets/qr-code-payment.png" alt="Payment QR Code">
                 </div>
-        
+
+                <div class="image-upload-container">
+                    <label for="payment-proof">Upload Payment Screenshot</label>
+                    <div id="preview-container" class="image-preview">
+                        <img id="preview-image" src="#" alt="Preview">
+                    </div>
+                    <input type="file" id="payment-proof" accept="image/*" onchange="previewImage(this)">
+                    <label for="payment-proof" class="upload-btn">Choose File</label>
+                </div>
+
                 <div class="utr-input-container">
                     <label for="utr" style="color: #fff;">Enter UTR Number / Transaction ID</label>
                     <input type="text" id="utr" placeholder="Enter UTR number" required>
@@ -922,35 +981,92 @@
         }
     }
 
-    async function verifyPayment() {
-        const utrNumber = document.getElementById('utr').value.trim();
-        const ddNumber = document.getElementById('dd').value.trim();
+    function previewImage(input) {
+        const preview = document.getElementById('preview-image');
+        const previewContainer = document.getElementById('preview-container');
         
-        if (!utrNumber && !ddNumber) {
-            alert('Please enter either UTR number or DD number');
-            return;
+        if (input.files && input.files[0]) {
+            const reader = new FileReader();
+            
+            reader.onload = function(e) {
+                preview.src = e.target.result;
+                previewContainer.style.display = 'block';
+            }
+            
+            reader.readAsDataURL(input.files[0]);
         }
+    }
 
-        // Here you'll add the actual payment verification logic
-        // For now, we'll just proceed to acknowledgment page
-        const formData = {
-            // ... your existing form data ...
-            utrNumber: utrNumber || null,
-            ddNumber: ddNumber || null,
-            paymentMethod: utrNumber ? 'utr' : 'dd'
-        };
+    // Modify the verifyPayment function to include the image
+    async function verifyPayment() {
+        const proceedBtn = document.querySelector('.proceed-btn');
+        proceedBtn.disabled = true;
+        proceedBtn.innerHTML = '<span class="spinner"></span> Processing...';
 
         try {
+            const utrNumber = document.getElementById('utr').value.trim();
+            const ddNumber = document.getElementById('dd').value.trim();
+            const paymentProof = document.getElementById('payment-proof').files[0];
+            
+            // Validate file type
+            if (paymentProof) {
+                const validTypes = ['image/jpeg', 'image/png', 'image/jpg'];
+                if (!validTypes.includes(paymentProof.type)) {
+                    alert('Please upload only JPG, JPEG or PNG images');
+                    return;
+                }
+                
+                // Check file size (max 5MB)
+                if (paymentProof.size > 5 * 1024 * 1024) {
+                    alert('File size should be less than 5MB');
+                    return;
+                }
+            }
+            
+            // New validation logic
+            const hasUTRWithProof = utrNumber && paymentProof;
+            const hasDD = ddNumber;
+            
+            if (!hasUTRWithProof && !hasDD) {
+                alert('Please either:\n1. Upload payment proof AND enter UTR number\n- OR -\n2. Enter DD number');
+                return;
+            }
+
+            const formData = new FormData();
+            
+            // Only include payment proof and UTR if that option was chosen
+            if (hasUTRWithProof) {
+                formData.append('paymentProof', paymentProof);
+                formData.append('utrNumber', utrNumber);
+                formData.append('paymentMethod', 'utr');
+            } else {
+                formData.append('ddNumber', ddNumber);
+                formData.append('paymentMethod', 'dd');
+            }
+            
+            // Add registration data
+            const registrationData = {
+                email: document.getElementById('email').value,
+                phone: document.getElementById('phone').value,
+                college: document.getElementById('college').value,
+                selectedEvents: selectedEvents,
+                totalParticipants: document.getElementById('overallParticipants').textContent,
+                totalCost: document.getElementById('paymentAmount').textContent
+            };
+            
+            formData.append('registrationData', JSON.stringify(registrationData));
+            
+            console.log('Sending registration data...');
             const response = await fetch('/register', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(formData)
+                body: formData
             });
 
             const data = await response.json();
+            console.log('Server response:', data);
+            
             if (data.success) {
+                alert('Registration successful! Check your email for confirmation.');
                 window.location.href = `/acknowledgement/${data.ack_id}`;
             } else {
                 alert('Registration failed: ' + (data.message || 'Unknown error'));
@@ -958,6 +1074,9 @@
         } catch (error) {
             console.error('Error:', error);
             alert('An error occurred during registration. Please try again.');
+        } finally {
+            proceedBtn.disabled = false;
+            proceedBtn.textContent = 'Verify & Proceed';
         }
     }
 </script>
