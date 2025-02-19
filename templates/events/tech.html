@@ -3,10 +3,135 @@
 {% block title %}Tech Events - College Fest{% endblock %}
 
 {% block content %}
-    <section class="event-page mb-5">
-        <h1 class="text-center">Tech Events</h1>
-        <p class="text-center">Step into the world of innovation, coding, and technology.</p>
-    </section>
+<section class="event-page mb-5">
+    <h1 class="text-center">Tech Events</h1>
+    <p class="text-center">Step into the world of innovation, coding, and technology.</p>
+</section>
+
+<!-- Add new grid container -->
+<div class="events-grid-container">
+    <div class="events-grid">
+        <!-- Event cards will go here -->
+    </div>
+</div>
+
+<!-- Add modal for expanded content -->
+<div id="eventModal" class="event-modal">
+    <div class="modal-content">
+        <span class="modal-close">&times;</span>
+        <div id="modalBody"></div>
+    </div>
+</div>
+
+<!-- Add new styles -->
+<style>
+    .events-grid-container {
+        padding: 2rem;
+        max-width: 1400px;
+        margin: 0 auto;
+    }
+    
+    .events-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2rem;
+    }
+    
+    .event-card {
+        background: rgba(18, 18, 18, 0.95);
+        border: 2px solid #58f7f7;
+        border-radius: 15px;
+        overflow: hidden;
+        transition: transform 0.3s ease;
+    }
+    
+    .event-modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.9);
+        z-index: 1000;
+        overflow-y: auto;
+    }
+    
+    .modal-content {
+        position: relative;
+        background: #1c1c1c;
+        margin: 5% auto;
+        padding: 2rem;
+        width: 90%;
+        max-width: 800px;
+        border-radius: 15px;
+        border: 2px solid #58f7f7;
+    }
+    
+    .modal-close {
+        position: absolute;
+        right: 1rem;
+        top: 1rem;
+        color: #fff;
+        font-size: 2rem;
+        cursor: pointer;
+    }
+
+    @media (max-width: 1200px) {
+        .events-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    @media (max-width: 768px) {
+        .events-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+
+<!-- Add new JavaScript -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const modal = document.getElementById('eventModal');
+        const modalBody = document.getElementById('modalBody');
+        const closeBtn = document.querySelector('.modal-close');
+        
+        // Close modal when clicking X or outside
+        closeBtn.onclick = function() {
+            modal.style.display = 'none';
+        }
+        
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = 'none';
+            }
+        }
+
+        // Handle Read More button clicks
+        document.querySelectorAll('.btn-read-more').forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                const card = this.closest('.event-card');
+                const expandedContent = card.querySelector('.expanded-content').innerHTML;
+                const title = card.querySelector('h3').innerText;
+                
+                modalBody.innerHTML = `
+                    <h2>${title}</h2>
+                    ${expandedContent}
+                `;
+                modal.style.display = 'block';
+            });
+        });
+
+        // Close on escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && modal.style.display === 'block') {
+                modal.style.display = 'none';
+            }
+        });
+    });
+</script>
 
     <div class="container py-5">
         
@@ -21,73 +146,42 @@
                 <div class="event-description">
                     <p>A technical project presentation platform showcasing innovative solutions in emerging technologies.</p>
                     <div class="expanded-content">
-                        <div class="section-container">
-                            <h3 class="section-header">🔧 Technical Specifications</h3>
-                            <ul class="section-list">
-                                <li>Projects based on recent Technologies like IOT, Machine learning, and Image processing</li>
-                                <li>Tools used for implementation: Python, MATLAB</li>
-                            </ul>
-                        </div>
+                        <!-- Technical Specifications -->
+                        <h3>Technical Specifications</h3>
+                        <ul>
+                            <li>Projects based on recent Technologies like IOT, Machine learning, and Image processing</li>
+                            <li>Tools used for implementation: Python, MATLAB</li>
+                        </ul>
                         
-                        <div class="section-container">
-                            <h3 class="section-header">📋 Terms and Conditions</h3>
-                            <ul class="section-list">
-                                <li>Maximum of three participants per team</li>
-                                <li>Ten minutes will be given to a team to present a maximum of 20 slides to the jury</li>
-                                <li>Participants must bring their laptops or components/devices to demonstrate the project</li>
-                                <li>Participants need to submit a brief synopsis report to the jury at presentation</li>
-                                <li>The demonstration will be evaluated based on spot modifications in the project</li>
-                                <li>Winner selection based on project novelty, presentation, and spot modifications</li>
-                            </ul>
-                        </div>
+                        <!-- Terms and Conditions -->
+                        <h3>Terms and Conditions</h3>
+                        <ul>
+                            <li>Maximum of three participants per team</li>
+                            <li>Ten minutes will be given to a team to present a maximum of 20 slides to the jury</li>
+                            <li>Participants must bring their laptops or components/devices to demonstrate the project</li>
+                            <li>Participants need to submit a brief synopsis report to the jury at presentation</li>
+                            <li>The demonstration will be evaluated based on spot modifications in the project</li>
+                            <li>Winner selection based on project novelty, presentation, and spot modifications</li>
+                        </ul>
                         
-                        <div class="section-container">
-                            <h3 class="section-header">👨‍🏫 Faculty Coordinators</h3>
-                            <div class="coordinators-grid">
-                                <div class="coordinator-card">
-                                    <div class="coordinator-name">Dr. Megha Rani R</div>
-                                    <div class="coordinator-role">Chairman</div>
-                                </div>
-                                <div class="coordinator-card">
-                                    <div class="coordinator-name">Prof. Shobha Biradar</div>
-                                    <div class="coordinator-role">Member</div>
-                                </div>
-                                <div class="coordinator-card">
-                                    <div class="coordinator-name">Prof. Udaykumar Tippa</div>
-                                    <div class="coordinator-role">Member</div>
-                                </div>
-                                <div class="coordinator-card">
-                                    <div class="coordinator-name">Prof. Ambika S.</div>
-                                    <div class="coordinator-role">Member</div>
-                                </div>
-                            </div>
-                        </div>
+                        <!-- Faculty Coordinators -->
+                        <h3>Faculty Coordinators</h3>
+                        <ul>
+                            <li>Dr. Megha Rani R (Chairman)</li>
+                            <li>Prof. Shobha Biradar (Member)</li>
+                            <li>Prof. Udaykumar Tippa (Member)</li>
+                            <li>Prof. Ambika S. (Member)</li>
+                        </ul>
                         
-                        <div class="section-container">
-                            <h3 class="section-header">👥 Student Coordinators</h3>
-                            <div class="coordinators-grid">
-                                <div class="coordinator-card">
-                                    <div class="coordinator-name">Chandan</div>
-                                    <div class="contact-info">9591631915</div>
-                                </div>
-                                <div class="coordinator-card">
-                                    <div class="coordinator-name">B. A. Siddharth</div>
-                                    <div class="contact-info">9632708519</div>
-                                </div>
-                                <div class="coordinator-card">
-                                    <div class="coordinator-name">Bhagwan</div>
-                                    <div class="contact-info">9945670140</div>
-                                </div>
-                                <div class="coordinator-card">
-                                    <div class="coordinator-name">Basavaraj H. G.</div>
-                                    <div class="contact-info">9663513263</div>
-                                </div>
-                                <div class="coordinator-card">
-                                    <div class="coordinator-name">Giridhar G. V.</div>
-                                    <div class="contact-info">8050466116</div>
-                                </div>
-                            </div>
-                        </div>
+                        <!-- Student Coordinators -->
+                        <h3>Student Coordinators</h3>
+                        <ul>
+                            <li>Chandan (9591631915)</li>
+                            <li>B. A. Siddharth (9632708519)</li>
+                            <li>Bhagwan (9945670140)</li>
+                            <li>Basavaraj H. G. (9663513263)</li>
+                            <li>Giridhar G. V. (8050466116)</li>
+                        </ul>
                     </div>
                 </div>
                 
@@ -121,86 +215,58 @@
                 <div class="event-description">
                     <p>Test your coding skills in this competitive programming challenge featuring Java programming, debugging, and problem-solving.</p>
                     <div class="expanded-content">
-                        <div class="event-details-container">
-                            <!-- Technical Requirements -->
-                            <div class="details-section">
-                                <h3 class="section-title">🔧 Technical Requirements</h3>
-                                <ul class="section-list">
-                                    <li>Programming Language: Java</li>
-                                    <li>Participants must bring their own laptops</li>
-                                    <li>Development environment for Java programming</li>
+                        <!-- Technical Requirements -->
+                        <h3>Technical Requirements</h3>
+                        <ul>
+                            <li>Programming Language: Java</li>
+                            <li>Participants must bring their own laptops</li>
+                            <li>Development environment for Java programming</li>
+                        </ul>
+                        
+                        <!-- Competition Format -->
+                        <h3>Competition Format</h3>
+                        <ul>
+                            <li>Round 1 - Debug Round (Bug Blaster)
+                                <ul>
+                                    <li>30 minutes duration</li>
+                                    <li>Debug 5 problems</li>
+                                    <li>Qualification for next round based on performance</li>
                                 </ul>
-                            </div>
-
-                            <div class="content-divider"></div>
-
-                            <!-- Competition Format -->
-                            <div class="details-section">
-                                <h3 class="section-title">📋 Competition Format</h3>
-                                <ul class="section-list">
-                                    <li><strong>Round 1 - Debug Round (Bug Blaster)</strong>
-                                        <ul class="section-list">
-                                            <li>30 minutes duration</li>
-                                            <li>Debug 5 problems</li>
-                                            <li>Qualification for next round based on performance</li>
-                                        </ul>
-                                    </li>
-                                    <li><strong>Round 2 - Choose your challenge (Tech it out)</strong>
-                                        <ul class="section-list">
-                                            <li>60 minutes duration</li>
-                                            <li>Problems selected through lucky draw</li>
-                                            <li>Winners judged by problem count and execution time</li>
-                                        </ul>
-                                    </li>
-                                    <li><strong>Round 3 - Final Round (Logic Legends)</strong>
-                                        <ul class="section-list">
-                                            <li>Time-based problem solving</li>
-                                            <li>Focus on optimal solutions</li>
-                                        </ul>
-                                    </li>
+                            </li>
+                            <li>Round 2 - Choose your challenge (Tech it out)
+                                <ul>
+                                    <li>60 minutes duration</li>
+                                    <li>Problems selected through lucky draw</li>
+                                    <li>Winners judged by problem count and execution time</li>
                                 </ul>
-                            </div>
-
-                            <div class="content-divider"></div>
-
-                            <!-- Rules & Regulations -->
-                            <div class="details-section">
-                                <h3 class="section-title">📜 Rules & Regulations</h3>
-                                <ul class="section-list">
-                                    <li>Individual participation only</li>
-                                    <li>Zero tolerance for plagiarism - immediate disqualification</li>
-                                    <li>Submitted results are final</li>
-                                    <li>Round-specific criteria announced before each round</li>
-                                    <li>Overall performance determines winners</li>
-                                    <li>Organizers reserve right to modify rules</li>
+                            </li>
+                            <li>Round 3 - Final Round (Logic Legends)
+                                <ul>
+                                    <li>Time-based problem solving</li>
+                                    <li>Focus on optimal solutions</li>
                                 </ul>
-                            </div>
+                            </li>
+                        </ul>
 
-                            <div class="content-divider"></div>
+                        <!-- Rules & Regulations -->
+                        <h3>Rules & Regulations</h3>
+                        <ul>
+                            <li>Individual participation only</li>
+                            <li>Zero tolerance for plagiarism - immediate disqualification</li>
+                            <li>Submitted results are final</li>
+                            <li>Round-specific criteria announced before each round</li>
+                            <li>Overall performance determines winners</li>
+                            <li>Organizers reserve right to modify rules</li>
+                        </ul>
 
-                            <!-- Coordinators -->
-                            <div class="details-section">
-                                <h3 class="section-title">👥 Coordinators</h3>
-                                <div class="coordinators-grid">
-                                    <div class="coordinator-card">
-                                        <div class="coordinator-name">Dr. Swaroopa Shastri</div>
-                                        <div class="coordinator-role">Chairman</div>
-                                    </div>
-                                    <div class="coordinator-card">
-                                        <div class="coordinator-name">Dr. Savita S. G</div>
-                                        <div class="coordinator-role">Member</div>
-                                    </div>
-                                    <div class="coordinator-card">
-                                        <div class="coordinator-name">Prof. Rani</div>
-                                        <div class="coordinator-role">Member</div>
-                                    </div>
-                                    <div class="coordinator-card">
-                                        <div class="coordinator-name">Prof. Kaveri Hulimani</div>
-                                        <div class="coordinator-role">Member</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <!-- Faculty Coordinators -->
+                        <h3>Faculty Coordinators</h3>
+                        <ul>
+                            <li>Dr. Swaroopa Shastri (Chairman)</li>
+                            <li>Dr. Savita S. G (Member)</li>
+                            <li>Prof. Rani (Member)</li>
+                            <li>Prof. Kaveri Hulimani (Member)</li>
+                        </ul>
                     </div>
                 </div>
                 
@@ -223,42 +289,7 @@
                 </div>
             </div>
         </div>
-
-        <!-- Robo Samara -->
-        <div class="event-card-horizontal mb-5">
-            <div class="event-image">
-                <img src="{{ url_for('static', filename='assets/logos/Robo_Samara.webp') }}" alt="Robo Samara">
-            </div>
-            <div class="event-content">
-                <h3>Robo Samara</h3>
-                <div class="event-description">
-                    <p>Bolts, Bytes, and Battle - Design and program your robot to compete in exciting challenges and battles.</p>
-                    <div class="expanded-content">
-                        <!-- Additional details like specifications, rules, coordinators etc -->
-                    </div>
-                </div>
-                
-                <button class="btn-read-more" onclick="toggleDescription(this)">
-                    <span></span><span></span><span></span><span></span>
-                    Read More
-                </button>
-                
-                <ul class="event-details">
-                    <li><i class="bi bi-people-fill"></i> Team Size: 2-3 members</li>
-                    <li><i class="bi bi-cash"></i> Registration Fee: ₹300/team</li>
-                    <li><i class="bi bi-trophy-fill"></i> Prizes Worth: ₹15,000</li>
-                </ul>
-
-                <div class="button-container">
-                    <a href="{{ url_for('signin') }}" class="btn btn-register">
-                        <span></span><span></span><span></span><span></span>
-                        Register Now
-                    </a>
-                </div>
-            </div>
-        </div>
-
-        <!-- Robo War -->
+ <!-- Robo War -->
         <div class="event-card-horizontal mb-5">
             <div class="event-image">
                 <img src="{{ url_for('static', filename='assets/logos/Robo_Samara.webp') }}" alt="Robo War">
@@ -490,13 +521,13 @@
                     Read More
                 </button>
                 
-                <ul class="event-details">
+                <ul class="event-details"></ul>
                     <li><i class="bi bi-people-fill"></i> Team Size: Up to 4 members</li>
                     <li><i class="bi bi-cash"></i> Registration Fee: ₹400/team</li>
                     <li><i class="bi bi-trophy-fill"></i> Prizes Worth: ₹15,000</li>
                 </ul>
 
-                <div class="button-container"></div>
+                <div class="button-container">
                     <a href="{{ url_for('signin') }}" class="btn btn-register">
                         <span></span><span></span><span></span><span></span>
                         Register Now
@@ -573,7 +604,7 @@
                     </div>
                 </div>
                 
-                <button class="btn-read-more" onclick="toggleDescription(this)">
+                <button class="btn-read-more" onclick="toggleDescription(this)"></button>
                     <span></span><span></span><span></span><span></span>
                     Read More
                 </button>
@@ -680,6 +711,140 @@
                     <li><i class="bi bi-clock-fill"></i> Time Limit: 3 minutes</li>
                     <li><i class="bi bi-cash"></i> Registration Fee: ₹200</li>
                     <li><i class="bi bi-trophy-fill"></i> Prizes Worth: ₹8,000</li>
+                </ul>
+
+                <div class="button-container">
+                    <a href="{{ url_for('signin') }}" class="btn btn-register">
+                        <span></span><span></span><span></span><span></span>
+                        Register Now
+                    </a>
+                </div>
+            </div>
+        </div>
+         <!-- Concrete Canoe Mini -->
+         <div class="event-card-horizontal mb-5">
+            <div class="event-image">
+                <img src="{{ url_for('static', filename='assets/logos/concrete_canoe.webp') }}" alt="Concrete Canoe Mini">
+            </div>
+            <div class="event-content">
+                <h3>Concrete Canoe Mini</h3>
+                <div class="event-description">
+                    <p>Design and build a miniature concrete canoe that combines engineering innovation with practical application. Test your creation in an exciting motor-powered race!</p>
+                    <div class="expanded-content">
+                        <div class="event-details-container">
+                            <!-- Team Composition -->
+                            <div class="details-section">
+                                <h3 class="section-title">👥 Team Composition</h3>
+                                <ul class="section-list">
+                                    <li>Each team must have 3-5 members</li>
+                                    <li>Participants must be currently enrolled students</li>
+                                    <li>One team leader must be designated for communication</li>
+                                </ul>
+                            </div>
+
+                            <div class="content-divider"></div>
+
+                            <!-- Canoe Specifications -->
+                            <div class="details-section">
+                                <h3 class="section-title">🛶 Canoe Specifications</h3>
+                                <ul class="section-list">
+                                    <li>Primary material must be concrete (with/without reinforcements)</li>
+                                    <li><strong>Dimensions:</strong>
+                                        <ul>
+                                            <li>Length: 0.75m - 1.00m</li>
+                                            <li>Width: 0.15m - 0.20m</li>
+                                            <li>Depth: 0.15m</li>
+                                        </ul>
+                                    </li>
+                                    <li>Flat back side required for motor attachment</li>
+                                    <li>No prefabricated molds or pre-built components allowed</li>
+                                    <li>Must demonstrate floating capability and stability</li>
+                                </ul>
+                            </div>
+
+                            <div class="content-divider"></div>
+
+                            <!-- Construction Rules -->
+                            <div class="details-section">
+                                <h3 class="section-title">🏗️ Construction Rules</h3>
+                                <ul class="section-list">
+                                    <li>Approved materials only:
+                                        <ul>
+                                            <li>Cement</li>
+                                            <li>Sand</li>
+                                            <li>Aggregates</li>
+                                            <li>Permissible admixtures</li>
+                                        </ul>
+                                    </li>
+                                    <li>All reinforcements must be disclosed during registration</li>
+                                    <li>Design report submission mandatory</li>
+                                    <li>Structure must be race-worthy</li>
+                                </ul>
+                            </div>
+
+                            <div class="content-divider"></div>
+
+                            <!-- Race Rules & Judging -->
+                            <div class="details-section">
+                                <h3 class="section-title">🏁 Race Rules & Judging</h3>
+                                <ul class="section-list">
+                                    <li>Motor-powered race on designated watercourse</li>
+                                    <li>Standard motor will be provided and attached</li>
+                                    <li><strong>Judging Criteria:</strong>
+                                        <ul>
+                                            <li>Speed - Racing performance</li>
+                                            <li>Load capacity while maintaining stability</li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div class="content-divider"></div>
+
+                            <!-- Faculty Coordinators -->
+                            <div class="details-section">
+                                <h3 class="section-title">👨‍🏫 Faculty Coordinators</h3>
+                                <div class="coordinators-grid">
+                                    <div class="coordinator-card">
+                                        <div class="coordinator-name">Dr. Pradeep Kumar</div>
+                                        <div class="coordinator-role">Chairman</div>
+                                    </div>
+                                    <div class="coordinator-card">
+                                        <div class="coordinator-name">Prof. Manjunath</div>
+                                        <div class="coordinator-role">Member</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="content-divider"></div>
+
+                            <!-- Student Coordinators -->
+                            <div class="details-section">
+                                <h3 class="section-title">👥 Student Coordinators</h3>
+                                <div class="coordinators-grid">
+                                    <div class="coordinator-card">
+                                        <div class="coordinator-name">Akshay Kumar</div>
+                                        <div class="contact-info">9876543210</div>
+                                    </div>
+                                    <div class="coordinator-card">
+                                        <div class="coordinator-name">Priya Singh</div>
+                                        <div class="contact-info">9876543211</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <button class="btn-read-more" onclick="toggleDescription(this)">
+                    <span></span><span></span><span></span><span></span>
+                    Read More
+                </button>
+                
+                <ul class="event-details">
+                    <li><i class="bi bi-people-fill"></i> Team Size: 3-5 members</li>
+                    <li><i class="bi bi-rulers"></i> Canoe Length: 0.75m - 1.00m</li>
+                    <li><i class="bi bi-trophy-fill"></i> Prizes Worth: ₹15,000</li>
                 </ul>
 
                 <div class="button-container">
@@ -1291,10 +1456,16 @@
 
         <script>
             function toggleDescription(button) {
+                // Store the current scroll position
+                const currentScroll = window.scrollY;
+                
                 const eventCard = button.closest('.event-card-horizontal');
                 const expandedContent = eventCard.querySelector('.expanded-content');
                 
                 if (expandedContent.style.display === 'none' || !expandedContent.style.display) {
+                    // Save the scroll position before expanding
+                    expandedContent.dataset.scrollPos = currentScroll;
+                    
                     expandedContent.style.display = 'block';
                     setTimeout(() => {
                         expandedContent.style.opacity = '1';
@@ -1305,8 +1476,19 @@
                     setTimeout(() => {
                         expandedContent.style.display = 'none';
                         button.innerHTML = `<span></span><span></span><span></span><span></span> Read More`;
+                        
+                        // Restore the scroll position
+                        if (expandedContent.dataset.scrollPos) {
+                            window.scrollTo({
+                                top: expandedContent.dataset.scrollPos,
+                                behavior: 'auto'
+                            });
+                        }
                     }, 300);
                 }
+                
+                // Prevent default button behavior
+                return false;
             }
 
             // Initialize all expanded content sections to be hidden on page load
