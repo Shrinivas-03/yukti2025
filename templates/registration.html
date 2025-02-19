@@ -166,6 +166,17 @@
         0% { transform: translate(-50%, -50%) rotate(0deg); }
         100% { transform: translate(-50%, -50%) rotate(360deg); }
     }
+
+    .error-message {
+        color: #ff4444;
+        font-size: 0.9rem;
+        margin-top: 5px;
+        display: none;
+    }
+
+    .error-border {
+        border: 1px solid #ff4444 !important;
+    }
 </style>
 
 <!-- Update the main structure -->
@@ -203,13 +214,15 @@
                     <div id="group-size-error" class="hidden" style="color:red; font-size:0.9rem;"></div>
 
                     <div id="individual-participant-container" class="form-group hidden">
-                        <label for="individual-participant"><strong>Participant Name</strong></label>
+                        <label for="individual-participant"><strong>Participant Name</strong></label required>
                         <input type="text" id="individual-participant" placeholder="Enter Your Name" />
+                        <div id="individual-error" class="error-message">Please enter participant name</div>
                     </div>
 
                     <div class="form-group hidden" id="team-members-container">
                         <label><strong>Team Members</strong></label>
                         <div id="member-inputs"></div>
+                        <div id="team-error" class="error-message">Please enter all team member names</div>
                     </div>
                     <!-- New Total Participants Section -->
                 
@@ -368,32 +381,75 @@
 
         addEventBtn.addEventListener("click", function() {
             if (currentEventSelection) {
-                const eventDetails = {
-                    category: categorySelect.value,
-                    event: currentEventSelection.name,
-                    type: currentEventSelection.type,
-                    cost: currentEventSelection.cost
-                };
+                let hasError = false;
 
-                if (currentEventSelection.type === "team" || currentEventSelection.type === "group") {
-                    eventDetails.members = [];
+                // Validate individual participant
+                if (currentEventSelection.type === "individual") {
+                    const participantName = individualParticipantInput.value.trim();
+                    const errorDiv = document.getElementById('individual-error');
+                    
+                    if (!participantName) {
+                        errorDiv.style.display = 'block';
+                        individualParticipantInput.classList.add('error-border');
+                        hasError = true;
+                    } else {
+                        errorDiv.style.display = 'none';
+                        individualParticipantInput.classList.remove('error-border');
+                    }
+                }
+                
+                // Validate team members
+                if (currentEventSelection.type === "team") {
                     const memberInputs = document.querySelectorAll("#member-inputs input");
+                    const errorDiv = document.getElementById('team-error');
+                    let emptyMembers = false;
+                    
                     memberInputs.forEach(input => {
-                        if (input.value.trim()) {
-                            eventDetails.members.push(input.value.trim());
+                        if (!input.value.trim()) {
+                            input.classList.add('error-border');
+                            emptyMembers = true;
+                        } else {
+                            input.classList.remove('error-border');
                         }
                     });
-                } else {
-                    // For individual events, record the participant's name
-                    eventDetails.participant = individualParticipantInput.value.trim();
+                    
+                    if (emptyMembers) {
+                        errorDiv.style.display = 'block';
+                        hasError = true;
+                    } else {
+                        errorDiv.style.display = 'none';
+                    }
                 }
 
-                selectedEvents.push(eventDetails);
-                updateSelectedEventsList();
-                updateTotalCost();
-                resetEventSelection();
-                selectedEventsSection.classList.remove("hidden");
-                personalDetailsSection.classList.remove("hidden");
+                // Only proceed if there are no errors
+                if (!hasError) {
+                    const eventDetails = {
+                        category: categorySelect.value,
+                        event: currentEventSelection.name,
+                        type: currentEventSelection.type,
+                        cost: currentEventSelection.cost
+                    };
+
+                    if (currentEventSelection.type === "team" || currentEventSelection.type === "group") {
+                        eventDetails.members = [];
+                        const memberInputs = document.querySelectorAll("#member-inputs input");
+                        memberInputs.forEach(input => {
+                            if (input.value.trim()) {
+                                eventDetails.members.push(input.value.trim());
+                            }
+                        });
+                    } else {
+                        // For individual events, record the participant's name
+                        eventDetails.participant = individualParticipantInput.value.trim();
+                    }
+
+                    selectedEvents.push(eventDetails);
+                    updateSelectedEventsList();
+                    updateTotalCost();
+                    resetEventSelection();
+                    selectedEventsSection.classList.remove("hidden");
+                    personalDetailsSection.classList.remove("hidden");
+                }
             }
         });
 
