@@ -58,7 +58,7 @@ def send_registration_email(to_email, ack_id, details):
         msg['To'] = to_email
         msg['Subject'] = f"YUKTI 2025 Registration Confirmation - {ack_id}"
 
-        # Create email body
+        # Modified email body to conditionally include UTR number
         body = f"""
         <html>
         <body>
@@ -68,6 +68,7 @@ def send_registration_email(to_email, ack_id, details):
             <p><strong>College:</strong> {details['college']}</p>
             <p><strong>Team Members:</strong> {details['team_members']}</p>
             <p><strong>Total Cost:</strong> ₹{details['total_cost']}</p>
+            {f'<p><strong>UTR Number:</strong> {details["utr_number"]}</p>' if 'utr_number' in details else ''}
             <p><em>Please pay the registration fees at the registration desk on the event day.</em></p>
             <p>Thank you for registering!</p>
         </body>
@@ -119,10 +120,11 @@ def format_datetime(value):
         return ''
     try:
         if isinstance(value, str):
-            dt = datetime.fromisoformat(value)
+            # Handle ISO format string with timezone
+            dt = datetime.fromisoformat(value.split('+')[0])  # Remove timezone part
         else:
             dt = value
-        return dt.strftime('%B %d, %Y at %I:%M %p')
+        return dt.strftime('%d-%m-%Y %I:%M %p')  # Format: DD-MM-YYYY HH:MM AM/PM
     except Exception as e:
         print(f"Date formatting error: {str(e)}")
         return value
@@ -345,6 +347,21 @@ def spot_register():
             
             if response.data:
                 print(f"Successfully created registration with ack_id: {ack_id}")  # Debug log
+                
+                # Modified email_details to include UTR number
+                email_details = {
+                    'event_name': ", ".join(event['event'] for event in data['selectedEvents']),
+                    'college': data['college'],
+                    'team_members': ", ".join(
+                        ", ".join(event.get('members', [])) if event.get('members') 
+                        else event.get('participant', '') 
+                        for event in data['selectedEvents']
+                    ),
+                    'total_cost': data['totalCost'],
+                    'utr_number': data['utrNumber']  # Add UTR number to email details
+                }
+                send_registration_email(data['email'], ack_id, email_details)
+                
                 return jsonify({
                     'success': True,
                     'ack_id': ack_id

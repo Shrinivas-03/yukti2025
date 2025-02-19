@@ -48,7 +48,7 @@
             </div>
         </div>
         
-        <p class="registration-date">Registration Date: {{ details.registration_date }}</p>
+        <p class="registration-date">Registration Date: {{ details.registration_date|format_datetime }}</p>
         
         <div class="button-container">
             <button onclick="window.location.href='/'">Back to Home</button>
