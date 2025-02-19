@@ -23,8 +23,8 @@ SUPABASE_URL = "https://kccbgaxhhdgzkyazjnnk.supabase.co"
 SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtjY2JnYXhoaGRnemt5YXpqbm5rIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mzk0NDA2MTAsImV4cCI6MjA1NTAxNjYxMH0.MW4ndTDp-6tvWluoHcb5NzVycNjmU0Vzlxl_mL0VdgA"
 supabase: Client = create_client(SUPABASE_URL, SUPABASE_KEY)
 
-GMAIL_USER = "shrinivasnadager03@gmail.com"
-GMAIL_PASSWORD = "imlhrtplytxnhgia"
+GMAIL_USER = "vtuklbyukti25@gmail.com"
+GMAIL_PASSWORD = "pfhaexjutcaqvddp"
 
 def send_registration_email(to_email, ack_id, details):
     try:
