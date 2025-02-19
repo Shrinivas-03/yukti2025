@@ -1,7 +1,8 @@
 from flask import Flask, render_template, request, redirect, url_for, session, flash, jsonify, Response
 from datetime import datetime
-import random
 import string
+import secrets
+import os
 from supabase import create_client, Client
 from functools import wraps
 from werkzeug.security import check_password_hash
@@ -11,25 +12,35 @@ import csv
 import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
+from dotenv import load_dotenv
+
+load_dotenv()  # Load the .env file
+
+
+class Config:
+    SECRET_KEY = os.environ.get('FLASK_SECRET_KEY')
+    SUPABASE_URL = os.environ.get('SUPABASE_URL', "https://kccbgaxhhdgzkyazjnnk.supabase.co")
+    SUPABASE_KEY = os.environ.get('SUPABASE_KEY')
+    GMAIL_USER = os.environ.get('GMAIL_USER')
+    GMAIL_PASSWORD = os.environ.get('GMAIL_PASSWORD')
+    DEBUG = os.environ.get('FLASK_DEBUG', 'True').lower() in ('true', '1', 't')
 
 app = Flask(__name__, 
     static_url_path='/static',
     static_folder='static'
 )
-app.secret_key = "sdjksafbsahifgahif56549"
 
-# Set your Supabase credentials
-SUPABASE_URL = "https://kccbgaxhhdgzkyazjnnk.supabase.co"
-SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtjY2JnYXhoaGRnemt5YXpqbm5rIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mzk0NDA2MTAsImV4cCI6MjA1NTAxNjYxMH0.MW4ndTDp-6tvWluoHcb5NzVycNjmU0Vzlxl_mL0VdgA"
-supabase: Client = create_client(SUPABASE_URL, SUPABASE_KEY)
+# Apply configuration
+app.config.from_object(Config)
+app.secret_key = app.config['SECRET_KEY']
 
-GMAIL_USER = "shrinivasnadager03@gmail.com"
-GMAIL_PASSWORD = "imlhrtplytxnhgia"
+# Initialize Supabase client
+supabase: Client = create_client(app.config['SUPABASE_URL'], app.config['SUPABASE_KEY'])
 
 def send_registration_email(to_email, ack_id, details):
     try:
         msg = MIMEMultipart()
-        msg['From'] = GMAIL_USER
+        msg['From'] = app.config['GMAIL_USER']
         msg['To'] = to_email
         msg['Subject'] = f"YUKTI 2025 Registration Confirmation - {ack_id}"
 
@@ -54,7 +65,7 @@ def send_registration_email(to_email, ack_id, details):
         # Send email
         with smtplib.SMTP('smtp.gmail.com', 587) as server:
             server.starttls()
-            server.login(GMAIL_USER, GMAIL_PASSWORD)
+            server.login(app.config['GMAIL_USER'], app.config['GMAIL_PASSWORD'])
             server.send_message(msg)
         
         print(f"Registration email sent to {to_email}")
@@ -66,7 +77,8 @@ def send_registration_email(to_email, ack_id, details):
 
 def generate_ack_id():
     timestamp = datetime.now().strftime("%Y")
-    random_chars = ''.join(random.choices(string.ascii_uppercase + string.digits, k=5))
+    # Use secrets instead of random for cryptographic operations
+    random_chars = ''.join(secrets.choice(string.ascii_uppercase + string.digits) for _ in range(5))
     return f"YUKTI-{timestamp}-{random_chars}"
 
 # Authentication decorator
@@ -495,9 +507,6 @@ def download_registrations():
                     matches += get_matching_registrations('spot_registrations', norm_event, 'spot')
                 else:
                     matches = get_matching_registrations('spot_registrations', norm_event, 'spot')
-            else:
-                table_name = 'spot_registrations' if reg_type == 'spot' else 'registrations'
-                matches = get_matching_registrations(table_name, norm_event, reg_type)
         else:
             # If no event filter, retrieve full table
             table_name = 'spot_registrations' if reg_type == 'spot' else 'registrations'
@@ -542,4 +551,4 @@ def download_registrations():
         return jsonify({'success': False, 'message': str(e)})
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=app.config['DEBUG'])

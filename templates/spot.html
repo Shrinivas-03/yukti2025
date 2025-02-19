@@ -307,7 +307,6 @@
 
         let currentEventSelection = null;
 
-        const COST_PER_EVENT = 200;
         
         const events = {
             tech: [
@@ -349,7 +348,10 @@
         };
 
         function updateTotalCost() {
-            const totalCost = selectedEvents.length * COST_PER_EVENT;
+            let totalCost = 0;
+            selectedEvents.forEach(event => {
+                totalCost += event.cost; // Use the actual event cost instead of COST_PER_EVENT
+            });
             document.querySelector('.total-cost').textContent = `Total Cost: ₹${totalCost}`;
         }
 

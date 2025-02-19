@@ -9,6 +9,687 @@
     </section>
 
     <div class="container py-5">
+        
+
+        <!-- Prakalpa Prastuthi -->
+        <div class="event-card-horizontal mb-5">
+            <div class="event-image">
+                <img src="{{ url_for('static', filename='assets/logos/project_expo.webp') }}" alt="PRAKALPA PRASTUTHI">
+            </div>
+            <div class="event-content">
+                <h3>PRAKALPA PRASTUTHI</h3>
+                <div class="event-description">
+                    <p>A technical project presentation platform showcasing innovative solutions in emerging technologies.</p>
+                    <div class="expanded-content">
+                        <div class="section-container">
+                            <h3 class="section-header">🔧 Technical Specifications</h3>
+                            <ul class="section-list">
+                                <li>Projects based on recent Technologies like IOT, Machine learning, and Image processing</li>
+                                <li>Tools used for implementation: Python, MATLAB</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="section-container">
+                            <h3 class="section-header">📋 Terms and Conditions</h3>
+                            <ul class="section-list">
+                                <li>Maximum of three participants per team</li>
+                                <li>Ten minutes will be given to a team to present a maximum of 20 slides to the jury</li>
+                                <li>Participants must bring their laptops or components/devices to demonstrate the project</li>
+                                <li>Participants need to submit a brief synopsis report to the jury at presentation</li>
+                                <li>The demonstration will be evaluated based on spot modifications in the project</li>
+                                <li>Winner selection based on project novelty, presentation, and spot modifications</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="section-container">
+                            <h3 class="section-header">👨‍🏫 Faculty Coordinators</h3>
+                            <div class="coordinators-grid">
+                                <div class="coordinator-card">
+                                    <div class="coordinator-name">Dr. Megha Rani R</div>
+                                    <div class="coordinator-role">Chairman</div>
+                                </div>
+                                <div class="coordinator-card">
+                                    <div class="coordinator-name">Prof. Shobha Biradar</div>
+                                    <div class="coordinator-role">Member</div>
+                                </div>
+                                <div class="coordinator-card">
+                                    <div class="coordinator-name">Prof. Udaykumar Tippa</div>
+                                    <div class="coordinator-role">Member</div>
+                                </div>
+                                <div class="coordinator-card">
+                                    <div class="coordinator-name">Prof. Ambika S.</div>
+                                    <div class="coordinator-role">Member</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="section-container">
+                            <h3 class="section-header">👥 Student Coordinators</h3>
+                            <div class="coordinators-grid">
+                                <div class="coordinator-card">
+                                    <div class="coordinator-name">Chandan</div>
+                                    <div class="contact-info">9591631915</div>
+                                </div>
+                                <div class="coordinator-card">
+                                    <div class="coordinator-name">B. A. Siddharth</div>
+                                    <div class="contact-info">9632708519</div>
+                                </div>
+                                <div class="coordinator-card">
+                                    <div class="coordinator-name">Bhagwan</div>
+                                    <div class="contact-info">9945670140</div>
+                                </div>
+                                <div class="coordinator-card">
+                                    <div class="coordinator-name">Basavaraj H. G.</div>
+                                    <div class="contact-info">9663513263</div>
+                                </div>
+                                <div class="coordinator-card">
+                                    <div class="coordinator-name">Giridhar G. V.</div>
+                                    <div class="contact-info">8050466116</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <button class="btn-read-more" onclick="toggleDescription(this)">
+                    <span></span><span></span><span></span><span></span>
+                    Read More
+                </button>
+                
+                <ul class="event-details">
+                    <li><i class="bi bi-people-fill"></i> Team Size: Up to 3 members</li>
+                    <li><i class="bi bi-clock-fill"></i> Presentation Time: 10 minutes</li>
+                    <li><i class="bi bi-laptop-fill"></i> Bring your own device</li>
+                </ul>
+
+                <div class="button-container">
+                    <a href="{{ url_for('signin') }}" class="btn btn-register">
+                        <span></span><span></span><span></span><span></span>
+                        Register Now
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- CHANAKSH CODING EVENT -->
+        <div class="event-card-horizontal mb-5">
+            <div class="event-image">
+                <img src="{{ url_for('static', filename='assets/logos/coding.webp') }}" alt="CHANAKSH CODING">
+            </div>
+            <div class="event-content">
+                <h3>CHANAKSH CODING EVENT</h3>
+                <div class="event-description">
+                    <p>Test your coding skills in this competitive programming challenge featuring Java programming, debugging, and problem-solving.</p>
+                    <div class="expanded-content">
+                        <div class="event-details-container">
+                            <!-- Technical Requirements -->
+                            <div class="details-section">
+                                <h3 class="section-title">🔧 Technical Requirements</h3>
+                                <ul class="section-list">
+                                    <li>Programming Language: Java</li>
+                                    <li>Participants must bring their own laptops</li>
+                                    <li>Development environment for Java programming</li>
+                                </ul>
+                            </div>
+
+                            <div class="content-divider"></div>
+
+                            <!-- Competition Format -->
+                            <div class="details-section">
+                                <h3 class="section-title">📋 Competition Format</h3>
+                                <ul class="section-list">
+                                    <li><strong>Round 1 - Debug Round (Bug Blaster)</strong>
+                                        <ul class="section-list">
+                                            <li>30 minutes duration</li>
+                                            <li>Debug 5 problems</li>
+                                            <li>Qualification for next round based on performance</li>
+                                        </ul>
+                                    </li>
+                                    <li><strong>Round 2 - Choose your challenge (Tech it out)</strong>
+                                        <ul class="section-list">
+                                            <li>60 minutes duration</li>
+                                            <li>Problems selected through lucky draw</li>
+                                            <li>Winners judged by problem count and execution time</li>
+                                        </ul>
+                                    </li>
+                                    <li><strong>Round 3 - Final Round (Logic Legends)</strong>
+                                        <ul class="section-list">
+                                            <li>Time-based problem solving</li>
+                                            <li>Focus on optimal solutions</li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div class="content-divider"></div>
+
+                            <!-- Rules & Regulations -->
+                            <div class="details-section">
+                                <h3 class="section-title">📜 Rules & Regulations</h3>
+                                <ul class="section-list">
+                                    <li>Individual participation only</li>
+                                    <li>Zero tolerance for plagiarism - immediate disqualification</li>
+                                    <li>Submitted results are final</li>
+                                    <li>Round-specific criteria announced before each round</li>
+                                    <li>Overall performance determines winners</li>
+                                    <li>Organizers reserve right to modify rules</li>
+                                </ul>
+                            </div>
+
+                            <div class="content-divider"></div>
+
+                            <!-- Coordinators -->
+                            <div class="details-section">
+                                <h3 class="section-title">👥 Coordinators</h3>
+                                <div class="coordinators-grid">
+                                    <div class="coordinator-card">
+                                        <div class="coordinator-name">Dr. Swaroopa Shastri</div>
+                                        <div class="coordinator-role">Chairman</div>
+                                    </div>
+                                    <div class="coordinator-card">
+                                        <div class="coordinator-name">Dr. Savita S. G</div>
+                                        <div class="coordinator-role">Member</div>
+                                    </div>
+                                    <div class="coordinator-card">
+                                        <div class="coordinator-name">Prof. Rani</div>
+                                        <div class="coordinator-role">Member</div>
+                                    </div>
+                                    <div class="coordinator-card">
+                                        <div class="coordinator-name">Prof. Kaveri Hulimani</div>
+                                        <div class="coordinator-role">Member</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <button class="btn-read-more" onclick="toggleDescription(this)">
+                    <span></span><span></span><span></span><span></span>
+                    Read More
+                </button>
+                
+                <ul class="event-details">
+                    <li><i class="bi bi-person-fill"></i> Individual Participation</li>
+                    <li><i class="bi bi-laptop-fill"></i> Bring Your Own Laptop</li>
+                    <li><i class="bi bi-trophy-fill"></i> Multiple Rounds</li>
+                </ul>
+
+                <div class="button-container">
+                    <a href="{{ url_for('signin') }}" class="btn btn-register">
+                        <span></span><span></span><span></span><span></span>
+                        Register Now
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Robo Samara -->
+        <div class="event-card-horizontal mb-5">
+            <div class="event-image">
+                <img src="{{ url_for('static', filename='assets/logos/Robo_Samara.webp') }}" alt="Robo Samara">
+            </div>
+            <div class="event-content">
+                <h3>Robo Samara</h3>
+                <div class="event-description">
+                    <p>Bolts, Bytes, and Battle - Design and program your robot to compete in exciting challenges and battles.</p>
+                    <div class="expanded-content">
+                        <!-- Additional details like specifications, rules, coordinators etc -->
+                    </div>
+                </div>
+                
+                <button class="btn-read-more" onclick="toggleDescription(this)">
+                    <span></span><span></span><span></span><span></span>
+                    Read More
+                </button>
+                
+                <ul class="event-details">
+                    <li><i class="bi bi-people-fill"></i> Team Size: 2-3 members</li>
+                    <li><i class="bi bi-cash"></i> Registration Fee: ₹300/team</li>
+                    <li><i class="bi bi-trophy-fill"></i> Prizes Worth: ₹15,000</li>
+                </ul>
+
+                <div class="button-container">
+                    <a href="{{ url_for('signin') }}" class="btn btn-register">
+                        <span></span><span></span><span></span><span></span>
+                        Register Now
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Robo War -->
+        <div class="event-card-horizontal mb-5">
+            <div class="event-image">
+                <img src="{{ url_for('static', filename='assets/logos/Robo_Samara.webp') }}" alt="Robo War">
+            </div>
+            <div class="event-content">
+                <h3>ROBO SAMARA (Robo War)</h3>
+                <div class="event-description">
+                    <p>Build a robot whose task is to push the opposing robot out of the circular ring or flip it over. Different robots compete one-on-one against each other in a knock-out tournament.</p>
+                    <div class="expanded-content">
+                        <div class="event-details-container">
+                            <div class="details-section">
+                                <h3 class="section-title">ROBO SPECIFICATION:</h3>
+                                <ul class="section-list">
+                                    <li>The dimensions of the robot used for robowar should not be more than 400 mm x 400 mm (length x breadth).</li>
+                                    <li>The maximum permissible weight for the robot is 9-12 kg.</li>
+                                    <li>The robot should not be split intentionally into components or parts during the match.</li>
+                                    <li>The machine can be wired/wireless.</li>
+                                    <li>The robot must be self-powered, AC power supply will not be provided, except for charging your batteries (in the breaks only).</li>
+                                    <li>If the bot is not ready or stops in between the match, is disqualified.</li>
+                                    <li>The length of the wire (for wired bots) should be long enough to cover the whole arena and the wire should remain slack during the complete game.</li>
+                                </ul>
+                            </div>
+
+                            <div class="content-divider"></div>
+
+                            <div class="details-section">
+                                <h3 class="section-title">GAMEPLAY RULES:</h3>
+                                <ul class="section-list">
+                                    <li>Each match consists of two rounds.</li>
+                                    <li>Each round will contain 3 raids of each team and each raid will be of 30 seconds. there will be two teams, the Alpha team and the Beta team.</li>
+                                    <li>A toss will decide the side of the arena which the winning team wants.</li>
+                                    <li>If there is an entangling of wires then the game is paused and the game will start from the same locations as the bots. Technical breaks can be used by both teams which last for 40 seconds and can be used only once per game (including tie breaker round)</li>
+                                    <li>The time between each round is 1 minute. Hand touching during the game to avoid the bot from falling outside the arena will lead to the bot being considered as fallen and necessary points will be given to the opposite team.</li>
+                                    <li>The final decision will be in the hands of the judges.</li>
+                                </ul>
+                            </div>
+
+                            <div class="content-divider"></div>
+
+                            <div class="details-section">
+                                <h3 class="section-title">Faculty Coordinators:</h3>
+                                <div class="coordinators-grid">
+                                    <div class="coordinator-card">
+                                        <div class="coordinator-name">Prof. Shilpa B. Kodli</div>
+                                        <div class="coordinator-role">Chairman</div>
+                                    </div>
+                                    <div class="coordinator-card"></div>
+                                        <div class="coordinator-name">Prof. Bharati S. Pochal</div>
+                                        <div class="coordinator-role">Member</div>
+                                    </div>
+                                    <div class="coordinator-card">
+                                        <div class="coordinator-name">Prof. Shilpa Joshi</div>
+                                        <div class="coordinator-role">Member</div>
+                                    </div>
+                                    <div class="coordinator-card">
+                                        <div class="coordinator-name">Prof. Vijaylakshmi</div>
+                                        <div class="coordinator-role">Member</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="content-divider"></div>
+
+                            <div class="details-section">
+                                <h3 class="section-title">Student Coordinators:</h3>
+                                <div class="coordinators-grid">
+                                    <div class="coordinator-card">
+                                        <div class="coordinator-name">Bhagtashree</div>
+                                        <div class="contact-info">8147265651</div>
+                                    </div>
+                                    <div class="coordinator-card">
+                                        <div class="coordinator-name">Rajesh K. J.</div>
+                                        <div class="contact-info">9886735300</div>
+                                    </div>
+                                    <div class="coordinator-card">
+                                        <div class="coordinator-name">Preetham</div>
+                                        <div class="contact-info">8431776252</div>
+                                    </div>
+                                    <div class="coordinator-card">
+                                        <div class="coordinator-name">Anita</div>
+                                        <div class="contact-info">9353169359</div>
+                                    </div>
+                                    <div class="coordinator-card">
+                                        <div class="coordinator-name">Soumya R</div>
+                                        <div class="contact-info">7676276943</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <button class="btn-read-more" onclick="toggleDescription(this)">
+                    <span></span><span></span><span></span><span></span>
+                    Read More
+                </button>
+                
+                <ul class="event-details"></ul>
+                    <li><i class="bi bi-people-fill"></i> Team Size: 2-4 members</li>
+                    <li><i class="bi bi-cash"></i> Registration Fee: ₹500/team</li>
+                    <li><i class="bi bi-trophy-fill"></i> Prizes Worth: ₹20,000</li>
+                </ul>
+
+                <div class="button-container">
+                    <a href="{{ url_for('signin') }}" class="btn btn-register">
+                        <span></span><span></span><span></span><span></span>
+                        Register Now
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Robo Race -->
+        <div class="event-card-horizontal mb-5">
+            <div class="event-image">
+                <img src="{{ url_for('static', filename='assets/logos/Robo_Samara.webp') }}" alt="Robo Race">
+            </div>
+            <div class="event-content">
+                <h3>ROBO SAMARA (Robo Race)</h3>
+                <div class="event-description"></div>
+                    <p>In this competition, the contestant or team of contestants design a robot either wired or wireless within the specified dimensions that can operated manually. The robot that will complete the specified task in the least time will be the winner.</p>
+                    <div class="expanded-content">
+                        <div class="event-details-container">
+                            <div class="details-section">
+                                <h3 class="section-title">THE ROBO SPECIFICATIONS:</h3>
+                                <ul class="section-list">
+                                    <li>The machine can be wired/wireless.</li>
+                                    <li>The machine must be controlled manually.</li>
+                                    <li>The maximum dimension of the bot should be 300mm x 300mm x 300mm (L x B x H), failing which the team will be disqualified from the competition.</li>
+                                    <li>The total weight of the bot should not exceed 5 kg.</li>
+                                    <li>The machine must not be made from Lego parts or any ready-made assembly kits, and it must be powered electrically only. The use of an IC engine is not allowed.</li>
+                                    <li>The robot can be powered by a power source such as a battery fixed on the robot or by a stationary power source connected to the robot by a cord.</li>
+                                    <li>Potential between any two points on the robot should not exceed 12v.</li>
+                                    <li>Participants should keep spare batteries, otherwise, it may lead to disqualification if the bot is not ready or stops in between the races.</li>
+                                    <li>The length of the wire (for wired bots) should be long enough, and the wire should remain slack during the complete race.</li>
+                                </ul>
+                            </div>
+
+                            <div class="content-divider"></div>
+
+                            <div class="details-section">
+                                <h3 class="section-title">GAMEPLAY RULES:</h3>
+                                <ul class="section-list"></ul>
+                                    <li>The Robot will be placed at the start line. the robot starts when the timer starts.</li>
+                                    <li>The Robot should remain on track, otherwise, it has to start from the last checkpoint crossed, though the timer will not be stopped. there are penalties for each obstacle skipped. penalties will be added to the total time.</li>
+                                    <li>The timer will stop as soon as the robot crosses the finish line.</li>
+                                    <li>Scoring and penalty rules will be announced on the day of the event.</li>
+                                </ul>
+                            </div>
+
+                            <div class="content-divider"></div>
+
+                            <div class="details-section">
+                                <h3 class="section-title">RACETRACK:</h3>
+                                <ul class="section-list">
+                                    <li>There will be only one start and one finish line. the track surface and course line may have unevenness.</li>
+                                    <li>There will be certain obstacles in the racetrack, which will try to slow down the robot.</li>
+                                </ul>
+                            </div>
+
+                            <div class="content-divider"></div>
+
+                            <div class="details-section">
+                                <h3 class="section-title">RULES AND REGULATIONS:</h3>
+                                <ul class="section-list">
+                                    <li>A team can have a maximum of 4 members.</li>
+                                    <li>One team member is elected as the robot handler. only that team member is permitted to control the robot during the game.</li>
+                                    <li>All other team members must remain outside the game zone.</li>
+                                    <li>Unethical behavior could lead to disqualification.</li>
+                                    <li>Robots or participants that cause deliberate interference with other robots or damage to the arena will be disqualified.</li>
+                                    <li>All decisions about scoring, game play, timing, and participation, made by the organizing committee are final.</li>
+                                    <li>The decision of the judges will be final and abiding. Arguments with judges in any form will lead to the disqualification of the team.</li>
+                                </ul>
+                            </div>
+
+                            <div class="content-divider"></div>
+
+                            <div class="details-section">
+                                <h3 class="section-title">Faculty Coordinators:</h3>
+                                <div class="coordinators-grid">
+                                    <div class="coordinator-card">
+                                        <div class="coordinator-name">Prof. Shilpa B. Kodli</div>
+                                        <div class="coordinator-role">Chairman</div>
+                                    </div>
+                                    <div class="coordinator-card">
+                                        <div class="coordinator-name">Prof. Bharati S. Pochal</div>
+                                        <div class="coordinator-role">Member</div>
+                                    </div>
+                                    <div class="coordinator-card">
+                                        <div class="coordinator-name">Prof. Shilpa Joshi</div>
+                                        <div class="coordinator-role">Member</div>
+                                    </div>
+                                    <div class="coordinator-card">
+                                        <div class="coordinator-name">Prof. Vijaylakshmi</div>
+                                        <div class="coordinator-role">Member</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="content-divider"></div>
+
+                            <div class="details-section">
+                                <h3 class="section-title">Student Coordinators:</h3>
+                                <div class="coordinators-grid">
+                                    <div class="coordinator-card">
+                                        <div class="coordinator-name">Chetan P</div>
+                                        <div class="contact-info">9620466796</div>
+                                    </div>
+                                    <div class="coordinator-card">
+                                        <div class="coordinator-name">Vishal V.</div>
+                                        <div class="contact-info">8123222713</div>
+                                    </div>
+                                    <div class="coordinator-card">
+                                        <div class="coordinator-name">Abhishek R.</div>
+                                        <div class="contact-info">9945856905</div>
+                                    </div>
+                                    <div class="coordinator-card">
+                                        <div class="coordinator-name">Laxmikant</div>
+                                        <div class="contact-info">9972081976</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <button class="btn-read-more" onclick="toggleDescription(this)">
+                    <span></span><span></span><span></span><span></span>
+                    Read More
+                </button>
+                
+                <ul class="event-details">
+                    <li><i class="bi bi-people-fill"></i> Team Size: Up to 4 members</li>
+                    <li><i class="bi bi-cash"></i> Registration Fee: ₹400/team</li>
+                    <li><i class="bi bi-trophy-fill"></i> Prizes Worth: ₹15,000</li>
+                </ul>
+
+                <div class="button-container"></div>
+                    <a href="{{ url_for('signin') }}" class="btn btn-register">
+                        <span></span><span></span><span></span><span></span>
+                        Register Now
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pragyaan Quiz -->
+        <div class="event-card-horizontal mb-5">
+            <div class="event-image">
+                <img src="{{ url_for('static', filename='images/events/quiz.jpg') }}" alt="Pragyaan Quiz">
+            </div>
+            <div class="event-content">
+                <h3>PRAGYAN (Quiz)</h3>
+                <div class="event-description">
+                    <p>Test your knowledge across technology, science, engineering, and general awareness in this comprehensive quiz competition.</p>
+                    <div class="expanded-content">
+                        <div class="event-details-container">
+                            <div class="details-section">
+                                <h3 class="section-title">BASIC RULES OF THE COMPETITION:</h3>
+                                <ul class="section-list">
+                                    <li>Only team entries are allowed, and the team shall consist of two persons. There is no limit to teams from a single institution. A valid ID of the college or institution is mandatory for the participants.</li>
+                                    <li>The decision of the quiz master will be final and will not be subjected to any change.</li>
+                                    <li>The participants shall not be allowed to use mobile or other electronic instruments during the quiz time.</li>
+                                    <li>The questions shall be in the form of multiple choice, true/false statements, specific answer questions, etc.</li>
+                                    <li>Audience/Supporters shall not give any hints or clues to the competitors.</li>
+                                    <li>Replacement of any participant of a team is not allowed after registration.</li>
+                                </ul>
+                            </div>
+
+                            <div class="content-divider"></div>
+
+                            <div class="details-section">
+                                <h3 class="section-title">PRELIMINARY ROUND:</h3>
+                                <ul class="section-list">
+                                    <li>Each team will be given a set of question papers containing 25 multiple-choice objective-type questions.</li>
+                                    <li>Time limit: 25 minutes</li>
+                                    <li>Each question will carry 1 mark</li>
+                                    <li>Only the top 4 teams will be selected for final or stage rounds</li>
+                                    <li>In case of a tie between 2 or more teams, a further 5 questions will be asked for final selection</li>
+                                </ul>
+                            </div>
+
+                            <div class="content-divider"></div>
+
+                            <div class="details-section">
+                                <h3 class="section-title">FINAL QUIZ/STAGE ROUND:</h3>
+                                <p>The final round will comprise of the following rounds:</p>
+                                <ul class="section-list">
+                                    <li>Round 1: Indian History</li>
+                                    <li>Round 2: Indian Geography</li>
+                                    <li>Round 3: Indian constitution/Polity</li>
+                                    <li>Round 4: Sports/Entertainment</li>
+                                    <li>Round 5: Mental ability/Aptitude</li>
+                                    <li>Round 6: Science and Technology</li>
+                                    <li>Round 7: Current affairs</li>
+                                    <li>Round 8: Audio/Visual round</li>
+                                    <li>Round 9: Rapid fire round</li>
+                                </ul>
+                            </div>
+
+                            <div class="content-divider"></div>
+
+                            <div class="details-section">
+                                <h3 class="section-title">Final Round Rules:</h3>
+                                <ul class="section-list">
+                                    <li>10 marks will be awarded for the correct answer</li>
+                                <div class="coordinator-card">
+                                    <div class="coordinator-name">Gururaj</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <button class="btn-read-more" onclick="toggleDescription(this)">
+                    <span></span><span></span><span></span><span></span>
+                    Read More
+                </button>
+                
+                <ul class="event-details">
+                    <li><i class="bi bi-people-fill"></i> Team Size: 2 members</li>
+                    <li><i class="bi bi-cash"></i> Registration Fee: ₹150/team</li>
+                    <li><i class="bi bi-trophy-fill"></i> Prizes Worth: ₹7,000</li>
+                </ul>
+
+                <div class="button-container">
+                    <a href="{{ url_for('signin') }}" class="btn btn-register">
+                        <span></span><span></span><span></span><span></span>
+                        Register Now
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Vagmita -->
+        <div class="event-card-horizontal mb-5">
+            <div class="event-image">
+                <img src="{{ url_for('static', filename='assets/logos/elocution.webp') }}" alt="Vagmita">
+            </div>
+            <div class="event-content">
+                <h3>VAGMITA (Elocution)</h3>
+                <div class="event-description">
+                    <p>Express your thoughts with clarity and confidence in this competitive public speaking challenge.</p>
+                    <div class="expanded-content">
+                        <div class="section-container">
+                            <h3 class="section-header">TOPICS FOR THE CONTEST:</h3>
+                            <ul class="section-list">
+                                <li>Viksit Bharat</li>
+                                <li>Social media and youth</li>
+                                <li>Agriculture and environmental challenges</li>
+                                <li>Technology's impact on social relationships</li>
+                                <li>Kannada literature and culture</li>
+                                <li>Religion and Science</li>
+                                <li>Effect of COVID-19 on education</li>
+                                <li>Chandrayana-3 (Indian lunar exploration)</li>
+                                <li>Role of RBI in Indian economy</li>
+                            </ul>
+                        </div>
+
+                        <div class="section-container">
+                            <h3 class="section-header">TERMS AND CONDITIONS:</h3>
+                            <ul class="section-list">
+                                <li>The Languages of the oration shall be in English, Hindi, and Kannada only.</li>
+                                <li>Each participant will be given a time limit not exceeding 3 minutes to speak on the topic.</li>
+                                <li>Avoid political and religiously sensitive matters.</li>
+                                <li>The candidate must be a student.</li>
+                                <li>Students must not go out of the topic.</li>
+                                <li>Depending upon the number of entries for competition organizing committee may conduct preliminary rounds.</li>
+                                <li>The marks will be based on the content, oratory skills, convincing ability, proficiency, and other relevant factors.</li>
+                                <li>The decision of the judges shall be final.</li>
+                            </ul>
+                        </div>
+
+                        <div class="section-container">
+                            <h3 class="section-header">Faculty Coordinators:</h3>
+                            <div class="coordinators-grid">
+                                <div class="coordinator-card">
+                                    <div class="coordinator-name">Dr. Babu Reddy</div>
+                                    <div class="coordinator-role">Chairman</div>
+                                </div>
+                                <div class="coordinator-card">
+                                    <div class="coordinator-name">Dr. Vidyavathi Reddy</div>
+                                    <div class="coordinator-role">Member</div>
+                                </div>
+                                <div class="coordinator-card">
+                                    <div class="coordinator-name">Prof. Soumya Patil</div>
+                                    <div class="coordinator-role">Member</div>
+                                </div>
+                                <div class="coordinator-card">
+                                    <div class="coordinator-name">Prof. Shivakumar Kalgi</div>
+                                    <div class="coordinator-role">Member</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="section-container">
+                            <h3 class="section-header">Student Coordinators:</h3>
+                            <div class="coordinators-grid">
+                                <div class="coordinator-card">
+                                    <div class="coordinator-name">Kalyanamma</div>
+                                    <div class="contact-info">7411294835</div>
+                                </div>
+                                <div class="coordinator-card">
+                                    <div class="coordinator-name">Lavanya</div>
+                                    <div class="contact-info">8792442001</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <button class="btn-read-more" onclick="toggleDescription(this)">
+                    <span></span><span></span><span></span><span></span>
+                    Read More
+                </button>
+                
+                <ul class="event-details">
+                    <li><i class="bi bi-person-fill"></i> Individual Participation</li>
+                    <li><i class="bi bi-clock-fill"></i> Time Limit: 3 minutes</li>
+                    <li><i class="bi bi-cash"></i> Registration Fee: ₹200</li>
+                    <li><i class="bi bi-trophy-fill"></i> Prizes Worth: ₹8,000</li>
+                </ul>
+
+                <div class="button-container">
+                    <a href="{{ url_for('signin') }}" class="btn btn-register">
+                        <span></span><span></span><span></span><span></span>
+                        Register Now
+                    </a>
+                </div>
+            </div>
+        </div>
         <style>
             /* Copy exact styles from cultural.html */
             .event-page {
@@ -201,7 +882,7 @@
 
             .btn-read-more {
                 background: transparent;
-                color: #03e9f4;
+                color: #ff4500;
                 border: 2px solid #03e9f4;
                 cursor: pointer;
             }
@@ -503,687 +1184,110 @@
                 padding-bottom: 0.5rem;
                 border-bottom: 1px solid rgba(255, 102, 0, 0.3);
             }
+
+            /* Device Compatibility Improvements */
+    
+            /* Better touch interactions */
+            @media (hover: none) {
+                .btn-read-more {
+                    padding: 0.8rem 1.2rem; /* Larger touch target */
+                    min-height: 44px; /* iOS minimum touch target */
+                    font-size: 1rem;
+                    margin: 0.5rem 0;
+                }
+
+                .event-card-horizontal {
+                    touch-action: pan-y; /* Enable vertical scrolling */
+                }
+
+                .gallery-grid {
+                    touch-action: pan-x pan-y; /* Enable both direction scrolling */
+                }
+            }
+
+            /* Small mobile devices */
+            @media screen and (max-width: 320px) {
+                .btn-read-more {
+                    padding: 0.6rem 1rem;
+                    font-size: 0.9rem;
+                    width: 100%; /* Full width on very small screens */
+                }
+
+                .event-card-horizontal {
+                    margin: 1rem 0;
+                }
+
+                .event-description p {
+                    font-size: 0.9rem;
+                }
+            }
+
+            /* Medium mobile devices */
+            @media screen and (min-width: 321px) and (max-width: 480px) {
+                .btn-read-more {
+                    padding: 0.7rem 1.2rem;
+                    font-size: 0.95rem;
+                }
+            }
+
+            /* Tablets */
+            @media screen and (min-width: 481px) and (max-width: 768px) {
+                .btn-read-more {
+                    padding: 0.8rem 1.5rem;
+                    font-size: 1rem;
+                }
+            }
+
+            /* High DPI Screens */
+            @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+                .event-card-horizontal {
+                    border-width: 0.5px; /* Thinner borders for retina displays */
+                }
+            }
+
+            /* Dark mode support */
+            @media (prefers-color-scheme: dark) {
+                .btn-read-more {
+                    background: rgba(255, 102, 0, 0.1);
+                }
+            }
+
+            /* Reduce motion */
+            @media (prefers-reduced-motion: reduce) {
+                .btn-read-more {
+                    transition: none;
+                }
+                
+                .btn-read-more:hover {
+                    transform: none;
+                }
+            }
+
+            /* Print optimization */
+            @media print {
+                .btn-read-more {
+                    display: none; /* Hide interactive elements when printing */
+                }
+            }
+
+            /* Landscape mode optimization */
+            @media screen and (orientation: landscape) and (max-height: 500px) {
+                .btn-read-more {
+                    padding: 0.5rem 1rem;
+                    margin: 0.3rem 0;
+                }
+            }
+
+            /* Ensure accessibility */
+            .btn-read-more:focus {
+                outline: 2px solid #ff6600;
+                outline-offset: 2px;
+            }
+
+            .btn-read-more:focus:not(:focus-visible) {
+                outline: none;
+            }
         </style>
-
-        <!-- Prakalpa Prastuthi -->
-        <div class="event-card-horizontal mb-5">
-            <div class="event-image">
-                <img src="{{ url_for('static', filename='assets/logos/project_expo.webp') }}" alt="PRAKALPA PRASTUTHI">
-            </div>
-            <div class="event-content">
-                <h3>PRAKALPA PRASTUTHI</h3>
-                <div class="event-description">
-                    <p>A technical project presentation platform showcasing innovative solutions in emerging technologies.</p>
-                    <div class="expanded-content">
-                        <div class="section-container">
-                            <h3 class="section-header">🔧 Technical Specifications</h3>
-                            <ul class="section-list">
-                                <li>Projects based on recent Technologies like IOT, Machine learning, and Image processing</li>
-                                <li>Tools used for implementation: Python, MATLAB</li>
-                            </ul>
-                        </div>
-                        
-                        <div class="section-container">
-                            <h3 class="section-header">📋 Terms and Conditions</h3>
-                            <ul class="section-list">
-                                <li>Maximum of three participants per team</li>
-                                <li>Ten minutes will be given to a team to present a maximum of 20 slides to the jury</li>
-                                <li>Participants must bring their laptops or components/devices to demonstrate the project</li>
-                                <li>Participants need to submit a brief synopsis report to the jury at presentation</li>
-                                <li>The demonstration will be evaluated based on spot modifications in the project</li>
-                                <li>Winner selection based on project novelty, presentation, and spot modifications</li>
-                            </ul>
-                        </div>
-                        
-                        <div class="section-container">
-                            <h3 class="section-header">👨‍🏫 Faculty Coordinators</h3>
-                            <div class="coordinators-grid">
-                                <div class="coordinator-card">
-                                    <div class="coordinator-name">Dr. Megha Rani R</div>
-                                    <div class="coordinator-role">Chairman</div>
-                                </div>
-                                <div class="coordinator-card">
-                                    <div class="coordinator-name">Prof. Shobha Biradar</div>
-                                    <div class="coordinator-role">Member</div>
-                                </div>
-                                <div class="coordinator-card">
-                                    <div class="coordinator-name">Prof. Udaykumar Tippa</div>
-                                    <div class="coordinator-role">Member</div>
-                                </div>
-                                <div class="coordinator-card">
-                                    <div class="coordinator-name">Prof. Ambika S.</div>
-                                    <div class="coordinator-role">Member</div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="section-container">
-                            <h3 class="section-header">👥 Student Coordinators</h3>
-                            <div class="coordinators-grid">
-                                <div class="coordinator-card">
-                                    <div class="coordinator-name">Chandan</div>
-                                    <div class="contact-info">9591631915</div>
-                                </div>
-                                <div class="coordinator-card">
-                                    <div class="coordinator-name">B. A. Siddharth</div>
-                                    <div class="contact-info">9632708519</div>
-                                </div>
-                                <div class="coordinator-card">
-                                    <div class="coordinator-name">Bhagwan</div>
-                                    <div class="contact-info">9945670140</div>
-                                </div>
-                                <div class="coordinator-card">
-                                    <div class="coordinator-name">Basavaraj H. G.</div>
-                                    <div class="contact-info">9663513263</div>
-                                </div>
-                                <div class="coordinator-card">
-                                    <div class="coordinator-name">Giridhar G. V.</div>
-                                    <div class="contact-info">8050466116</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <button class="btn-read-more" onclick="toggleDescription(this)">
-                    <span></span><span></span><span></span><span></span>
-                    Read More
-                </button>
-                
-                <ul class="event-details">
-                    <li><i class="bi bi-people-fill"></i> Team Size: Up to 3 members</li>
-                    <li><i class="bi bi-clock-fill"></i> Presentation Time: 10 minutes</li>
-                    <li><i class="bi bi-laptop-fill"></i> Bring your own device</li>
-                </ul>
-
-                <div class="button-container">
-                    <a href="{{ url_for('signin') }}" class="btn btn-register">
-                        <span></span><span></span><span></span><span></span>
-                        Register Now
-                    </a>
-                </div>
-            </div>
-        </div>
-
-        <!-- CHANAKSH CODING EVENT -->
-        <div class="event-card-horizontal mb-5">
-            <div class="event-image">
-                <img src="{{ url_for('static', filename='assets/logos/coding.webp') }}" alt="CHANAKSH CODING">
-            </div>
-            <div class="event-content">
-                <h3>CHANAKSH CODING EVENT</h3>
-                <div class="event-description">
-                    <p>Test your coding skills in this competitive programming challenge featuring Java programming, debugging, and problem-solving.</p>
-                    <div class="expanded-content">
-                        <div class="event-details-container">
-                            <!-- Technical Requirements -->
-                            <div class="details-section">
-                                <h3 class="section-title">🔧 Technical Requirements</h3>
-                                <ul class="section-list">
-                                    <li>Programming Language: Java</li>
-                                    <li>Participants must bring their own laptops</li>
-                                    <li>Development environment for Java programming</li>
-                                </ul>
-                            </div>
-
-                            <div class="content-divider"></div>
-
-                            <!-- Competition Format -->
-                            <div class="details-section">
-                                <h3 class="section-title">📋 Competition Format</h3>
-                                <ul class="section-list">
-                                    <li><strong>Round 1 - Debug Round (Bug Blaster)</strong>
-                                        <ul class="section-list">
-                                            <li>30 minutes duration</li>
-                                            <li>Debug 5 problems</li>
-                                            <li>Qualification for next round based on performance</li>
-                                        </ul>
-                                    </li>
-                                    <li><strong>Round 2 - Choose your challenge (Tech it out)</strong>
-                                        <ul class="section-list">
-                                            <li>60 minutes duration</li>
-                                            <li>Problems selected through lucky draw</li>
-                                            <li>Winners judged by problem count and execution time</li>
-                                        </ul>
-                                    </li>
-                                    <li><strong>Round 3 - Final Round (Logic Legends)</strong>
-                                        <ul class="section-list">
-                                            <li>Time-based problem solving</li>
-                                            <li>Focus on optimal solutions</li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </div>
-
-                            <div class="content-divider"></div>
-
-                            <!-- Rules & Regulations -->
-                            <div class="details-section">
-                                <h3 class="section-title">📜 Rules & Regulations</h3>
-                                <ul class="section-list">
-                                    <li>Individual participation only</li>
-                                    <li>Zero tolerance for plagiarism - immediate disqualification</li>
-                                    <li>Submitted results are final</li>
-                                    <li>Round-specific criteria announced before each round</li>
-                                    <li>Overall performance determines winners</li>
-                                    <li>Organizers reserve right to modify rules</li>
-                                </ul>
-                            </div>
-
-                            <div class="content-divider"></div>
-
-                            <!-- Coordinators -->
-                            <div class="details-section">
-                                <h3 class="section-title">👥 Coordinators</h3>
-                                <div class="coordinators-grid">
-                                    <div class="coordinator-card">
-                                        <div class="coordinator-name">Dr. Swaroopa Shastri</div>
-                                        <div class="coordinator-role">Chairman</div>
-                                    </div>
-                                    <div class="coordinator-card">
-                                        <div class="coordinator-name">Dr. Savita S. G</div>
-                                        <div class="coordinator-role">Member</div>
-                                    </div>
-                                    <div class="coordinator-card">
-                                        <div class="coordinator-name">Prof. Rani</div>
-                                        <div class="coordinator-role">Member</div>
-                                    </div>
-                                    <div class="coordinator-card">
-                                        <div class="coordinator-name">Prof. Kaveri Hulimani</div>
-                                        <div class="coordinator-role">Member</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <button class="btn-read-more" onclick="toggleDescription(this)">
-                    <span></span><span></span><span></span><span></span>
-                    Read More
-                </button>
-                
-                <ul class="event-details">
-                    <li><i class="bi bi-person-fill"></i> Individual Participation</li>
-                    <li><i class="bi bi-laptop-fill"></i> Bring Your Own Laptop</li>
-                    <li><i class="bi bi-trophy-fill"></i> Multiple Rounds</li>
-                </ul>
-
-                <div class="button-container">
-                    <a href="{{ url_for('signin') }}" class="btn btn-register">
-                        <span></span><span></span><span></span><span></span>
-                        Register Now
-                    </a>
-                </div>
-            </div>
-        </div>
-
-        <!-- Robo Samara -->
-        <div class="event-card-horizontal mb-5">
-            <div class="event-image">
-                <img src="{{ url_for('static', filename='assets/logos/Robo_Samara.webp') }}" alt="Robo Samara">
-            </div>
-            <div class="event-content">
-                <h3>Robo Samara</h3>
-                <div class="event-description">
-                    <p>Bolts, Bytes, and Battle - Design and program your robot to compete in exciting challenges and battles.</p>
-                    <div class="expanded-content">
-                        <!-- Additional details like specifications, rules, coordinators etc -->
-                    </div>
-                </div>
-                
-                <button class="btn-read-more" onclick="toggleDescription(this)">
-                    <span></span><span></span><span></span><span></span>
-                    Read More
-                </button>
-                
-                <ul class="event-details">
-                    <li><i class="bi bi-people-fill"></i> Team Size: 2-3 members</li>
-                    <li><i class="bi bi-cash"></i> Registration Fee: ₹300/team</li>
-                    <li><i class="bi bi-trophy-fill"></i> Prizes Worth: ₹15,000</li>
-                </ul>
-
-                <div class="button-container">
-                    <a href="{{ url_for('signin') }}" class="btn btn-register">
-                        <span></span><span></span><span></span><span></span>
-                        Register Now
-                    </a>
-                </div>
-            </div>
-        </div>
-
-        <!-- Robo War -->
-        <div class="event-card-horizontal mb-5">
-            <div class="event-image">
-                <img src="{{ url_for('static', filename='assets/logos/Robo_Samara.webp') }}" alt="Robo War">
-            </div>
-            <div class="event-content">
-                <h3>ROBO SAMARA (Robo War)</h3>
-                <div class="event-description">
-                    <p>Build a robot whose task is to push the opposing robot out of the circular ring or flip it over. Different robots compete one-on-one against each other in a knock-out tournament.</p>
-                    <div class="expanded-content">
-                        <div class="event-details-container">
-                            <div class="details-section">
-                                <h3 class="section-title">ROBO SPECIFICATION:</h3>
-                                <ul class="section-list">
-                                    <li>The dimensions of the robot used for robowar should not be more than 400 mm x 400 mm (length x breadth).</li>
-                                    <li>The maximum permissible weight for the robot is 9-12 kg.</li>
-                                    <li>The robot should not be split intentionally into components or parts during the match.</li>
-                                    <li>The machine can be wired/wireless.</li>
-                                    <li>The robot must be self-powered, AC power supply will not be provided, except for charging your batteries (in the breaks only).</li>
-                                    <li>If the bot is not ready or stops in between the match, is disqualified.</li>
-                                    <li>The length of the wire (for wired bots) should be long enough to cover the whole arena and the wire should remain slack during the complete game.</li>
-                                </ul>
-                            </div>
-
-                            <div class="content-divider"></div>
-
-                            <div class="details-section">
-                                <h3 class="section-title">GAMEPLAY RULES:</h3>
-                                <ul class="section-list">
-                                    <li>Each match consists of two rounds.</li>
-                                    <li>Each round will contain 3 raids of each team and each raid will be of 30 seconds. there will be two teams, the Alpha team and the Beta team.</li>
-                                    <li>A toss will decide the side of the arena which the winning team wants.</li>
-                                    <li>If there is an entangling of wires then the game is paused and the game will start from the same locations as the bots. Technical breaks can be used by both teams which last for 40 seconds and can be used only once per game (including tie breaker round)</li>
-                                    <li>The time between each round is 1 minute. Hand touching during the game to avoid the bot from falling outside the arena will lead to the bot being considered as fallen and necessary points will be given to the opposite team.</li>
-                                    <li>The final decision will be in the hands of the judges.</li>
-                                </ul>
-                            </div>
-
-                            <div class="content-divider"></div>
-
-                            <div class="details-section">
-                                <h3 class="section-title">Faculty Coordinators:</h3>
-                                <div class="coordinators-grid">
-                                    <div class="coordinator-card">
-                                        <div class="coordinator-name">Prof. Shilpa B. Kodli</div>
-                                        <div class="coordinator-role">Chairman</div>
-                                    </div>
-                                    <div class="coordinator-card">
-                                        <div class="coordinator-name">Prof. Bharati S. Pochal</div>
-                                        <div class="coordinator-role">Member</div>
-                                    </div>
-                                    <div class="coordinator-card">
-                                        <div class="coordinator-name">Prof. Shilpa Joshi</div>
-                                        <div class="coordinator-role">Member</div>
-                                    </div>
-                                    <div class="coordinator-card">
-                                        <div class="coordinator-name">Prof. Vijaylakshmi</div>
-                                        <div class="coordinator-role">Member</div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="content-divider"></div>
-
-                            <div class="details-section">
-                                <h3 class="section-title">Student Coordinators:</h3>
-                                <div class="coordinators-grid">
-                                    <div class="coordinator-card">
-                                        <div class="coordinator-name">Bhagtashree</div>
-                                        <div class="contact-info">8147265651</div>
-                                    </div>
-                                    <div class="coordinator-card">
-                                        <div class="coordinator-name">Rajesh K. J.</div>
-                                        <div class="contact-info">9886735300</div>
-                                    </div>
-                                    <div class="coordinator-card">
-                                        <div class="coordinator-name">Preetham</div>
-                                        <div class="contact-info">8431776252</div>
-                                    </div>
-                                    <div class="coordinator-card">
-                                        <div class="coordinator-name">Anita</div>
-                                        <div class="contact-info">9353169359</div>
-                                    </div>
-                                    <div class="coordinator-card">
-                                        <div class="coordinator-name">Soumya R</div>
-                                        <div class="contact-info">7676276943</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <button class="btn-read-more" onclick="toggleDescription(this)">
-                    <span></span><span></span><span></span><span></span>
-                    Read More
-                </button>
-                
-                <ul class="event-details">
-                    <li><i class="bi bi-people-fill"></i> Team Size: 2-4 members</li>
-                    <li><i class="bi bi-cash"></i> Registration Fee: ₹500/team</li>
-                    <li><i class="bi bi-trophy-fill"></i> Prizes Worth: ₹20,000</li>
-                </ul>
-
-                <div class="button-container">
-                    <a href="{{ url_for('signin') }}" class="btn btn-register">
-                        <span></span><span></span><span></span><span></span>
-                        Register Now
-                    </a>
-                </div>
-            </div>
-        </div>
-
-        <!-- Robo Race -->
-        <div class="event-card-horizontal mb-5">
-            <div class="event-image">
-                <img src="{{ url_for('static', filename='assets/logos/Robo_Samara.webp') }}" alt="Robo Race">
-            </div>
-            <div class="event-content">
-                <h3>ROBO SAMARA (Robo Race)</h3>
-                <div class="event-description"></div>
-                    <p>In this competition, the contestant or team of contestants design a robot either wired or wireless within the specified dimensions that can operated manually. The robot that will complete the specified task in the least time will be the winner.</p>
-                    <div class="expanded-content">
-                        <div class="event-details-container">
-                            <div class="details-section">
-                                <h3 class="section-title">THE ROBO SPECIFICATIONS:</h3>
-                                <ul class="section-list">
-                                    <li>The machine can be wired/wireless.</li>
-                                    <li>The machine must be controlled manually.</li>
-                                    <li>The maximum dimension of the bot should be 300mm x 300mm x 300mm (L x B x H), failing which the team will be disqualified from the competition.</li>
-                                    <li>The total weight of the bot should not exceed 5 kg.</li>
-                                    <li>The machine must not be made from Lego parts or any ready-made assembly kits, and it must be powered electrically only. The use of an IC engine is not allowed.</li>
-                                    <li>The robot can be powered by a power source such as a battery fixed on the robot or by a stationary power source connected to the robot by a cord.</li>
-                                    <li>Potential between any two points on the robot should not exceed 12v.</li>
-                                    <li>Participants should keep spare batteries, otherwise, it may lead to disqualification if the bot is not ready or stops in between the races.</li>
-                                    <li>The length of the wire (for wired bots) should be long enough, and the wire should remain slack during the complete race.</li>
-                                </ul>
-                            </div>
-
-                            <div class="content-divider"></div>
-
-                            <div class="details-section">
-                                <h3 class="section-title">GAMEPLAY RULES:</h3>
-                                <ul class="section-list">
-                                    <li>The Robot will be placed at the start line. the robot starts when the timer starts.</li>
-                                    <li>The Robot should remain on track, otherwise, it has to start from the last checkpoint crossed, though the timer will not be stopped. there are penalties for each obstacle skipped. penalties will be added to the total time.</li>
-                                    <li>The timer will stop as soon as the robot crosses the finish line.</li>
-                                    <li>Scoring and penalty rules will be announced on the day of the event.</li>
-                                </ul>
-                            </div>
-
-                            <div class="content-divider"></div>
-
-                            <div class="details-section">
-                                <h3 class="section-title">RACETRACK:</h3>
-                                <ul class="section-list">
-                                    <li>There will be only one start and one finish line. the track surface and course line may have unevenness.</li>
-                                    <li>There will be certain obstacles in the racetrack, which will try to slow down the robot.</li>
-                                </ul>
-                            </div>
-
-                            <div class="content-divider"></div>
-
-                            <div class="details-section">
-                                <h3 class="section-title">RULES AND REGULATIONS:</h3>
-                                <ul class="section-list">
-                                    <li>A team can have a maximum of 4 members.</li>
-                                    <li>One team member is elected as the robot handler. only that team member is permitted to control the robot during the game.</li>
-                                    <li>All other team members must remain outside the game zone.</li>
-                                    <li>Unethical behavior could lead to disqualification.</li>
-                                    <li>Robots or participants that cause deliberate interference with other robots or damage to the arena will be disqualified.</li>
-                                    <li>All decisions about scoring, game play, timing, and participation, made by the organizing committee are final.</li>
-                                    <li>The decision of the judges will be final and abiding. Arguments with judges in any form will lead to the disqualification of the team.</li>
-                                </ul>
-                            </div>
-
-                            <div class="content-divider"></div>
-
-                            <div class="details-section">
-                                <h3 class="section-title">Faculty Coordinators:</h3>
-                                <div class="coordinators-grid">
-                                    <div class="coordinator-card">
-                                        <div class="coordinator-name">Prof. Shilpa B. Kodli</div>
-                                        <div class="coordinator-role">Chairman</div>
-                                    </div>
-                                    <div class="coordinator-card">
-                                        <div class="coordinator-name">Prof. Bharati S. Pochal</div>
-                                        <div class="coordinator-role">Member</div>
-                                    </div>
-                                    <div class="coordinator-card">
-                                        <div class="coordinator-name">Prof. Shilpa Joshi</div>
-                                        <div class="coordinator-role">Member</div>
-                                    </div>
-                                    <div class="coordinator-card">
-                                        <div class="coordinator-name">Prof. Vijaylakshmi</div>
-                                        <div class="coordinator-role">Member</div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="content-divider"></div>
-
-                            <div class="details-section">
-                                <h3 class="section-title">Student Coordinators:</h3>
-                                <div class="coordinators-grid">
-                                    <div class="coordinator-card">
-                                        <div class="coordinator-name">Chetan P</div>
-                                        <div class="contact-info">9620466796</div>
-                                    </div>
-                                    <div class="coordinator-card">
-                                        <div class="coordinator-name">Vishal V.</div>
-                                        <div class="contact-info">8123222713</div>
-                                    </div>
-                                    <div class="coordinator-card">
-                                        <div class="coordinator-name">Abhishek R.</div>
-                                        <div class="contact-info">9945856905</div>
-                                    </div>
-                                    <div class="coordinator-card">
-                                        <div class="coordinator-name">Laxmikant</div>
-                                        <div class="contact-info">9972081976</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <button class="btn-read-more" onclick="toggleDescription(this)">
-                    <span></span><span></span><span></span><span></span>
-                    Read More
-                </button>
-                
-                <ul class="event-details">
-                    <li><i class="bi bi-people-fill"></i> Team Size: Up to 4 members</li>
-                    <li><i class="bi bi-cash"></i> Registration Fee: ₹400/team</li>
-                    <li><i class="bi bi-trophy-fill"></i> Prizes Worth: ₹15,000</li>
-                </ul>
-
-                <div class="button-container"></div>
-                    <a href="{{ url_for('signin') }}" class="btn btn-register">
-                        <span></span><span></span><span></span><span></span>
-                        Register Now
-                    </a>
-                </div>
-            </div>
-        </div>
-
-        <!-- Pragyaan Quiz -->
-        <div class="event-card-horizontal mb-5">
-            <div class="event-image">
-                <img src="{{ url_for('static', filename='images/events/quiz.jpg') }}" alt="Pragyaan Quiz">
-            </div>
-            <div class="event-content">
-                <h3>PRAGYAN (Quiz)</h3>
-                <div class="event-description">
-                    <p>Test your knowledge across technology, science, engineering, and general awareness in this comprehensive quiz competition.</p>
-                    <div class="expanded-content">
-                        <div class="event-details-container">
-                            <div class="details-section">
-                                <h3 class="section-title">BASIC RULES OF THE COMPETITION:</h3>
-                                <ul class="section-list">
-                                    <li>Only team entries are allowed, and the team shall consist of two persons. There is no limit to teams from a single institution. A valid ID of the college or institution is mandatory for the participants.</li>
-                                    <li>The decision of the quiz master will be final and will not be subjected to any change.</li>
-                                    <li>The participants shall not be allowed to use mobile or other electronic instruments during the quiz time.</li>
-                                    <li>The questions shall be in the form of multiple choice, true/false statements, specific answer questions, etc.</li>
-                                    <li>Audience/Supporters shall not give any hints or clues to the competitors.</li>
-                                    <li>Replacement of any participant of a team is not allowed after registration.</li>
-                                </ul>
-                            </div>
-
-                            <div class="content-divider"></div>
-
-                            <div class="details-section">
-                                <h3 class="section-title">PRELIMINARY ROUND:</h3>
-                                <ul class="section-list">
-                                    <li>Each team will be given a set of question papers containing 25 multiple-choice objective-type questions.</li>
-                                    <li>Time limit: 25 minutes</li>
-                                    <li>Each question will carry 1 mark</li>
-                                    <li>Only the top 4 teams will be selected for final or stage rounds</li>
-                                    <li>In case of a tie between 2 or more teams, a further 5 questions will be asked for final selection</li>
-                                </ul>
-                            </div>
-
-                            <div class="content-divider"></div>
-
-                            <div class="details-section">
-                                <h3 class="section-title">FINAL QUIZ/STAGE ROUND:</h3>
-                                <p>The final round will comprise of the following rounds:</p>
-                                <ul class="section-list">
-                                    <li>Round 1: Indian History</li>
-                                    <li>Round 2: Indian Geography</li>
-                                    <li>Round 3: Indian constitution/Polity</li>
-                                    <li>Round 4: Sports/Entertainment</li>
-                                    <li>Round 5: Mental ability/Aptitude</li>
-                                    <li>Round 6: Science and Technology</li>
-                                    <li>Round 7: Current affairs</li>
-                                    <li>Round 8: Audio/Visual round</li>
-                                    <li>Round 9: Rapid fire round</li>
-                                </ul>
-                            </div>
-
-                            <div class="content-divider"></div>
-
-                            <div class="details-section">
-                                <h3 class="section-title">Final Round Rules:</h3>
-                                <ul class="section-list">
-                                    <li>10 marks will be awarded for the correct answer</li>
-                                <div class="coordinator-card">
-                                    <div class="coordinator-name">Gururaj</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <button class="btn-read-more" onclick="toggleDescription(this)">
-                    <span></span><span></span><span></span><span></span>
-                    Read More
-                </button>
-                
-                <ul class="event-details">
-                    <li><i class="bi bi-people-fill"></i> Team Size: 2 members</li>
-                    <li><i class="bi bi-cash"></i> Registration Fee: ₹150/team</li>
-                    <li><i class="bi bi-trophy-fill"></i> Prizes Worth: ₹7,000</li>
-                </ul>
-
-                <div class="button-container">
-                    <a href="{{ url_for('signin') }}" class="btn btn-register">
-                        <span></span><span></span><span></span><span></span>
-                        Register Now
-                    </a>
-                </div>
-            </div>
-        </div>
-
-        <!-- Vagmita -->
-        <div class="event-card-horizontal mb-5">
-            <div class="event-image">
-                <img src="{{ url_for('static', filename='assets/logos/elocution.webp') }}" alt="Vagmita">
-            </div>
-            <div class="event-content">
-                <h3>VAGMITA (Elocution)</h3>
-                <div class="event-description">
-                    <p>Express your thoughts with clarity and confidence in this competitive public speaking challenge.</p>
-                    <div class="expanded-content">
-                        <div class="section-container">
-                            <h3 class="section-header">TOPICS FOR THE CONTEST:</h3>
-                            <ul class="section-list">
-                                <li>Viksit Bharat</li>
-                                <li>Social media and youth</li>
-                                <li>Agriculture and environmental challenges</li>
-                                <li>Technology's impact on social relationships</li>
-                                <li>Kannada literature and culture</li>
-                                <li>Religion and Science</li>
-                                <li>Effect of COVID-19 on education</li>
-                                <li>Chandrayana-3 (Indian lunar exploration)</li>
-                                <li>Role of RBI in Indian economy</li>
-                            </ul>
-                        </div>
-
-                        <div class="section-container">
-                            <h3 class="section-header">TERMS AND CONDITIONS:</h3>
-                            <ul class="section-list">
-                                <li>The Languages of the oration shall be in English, Hindi, and Kannada only.</li>
-                                <li>Each participant will be given a time limit not exceeding 3 minutes to speak on the topic.</li>
-                                <li>Avoid political and religiously sensitive matters.</li>
-                                <li>The candidate must be a student.</li>
-                                <li>Students must not go out of the topic.</li>
-                                <li>Depending upon the number of entries for competition organizing committee may conduct preliminary rounds.</li>
-                                <li>The marks will be based on the content, oratory skills, convincing ability, proficiency, and other relevant factors.</li>
-                                <li>The decision of the judges shall be final.</li>
-                            </ul>
-                        </div>
-
-                        <div class="section-container">
-                            <h3 class="section-header">Faculty Coordinators:</h3>
-                            <div class="coordinators-grid">
-                                <div class="coordinator-card">
-                                    <div class="coordinator-name">Dr. Babu Reddy</div>
-                                    <div class="coordinator-role">Chairman</div>
-                                </div>
-                                <div class="coordinator-card">
-                                    <div class="coordinator-name">Dr. Vidyavathi Reddy</div>
-                                    <div class="coordinator-role">Member</div>
-                                </div>
-                                <div class="coordinator-card">
-                                    <div class="coordinator-name">Prof. Soumya Patil</div>
-                                    <div class="coordinator-role">Member</div>
-                                </div>
-                                <div class="coordinator-card">
-                                    <div class="coordinator-name">Prof. Shivakumar Kalgi</div>
-                                    <div class="coordinator-role">Member</div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="section-container">
-                            <h3 class="section-header">Student Coordinators:</h3>
-                            <div class="coordinators-grid">
-                                <div class="coordinator-card">
-                                    <div class="coordinator-name">Kalyanamma</div>
-                                    <div class="contact-info">7411294835</div>
-                                </div>
-                                <div class="coordinator-card">
-                                    <div class="coordinator-name">Lavanya</div>
-                                    <div class="contact-info">8792442001</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <button class="btn-read-more" onclick="toggleDescription(this)">
-                    <span></span><span></span><span></span><span></span>
-                    Read More
-                </button>
-                
-                <ul class="event-details">
-                    <li><i class="bi bi-person-fill"></i> Individual Participation</li>
-                    <li><i class="bi bi-clock-fill"></i> Time Limit: 3 minutes</li>
-                    <li><i class="bi bi-cash"></i> Registration Fee: ₹200</li>
-                    <li><i class="bi bi-trophy-fill"></i> Prizes Worth: ₹8,000</li>
-                </ul>
-
-                <div class="button-container">
-                    <a href="{{ url_for('signin') }}" class="btn btn-register">
-                        <span></span><span></span><span></span><span></span>
-                        Register Now
-                    </a>
-                </div>
-            </div>
-        </div>
 
         <script>
             function toggleDescription(button) {
@@ -1212,15 +1316,24 @@
                     content.style.opacity = '0';
                 });
             });
+
+            // Improve touch response
+            document.addEventListener('touchstart', function() {}, {passive: true});
+        
+            // Handle button touches
+            const readMoreButtons = document.querySelectorAll('.btn-read-more');
+            readMoreButtons.forEach(button => {
+                button.addEventListener('touchend', function(e) {
+                    e.preventDefault();
+                    this.click();
+                }, {passive: false});
+            });
         </script>
 
     </div>
 
    
-{% endblock %}
 
-{% block scripts %}
-{{ super() }}
 <script>
     // Same toggle function from games page
     function toggleDescription(button) {

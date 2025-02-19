@@ -83,6 +83,7 @@
         backdrop-filter: blur(5px);
         background: rgba(46, 46, 46, 0.7);
         aspect-ratio: 16/9; /* Maintain image aspect ratio */
+        cursor: pointer;
     }
 
     .gallery-item:hover {
@@ -294,6 +295,56 @@
         color: #FFD700;
         font-size: 0.9rem;
         z-index: 2;
+    }
+
+    /* Modal styles */
+    .modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.9);
+        z-index: 1000;
+        cursor: pointer;
+    }
+
+    .modal-content {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        max-width: 90%;
+        max-height: 90vh;
+        object-fit: contain;
+    }
+
+    .close-btn {
+        position: absolute;
+        top: 20px;
+        right: 30px;
+        color: #FFD700;
+        font-size: 40px;
+        font-weight: bold;
+        cursor: pointer;
+        z-index: 1001;
+        transition: all 0.3s ease;
+    }
+
+    .close-btn:hover {
+        color: #fff;
+        transform: scale(1.1);
+    }
+
+    @keyframes modalFadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+
+    .modal.active {
+        display: block;
+        animation: modalFadeIn 0.3s ease-in-out;
     }
 </style>
 
@@ -571,4 +622,46 @@
         </div>
     </section>
 </div>
+
+<!-- Add modal container after main-content div -->
+<div id="imageModal" class="modal">
+    <span class="close-btn">&times;</span>
+    <img class="modal-content" id="modalImg">
+</div>
+
+<script>
+    // Add this script at the end of your content block
+    const modal = document.getElementById('imageModal');
+    const modalImg = document.getElementById('modalImg');
+    const closeBtn = document.getElementsByClassName('close-btn')[0];
+    const galleryItems = document.getElementsByClassName('gallery-item');
+
+    // Add click event to all gallery items
+    Array.from(galleryItems).forEach(item => {
+        const img = item.querySelector('img');
+        img.onclick = function() {
+            modal.classList.add('active');
+            modalImg.src = this.src;
+        }
+    });
+
+    // Close modal when clicking the close button
+    closeBtn.onclick = function() {
+        modal.classList.remove('active');
+    }
+
+    // Close modal when clicking outside the image
+    modal.onclick = function(e) {
+        if (e.target === modal) {
+            modal.classList.remove('active');
+        }
+    }
+
+    // Close modal with escape key
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && modal.classList.contains('active')) {
+            modal.classList.remove('active');
+        }
+    });
+</script>
 {% endblock %}
