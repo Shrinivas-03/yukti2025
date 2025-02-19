@@ -12,9 +12,8 @@ import csv
 import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
-<<<<<<< HEAD
 from dotenv import load_dotenv
-
+import cryptography
 load_dotenv()  # Load the .env file
 
 
@@ -25,37 +24,32 @@ class Config:
     GMAIL_USER = os.environ.get('GMAIL_USER')
     GMAIL_PASSWORD = os.environ.get('GMAIL_PASSWORD')
     DEBUG = os.environ.get('FLASK_DEBUG', 'True').lower() in ('true', '1', 't')
-=======
-import cryptography
->>>>>>> 701059c18697dae45c42ea0355e47cf3d894712d
+
+
 
 app = Flask(__name__, 
     static_url_path='/static',
     static_folder='static'
 )
 
-<<<<<<< HEAD
+
 # Apply configuration
 app.config.from_object(Config)
 app.secret_key = app.config['SECRET_KEY']
 
 # Initialize Supabase client
 supabase: Client = create_client(app.config['SUPABASE_URL'], app.config['SUPABASE_KEY'])
-=======
+
 app.config.update(
     SESSION_COOKIE_SECURE=True,   # Ensures cookies are sent only over HTTPS
     SESSION_COOKIE_HTTPONLY=True, # Prevents JavaScript from accessing cookies
     SESSION_COOKIE_SAMESITE='Lax' # Helps prevent CSRF attacks
 )
 
-# Set your Supabase credentials
-SUPABASE_URL = "https://kccbgaxhhdgzkyazjnnk.supabase.co"
-SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtjY2JnYXhoaGRnemt5YXpqbm5rIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mzk0NDA2MTAsImV4cCI6MjA1NTAxNjYxMH0.MW4ndTDp-6tvWluoHcb5NzVycNjmU0Vzlxl_mL0VdgA"
-supabase: Client = create_client(SUPABASE_URL, SUPABASE_KEY)
 
-GMAIL_USER = "vtuklbyukti25@gmail.com"
-GMAIL_PASSWORD = "pfhaexjutcaqvddp"
->>>>>>> 701059c18697dae45c42ea0355e47cf3d894712d
+
+
+
 
 def send_registration_email(to_email, ack_id, details):
     try:
@@ -571,9 +565,6 @@ def download_registrations():
         return jsonify({'success': False, 'message': str(e)})
 
 if __name__ == "__main__":
-<<<<<<< HEAD
+
     app.run(debug=app.config['DEBUG'])
-=======
-    # Remove ssl_context parameter for development
-    app.run(debug=True)
->>>>>>> 701059c18697dae45c42ea0355e47cf3d894712d
+
