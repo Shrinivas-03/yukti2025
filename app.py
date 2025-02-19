@@ -11,12 +11,19 @@ import csv
 import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
+import cryptography
 
 app = Flask(__name__, 
     static_url_path='/static',
     static_folder='static'
 )
 app.secret_key = "sdjksafbsahifgahif56549"
+
+app.config.update(
+    SESSION_COOKIE_SECURE=True,   # Ensures cookies are sent only over HTTPS
+    SESSION_COOKIE_HTTPONLY=True, # Prevents JavaScript from accessing cookies
+    SESSION_COOKIE_SAMESITE='Lax' # Helps prevent CSRF attacks
+)
 
 # Set your Supabase credentials
 SUPABASE_URL = "https://kccbgaxhhdgzkyazjnnk.supabase.co"
@@ -542,4 +549,5 @@ def download_registrations():
         return jsonify({'success': False, 'message': str(e)})
 
 if __name__ == "__main__":
+    # Remove ssl_context parameter for development
     app.run(debug=True)
