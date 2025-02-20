@@ -51,7 +51,7 @@
 
 <body class="m-0 font-['Poppins'] text-gray-100 bg-[#121212]">
     <!-- Header Section -->
-    <header class="fixed top-0 w-full z-[1000] bg-[rgba(30,30,30,0.9)] h-20 shadow-lg">
+    <header class="fixed top-0 w-full z-[2001] bg-[rgba(30,30,30,0.9)] h-20 shadow-lg">
         <div class="max-w-7xl mx-auto px-6 h-full flex justify-between items-center">
             <div class="flex items-center gap-6">
                 <a href="https://vtu.ac.in/" target="_blank" class="hover:scale-105 transition-transform duration-300">
@@ -66,7 +66,7 @@
             </div>
             
             <div class="flex items-center">
-                <button class="lg:hidden text-2xl text-white cursor-pointer">
+                <button class="lg:hidden text-2xl text-white cursor-pointer menu-btn" aria-label="Toggle menu">
                     <i class="fas fa-bars"></i>
                 </button>
                 <nav class="hidden lg:block">
@@ -82,7 +82,7 @@
         </div>
     </header>
     <!-- Dynamic Content Block -->
-    <main class="min-h-screen pt-20">
+    <main class="min-h-screen pt-20 relative z-0">
         {% block content %}{% endblock %}
     </main>
 
@@ -157,7 +157,7 @@
     </footer>
 
     <!-- Mobile Menu (Hidden by default) -->
-    <nav class="lg:hidden fixed top-20 left-0 w-full h-[calc(100vh-80px)] bg-[rgba(20,20,20,0.95)] -translate-x-full transition-transform duration-300" id="mobileMenu">
+    <nav class="lg:hidden fixed top-20 left-0 w-full h-[calc(100vh-80px)] bg-[rgba(20,20,20,0.98)] -translate-x-full transition-transform duration-300 z-[2000]" id="mobileMenu">
         <ul class="flex flex-col items-center gap-6 pt-8">
             <li><a href="{{ url_for('home') }}" class="text-gray-200 hover:text-[#1e90ff] transition-colors">Home</a></li>
             <li><a href="{{ url_for('about') }}" class="text-gray-200 hover:text-[#1e90ff] transition-colors">About</a></li>
@@ -168,18 +168,27 @@
     </nav>
 
     <script>
-        // Mobile menu toggle
-        const menuBtn = document.querySelector('.menu-btn');
-        const mobileMenu = document.getElementById('mobileMenu');
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuBtn = document.querySelector('.menu-btn');
+            const mobileMenu = document.getElementById('mobileMenu');
 
-        menuBtn?.addEventListener('click', () => {
-            mobileMenu.classList.toggle('-translate-x-full');
-        });
+            if (menuBtn && mobileMenu) {
+                menuBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    mobileMenu.classList.toggle('-translate-x-full');
+                });
 
-        // Close menu when clicking outside
-        document.addEventListener('click', (e) => {
-            if (!e.target.closest('.header-content') && !e.target.closest('#mobileMenu')) {
-                mobileMenu.classList.add('-translate-x-full');
+                // Close menu when clicking outside
+                document.addEventListener('click', (e) => {
+                    if (!menuBtn.contains(e.target) && !mobileMenu.contains(e.target)) {
+                        mobileMenu.classList.add('-translate-x-full');
+                    }
+                });
+
+                // Prevent menu from closing when clicking inside it
+                mobileMenu.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                });
             }
         });
     </script>

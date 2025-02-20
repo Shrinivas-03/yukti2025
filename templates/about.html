@@ -3,33 +3,39 @@
 {% block title %}About | YUKTI 2025{% endblock %}
 
 {% block content %}
-<section class="about-section">
+<section class="py-8 sm:py-10 md:py-12 px-4 sm:px-[5%]">
     <!-- VTU Section -->
-    <div class="vtu-container">
-        <h1 class="vtu-title">VISVESVARAYA TECHNOLOGICAL UNIVERSITY</h1>
-        <div class="vtu-card">
-            <div class="logo-container">
-                <a href="https://vtu.ac.in/" target="_blank">
-                <img class="logo" src="{{ url_for('static', filename='assets/vtu-logo.webp') }}" alt="VTU Logo">
+    <div class="max-w-4xl mx-auto">
+        <h1 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-white text-center mb-6 sm:mb-8 font-['Cinzel'] uppercase tracking-wider">
+            VISVESVARAYA TECHNOLOGICAL UNIVERSITY
+        </h1>
+        <div class="bg-[rgba(32,34,39,0.95)] p-4 sm:p-6 md:p-8 rounded-2xl shadow-2xl text-gray-300 
+                    border-2 border-[#ff6600] transform transition-all duration-300 hover:-translate-y-2 
+                    hover:shadow-[0_15px_30px_rgba(3,233,244,0.4)] hover:border-[#03e9f4]">
+            <div class="flex justify-center mb-4">
+                <a href="https://vtu.ac.in/" target="_blank" class="inline-block">
+                    <img class="w-[120px] rounded-full border-3 border-[#ff6700]" 
+                         src="{{ url_for('static', filename='assets/vtu-logo.webp') }}" 
+                         alt="VTU Logo">
                 </a>
             </div>
-            <div class="vtu-content">
-                <p>
+            <div class="space-y-4 text-justify sm:text-left px-2 sm:px-4">
+                <p class="text-sm sm:text-base leading-relaxed">
                     <strong>Visvesvaraya Technological University (VTU)</strong>, headquartered in
-                    <span class="highlight">Belagavi, Karnataka</span>, stands as one of India’s most prestigious
+                    <span class="text-[#ff6700]">Belagavi, Karnataka</span>, stands as one of India’s most prestigious
                     technological universities. Named after <strong>Sir M. Visvesvaraya</strong>, a celebrated engineer
                     and statesman, VTU fosters innovation, research, and academic excellence across engineering,
                     technology, and management disciplines.
                 </p>
-                <p>
+                <p class="text-sm sm:text-base leading-relaxed">
                     With its sprawling campus in Belagavi, VTU serves as a central hub for nurturing the next generation
                     of technologists and leaders. The university is renowned for its robust curriculum, cutting-edge
                     research facilities, and partnerships with industry leaders. Housing over
-                    <span class="highlight">200 affiliated colleges</span>, VTU empowers more than
-                    <span class="highlight">400,000 students annually</span>, shaping the future of engineering
+                    <span class="text-[#ff6700]">200 affiliated colleges</span>, VTU empowers more than
+                    <span class="text-[#ff6700]">400,000 students annually</span>, shaping the future of engineering
                     education.
                 </p>
-                <p>
+                <p class="text-sm sm:text-base leading-relaxed">
                     Dedicated to pushing the boundaries of knowledge, VTU continues to inspire students to excel in a
                     dynamic, technology-driven world.
                 </p>
@@ -37,706 +43,128 @@
         </div>
     </div>
 
-    <!-- Welcome Section -->
-
-    <div class="vc-section">
-        <div class="vc-image-container">
-            <img class="vc-image" src="{{ url_for('static', filename='assets/VC.webp') }}" alt="Dr. S. Vidyashankar">
-        </div>
-        <div class="vc-message">
-            <h2 class="vc-name">Dr. S. Vidyashankar</h2>
-            <h3 class="vc-title">Vice Chancellor, VTU, Belagavi</h3>
-            <p>
-                Dear Friends and Students,
-            </p>
-            <p>
-                It is with immense pleasure and pride that I extend a warm welcome to you all to
-                <strong>Visvesvaraya Technological University “Yukti 2K25”</strong>, a National Level
-                Techno-Cultural Fest. The second edition of the fest, this year’s theme
-                <span class="highlight">“Reimagining Tomorrow”</span> with the tagline
-                <strong>Innovate, Elevate, and Celebrate</strong>, promises to be a vibrant confluence of
-                technology,
-                culture, and creativity.
-            </p>
-            <p>
-                Scheduled for <strong>February 20th and 21st, 2025</strong>, Yukti 2K25 will feature a diverse range
-                of events, including Management, Robotics, Technical challenges, Cultural Arts, and thrilling Live
-                bands and Concerts. We invite you to embrace the spirit of collaboration and creativity.
-            </p>
-            <p>
-                Let us come together to innovate, elevate, and celebrate the future we are collectively reimagining.
-            </p>
+    <!-- Vice Chancellor Section -->
+    <div class="mt-8 sm:mt-10 md:mt-12 bg-[rgba(45,49,56,0.9)] rounded-2xl p-4 sm:p-6 md:p-8 max-w-4xl mx-auto border-2 border-[#ff6600] 
+                transform transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_15px_30px_rgba(3,233,244,0.4)] 
+                hover:border-[#03e9f4]">
+        <div class="flex flex-col md:flex-row items-center gap-4 sm:gap-6">
+            <div class="flex-shrink-0">
+                <img class="w-[150px] md:w-[210px] rounded-full border-3 border-[#ff6700]" 
+                     src="{{ url_for('static', filename='assets/VC.webp') }}" 
+                     alt="Dr. S. Vidyashankar">
+            </div>
+            <div class="flex-grow text-justify sm:text-left px-2 sm:px-4">
+                <h2 class="text-2xl sm:text-3xl text-white mb-2 text-center sm:text-left">Dr. S. Vidyashankar</h2>
+                <h3 class="text-xl sm:text-2xl text-[#ff6700] mb-4 text-center sm:text-left">Vice Chancellor, VTU, Belagavi</h3>
+                <div class="space-y-4">
+                    <p class="text-sm sm:text-base leading-relaxed">
+                        Dear Friends and Students,
+                    </p>
+                    <p class="text-sm sm:text-base leading-relaxed">
+                        It is with immense pleasure and pride that I extend a warm welcome to you all to
+                        <strong>Visvesvaraya Technological University “Yukti 2K25”</strong>, a National Level
+                        Techno-Cultural Fest. The second edition of the fest, this year’s theme
+                        <span class="text-[#ff6700]">“Reimagining Tomorrow”</span> with the tagline
+                        <strong>Innovate, Elevate, and Celebrate</strong>, promises to be a vibrant confluence of
+                        technology,
+                        culture, and creativity.
+                    </p>
+                    <p class="text-sm sm:text-base leading-relaxed">
+                        Scheduled for <strong>February 20th and 21st, 2025</strong>, Yukti 2K25 will feature a diverse range
+                        of events, including Management, Robotics, Technical challenges, Cultural Arts, and thrilling Live
+                        bands and Concerts. We invite you to embrace the spirit of collaboration and creativity.
+                    </p>
+                    <p class="text-sm sm:text-base leading-relaxed">
+                        Let us come together to innovate, elevate, and celebrate the future we are collectively reimagining.
+                    </p>
+                </div>
+            </div>
         </div>
     </div>
 
     <!-- Leadership Team Section -->
-    <div class="team-section">
-        <h2 style="color: #ff6600;">Leadership Team</h2>
-        <div class="team-grid">
-            <!-- Team Member Card 1 -->
-            <div class="team-card">
-                <img class="team-image" src="static/assets/RG.webp" alt="Dr. B.E. Rangaswamy">
-                <h4 class="team-name">Dr. B.E. Rangaswamy</h4>
-                <p class="team-title">Registrar, VTU</p>
+    <div class="mt-8 sm:mt-10 md:mt-12 bg-[rgba(45,49,56,0.9)] rounded-2xl p-4 sm:p-6 md:p-8 max-w-4xl mx-auto border-2 border-[#ff6600]
+                transform transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_15px_30px_rgba(3,233,244,0.4)]
+                hover:border-[#03e9f4]">
+        <h2 class="text-2xl sm:text-3xl text-[#ff6600] text-center mb-6 sm:mb-8 font-['Cinzel']">Leadership Team</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+            <!-- Team Member Cards -->
+            <div class="bg-[rgba(32,34,39,0.95)] p-3 sm:p-4 md:p-6 rounded-2xl border-2 border-[#03e9f4] shadow-xl
+                        transform transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_12px_20px_rgba(0,0,0,0.7)]">
+                <img class="w-[80px] h-[80px] sm:w-[100px] sm:h-[100px] rounded-full border-3 border-[#ff6700] mx-auto mb-3 sm:mb-4 object-cover"
+                     src="static/assets/RG.webp" 
+                     alt="Dr. B.E. Rangaswamy">
+                <h4 class="text-base sm:text-lg md:text-xl text-white font-bold mb-2 text-center md:text-left">Dr. B.E. Rangaswamy</h4>
+                <p class="text-sm sm:text-base text-gray-300 text-center md:text-left">Registrar, VTU</p>
             </div>
-
-            <!-- Team Member Card 2 -->
-            <div class="team-card">
-                <img class="team-image" src="static/assets/RE.webp" alt="Dr. T.N. Sreenivasa">
-                <h4 class="team-name">Dr. T.N. Sreenivasa</h4>
-                <p class="team-title">Registrar (Evaluation), VTU</p>
+            <div class="bg-[rgba(32,34,39,0.95)] p-3 sm:p-4 md:p-6 rounded-2xl border-2 border-[#03e9f4] shadow-xl
+                        transform transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_12px_20px_rgba(0,0,0,0.7)]">
+                <img class="w-[80px] h-[80px] sm:w-[100px] sm:h-[100px] rounded-full border-3 border-[#ff6700] mx-auto mb-3 sm:mb-4 object-cover"
+                     src="static/assets/RE.webp" 
+                     alt="Dr. T.N. Sreenivasa">
+                <h4 class="text-base sm:text-lg md:text-xl text-white font-bold mb-2 text-center md:text-left">Dr. T.N. Sreenivasa</h4>
+                <p class="text-sm sm:text-base text-gray-300 text-center md:text-left">Registrar (Evaluation), VTU</p>
             </div>
-
-            <!-- Team Member Card 3 -->
-            <div class="team-card">
-                <img class="team-image" src="static/assets/FO.webp" alt="Dr. Prashantha Nayaka G.">
-                <h4 class="team-name">Dr.Prashantha Nayaka G.</h4>
-                <p class="team-title">Finance Officer, VTU</p>
+            <div class="bg-[rgba(32,34,39,0.95)] p-3 sm:p-4 md:p-6 rounded-2xl border-2 border-[#03e9f4] shadow-xl
+                        transform transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_12px_20px_rgba(0,0,0,0.7)]">
+                <img class="w-[80px] h-[80px] sm:w-[100px] sm:h-[100px] rounded-full border-3 border-[#ff6700] mx-auto mb-3 sm:mb-4 object-cover"
+                     src="static/assets/FO.webp" 
+                     alt="Dr. Prashantha Nayaka G.">
+                <h4 class="text-base sm:text-lg md:text-xl text-white font-bold mb-2 text-center md:text-left">Dr.Prashantha Nayaka G.</h4>
+                <p class="text-sm sm:text-base text-gray-300 text-center md:text-left">Finance Officer, VTU</p>
             </div>
-            <div class="team-card">
-                <img class="team-image" src="static/assets/Srd.jpg" alt="Dr. T.N. Sreenivasa">
-                <h4 class="team-name" style="font-size: 15px;">Dr. Shambu Lingappa</h4>
-                <p class="team-title" style="font-size: 13px;">Regional Director(I/c), VTU's RO,Kalaburagi
+            <div class="bg-[rgba(32,34,39,0.95)] p-3 sm:p-4 md:p-6 rounded-2xl border-2 border-[#03e9f4] shadow-xl
+                        transform transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_12px_20px_rgba(0,0,0,0.7)]">
+                <img class="w-[80px] h-[80px] sm:w-[100px] sm:h-[100px] rounded-full border-3 border-[#ff6700] mx-auto mb-3 sm:mb-4 object-cover"
+                     src="static/assets/Srd.jpg" 
+                     alt="Dr. Shambu Lingappa">
+                <h4 class="text-base sm:text-lg md:text-xl text-white font-bold mb-2 text-center md:text-left" style="font-size: 15px;">Dr. Shambu Lingappa</h4>
+                <p class="text-sm sm:text-base text-gray-300 text-center md:text-left" style="font-size: 13px;">Regional Director(I/c), VTU's RO,Kalaburagi</p>
             </div>
         </div>
     </div>
 
-
     <!-- Fest Coordinators Section -->
-    <div class="coordinators-container">
-        <h2 class="section-title">Fest Coordinators</h2>
-        <div class="coordinators-grid">
-            <div class="team-card">
-                <img class="team-image" src="static/assets/Ambresh.png" alt="Dr. T.N. Sreenivasa">
-                <h4 class="team-name"style="font-size: 15px;"style="font-size: 15px;">Dr. Ambresh Bhadrasheetty</h4>
-                <p class="team-title"style="font-size: 14px;">Cultural Coodinator,VTU's CPGS,Kalaburagi</p>
+    <div class="mt-8 sm:mt-10 md:mt-12 bg-[rgba(45,49,56,0.9)] rounded-2xl p-4 sm:p-6 md:p-8 max-w-4xl mx-auto border-2 border-[#ff6600]
+                transform transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_15px_30px_rgba(3,233,244,0.4)]
+                hover:border-[#03e9f4]">
+        <h2 class="text-2xl sm:text-3xl text-[#FFD700] text-center mb-6 sm:mb-8 font-['Cinzel']">Fest Coordinators</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
+            <!-- Coordinator Cards -->
+            <div class="bg-[rgba(32,34,39,0.95)] p-3 sm:p-4 md:p-6 rounded-2xl border-2 border-[#03e9f4] shadow-xl
+                        transform transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_12px_20px_rgba(0,0,0,0.7)]">
+                <img class="w-[80px] h-[80px] sm:w-[100px] sm:h-[100px] rounded-full border-3 border-[#ff6700] mx-auto mb-3 sm:mb-4 object-cover"
+                     src="static/assets/Ambresh.png" 
+                     alt="Dr. Ambresh Bhadrasheetty">
+                <h4 class="text-base sm:text-lg text-white font-bold mb-2 text-center md:text-left">Dr. Ambresh Bhadrasheetty</h4>
+                <p class="text-xs sm:text-sm text-gray-300 text-center md:text-left">Cultural Coordinator, VTU's CPGS, Kalaburagi</p>
             </div>
-            <div class="team-card">
-                <img class="team-image" src="static/assets/RE.webp" alt="Dr. T.N. Sreenivasa">
-                <h4 class="team-name"style="font-size: 15px;">Prof. Maneeth P.D.</h4>
-                <p class="team-title">Fest Coodinator,VTU's CPGS, Kalaburagi</p>
+            <div class="bg-[rgba(32,34,39,0.95)] p-3 sm:p-4 md:p-6 rounded-2xl border-2 border-[#03e9f4] shadow-xl
+                        transform transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_12px_20px_rgba(0,0,0,0.7)]">
+                <img class="w-[80px] h-[80px] sm:w-[100px] sm:h-[100px] rounded-full border-3 border-[#ff6700] mx-auto mb-3 sm:mb-4 object-cover"
+                     src="static/assets/.webp" 
+                     alt="Prof. Maneeth P.D.">
+                <h4 class="text-base sm:text-lg text-white font-bold mb-2 text-center md:text-left">Prof. Maneeth P.D.</h4>
+                <p class="text-xs sm:text-sm text-gray-300 text-center md:text-left">Fest Coordinator, VTU's CPGS, Kalaburagi</p>
             </div>
-            
-
-
-
-
         </div>
     </div>
 
     <!-- Call-to-Action -->
-    <div class="cta-container">
-        <a href="{{ url_for('about') }}" class="cta-button">Learn More</a>
+    <div class="text-center mt-8 sm:mt-10 md:mt-12">
+        <a href="{{ url_for('about') }}" 
+           class="inline-block bg-[#ff6700] text-white px-6 sm:px-8 py-3 sm:py-4 rounded-full text-sm sm:text-base font-bold uppercase
+                  transform transition-all duration-300 hover:bg-[#e95f00] hover:-translate-y-1 
+                  hover:shadow-[0_8px_15px_rgba(0,0,0,0.7)]">
+            Learn More
+        </a>
     </div>
 </section>
 
 <style>
-    /* General Section Styling */
-    .about-section {
-        padding: 2rem 5%;
-        color: #e0e0e0;
-        font-family: 'Poppins', sans-serif;
-        line-height: 1.6;
-    }
-
-    /* Titles and Headings */
-    .vtu-title,
-    .section-title {
-        font-family: 'Cinzel', serif;
-        font-size: 2.5rem;
-        color: #ffffff;
-        text-align: center;
-        margin-bottom: 1.5rem;
-        text-transform: uppercase;
-        letter-spacing: 2px;
-    }
-
-    .highlight {
-        color: #ff6700;
-        font-weight: bold;
-    }
-
-    /* VTU Section Styling */
-    .vtu-card {
-        background: rgba(32, 34, 39, 0.95);
-        padding: 2rem;
-        border-radius: 15px;
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
-        text-align: justify;
-        margin: 1rem auto;
-        max-width: 1000px;
-        color: #e0e0e0;
-
-    }
-
-    .logo-container {
-        display: flex;
-        justify-content: center;
-        margin-bottom: 1rem;
-    }
-
-    .logo {
-        max-width: 120px;
-        border-radius: 50%;
-        border: 3px solid #ff6700;
-    }
-
-    /* Welcome Section Styling */
-    .vc-section {
-        display: flex;
-        align-items: center;
-        flex-wrap: wrap;
-        gap: 1.5rem;
-        margin-top: 2rem;
-        padding: 2rem;
-        background: rgba(45, 49, 56, 0.9);
-        /* Subtle dark overlay for separation */
-        border-radius: 15px;
-        box-shadow: 0 8px 15px rgba(0, 0, 0, 0.4);
-        padding: 2rem;
-        border-radius: 15px;
-        text-align: justify;
-        margin: 1rem auto;
-        max-width: 1000px;
-        border: 2px solid #ff6600;  /* Changed to orange */
-        transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
-    }
-
-    .vc-section:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 15px 30px rgba(3, 233, 244, 0.4);
-        border-color: #03e9f4;
-    }
-
-    .vc-image-container {
-        flex: 1;
-        text-align: center;
-    }
-
-    .vc-image {
-        max-width: 210px;
-        border-radius: 50%;
-        border: 3px solid #ff6700;
-    }
-
-    .vc-message {
-        flex: 2;
-        text-align: justify;
-        font-size: 1rem;
-        color: #e0e0e0;
-    }
-
-    .vc-name {
-        color: #ffffff;
-        font-size: 1.5rem;
-        margin-bottom: 0.5rem;
-    }
-
-    .vc-title {
-        color: #ff6700;
-        font-size: 1.2rem;
-        margin-bottom: 1rem;
-    }
-
-    /* Leadership Team Section */
-    /* Base Styles */
-    .team-section {
-        width: 100%;
-        max-width: 1000px;
-        /* Ensure the section doesn't exceed 1000px */
-        margin: 3rem auto;
-        /* Centered using auto for left/right margins */
-        padding: 1rem;
-        background: rgba(45, 49, 56, 0.9);
-        border-radius: 15px;
-        box-shadow: 0 8px 15px rgba(0, 0, 0, 0.4);
-        border: 2px solid #ff6600;  /* Changed to orange */
-        transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
-    }
-
-    .team-section:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 15px 30px rgba(3, 233, 244, 0.4);
-        border-color: #03e9f4;
-    }
-
-    .team-section h2 {
-        text-align: center;
-        font-family: 'Cinzel', serif;
-        font-size: 2rem;
-        /* Adjusted for smaller devices */
-        margin-bottom: 2rem;
-        text-transform: uppercase;
-        letter-spacing: 2px;
-    }
-
-    /* Grid for Team Cards */
-    .team-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        /* Responsive columns */
-        gap: 2rem;
-        width: 100%;
-        max-width: 1000px;
-        /* Centered grid */
-        margin: 0 auto;
-        padding: 1rem;
-    }
-
-    /* Card Styles */
-    .team-card {
-        background: rgba(32, 34, 39, 0.95);
-        padding: 1.5rem;
-        border-radius: 20px;
-        box-shadow: 0 8px 15px rgba(0, 0, 0, 0.5);
-        text-align: center;
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-        color: #e0e0e0;
-        overflow: hidden;
-    }
-
-    .team-card {
-        width: 100%;
-        max-width: 300px;
-        margin: auto;
-        /* Center each card */
-    }
-
-    .team-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 12px 20px rgba(0, 0, 0, 0.7);
-    }
-
-    .team-image {
-        max-width: 100px;
-        height: 100px;
-        border-radius: 50%;
-        margin: 0 auto 1rem;
-        border: 3px solid #ff6700;
-        object-fit: cover;
-    }
-
-    .team-name {
-        font-size: 1.2rem;
-        font-weight: bold;
-        color: #ffffff;
-        margin-bottom: 0.5rem;
-    }
-
-    .team-title {
-        font-size: 1rem;
-        color: #e0e0e0;
-    }
-
-    /* Responsive Media Queries */
-
-    /* For medium devices (tablets) */
-    @media (max-width: 768px) {
-        .team-section h2 {
-            font-size: 1.8rem;
-            /* Slightly smaller heading */
-        }
-
-        .team-grid {
-            gap: 1.5rem;
-            /* Reduce spacing between cards */
-        }
-
-        .team-card {
-            padding: 1rem;
-            /* Reduce padding */
-            max-width: 90%;
-            /* Allow cards to stretch slightly */
-        }
-
-        .team-image {
-            max-width: 80px;
-            /* Smaller image size */
-            height: 80px;
-        }
-
-        .team-name {
-            font-size: 1rem;
-            /* Adjust name font size */
-        }
-
-        .team-title {
-            font-size: 0.9rem;
-            /* Adjust title font size */
-        }
-    }
-
-    /* For small devices (mobile phones) */
-    @media (max-width: 480px) {
-        .team-section h2 {
-            font-size: 1.5rem;
-            /* Even smaller heading for mobile */
-            margin-bottom: 1.5rem;
-        }
-
-        .team-grid {
-            grid-template-columns: 1fr;
-            /* Single-column layout */
-            gap: 1rem;
-            /* Less spacing between cards */
-        }
-
-        .team-card {
-            padding: 0.8rem;
-            /* Minimal padding */
-            max-width: 100%;
-            /* Allow cards to fill the width */
-        }
-
-        .team-image {
-            max-width: 70px;
-            /* Smaller image size */
-            height: 70px;
-        }
-
-        .team-name {
-            font-size: 0.9rem;
-            /* Reduce font size further */
-        }
-
-        .team-title {
-            font-size: 0.8rem;
-        }
-    }
-
-
-
-    /* Coordinators Section Styling */
-    .coordinators-container {
-        margin-top: 3rem;
-        animation: appear linear;
-    animation-timeline: view();
-    animation-range: entry 0% cover 40%;
-    }
-
-    .coordinators-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        gap: 1.5rem;
-    }
-
-    .coordinator-card {
-        background: rgba(32, 34, 39, 0.95);
-        padding: 1.5rem;
-        border-radius: 15px;
-        box-shadow: 0 8px 15px rgba(0, 0, 0, 0.5);
-        text-align: center;
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-        color: #e0e0e0;
-    }
-
-    .coordinator-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 12px 20px rgba(0, 0, 0, 0.7);
-    }
-
-    .coordinator-name {
-        color: #ffffff;
-        font-size: 1.2rem;
-        margin-bottom: 0.5rem;
-    }
-
-    .coordinator-title {
-        color: #e0e0e0;
-        font-size: 1rem;
-    }
-
-    /* Call-to-Action Button Styling */
-    .cta-container {
-        text-align: center;
-        margin-top: 3rem;
-    }
-
-    .cta-button {
-        display: inline-block;
-        padding: 1rem 2rem;
-        font-size: 1rem;
-        font-weight: bold;
-        text-transform: uppercase;
-        color: #ffffff;
-        background: #ff6700;
-        border-radius: 25px;
-        text-align: center;
-        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
-        transition: background 0.3s ease, transform 0.3s ease;
-    }
-
-    .cta-button:hover {
-        background: #e95f00;
-        transform: translateY(-3px);
-        box-shadow: 0 8px 15px rgba(0, 0, 0, 0.7);
-    }
-
-    /* Responsive Adjustments */
-    @media (max-width: 768px) {
-        .vc-section {
-            flex-direction: column;
-        }
-
-        .vc-message {
-            text-align: center;
-        }
-
-        .coordinators-grid {
-            grid-template-columns: 1fr;
-        }
-
-        .coordinator-card {
-            max-width: 300px;
-            margin: auto;
-        }
-    }
-
-
-    /* style.css section */
-    /* Updated card transitions for about page */
-    .vtu-card,
-    .coordinators-container,
-    .team-card,
-    .coordinator-card {
-        position: relative;
-        overflow: hidden;
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    .vtu-card:hover,
-    .coordinators-container:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 15px 30px rgba(3, 233, 244, 0.4);
-        border-color: #03e9f4;
-    }
-
-    .team-card:hover,
-    .coordinator-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 15px 30px rgba(3, 233, 244, 0.4);
-        border-color: #03e9f4;
-    }
-
-    /* General Styling */
-    /* Vice Chancellor Section */
-    .vc-section {
-        margin-bottom: 40px;
-    }
-
-    .vc-image-container {
-        margin: 0 auto;
-        max-width: 150px;
-        border-radius: 50%;
-        padding: 10px;
-        background-color: #1e1e1e;
-    }
-
-    .vc-image {
-        width: 100%;
-        border-radius: 80%;
-    }
-
-    .vc-name {
-        font-size: 1.8rem;
-        font-weight: bold;
-        margin-top: 20px;
-        color: #00e0ff;
-    }
-
-    .vc-title {
-        font-size: 1.2rem;
-        font-weight: 600;
-        color: #ff6600;
-    }
-
-    /* Welcome Message */
-    .welcome-message {
-        text-align: justify;
-        font-size: 0.9rem;
-        line-height: 1.8;
-        max-width: 800px;
-        margin: 0 auto 50px auto;
-        color: #e0e0e0;
-    }
-
-    .welcome-message strong {
-        color: #ff6600;
-    }
-
-    .welcome-message .highlight {
-        color: #00e0ff;
-        font-weight: bold;
-    }
-
-    /* Team Section */
-    .team-section {
-        display: flex;
-        justify-content: center;
-        gap: 20px;
-        flex-wrap: wrap;
-
-    }
-
-    .team-card {
-        background-color: #1e1e1e;
-        border: 2px solid #00e0ff;
-        border-radius: 20px;
-        padding: 20px;
-        text-align: center;
-        width: 220px;
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.7);
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    .team-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 15px 25px rgba(0, 0, 0, 0.9);
-    }
-
-    .team-image {
-        width: 100px;
-        height: 100px;
-        border-radius: 50%;
-        border: 2px solid #00e0ff;
-        margin-bottom: 15px;
-    }
-
-    .team-name {
-        font-size: 1.2rem;
-        font-weight: bold;
-        color: #00e0ff;
-        margin-bottom: 10px;
-    }
-
-    .team-title {
-        font-size: 1rem;
-        font-weight: 600;
-        color: #ff6600;
-    }
-
-    /* Media Queries */
-    @media (max-width: 768px) {
-        .welcome-message {
-            text-align: center;
-            font-size: 1rem;
-        }
-
-        .team-card {
-            width: 180px;
-        }
-    }
-
-    @media (max-width: 480px) {
-        .vc-image-container {
-            max-width: 100px;
-        }
-
-        .vc-name {
-            font-size: 1.5rem;
-        }
-
-        .vc-title {
-            font-size: 1rem;
-        }
-
-        .team-card {
-            width: 160px;
-        }
-
-        .team-name {
-            font-size: 1rem;
-        }
-
-        .team-title {
-            font-size: 0.9rem;
-        }
-    }
-
-
-    /* General Container */
-    .coordinators-container {
-        padding: 50px 20px;
-        background-color: #121212;
-        color: #ffffff;
-        text-align: center;
-        border: 2px solid #ff6600;
-        border-radius: 20px;
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.7);
-        padding: 20px;
-        max-width: 1250px;
-        margin: 0 auto;
-        margin-top: 40px;
-        gap: 30px;
-        margin-bottom: 40px;
-    }
-
-    /* Section Container */
-    .coordinators-section {
-        padding: 40px 20px;
-        background-color: #121212;
-        text-align: center;
-    }
-
-    /* Section Title */
-    .section-title {
-        font-size: 2rem;
-        font-family: 'Cinzel', serif;
-        color: #ff4500;
-        margin-bottom: 30px;
-    }
-
-    /* Coordinators Grid */
-    .coordinators-grid {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 20px;
-    }
-
-    /* Coordinator Card */
-    .coordinator-card {
-        background-color: #1b1b1b;
-        border: 2px solid #00b7ff;
-        border-radius: 15px;
-        width: 250px;
-        text-align: center;
-        padding: 20px;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    .coordinator-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 15px 25px rgba(0, 0, 0, 0.9);
-    }
-
-    /* Coordinator Image Placeholder */
-    .coordinator-image {
-        height: 100px;
-        width: 100px;
-        background-color: #2c2c2c;
-        border-radius: 50%;
-        margin: 0 auto 15px;
-        border: 2px solid #ff6600;
-    }
-
-    /* Coordinator Name */
-    .coordinator-name {
-        font-size: 1.2rem;
-        font-weight: bold;
-        color: #00b7ff;
-        margin-bottom: 8px;
-    }
-
-    /* Coordinator Title */
-    .coordinator-title {
-        font-size: 1rem;
-        color: #ff6600;
-        font-weight: 500;
-        line-height: 1.4;
+    @keyframes appear {
+        from { opacity: 0; scale: 0.5; }
+        to { opacity: 1; scale: 1; }
     }
 </style>
-
-
 {% endblock %}
