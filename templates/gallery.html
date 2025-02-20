@@ -279,9 +279,72 @@
         font-size: 0.9rem;
         z-index: 2;
     }
+
+    /* Add these new styles for the popup */
+    .popup-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.9);
+        z-index: 1000;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .popup-container {
+        position: relative;
+        max-width: 90%;
+        max-height: 90vh;
+    }
+
+    .popup-image {
+        max-width: 100%;
+        max-height: 90vh;
+        object-fit: contain;
+        border: 2px solid #FFD700;
+        border-radius: 5px;
+    }
+
+    .close-button {
+        position: absolute;
+        top: -40px;
+        right: 0;
+        background: #FFD700;
+        color: #000;
+        border: none;
+        border-radius: 50%;
+        width: 30px;
+        height: 30px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 20px;
+        transition: all 0.3s ease;
+    }
+
+    .close-button:hover {
+        background: #fff;
+        transform: scale(1.1);
+    }
+
+    .popup-overlay.active {
+        display: flex;
+    }
 </style>
 
 <div class="main-content">
+    <!-- Add this popup overlay HTML after main-content div and before your existing content -->
+    <div class="popup-overlay" id="imagePopup">
+        <div class="popup-container">
+            <button class="close-button" onclick="closePopup()">×</button>
+            <img src="" alt="" class="popup-image" id="popupImage">
+        </div>
+    </div>
+
     <section class="gallery">
         <h1>Gallery</h1>
         <p>Snapshots of Unforgettable Memories from Yukti Fest 2024!</p>
@@ -302,10 +365,10 @@
                     <img src="{{ url_for('static', filename='gallery/fl.webp') }}"alt="Dance Moves" loading="lazy">
                 </div>
                 <div class="gallery-item">
-                    <img src="{{ url_for('static', filename='gallery/fl3.webp') }}"alt="Crowd Interaction" loading="lazy">
+                    <img src="{{ url_for('static', filename='gallery/fl44.webp') }}"alt="Crowd Interaction" loading="lazy">
                 </div>
                 <div class="gallery-item">
-                    <img src="{{ url_for('static', filename='gallery/fl1.webp') }}" alt="Group Performance" loading="lazy">
+                    <img src="{{ url_for('static', filename='gallery/cl.webp') }}" alt="Group Performance" loading="lazy">
                 </div>
                 <div class="gallery-item">
                     <img src="{{ url_for('static', filename='gallery/fl3.webp') }}" alt="Final Formation" loading="lazy">
@@ -351,16 +414,16 @@
                 <p>Workshops, hackathons, coding competitions, and robotics challenges were the highlights of the technical segment. Budding engineers and tech geeks engaged in brainstorming sessions, innovative projects, and real-time problem-solving. The participants showcased their programming skills, AI knowledge, and automation expertise, making the competition intense and intellectually stimulating.</p>
                 <div class="gallery-grid">
                     <div class="gallery-item">
-                        <img src="{{ url_for('static', filename='gallery/nt25.webp') }}" alt="Hackathon in Progress" loading="lazy">
+                        <img src="{{ url_for('static', filename='gallery/tc1.webp') }}" alt="Hackathon in Progress" loading="lazy">
                     </div>
                     <div class="gallery-item">
-                        <img src="{{ url_for('static', filename='gallery/nt25.webp') }}" alt="Robotics Challenge" loading="lazy">
+                        <img src="{{ url_for('static', filename='gallery/tc2.webp') }}" alt="Robotics Challenge" loading="lazy">
                     </div>
                     <div class="gallery-item">
-                        <img src="{{ url_for('static', filename='gallery/nt25.webp') }}" alt="Coding Competition" loading="lazy">
+                        <img src="{{ url_for('static', filename='gallery/tc6.webp') }}" alt="Coding Competition" loading="lazy">
                     </div>
                     <div class="gallery-item">
-                        <img src="{{ url_for('static', filename='gallery/nt25.webp') }}" alt="Technical Workshop" loading="lazy">
+                        <img src="{{ url_for('static', filename='gallery/mn6.webp') }}" alt="Technical Workshop" loading="lazy">
                     </div>
                 </div>
 
@@ -369,16 +432,16 @@
                 <p>The cultural section was a feast for the senses, featuring dance competitions, music battles, drama performances, and fashion shows. Talented students from various departments showcased their artistic skills, leaving the audience mesmerized with their creativity and expressions.</p>
                 <div class="gallery-grid">
                     <div class="gallery-item">
-                        <img src="{{ url_for('static', filename='gallery/nt25.webp') }}" alt="Dance Performance" loading="lazy">
+                        <img src="{{ url_for('static', filename='gallery/cl.webp') }}" alt="Dance Performance" loading="lazy">
                     </div>
                     <div class="gallery-item">
-                        <img src="{{ url_for('static', filename='gallery/nt25.webp') }}" alt="Music Battle" loading="lazy">
+                        <img src="{{ url_for('static', filename='gallery/cl3.webp') }}" alt="Music Battle" loading="lazy">
                     </div>
                     <div class="gallery-item">
-                        <img src="{{ url_for('static', filename='gallery/nt25.webp') }}" alt="Drama Performance" loading="lazy">
+                        <img src="{{ url_for('static', filename='gallery/cl4.webp') }}" alt="Drama Performance" loading="lazy">
                     </div>
                     <div class="gallery-item">
-                        <img src="{{ url_for('static', filename='gallery/nt25.webp') }}" alt="Fashion Show" loading="lazy">
+                        <img src="{{ url_for('static', filename='gallery/cl5.webp') }}" alt="Fashion Show" loading="lazy">
                     </div>
                 </div>
 
@@ -387,13 +450,13 @@
                 <p>For business-minded individuals, the management events offered a platform to demonstrate leadership and strategic thinking. Events like business plan presentations, stock market simulations, and corporate quizzes tested the analytical and decision-making skills of participants.</p>
                 <div class="gallery-grid">
                     <div class="gallery-item">
-                        <img src="{{ url_for('static', filename='gallery/nt25.webp') }}" alt="Business Plan Presentation" loading="lazy">
+                        <img src="{{ url_for('static', filename='gallery/mn1.webp') }}" alt="Business Plan Presentation" loading="lazy">
                     </div>
                     <div class="gallery-item">
-                        <img src="{{ url_for('static', filename='gallery/nt25.webp') }}" alt="Stock Market Simulation" loading="lazy">
+                        <img src="{{ url_for('static', filename='gallery/mn2.webp') }}" alt="Stock Market Simulation" loading="lazy">
                     </div>
                     <div class="gallery-item">
-                        <img src="{{ url_for('static', filename='gallery/nt25.webp') }}" alt="Corporate Quiz" loading="lazy">
+                        <img src="{{ url_for('static', filename='gallery/mn5.webp') }}" alt="Corporate Quiz" loading="lazy">
                     </div>
                 </div>
 
@@ -402,13 +465,13 @@
                 <p>Fun-filled games like treasure hunts, esports tournaments, and outdoor sports kept the participants engaged and entertained throughout the fest. The friendly yet competitive spirit made these games highly enjoyable for both players and spectators.</p>
                 <div class="gallery-grid">
                     <div class="gallery-item">
-                        <img src="{{ url_for('static', filename='gallery/nt25.webp') }}" alt="Esports Tournament" loading="lazy">
+                        <img src="{{ url_for('static', filename='gallery/tc6.webp') }}" alt="Esports Tournament" loading="lazy">
                     </div>
                     <div class="gallery-item">
-                        <img src="{{ url_for('static', filename='gallery/nt25.webp') }}" alt="Treasure Hunt" loading="lazy">
+                        <img src="{{ url_for('static', filename='gallery/mn1.webp') }}" alt="Treasure Hunt" loading="lazy">
                     </div>
                     <div class="gallery-item">
-                        <img src="{{ url_for('static', filename='gallery/nt25.webp') }}" alt="Outdoor Sports" loading="lazy">
+                        <img src="{{ url_for('static', filename='gallery/mn6.webp') }}" alt="Outdoor Sports" loading="lazy">
                     </div>
                 </div>
             </div>
@@ -460,22 +523,22 @@
             </div>
             <div class="gallery-grid">
                 <div class="gallery-item">
-                    <img src="{{ url_for('static', filename='gallery/wel5.webp') }}" alt="Technical Event Finals" loading="lazy">
+                    <img src="{{ url_for('static', filename='gallery/fl44.webp') }}" alt="Technical Event Finals" loading="lazy">
                 </div>
                 <div class="gallery-item">
-                    <img src="{{ url_for('static', filename='gallery/wel5.webp') }}" alt="Cultural Performance" loading="lazy">
+                    <img src="{{ url_for('static', filename='gallery/cl.webp') }}" alt="Cultural Performance" loading="lazy">
                 </div>
                 <div class="gallery-item">
-                    <img src="{{ url_for('static', filename='gallery/wel5.webp') }}" alt="Project Demonstrations" loading="lazy">
+                    <img src="{{ url_for('static', filename='gallery/nt222.webp') }}" alt="Project Demonstrations" loading="lazy">
                 </div>
                 <div class="gallery-item">
-                    <img src="{{ url_for('static', filename='gallery/wel5.webp') }}" alt="Management Event Final Round" loading="lazy">
+                    <img src="{{ url_for('static', filename='gallery/nt21.webp') }}" alt="Management Event Final Round" loading="lazy">
                 </div>
                 <div class="gallery-item">
-                    <img src="{{ url_for('static', filename='gallery/wel5.webp') }}" alt="Gaming Tournament Finals" loading="lazy">
+                    <img src="{{ url_for('static', filename='gallery/nt25.webp') }}" alt="Gaming Tournament Finals" loading="lazy">
                 </div>
                 <div class="gallery-item">
-                    <img src="{{ url_for('static', filename='gallery/wel5.webp') }}" alt="Final Presentations" loading="lazy">
+                    <img src="{{ url_for('static', filename='gallery/nt15.webp') }}" alt="Final Presentations" loading="lazy">
                 </div>
             </div>
         </div>
@@ -555,4 +618,40 @@
         </div>
     </section>
 </div>
+
+<script>
+    // Add this script at the end of your content block
+    const popup = document.getElementById('imagePopup');
+    const popupImage = document.getElementById('popupImage');
+
+    // Add click event listeners to all gallery items
+    document.querySelectorAll('.gallery-item img').forEach(image => {
+        image.addEventListener('click', function() {
+            popupImage.src = this.src;
+            popupImage.alt = this.alt;
+            popup.classList.add('active');
+            document.body.style.overflow = 'hidden'; // Prevent scrolling when popup is open
+        });
+    });
+
+    // Function to close popup
+    function closePopup() {
+        popup.classList.remove('active');
+        document.body.style.overflow = ''; // Restore scrolling
+    }
+
+    // Close popup when clicking outside the image
+    popup.addEventListener('click', function(e) {
+        if (e.target === popup) {
+            closePopup();
+        }
+    });
+
+    // Close popup with Escape key
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            closePopup();
+        }
+    });
+</script>
 {% endblock %}
