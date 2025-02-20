@@ -3,359 +3,386 @@
 {% block title %}Events - YUKTI 2025{% endblock %}
 
 {% block content %}
-<style>
-    /* Add margin-top to prevent navbar overlap */
-    .event-overview {
-        margin-top: 80px; /* Height of navbar + some extra space */
-        text-align: center;
-        padding: 3rem 1rem;
-        background: rgba(30, 30, 30, 0.95);
-    }
-    .event-overview h1 {
-        font-size: 2.5rem;
-        color: #FFD700;
-        text-transform: uppercase;
-        margin-bottom: 1.5rem;
-    }
-    .event-overview p {
-        font-size: 1.2rem;
-        color: #C0C0C0;
-        margin-bottom: 2rem;
-    }
-    /* Limit container width on larger devices */
-    .container {
-         max-width: 1400px;  /* Match row max-width */
-         margin: 0 auto;
-    }
+<!-- Event Overview Section -->
+<section class="pt-24 text-center px-4 bg-gradient-to-br from-dark via-darker to-dark">
+    <h1 class="text-4xl md:text-5xl font-[Orbitron] text-primary font-bold mb-6">Explore Our Events</h1>
+    <p class="text-xl text-gray-300 mb-8">Choose from a diverse range of challenges and showcases.</p>
 
-    /* Card base styles */
-    .card {
-        background: rgba(46, 46, 46, 0.8);
-        border: 2px solid #ff6600;  /* Solid orange border */
-        border-radius: 10px;
-        transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
-        width: 100%;
-        max-width: none;  /* Remove max-width constraint */
-        margin: 0;  /* Remove margins */
-    }
-    .card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 15px 30px rgba(3, 233, 244, 0.4);  /* Changed to blue glow */
-        border-color: #03e9f4;  /* Changed to blue */
-    }
-    .card-img-top {
-        border-top-left-radius: 10px;
-        border-top-right-radius: 10px;
-        width: 100%;
-        height: 160px; /* reduced image height */
-        object-fit: cover;
-    }
-    .card-body {
-        padding: 1rem;
-    }
-    .card-title {
-        color: #ff6600;  /* Changed from #FFD700 to orange */
-        text-transform: uppercase;
-        font-size: 1.2rem;
-        margin-bottom: 0.5rem;
-    }
-    .card-text {
-        color: #C0C0C0;
-        font-size: 0.9rem;
-        margin-bottom: 1rem;
-    }
-    .btn.btn-register {
-        background: #03e9f4;  /* Changed from #FFD700 to blue */
-        color: #1C1C1C;
-        padding: 0.5rem 1rem;
-        border: 2px solid #03e9f4;  /* Added border */
-        border-radius: 5px;
-        transition: all 0.3s ease;
-    }
-    .btn.btn-register:hover {
-        background: transparent;
-        color: #03e9f4;  /* Changed to blue */
-        border-color: #03e9f4;  /* Changed to blue */
-    }
-    @media (max-width: 768px) {
-        .row {
-            grid-template-columns: 1fr;  /* Single column on mobile */
-            gap: 20px;
-        }
-        
-        .card {
-            max-width: 100%;
-        }
-        .container {
-            max-width: 100%;
-            padding: 0 1rem;
-        }
-    }
-    /* Add grid layout for cards */
-    .row {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);  /* Changed to 3 columns */
-        gap: 25px;  /* Slightly reduced gap to fit 3 cards */
-        max-width: 1400px;  /* Increased max-width to accommodate 3 cards */
-        margin: 0 auto;
-        padding: 20px;
-    }
-    .card.clickable { cursor: pointer; transition: transform 0.3s ease; }
-    .card.clickable:active { transform: scale(0.95); }
-    
-    /* Modal styles */
-    .modal {
-        display: none;
-        position: fixed;
-        z-index: 2000;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        overflow: auto;
-        background-color: rgba(0,0,0,0.7);
-    }
-    .modal-content {
-        background: #1c1c1c;
-        margin: 10% auto;
-        padding: 20px;
-        border: 1px solid #888;
-        width: 80%;
-        max-width: 600px;
-        border-radius: 10px;
-        color: #fff;
-    }
-    .close {
-        float: right;
-        font-size: 1.5rem;
-        cursor: pointer;
-    }
-    /* Enhanced styling for details event sections */
-    .card-body details {
-        border: 2px solid #ff6600;  /* Changed to solid orange */
-        border-radius: 5px;
-        padding: 10px;
-        background: rgba(46, 46, 46, 0.9);
-        box-shadow: 0 2px 8px rgba(0,0,0,0.3);
-        margin-top: 15px;
-        transition: all 0.3s ease;
-    }
-    .card-body details summary {
-        cursor: pointer;
-        font-weight: bold;
-        outline: none;
-        list-style: none;
-        margin-bottom: 10px;
-    }
-    .card-body details:hover,
-    .card-body details[open] {
-        border-color: #03e9f4;  /* Change to blue on hover/open */
-        box-shadow: 0 5px 15px rgba(3, 233, 244, 0.4);
-    }
-    .card-body details ul {
-        margin: 10px 0;
-        padding-left: 20px;
-        list-style-type: none;
-        text-align: center;
-    }
-    .card-body details ul li {
-        background: #333;
-        margin: 5px 0;
-        padding: 5px 10px;
-        border-radius: 3px;
-        color: #ff6600;  /* Changed from #FFD700 to orange */
-    }
-    .card-body details a.btn.btn-register {
-        margin-top: 10px;
-        display: inline-block;
-    }
-    /* Update responsive breakpoints */
-    @media (max-width: 1200px) {
-        .row {
-            grid-template-columns: repeat(2, 1fr);  /* 2 columns on medium screens */
-        }
-    }
-</style>
-<section class="event-overview">
-    <h1 class="text-center">Explore Our Events</h1>
-    <p class="text-center">Choose from a diverse range of challenges and showcases.</p>
-    <div class="container py-5">
-        <div class="row">
+    <!-- Events Grid Container -->
+    <div class="max-w-7xl mx-auto px-4 py-10">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             <!-- Tech Events Card -->
-            <div class="card">
-                <img class="card-img-top" src="{{ url_for('static', filename='assets/tech.png') }}" alt="Tech Events">
-                <div class="card-body">
-                    <h5 class="card-title">Manthana Events</h5>
-                    <p class="card-text">Innovative challenges and coding competitions await.</p>
-                    <!-- Added event section for Tech -->
-                    <details>
-                        <summary>View Tech Events</summary>
-                        <ul>
-                            <li>Prakalpa Prastuthi</li>
-                            <li>CHANAKSH CODING EVENT</li>
-                            <li>Robo Samara</li>
-                            <li>Pragyaan Quiz</li>
-                            <li>Vagmita (Elocution)</li>
-                            <li>Concrete Canoe Mini</li>
+            <div class="bg-[rgba(46,46,46,0.8)] border-2 border-orange-500 rounded-xl p-6 transition-all duration-300 hover:-translate-y-2 hover:border-[#03e9f4] hover:shadow-lg hover:shadow-[#03e9f4]/40">
+                <img class="w-full h-40 object-cover rounded-lg mb-4" src="{{ url_for('static', filename='assets/tech.png') }}" alt="Tech Events">
+                <div class="text-center">
+                    <h5 class="text-2xl font-bold text-orange-500 mb-3">Manthana Events</h5>
+                    <p class="text-gray-300 mb-4">Innovative challenges and coding competitions await.</p>
+                    
+                    <details class="bg-[rgba(46,46,46,0.9)] border-2 border-orange-500 rounded-lg p-4 mt-4 group transition-all duration-300">
+                        <summary class="text-orange-500 font-bold cursor-pointer hover:text-[#03e9f4] flex items-center justify-between">
+                            <span>View Tech Events</span>
+                            <svg class="w-5 h-5 transform group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </summary>
+                        <ul class="mt-4 space-y-3 transition-all duration-300">
+                            <li class="text-gray-300 bg-[rgba(46,46,46,0.7)] p-3 rounded-lg border border-orange-500/30 hover:border-[#03e9f4] hover:bg-[rgba(46,46,46,0.9)] transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg hover:shadow-[#03e9f4]/20 cursor-pointer group">
+                                <div class="flex items-center space-x-3">
+                                    <span class="text-orange-500 group-hover:text-[#03e9f4]">▶</span>
+                                    <span class="group-hover:text-[#03e9f4] transition-colors">Prakalpa Prastuthi</span>
+                                </div>
+                            </li>
+                            <li class="text-gray-300 bg-[rgba(46,46,46,0.7)] p-3 rounded-lg border border-orange-500/30 hover:border-[#03e9f4] hover:bg-[rgba(46,46,46,0.9)] transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg hover:shadow-[#03e9f4]/20 cursor-pointer group">
+                                <div class="flex items-center space-x-3">
+                                    <span class="text-orange-500 group-hover:text-[#03e9f4]">▶</span>
+                                    <span class="group-hover:text-[#03e9f4] transition-colors">CHANAKSH CODING EVENT</span>
+                                </div>
+                            </li>
+                            <li class="text-gray-300 bg-[rgba(46,46,46,0.7)] p-3 rounded-lg border border-orange-500/30 hover:border-[#03e9f4] hover:bg-[rgba(46,46,46,0.9)] transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg hover:shadow-[#03e9f4]/20 cursor-pointer group">
+                                <div class="flex items-center space-x-3">
+                                    <span class="text-orange-500 group-hover:text-[#03e9f4]">▶</span>
+                                    <span class="group-hover:text-[#03e9f4] transition-colors">Robo Samara</span>
+                                </div>
+                            </li>
+                            <li class="text-gray-300 bg-[rgba(46,46,46,0.7)] p-3 rounded-lg border border-orange-500/30 hover:border-[#03e9f4] hover:bg-[rgba(46,46,46,0.9)] transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg hover:shadow-[#03e9f4]/20 cursor-pointer group">
+                                <div class="flex items-center space-x-3">
+                                    <span class="text-orange-500 group-hover:text-[#03e9f4]">▶</span>
+                                    <span class="group-hover:text-[#03e9f4] transition-colors">Pragyaan Quiz</span>
+                                </div>
+                            </li>
+                            <li class="text-gray-300 bg-[rgba(46,46,46,0.7)] p-3 rounded-lg border border-orange-500/30 hover:border-[#03e9f4] hover:bg-[rgba(46,46,46,0.9)] transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg hover:shadow-[#03e9f4]/20 cursor-pointer group">
+                                <div class="flex items-center space-x-3">
+                                    <span class="text-orange-500 group-hover:text-[#03e9f4]">▶</span>
+                                    <span class="group-hover:text-[#03e9f4] transition-colors">Vagmita (Elocution)</span>
+                                </div>
+                            </li>
+                            <li class="text-gray-300 bg-[rgba(46,46,46,0.7)] p-3 rounded-lg border border-orange-500/30 hover:border-[#03e9f4] hover:bg-[rgba(46,46,46,0.9)] transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg hover:shadow-[#03e9f4]/20 cursor-pointer group">
+                                <div class="flex items-center space-x-3">
+                                    <span class="text-orange-500 group-hover:text-[#03e9f4]">▶</span>
+                                    <span class="group-hover:text-[#03e9f4] transition-colors">Concrete Canoe Mini</span>
+                                </div>
+                            </li>
                         </ul>
-                        <a href="{{ url_for('tech') }}" class="btn btn-register">View More</a>
+                        <a href="{{ url_for('tech') }}" 
+                           class="inline-block mt-4 px-6 py-2 bg-transparent text-orange-500 border-2 border-[#03e9f4] rounded-lg font-semibold tracking-wide hover:bg-[#03e9f4]/10 transition-all duration-300 hover:-translate-y-1">
+                            View More
+                        </a>
                     </details>
                 </div>
             </div>
-            <!-- Cultural Events Card -->
-            <div class="card">
-                <img class="card-img-top" src="{{ url_for('static', filename='assets/cultural.jpg') }}" alt="Cultural Events">
-                <div class="card-body">
-                    <h5 class="card-title">Manoranjana Events</h5>
-                    <p class="card-text">Experience art, dance, and soul-stirring performances.</p>
-                    <!-- Added event section for Cultural -->
-                    <details>
-                        <summary>View Cultural Events</summary>
-                        <ul>
-                            <li>NINAAD - Find The Voice Within!</li>
-                            <li>Nritya Saadhana</li>
-                            <li>NATYA Mayuri</li>
-                            <li>Navyataa (Ramp Walk)</li>
+
+            <!-- Manoranjana Events Card -->
+            <div class="bg-[rgba(46,46,46,0.8)] border-2 border-orange-500 rounded-xl p-6 transition-all duration-300 hover:-translate-y-2 hover:border-[#03e9f4] hover:shadow-lg hover:shadow-[#03e9f4]/40">
+                <img class="w-full h-40 object-cover rounded-lg mb-4" src="{{ url_for('static', filename='assets/cultural.png') }}" alt="Manoranjana Events">
+                <div class="text-center">
+                    <h5 class="text-2xl font-bold text-orange-500 mb-3">Manoranjana Events</h5>
+                    <p class="text-gray-300 mb-4">Celebrate art, music, dance, and creativity in our vibrant cultural showcase.</p>
+                    
+                    <details class="bg-[rgba(46,46,46,0.9)] border-2 border-orange-500 rounded-lg p-4 mt-4 group transition-all duration-300">
+                        <summary class="text-orange-500 font-bold cursor-pointer hover:text-[#03e9f4] flex items-center justify-between">
+                            <span>View Cultural Events</span>
+                            <svg class="w-5 h-5 transform group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </summary>
+                        <ul class="mt-4 space-y-3 transition-all duration-300">
+                            <li class="text-gray-300 bg-[rgba(46,46,46,0.7)] p-3 rounded-lg border border-orange-500/30 hover:border-[#03e9f4] hover:bg-[rgba(46,46,46,0.9)] transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg hover:shadow-[#03e9f4]/20 cursor-pointer group">
+                                <div class="flex items-center space-x-3">
+                                    <span class="text-orange-500 group-hover:text-[#03e9f4]">▶</span>
+                                    <span class="group-hover:text-[#03e9f4] transition-colors">NINAAD (Singing - Solo & Group)</span>
+                                </div>
+                            </li>
+                            <li class="text-gray-300 bg-[rgba(46,46,46,0.7)] p-3 rounded-lg border border-orange-500/30 hover:border-[#03e9f4] hover:bg-[rgba(46,46,46,0.9)] transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg hover:shadow-[#03e9f4]/20 cursor-pointer group">
+                                <div class="flex items-center space-x-3">
+                                    <span class="text-orange-500 group-hover:text-[#03e9f4]">▶</span>
+                                    <span class="group-hover:text-[#03e9f4] transition-colors">NRITYA SAADHANA (Dance - Solo & Group)</span>
+                                </div>
+                            </li>
+                            <li class="text-gray-300 bg-[rgba(46,46,46,0.7)] p-3 rounded-lg border border-orange-500/30 hover:border-[#03e9f4] hover:bg-[rgba(46,46,46,0.9)] transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg hover:shadow-[#03e9f4]/20 cursor-pointer group">
+                                <div class="flex items-center space-x-3">
+                                    <span class="text-orange-500 group-hover:text-[#03e9f4]">▶</span>
+                                    <span class="group-hover:text-[#03e9f4] transition-colors">NAVYATAA (Ramp Walk)</span>
+                                </div>
+                            </li>
                         </ul>
-                        <a href="{{ url_for('cultural') }}" class="btn btn-register">View More</a>
+                        <a href="{{ url_for('cultural') }}" 
+                           class="inline-block mt-4 px-6 py-2 bg-transparent text-orange-500 border-2 border-[#03e9f4] rounded-lg font-semibold tracking-wide hover:bg-[#03e9f4]/10 transition-all duration-300 hover:-translate-y-1">
+                            View More
+                        </a>
                     </details>
                 </div>
             </div>
-            <!-- Kalachitrana event Card -->
-            <div class="card">
-                <img class="card-img-top" src="{{ url_for('static', filename='assets/tech.png') }}" alt="Tech Events">
-                <div class="card-body">
-                    <h5 class="card-title">Kalachitrana Events</h5>
-                    <p class="card-text">Show the world through your lens</p>
-                    <!-- Added event section for Tech -->
-                    <details>
-                        <summary>View Kalachitrana Events</summary>
-                        <ul>
-                            <li>STHALA CHITRAPATHA (Spot Photography)</li>
-                            <li>CHITRAGATHA (Short Film)</li>
-                            <li>RUPEKHA (Sketch Art)</li>
-                            <li>HASTAKALA (Painting)</li>
-                            <li>SWACHITRA (Selfie Point)</li>
+
+            <!-- KREEDA RATNA Events Card -->
+            <div class="bg-[rgba(46,46,46,0.8)] border-2 border-orange-500 rounded-xl p-6 transition-all duration-300 hover:-translate-y-2 hover:border-[#03e9f4] hover:shadow-lg hover:shadow-[#03e9f4]/40">
+                <img class="w-full h-40 object-cover rounded-lg mb-4" src="{{ url_for('static', filename='assets/gaming.png') }}" alt="KREEDA RATNA Events">
+                <div class="text-center">
+                    <h5 class="text-2xl font-bold text-orange-500 mb-3">KREEDA RATNA Events</h5>
+                    <p class="text-gray-300 mb-4">Challenge yourself in exciting gaming and treasure hunting adventures.</p>
+                    
+                    <details class="bg-[rgba(46,46,46,0.9)] border-2 border-orange-500 rounded-lg p-4 mt-4 group transition-all duration-300">
+                        <summary class="text-orange-500 font-bold cursor-pointer hover:text-[#03e9f4] flex items-center justify-between">
+                            <span>View Gaming Events</span>
+                            <svg class="w-5 h-5 transform group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </summary>
+                        <ul class="mt-4 space-y-3 transition-all duration-300">
+                            <li class="text-gray-300 bg-[rgba(46,46,46,0.7)] p-3 rounded-lg border border-orange-500/30 hover:border-[#03e9f4] hover:bg-[rgba(46,46,46,0.9)] transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg hover:shadow-[#03e9f4]/20 cursor-pointer group">
+                                <div class="flex items-center space-x-3">
+                                    <span class="text-orange-500 group-hover:text-[#03e9f4]">▶</span>
+                                    <span class="group-hover:text-[#03e9f4] transition-colors">TALAASH (Treasure Hunt)</span>
+                                </div>
+                            </li>
+                            <li class="text-gray-300 bg-[rgba(46,46,46,0.7)] p-3 rounded-lg border border-orange-500/30 hover:border-[#03e9f4] hover:bg-[rgba(46,46,46,0.9)] transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg hover:shadow-[#03e9f4]/20 cursor-pointer group">
+                                <div class="flex items-center space-x-3">
+                                    <span class="text-orange-500 group-hover:text-[#03e9f4]">▶</span>
+                                    <span class="group-hover:text-[#03e9f4] transition-colors">BGMI Player</span>
+                                </div>
+                            </li>
                         </ul>
-                        <a href="{{ url_for('kalachitrana') }}" class="btn btn-register">View More</a>
+                        <a href="{{ url_for('games') }}" 
+                           class="inline-block mt-4 px-6 py-2 bg-transparent text-orange-500 border-2 border-[#03e9f4] rounded-lg font-semibold tracking-wide hover:bg-[#03e9f4]/10 transition-all duration-300 hover:-translate-y-1">
+                            View More
+                        </a>
                     </details>
                 </div>
             </div>
-            <!-- Management Events Card -->
-            <div class="card">
-                <img class="card-img-top" src="{{ url_for('static', filename='assets/management.jpg') }}" alt="Management Events">
-                <div class="card-body">
-                    <h5 class="card-title">Chinthana Events</h5>
-                    <p class="card-text">Engage in business challenges and entrepreneurial summits.</p>
-                    <!-- Added event section for Management -->
-                    <details>
-                        <summary>View Management Events</summary>
-                        <ul>
-                            <li>DAKSH (The Best Manager)</li>
-                            <li>SHRESHTA VITTA (Finance) Final</li>
-                            <li>MANAVA SANSADHAN (HR)</li>
-                            <li>Startup Logo Design</li>
-                            <li>Business Plan</li>
-                            <li>Marketing Strategy</li>
+
+            <!-- CHINTANA Events Card -->
+            <div class="bg-[rgba(46,46,46,0.8)] border-2 border-orange-500 rounded-xl p-6 transition-all duration-300 hover:-translate-y-2 hover:border-[#03e9f4] hover:shadow-lg hover:shadow-[#03e9f4]/40">
+                <img class="w-full h-40 object-cover rounded-lg mb-4" src="{{ url_for('static', filename='assets/management.png') }}" alt="CHINTANA Events">
+                <div class="text-center">
+                    <h5 class="text-2xl font-bold text-orange-500 mb-3">CHINTANA Events</h5>
+                    <p class="text-gray-300 mb-4">Showcase your management and business acumen through exciting challenges.</p>
+                    
+                    <details class="bg-[rgba(46,46,46,0.9)] border-2 border-orange-500 rounded-lg p-4 mt-4 group transition-all duration-300">
+                        <summary class="text-orange-500 font-bold cursor-pointer hover:text-[#03e9f4] flex items-center justify-between">
+                            <span>View Management Events</span>
+                            <svg class="w-5 h-5 transform group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </summary>
+                        <ul class="mt-4 space-y-3 transition-all duration-300">
+                            <li class="text-gray-300 bg-[rgba(46,46,46,0.7)] p-3 rounded-lg border border-orange-500/30 hover:border-[#03e9f4] hover:bg-[rgba(46,46,46,0.9)] transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg hover:shadow-[#03e9f4]/20 cursor-pointer group">
+                                <div class="flex items-center space-x-3">
+                                    <span class="text-orange-500 group-hover:text-[#03e9f4]">▶</span>
+                                    <span class="group-hover:text-[#03e9f4] transition-colors">VAGMITA (Elocution)</span>
+                                </div>
+                            </li>
+                            <li class="text-gray-300 bg-[rgba(46,46,46,0.7)] p-3 rounded-lg border border-orange-500/30 hover:border-[#03e9f4] hover:bg-[rgba(46,46,46,0.9)] transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg hover:shadow-[#03e9f4]/20 cursor-pointer group">
+                                <div class="flex items-center space-x-3">
+                                    <span class="text-orange-500 group-hover:text-[#03e9f4]">▶</span>
+                                    <span class="group-hover:text-[#03e9f4] transition-colors">DAKSH (Best Manager)</span>
+                                </div>
+                            </li>
+                            <li class="text-gray-300 bg-[rgba(46,46,46,0.7)] p-3 rounded-lg border border-orange-500/30 hover:border-[#03e9f4] hover:bg-[rgba(46,46,46,0.9)] transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg hover:shadow-[#03e9f4]/20 cursor-pointer group">
+                                <div class="flex items-center space-x-3">
+                                    <span class="text-orange-500 group-hover:text-[#03e9f4]">▶</span>
+                                    <span class="group-hover:text-[#03e9f4] transition-colors">SHRESTHA VITTA (FINANCE)</span>
+                                </div>
+                            </li>
+                            <li class="text-gray-300 bg-[rgba(46,46,46,0.7)] p-3 rounded-lg border border-orange-500/30 hover:border-[#03e9f4] hover:bg-[rgba(46,46,46,0.9)] transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg hover:shadow-[#03e9f4]/20 cursor-pointer group">
+                                <div class="flex items-center space-x-3">
+                                    <span class="text-orange-500 group-hover:text-[#03e9f4]">▶</span>
+                                    <span class="group-hover:text-[#03e9f4] transition-colors">VIPANAN (Marketing)</span>
+                                </div>
+                            </li>
+                            <li class="text-gray-300 bg-[rgba(46,46,46,0.7)] p-3 rounded-lg border border-orange-500/30 hover:border-[#03e9f4] hover:bg-[rgba(46,46,46,0.9)] transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg hover:shadow-[#03e9f4]/20 cursor-pointer group">
+                                <div class="flex items-center space-x-3">
+                                    <span class="text-orange-500 group-hover:text-[#03e9f4]">▶</span>
+                                    <span class="group-hover:text-[#03e9f4] transition-colors">MANAVA SANSADHAN (HR)</span>
+                                </div>
+                            </li>
+                            <li class="text-gray-300 bg-[rgba(46,46,46,0.7)] p-3 rounded-lg border border-orange-500/30 hover:border-[#03e9f4] hover:bg-[rgba(46,46,46,0.9)] transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg hover:shadow-[#03e9f4]/20 cursor-pointer group">
+                                <div class="flex items-center space-x-3">
+                                    <span class="text-orange-500 group-hover:text-[#03e9f4]">▶</span>
+                                    <span class="group-hover:text-[#03e9f4] transition-colors">SUMEDHA (Business Start-up)</span>
+                                </div>
+                            </li>
                         </ul>
-                        <a href="{{ url_for('management') }}" class="btn btn-register">View More</a>
+                        <a href="{{ url_for('management') }}" 
+                           class="inline-block mt-4 px-6 py-2 bg-transparent text-orange-500 border-2 border-[#03e9f4] rounded-lg font-semibold tracking-wide hover:bg-[#03e9f4]/10 transition-all duration-300 hover:-translate-y-1">
+                            View More
+                        </a>
                     </details>
                 </div>
             </div>
-            <!-- Gaming Events Card -->
-            <div class="card">
-                <img class="card-img-top" src="{{ url_for('static', filename='assets/gaming.jpg') }}" alt="Gaming Events">
-                <div class="card-body">
-                    <h5 class="card-title">Krida Ratna Events</h5>
-                    <p class="card-text">Join high-octane tournaments and e-sport battles.</p>
-                    <!-- Added event section for Gaming -->
-                    <details>
-                        <summary>View Gaming Events</summary>
-                        <ul>
-                            <li>BGMIII</li>
-                            <li>Talaash</li>
+
+            <!-- KALACHITRANA Events Card -->
+            <div class="bg-[rgba(46,46,46,0.8)] border-2 border-orange-500 rounded-xl p-6 transition-all duration-300 hover:-translate-y-2 hover:border-[#03e9f4] hover:shadow-lg hover:shadow-[#03e9f4]/40">
+                <img class="w-full h-40 object-cover rounded-lg mb-4" src="{{ url_for('static', filename='assets/art.png') }}" alt="KALACHITRANA Events">
+                <div class="text-center">
+                    <h5 class="text-2xl font-bold text-orange-500 mb-3">KALACHITRANA Events</h5>
+                    <p class="text-gray-300 mb-4">Express your creativity through visual arts and photography.</p>
+                    
+                    <details class="bg-[rgba(46,46,46,0.9)] border-2 border-orange-500 rounded-lg p-4 mt-4 group transition-all duration-300">
+                        <summary class="text-orange-500 font-bold cursor-pointer hover:text-[#03e9f4] flex items-center justify-between">
+                            <span>View Art Events</span>
+                            <svg class="w-5 h-5 transform group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </summary>
+                        <ul class="mt-4 space-y-3 transition-all duration-300">
+                            <li class="text-gray-300 bg-[rgba(46,46,46,0.7)] p-3 rounded-lg border border-orange-500/30 hover:border-[#03e9f4] hover:bg-[rgba(46,46,46,0.9)] transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg hover:shadow-[#03e9f4]/20 cursor-pointer group">
+                                <div class="flex items-center space-x-3">
+                                    <span class="text-orange-500 group-hover:text-[#03e9f4]">▶</span>
+                                    <span class="group-hover:text-[#03e9f4] transition-colors">STHALA CHITRAPATHA (Spot Photography)</span>
+                                </div>
+                            </li>
+                            <li class="text-gray-300 bg-[rgba(46,46,46,0.7)] p-3 rounded-lg border border-orange-500/30 hover:border-[#03e9f4] hover:bg-[rgba(46,46,46,0.9)] transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg hover:shadow-[#03e9f4]/20 cursor-pointer group">
+                                <div class="flex items-center space-x-3">
+                                    <span class="text-orange-500 group-hover:text-[#03e9f4]">▶</span>
+                                    <span class="group-hover:text-[#03e9f4] transition-colors">CHITRAGATHA (Short Film)</span>
+                                </div>
+                            </li>
+                            <li class="text-gray-300 bg-[rgba(46,46,46,0.7)] p-3 rounded-lg border border-orange-500/30 hover:border-[#03e9f4] hover:bg-[rgba(46,46,46,0.9)] transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg hover:shadow-[#03e9f4]/20 cursor-pointer group">
+                                <div class="flex items-center space-x-3">
+                                    <span class="text-orange-500 group-hover:text-[#03e9f4]">▶</span>
+                                    <span class="group-hover:text-[#03e9f4] transition-colors">RUPREKHA (Sketch Art)</span>
+                                </div>
+                            </li>
+                            <li class="text-gray-300 bg-[rgba(46,46,46,0.7)] p-3 rounded-lg border border-orange-500/30 hover:border-[#03e9f4] hover:bg-[rgba(46,46,46,0.9)] transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg hover:shadow-[#03e9f4]/20 cursor-pointer group">
+                                <div class="flex items-center space-x-3">
+                                    <span class="text-orange-500 group-hover:text-[#03e9f4]">▶</span>
+                                    <span class="group-hover:text-[#03e9f4] transition-colors">HASTAKALA (Painting)</span>
+                                </div>
+                            </li>
+                            <li class="text-gray-300 bg-[rgba(46,46,46,0.7)] p-3 rounded-lg border border-orange-500/30 hover:border-[#03e9f4] hover:bg-[rgba(46,46,46,0.9)] transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg hover:shadow-[#03e9f4]/20 cursor-pointer group">
+                                <div class="flex items-center space-x-3">
+                                    <span class="text-orange-500 group-hover:text-[#03e9f4]">▶</span>
+                                    <span class="group-hover:text-[#03e9f4] transition-colors">SWACHITRA (Selfie Point)</span>
+                                </div>
+                            </li>
                         </ul>
-                        <a href="{{ url_for('games') }}" class="btn btn-register">View More</a>
+                        <a href="{{ url_for('kalachitrana') }}" 
+                           class="inline-block mt-4 px-6 py-2 bg-transparent text-orange-500 border-2 border-[#03e9f4] rounded-lg font-semibold tracking-wide hover:bg-[#03e9f4]/10 transition-all duration-300 hover:-translate-y-1">
+                            View More
+                        </a>
                     </details>
                 </div>
             </div>
+            
         </div>
     </div>
 </section>
 
+<style>
+    /* Details Animation */
+    details[open] summary ~ * {
+        animation: slideDown 0.3s ease-in-out;
+    }
+
+    details:not([open]) summary ~ * {
+        animation: slideUp 0.3s ease-in-out;
+    }
+
+    @keyframes slideDown {
+        0% {
+            opacity: 0;
+            transform: translateY(-10px);
+        }
+        100% {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @keyframes slideUp {
+        0% {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        100% {
+            opacity: 0;
+            transform: translateY(-10px);
+        }
+    }
+
+    /* Hover Effects */
+    .event-card:hover .event-icon {
+        transform: scale(1.1) rotate(5deg);
+    }
+
+    /* Active State */
+    details[open] summary {
+        border-bottom: 1px solid rgba(255, 69, 0, 0.2);
+        padding-bottom: 1rem;
+        margin-bottom: 1rem;
+    }
+
+    /* List Item Stagger Effect */
+    details[open] li {
+        animation: fadeInStagger 0.5s ease forwards;
+        opacity: 0;
+    }
+
+    details[open] li:nth-child(1) { animation-delay: 0.1s; }
+    details[open] li:nth-child(2) { animation-delay: 0.2s; }
+    details[open] li:nth-child(3) { animation-delay: 0.3s; }
+    details[open] li:nth-child(4) { animation-delay: 0.4s; }
+    details[open] li:nth-child(5) { animation-delay: 0.5s; }
+    details[open] li:nth-child(6) { animation-delay: 0.6s; }
+
+    @keyframes fadeInStagger {
+        from {
+            opacity: 0;
+            transform: translateX(-20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+
+    /* Glass Effect */
+    .glass-effect {
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+    }
+</style>
+
 <script>
-document.addEventListener('DOMContentLoaded', function(){
-    // Add this new code for details handling
-    const allDetails = document.querySelectorAll('details');
-    
-    allDetails.forEach((details) => {
-        details.addEventListener('click', (e) => {
-            // Prevent the click from bubbling up to parent elements
-            e.stopPropagation();
-            
-            // Close all other details elements except the clicked one
-            allDetails.forEach((otherDetails) => {
-                if (otherDetails !== details) {
-                    otherDetails.removeAttribute('open');
+    document.addEventListener('DOMContentLoaded', function(){
+        const detailsElements = document.querySelectorAll('details');
+        
+        // Function to close all details except the clicked one
+        function closeOtherDetails(currentDetails) {
+            detailsElements.forEach(details => {
+                if (details !== currentDetails) {
+                    details.removeAttribute('open');
                 }
             });
-        });
-    });
-
-    // Existing modal code
-    const modal = document.getElementById('event-modal');
-    const modalBody = document.getElementById('modal-body');
-    const closeBtn = modal.querySelector('.close');
-    
-    // Get all clickable cards
-    const cards = document.querySelectorAll('.card.clickable');
-    
-    cards.forEach(card => {
-        card.addEventListener('click', function(){
-            // Scale animation on click
-            card.style.transform = 'scale(1.05)';
-            
-            // Load modal content based on category
-            const category = card.getAttribute('data-category');
-            let content = "";
-            if(category === "tech"){
-                content = `<h2>Tech Events</h2>
-                           <!-- ...reference events/tech.html content... -->`;
-            } else if(category === "cultural"){
-                content = `<h2>Cultural Events</h2>
-                           <!-- ...reference events/cultural.html content... -->`;
-            } else if(category === "management"){
-                content = `<h2>Management Events</h2>
-                           <!-- ...reference events/management.html content... -->`;
-            } else if(category === "gaming"){
-                content = `<h2>Gaming Events</h2>
-                           <!-- ...reference events/games.html content... -->`;
-            }
-            modalBody.innerHTML = content;
-            modal.style.display = "block";
-        });
-    });
-    
-    // Prevent clicks on "View More" buttons from propagating to the card
-    const viewMoreBtns = document.querySelectorAll('.card .btn.btn-register');
-    viewMoreBtns.forEach(btn => {
-        btn.addEventListener('click', function(e) {
-            e.stopPropagation();
-        });
-    });
-    
-    // Close modal and reset card scale
-    closeBtn.addEventListener('click', function(){
-        modal.style.display = "none";
-        cards.forEach(card => card.style.transform = 'scale(1)');
-    });
-    
-    window.addEventListener('click', function(event) {
-        if (event.target == modal) {
-            modal.style.display = "none";
-            cards.forEach(card => card.style.transform = 'scale(1)');
         }
+
+        // Add click handler to each details element
+        detailsElements.forEach(details => {
+            details.addEventListener('click', function(e) {
+                // Only handle clicks on the summary element
+                if (e.target.tagName.toLowerCase() === 'summary') {
+                    e.stopPropagation();
+                    
+                    // If this details is being opened, close others
+                    if (!this.hasAttribute('open')) {
+                        closeOtherDetails(this);
+                    }
+                }
+            });
+
+            // Prevent event bubbling for links inside details
+            details.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', e => e.stopPropagation());
+            });
+        });
+
+        // Close all details when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('details')) {
+                detailsElements.forEach(details => {
+                    details.removeAttribute('open');
+                });
+            }
+        });
     });
-});
 </script>
 {% endblock %}
