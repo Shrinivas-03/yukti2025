@@ -5,3 +5,4 @@ gunicorn
 Werkzeug==2.2.3
 cryptography
 pillow
+python-dotenv
