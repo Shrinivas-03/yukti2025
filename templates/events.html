@@ -3,285 +3,146 @@
 {% block title %}Events - YUKTI 2025{% endblock %}
 
 {% block content %}
-<style>
-    /* Add margin-top to prevent navbar overlap */
-    .event-overview {
-        margin-top: 80px; /* Height of navbar + some extra space */
-        text-align: center;
-        padding: 3rem 1rem;
-        background: rgba(30, 30, 30, 0.95);
-    }
-    .event-overview h1 {
-        font-size: 2.5rem;
-        color: #FFD700;
-        text-transform: uppercase;
-        margin-bottom: 1.5rem;
-    }
-    .event-overview p {
-        font-size: 1.2rem;
-        color: #C0C0C0;
-        margin-bottom: 2rem;
-    }
-    /* Limit container width on larger devices */
-    .container {
-         max-width: 1400px;  /* Match row max-width */
-         margin: 0 auto;
-    }
-
-    /* Card base styles */
-    .card {
-        background: rgba(46, 46, 46, 0.8);
-        border: 2px solid #ff6600;  /* Solid orange border */
-        border-radius: 10px;
-        transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
-        width: 100%;
-        max-width: none;  /* Remove max-width constraint */
-        margin: 0;  /* Remove margins */
-    }
-    .card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 15px 30px rgba(3, 233, 244, 0.4);  /* Changed to blue glow */
-        border-color: #03e9f4;  /* Changed to blue */
-    }
-    .card-img-top {
-        border-top-left-radius: 10px;
-        border-top-right-radius: 10px;
-        width: 100%;
-        height: 160px; /* reduced image height */
-        object-fit: cover;
-    }
-    .card-body {
-        padding: 1rem;
-    }
-    .card-title {
-        color: #ff6600;  /* Changed from #FFD700 to orange */
-        text-transform: uppercase;
-        font-size: 1.2rem;
-        margin-bottom: 0.5rem;
-    }
-    .card-text {
-        color: #C0C0C0;
-        font-size: 0.9rem;
-        margin-bottom: 1rem;
-    }
-    .btn.btn-register {
-        background: #03e9f4;  /* Changed from #FFD700 to blue */
-        color: #1C1C1C;
-        padding: 0.5rem 1rem;
-        border: 2px solid #03e9f4;  /* Added border */
-        border-radius: 5px;
-        transition: all 0.3s ease;
-    }
-    .btn.btn-register:hover {
-        background: transparent;
-        color: #03e9f4;  /* Changed to blue */
-        border-color: #03e9f4;  /* Changed to blue */
-    }
-    @media (max-width: 768px) {
-        .row {
-            grid-template-columns: 1fr;  /* Single column on mobile */
-            gap: 20px;
-        }
-        
-        .card {
-            max-width: 100%;
-        }
-        .container {
-            max-width: 100%;
-            padding: 0 1rem;
-        }
-    }
-    /* Add grid layout for cards */
-    .row {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);  /* Changed to 3 columns */
-        gap: 25px;  /* Slightly reduced gap to fit 3 cards */
-        max-width: 1400px;  /* Increased max-width to accommodate 3 cards */
-        margin: 0 auto;
-        padding: 20px;
-    }
-    .card.clickable { cursor: pointer; transition: transform 0.3s ease; }
-    .card.clickable:active { transform: scale(0.95); }
+<div class="h-0.5 bg-[#CD7F32] "></div>
+<section class="py-12 bg-[rgba(30,30,30,0.95)]">
+    <div class="text-center">
+        <h1 class="text-4xl text-[#FFD700] uppercase mb-6 mx-auto">Explore Our Events</h1>
+        <p class="text-xl text-[#C0C0C0] mb-8 mx-auto">Choose from a diverse range of challenges and showcases.</p>
+    </div>
     
-    /* Modal styles */
-    .modal {
-        display: none;
-        position: fixed;
-        z-index: 2000;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        overflow: auto;
-        background-color: rgba(0,0,0,0.7);
-    }
-    .modal-content {
-        background: #1c1c1c;
-        margin: 10% auto;
-        padding: 20px;
-        border: 1px solid #888;
-        width: 80%;
-        max-width: 600px;
-        border-radius: 10px;
-        color: #fff;
-    }
-    .close {
-        float: right;
-        font-size: 1.5rem;
-        cursor: pointer;
-    }
-    /* Enhanced styling for details event sections */
-    .card-body details {
-        border: 2px solid #ff6600;  /* Changed to solid orange */
-        border-radius: 5px;
-        padding: 10px;
-        background: rgba(46, 46, 46, 0.9);
-        box-shadow: 0 2px 8px rgba(0,0,0,0.3);
-        margin-top: 15px;
-        transition: all 0.3s ease;
-    }
-    .card-body details summary {
-        cursor: pointer;
-        font-weight: bold;
-        outline: none;
-        list-style: none;
-        margin-bottom: 10px;
-    }
-    .card-body details:hover,
-    .card-body details[open] {
-        border-color: #03e9f4;  /* Change to blue on hover/open */
-        box-shadow: 0 5px 15px rgba(3, 233, 244, 0.4);
-    }
-    .card-body details ul {
-        margin: 10px 0;
-        padding-left: 20px;
-        list-style-type: none;
-        text-align: center;
-    }
-    .card-body details ul li {
-        background: #333;
-        margin: 5px 0;
-        padding: 5px 10px;
-        border-radius: 3px;
-        color: #ff6600;  /* Changed from #FFD700 to orange */
-    }
-    .card-body details a.btn.btn-register {
-        margin-top: 10px;
-        display: inline-block;
-    }
-    /* Update responsive breakpoints */
-    @media (max-width: 1200px) {
-        .row {
-            grid-template-columns: repeat(2, 1fr);  /* 2 columns on medium screens */
-        }
-    }
-</style>
-<section class="event-overview">
-    <h1 class="text-center">Explore Our Events</h1>
-    <p class="text-center">Choose from a diverse range of challenges and showcases.</p>
-    <div class="container py-5">
-        <div class="row">
+    <div class="container mx-auto max-w-[1400px] px-4">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 py-5">
             <!-- Tech Events Card -->
-            <div class="card">
-                <img class="card-img-top" src="{{ url_for('static', filename='assets/tech.png') }}" alt="Tech Events">
-                <div class="card-body">
-                    <h5 class="card-title">Manthana Events</h5>
-                    <p class="card-text">Innovative challenges and coding competitions await.</p>
-                    <!-- Added event section for Tech -->
-                    <details>
-                        <summary>View Tech Events</summary>
-                        <ul>
-                            <li>Prakalpa Prastuthi</li>
-                            <li>CHANAKSH CODING EVENT</li>
-                            <li>Robo Samara</li>
-                            <li>Pragyaan Quiz</li>
-                            <li>Vagmita (Elocution)</li>
-                            <li>Concrete Canoe Mini</li>
+            <div class="bg-[rgba(46,46,46,0.8)] border-2 border-[#ff6600] rounded-lg transition-all duration-300 
+                        hover:-translate-y-2 hover:shadow-[0_15px_30px_rgba(3,233,244,0.4)] hover:border-[#03e9f4]">
+                <img class="w-full h-40 object-cover rounded-t-lg" src="{{ url_for('static', filename='assets/tech.png') }}" alt="Tech Events">
+                <div class="p-4">
+                    <h5 class="text-xl text-[#ff6600] uppercase mb-2">Manthana Events</h5>
+                    <p class="text-[#C0C0C0] text-sm mb-4">Innovative challenges and coding competitions await.</p>
+                    <details class="border-2 border-[#ff6600] rounded-md p-4 bg-[rgba(46,46,46,0.9)] shadow-md 
+                                 transition-all duration-300 hover:border-[#03e9f4] hover:shadow-[0_5px_15px_rgba(3,233,244,0.4)]">
+                        <summary class="cursor-pointer font-bold outline-none mb-3">View Tech Events</summary>
+                        <ul class="space-y-2">
+                            <li class="bg-[#333] p-2 rounded text-[#ff6600]">Prakalpa Prastuthi</li>
+                            <li class="bg-[#333] p-2 rounded text-[#ff6600]">CHANAKSH CODING EVENT</li>
+                            <li class="bg-[#333] p-2 rounded text-[#ff6600]">Robo Samara</li>
+                            <li class="bg-[#333] p-2 rounded text-[#ff6600]">Pragyaan Quiz</li>
+                            <li class="bg-[#333] p-2 rounded text-[#ff6600]">Vagmita (Elocution)</li>
+                            <li class="bg-[#333] p-2 rounded text-[#ff6600]">Concrete Canoe Mini</li>
                         </ul>
-                        <a href="{{ url_for('tech') }}" class="btn btn-register">View More</a>
+                        <a href="{{ url_for('tech') }}" 
+                           class="inline-block mt-4 bg-[#03e9f4] text-[#1C1C1C] px-4 py-2 rounded border-2 border-[#03e9f4]
+                                  transition-all duration-300 hover:bg-transparent hover:text-[#03e9f4]">
+                            View More
+                        </a>
                     </details>
                 </div>
             </div>
+
             <!-- Cultural Events Card -->
-            <div class="card">
-                <img class="card-img-top" src="{{ url_for('static', filename='assets/cultural.jpg') }}" alt="Cultural Events">
-                <div class="card-body">
-                    <h5 class="card-title">Manoranjana Events</h5>
-                    <p class="card-text">Experience art, dance, and soul-stirring performances.</p>
-                    <!-- Added event section for Cultural -->
-                    <details>
-                        <summary>View Cultural Events</summary>
-                        <ul>
-                            <li>NINAAD - Find The Voice Within!</li>
-                            <li>Nritya Saadhana</li>
-                            <li>NATYA Mayuri</li>
-                            <li>Navyataa (Ramp Walk)</li>
+            <div class="bg-[rgba(46,46,46,0.8)] border-2 border-[#ff6600] rounded-lg transition-all duration-300 
+                        hover:-translate-y-2 hover:shadow-[0_15px_30px_rgba(3,233,244,0.4)] hover:border-[#03e9f4]">
+                <img class="w-full h-40 object-cover rounded-t-lg" src="{{ url_for('static', filename='assets/cultural.jpg') }}" alt="Cultural Events">
+                <div class="p-4">
+                    <h5 class="text-xl text-[#ff6600] uppercase mb-2">Manoranjana Events</h5>
+                    <p class="text-[#C0C0C0] text-sm mb-4">Experience art, dance, and soul-stirring performances.</p>
+                    <details class="border-2 border-[#ff6600] rounded-md p-4 bg-[rgba(46,46,46,0.9)] shadow-md 
+                                 transition-all duration-300 hover:border-[#03e9f4] hover:shadow-[0_5px_15px_rgba(3,233,244,0.4)]">
+                        <summary class="cursor-pointer font-bold outline-none mb-3">View Cultural Events</summary>
+                        <ul class="space-y-2">
+                            <li class="bg-[#333] p-2 rounded text-[#ff6600]">NINAAD - Find The Voice Within!</li>
+                            <li class="bg-[#333] p-2 rounded text-[#ff6600]">Nritya Saadhana</li>
+                            <li class="bg-[#333] p-2 rounded text-[#ff6600]">NATYA Mayuri</li>
+                            <li class="bg-[#333] p-2 rounded text-[#ff6600]">Navyataa (Ramp Walk)</li>
                         </ul>
-                        <a href="{{ url_for('cultural') }}" class="btn btn-register">View More</a>
+                        <a href="{{ url_for('cultural') }}" 
+                           class="inline-block mt-4 bg-[#03e9f4] text-[#1C1C1C] px-4 py-2 rounded border-2 border-[#03e9f4]
+                                  transition-all duration-300 hover:bg-transparent hover:text-[#03e9f4]">
+                            View More
+                        </a>
                     </details>
                 </div>
             </div>
+
             <!-- Kalachitrana event Card -->
-            <div class="card">
-                <img class="card-img-top" src="{{ url_for('static', filename='assets/tech.png') }}" alt="Tech Events">
-                <div class="card-body">
-                    <h5 class="card-title">Kalachitrana Events</h5>
-                    <p class="card-text">Show the world through your lens</p>
-                    <!-- Added event section for Tech -->
-                    <details>
-                        <summary>View Kalachitrana Events</summary>
-                        <ul>
-                            <li>STHALA CHITRAPATHA (Spot Photography)</li>
-                            <li>CHITRAGATHA (Short Film)</li>
-                            <li>RUPEKHA (Sketch Art)</li>
-                            <li>HASTAKALA (Painting)</li>
-                            <li>SWACHITRA (Selfie Point)</li>
+            <div class="bg-[rgba(46,46,46,0.8)] border-2 border-[#ff6600] rounded-lg transition-all duration-300 
+                        hover:-translate-y-2 hover:shadow-[0_15px_30px_rgba(3,233,244,0.4)] hover:border-[#03e9f4]">
+                <img class="w-full h-40 object-cover rounded-t-lg" src="{{ url_for('static', filename='assets/tech.png') }}" alt="Tech Events">
+                <div class="p-4">
+                    <h5 class="text-xl text-[#ff6600] uppercase mb-2">Kalachitrana Events</h5>
+                    <p class="text-[#C0C0C0] text-sm mb-4">Show the world through your lens</p>
+                    <details class="border-2 border-[#ff6600] rounded-md p-4 bg-[rgba(46,46,46,0.9)] shadow-md 
+                                 transition-all duration-300 hover:border-[#03e9f4] hover:shadow-[0_5px_15px_rgba(3,233,244,0.4)]">
+                        <summary class="cursor-pointer font-bold outline-none mb-3">View Kalachitrana Events</summary>
+                        <ul class="space-y-2">
+                            <li class="bg-[#333] p-2 rounded text-[#ff6600]">STHALA CHITRAPATHA (Spot Photography)</li>
+                            <li class="bg-[#333] p-2 rounded text-[#ff6600]">CHITRAGATHA (Short Film)</li>
+                            <li class="bg-[#333] p-2 rounded text-[#ff6600]">RUPEKHA (Sketch Art)</li>
+                            <li class="bg-[#333] p-2 rounded text-[#ff6600]">HASTAKALA (Painting)</li>
+                            <li class="bg-[#333] p-2 rounded text-[#ff6600]">SWACHITRA (Selfie Point)</li>
                         </ul>
-                        <a href="{{ url_for('kalachitrana') }}" class="btn btn-register">View More</a>
+                        <a href="{{ url_for('kalachitrana') }}" 
+                           class="inline-block mt-4 bg-[#03e9f4] text-[#1C1C1C] px-4 py-2 rounded border-2 border-[#03e9f4]
+                                  transition-all duration-300 hover:bg-transparent hover:text-[#03e9f4]">
+                            View More
+                        </a>
                     </details>
                 </div>
             </div>
+
             <!-- Management Events Card -->
-            <div class="card">
-                <img class="card-img-top" src="{{ url_for('static', filename='assets/management.jpg') }}" alt="Management Events">
-                <div class="card-body">
-                    <h5 class="card-title">Chinthana Events</h5>
-                    <p class="card-text">Engage in business challenges and entrepreneurial summits.</p>
-                    <!-- Added event section for Management -->
-                    <details>
-                        <summary>View Management Events</summary>
-                        <ul>
-                            <li>DAKSH (The Best Manager)</li>
-                            <li>SHRESHTA VITTA (Finance) Final</li>
-                            <li>MANAVA SANSADHAN (HR)</li>
-                            <li>Startup Logo Design</li>
-                            <li>Business Plan</li>
-                            <li>Marketing Strategy</li>
+            <div class="bg-[rgba(46,46,46,0.8)] border-2 border-[#ff6600] rounded-lg transition-all duration-300 
+                        hover:-translate-y-2 hover:shadow-[0_15px_30px_rgba(3,233,244,0.4)] hover:border-[#03e9f4]">
+                <img class="w-full h-40 object-cover rounded-t-lg" src="{{ url_for('static', filename='assets/management.jpg') }}" alt="Management Events">
+                <div class="p-4">
+                    <h5 class="text-xl text-[#ff6600] uppercase mb-2">Chinthana Events</h5>
+                    <p class="text-[#C0C0C0] text-sm mb-4">Engage in business challenges and entrepreneurial summits.</p>
+                    <details class="border-2 border-[#ff6600] rounded-md p-4 bg-[rgba(46,46,46,0.9)] shadow-md 
+                                 transition-all duration-300 hover:border-[#03e9f4] hover:shadow-[0_5px_15px_rgba(3,233,244,0.4)]">
+                        <summary class="cursor-pointer font-bold outline-none mb-3">View Management Events</summary>
+                        <ul class="space-y-2">
+                            <li class="bg-[#333] p-2 rounded text-[#ff6600]">DAKSH (The Best Manager)</li>
+                            <li class="bg-[#333] p-2 rounded text-[#ff6600]">SHRESHTA VITTA (Finance) Final</li>
+                            <li class="bg-[#333] p-2 rounded text-[#ff6600]">MANAVA SANSADHAN (HR)</li>
+                            <li class="bg-[#333] p-2 rounded text-[#ff6600]">Startup Logo Design</li>
+                            <li class="bg-[#333] p-2 rounded text-[#ff6600]">Business Plan</li>
+                            <li class="bg-[#333] p-2 rounded text-[#ff6600]">Marketing Strategy</li>
                         </ul>
-                        <a href="{{ url_for('management') }}" class="btn btn-register">View More</a>
+                        <a href="{{ url_for('management') }}" 
+                           class="inline-block mt-4 bg-[#03e9f4] text-[#1C1C1C] px-4 py-2 rounded border-2 border-[#03e9f4]
+                                  transition-all duration-300 hover:bg-transparent hover:text-[#03e9f4]">
+                            View More
+                        </a>
                     </details>
                 </div>
             </div>
+
             <!-- Gaming Events Card -->
-            <div class="card">
-                <img class="card-img-top" src="{{ url_for('static', filename='assets/gaming.jpg') }}" alt="Gaming Events">
-                <div class="card-body">
-                    <h5 class="card-title">Krida Ratna Events</h5>
-                    <p class="card-text">Join high-octane tournaments and e-sport battles.</p>
-                    <!-- Added event section for Gaming -->
-                    <details>
-                        <summary>View Gaming Events</summary>
-                        <ul>
-                            <li>BGMIII</li>
-                            <li>Talaash</li>
+            <div class="bg-[rgba(46,46,46,0.8)] border-2 border-[#ff6600] rounded-lg transition-all duration-300 
+                        hover:-translate-y-2 hover:shadow-[0_15px_30px_rgba(3,233,244,0.4)] hover:border-[#03e9f4]">
+                <img class="w-full h-40 object-cover rounded-t-lg" src="{{ url_for('static', filename='assets/gaming.jpg') }}" alt="Gaming Events">
+                <div class="p-4">
+                    <h5 class="text-xl text-[#ff6600] uppercase mb-2">Krida Ratna Events</h5>
+                    <p class="text-[#C0C0C0] text-sm mb-4">Join high-octane tournaments and e-sport battles.</p>
+                    <details class="border-2 border-[#ff6600] rounded-md p-4 bg-[rgba(46,46,46,0.9)] shadow-md 
+                                 transition-all duration-300 hover:border-[#03e9f4] hover:shadow-[0_5px_15px_rgba(3,233,244,0.4)]">
+                        <summary class="cursor-pointer font-bold outline-none mb-3">View Gaming Events</summary>
+                        <ul class="space-y-2">
+                            <li class="bg-[#333] p-2 rounded text-[#ff6600]">BGMIII</li>
+                            <li class="bg-[#333] p-2 rounded text-[#ff6600]">Talaash</li>
                         </ul>
-                        <a href="{{ url_for('games') }}" class="btn btn-register">View More</a>
+                        <a href="{{ url_for('games') }}" 
+                           class="inline-block mt-4 bg-[#03e9f4] text-[#1C1C1C] px-4 py-2 rounded border-2 border-[#03e9f4]
+                                  transition-all duration-300 hover:bg-transparent hover:text-[#03e9f4]">
+                            View More
+                        </a>
                     </details>
                 </div>
             </div>
         </div>
     </div>
 </section>
+<div class="h-0.5 bg-[#CD7F32] "></div>
 
 <script>
 document.addEventListener('DOMContentLoaded', function(){
