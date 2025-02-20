@@ -8,6 +8,7 @@
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Cinzel:wght@700&display=swap"
         rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&family=Rajdhani:wght@500;600;700&family=Audiowide&family=Syncopate:wght@400;700&display=swap" rel="stylesheet">
     <!-- Link to Custom CSS -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <!-- Link to Custom JS -->
@@ -22,6 +23,30 @@
 
   gtag('config', 'G-3940N664KQ');
 </script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#FFD700',
+                        secondary: '#8B0000',
+                        dark: '#1C1C1C',
+                        darker: '#2E2E2E',
+                    },
+                    animation: {
+                        'gradient-flow': 'gradientFlow 15s ease infinite',
+                    },
+                    keyframes: {
+                        gradientFlow: {
+                            '0%, 100%': { backgroundPosition: '0% 50%' },
+                            '50%': { backgroundPosition: '100% 50%' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
 </head>
 
 <body>

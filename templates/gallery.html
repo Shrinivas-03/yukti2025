@@ -3,651 +3,276 @@
 {% block title %}Gallery - YUKTI 2025{% endblock %}
 
 {% block content %}
-<style>
-    .main-content {
-        margin-top: 80px;
-        min-height: 100vh;
-        background: linear-gradient(
-            45deg,
-            #1C1C1C,
-            #2E2E2E,
-            #1C1C1C,
-            #2d1f1f,
-            #1C1C1C
-        );
-        background-size: 400% 400%;
-        animation: gradientFlow 15s ease infinite;
-        position: relative;
-        overflow: hidden;
-    }
-
-    /* Remove grid animation styles */
-    .main-content::before {
-        display: none; /* This removes the grid overlay */
-    }
-
-    .gallery {
-        position: relative;
-        z-index: 1;
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 2rem;
-        background: rgba(30, 30, 30, 0.8);
-        backdrop-filter: blur(10px);
-        border-radius: 15px;
-        box-shadow: 0 0 30px rgba(0, 0, 0, 0.4);
-    }
-
-    .gallery h1 {
-        text-align: center;
-        color: #FFD700;
-        font-size: 2.5rem;
-        margin-bottom: 1rem;
-        text-transform: uppercase;
-    }
-
-    .gallery p {
-        text-align: center;
-        color: #C0C0C0;
-        margin-bottom: 2rem;
-        font-size: 1.2rem;
-    }
-
-    /* Enhanced Responsive Gallery Grid */
-    .gallery-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-        gap: 1.5rem;
-        padding: 1rem;
-    }
-
-    /* Responsive Image Container */
-    .gallery-item {
-        position: relative;
-        overflow: hidden;
-        border-radius: 10px;
-        border: 2px solid #8B0000;
-        transition: all 0.3s ease;
-        backdrop-filter: blur(5px);
-        background: rgba(46, 46, 46, 0.7);
-        aspect-ratio: 16/9; /* Maintain image aspect ratio */
-    }
-
-    .gallery-item:hover {
-        transform: translateY(-5px) scale(1.02);
-        box-shadow: 0 5px 15px rgba(255, 215, 0, 0.3);
-        border-color: rgba(255, 215, 0, 0.5);
-    }
-
-    .gallery-item img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        transition: transform 0.3s ease;
-        background: rgba(0, 0, 0, 0.1); /* Placeholder while loading */
-        animation: imageLoad 0.3s ease-in;
-    }
-
-    .gallery-item:hover img {
-        transform: scale(1.1);
-    }
-
-    .gallery-item::after {
-        content: '';
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        height: 30%;
-        background: linear-gradient(transparent, rgba(0,0,0,0.7));
-        opacity: 0;
-        transition: opacity 0.3s ease;
-    }
-
-    .gallery-item:hover::after {
-        opacity: 1;
-    }
-
-    @keyframes gradientFlow {
-        0% {
-            background-position: 0% 50%;
-        }
-        50% {
-            background-position: 100% 50%;
-        }
-        100% {
-            background-position: 0% 50%;
-        }
-    }
-
-    /* Remove grid animation keyframes */
-    @keyframes gridFloat {
-        /* Remove this keyframe animation as it's no longer needed */
-    }
-
-    /* Responsive Breakpoints */
-    @media (max-width: 1200px) {
-        .gallery-grid {
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.25rem;
-        }
-    }
-
-    @media (max-width: 992px) {
-        .gallery-grid {
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 1rem;
-        }
-    }
-
-    @media (max-width: 768px) {
-        .gallery-grid {
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 0.75rem;
-            padding: 0.5rem;
-        }
-        
-        .gallery-item {
-            aspect-ratio: 4/3; /* Slightly different ratio for mobile */
-        }
-    }
-
-    @media (max-width: 576px) {
-        .gallery-grid {
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 0.5rem;
-        }
-    }
-
-    /* Touch Device Optimizations */
-    @media (hover: none) {
-        .gallery-item:hover {
-            transform: none;
-        }
-        
-        .gallery-item img {
-            transform: none;
-        }
-    }
-
-    /* High-DPI Screen Support */
-    @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
-        .gallery-item {
-            border-width: 1px;
-        }
-    }
-
-    /* Landscape Mode Optimization */
-    @media (orientation: landscape) and (max-height: 500px) {
-        .gallery-grid {
-            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-        }
-    }
-
-    /* Progressive Loading Animation */
-    @keyframes imageLoad {
-        from { opacity: 0; }
-        to { opacity: 1; }
-    }
-
-    /* Print Media Optimization */
-    @media print {
-        .gallery-grid {
-            display: block;
-        }
-        
-        .gallery-item {
-            page-break-inside: avoid;
-            margin-bottom: 1rem;
-        }
-    }
-
-    /* Add these new styles to your existing CSS */
-    .event-section {
-        margin-bottom: 3rem;
-        padding: 2rem;
-        background: rgba(0, 0, 0, 0.3);
-        border-radius: 15px;
-        border: 1px solid rgba(255, 215, 0, 0.1);
-    }
-
-    .event-section h2 {
-        color: #FFD700;
-        font-size: 2rem;
-        margin-bottom: 1rem;
-        text-align: center;
-    }
-
-    .event-section p {
-        color: #C0C0C0;
-        margin-bottom: 2rem;
-        text-align: center;
-        line-height: 1.6;
-    }
-
-    .event-description {
-        margin-bottom: 2rem;
-        padding: 1rem;
-        background: rgba(0, 0, 0, 0.2);
-        border-radius: 10px;
-    }
-
-    .event-description p {
-        color: #C0C0C0;
-        margin-bottom: 1rem;
-        text-align: justify;
-        line-height: 1.8;
-        font-size: 1.1rem;
-    }
-
-    .event-description p:last-child {
-        margin-bottom: 0;
-    }
-
-    .event-description h3 {
-        color: #FFD700;
-        font-size: 1.5rem;
-        margin: 2rem 0 1rem;
-        text-align: left;
-        border-left: 3px solid #8B0000;
-        padding-left: 1rem;
-    }
-
-    .event-description .gallery-grid {
-        margin: 1rem 0 2rem;
-    }
-
-    .event-description p + .gallery-grid {
-        margin-top: 1.5rem;
-    }
-
-    /* ...existing styles... */
-
-    .event-description p:not(:last-child) {
-        margin-bottom: 1.5rem;
-    }
-
-    .gallery-grid .gallery-item:hover::before {
-        content: attr(alt);
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        padding: 1rem;
-        background: rgba(0, 0, 0, 0.8);
-        color: #FFD700;
-        font-size: 0.9rem;
-        z-index: 2;
-    }
-
-    /* Add these new styles for the popup */
-    .popup-overlay {
-        display: none;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.9);
-        z-index: 1000;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .popup-container {
-        position: relative;
-        max-width: 90%;
-        max-height: 90vh;
-    }
-
-    .popup-image {
-        max-width: 100%;
-        max-height: 90vh;
-        object-fit: contain;
-        border: 2px solid #FFD700;
-        border-radius: 5px;
-    }
-
-    .close-button {
-        position: absolute;
-        top: -40px;
-        right: 0;
-        background: #FFD700;
-        color: #000;
-        border: none;
-        border-radius: 50%;
-        width: 30px;
-        height: 30px;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 20px;
-        transition: all 0.3s ease;
-    }
-
-    .close-button:hover {
-        background: #fff;
-        transform: scale(1.1);
-    }
-
-    .popup-overlay.active {
-        display: flex;
-    }
-</style>
-
-<div class="main-content">
-    <!-- Add this popup overlay HTML after main-content div and before your existing content -->
-    <div class="popup-overlay" id="imagePopup">
-        <div class="popup-container">
-            <button class="close-button" onclick="closePopup()">×</button>
-            <img src="" alt="" class="popup-image" id="popupImage">
+<div class="min-h-screen pt-20 bg-gradient-to-r from-dark via-darker to-dark animate-gradient-flow">
+    <div class="container mx-auto px-4">
+        <!-- Image Popup -->
+        <div id="imagePopup" class="fixed inset-0 bg-black bg-opacity-90 hidden z-50 justify-center items-center">
+            <div class="relative max-w-4xl mx-auto p-4">
+                <button onclick="closePopup()" class="absolute -top-12 right-0 w-10 h-10 bg-primary text-black rounded-full flex items-center justify-center hover:bg-white transition-all transform hover:scale-110">
+                    ×
+                </button>
+                <img id="popupImage" src="" alt="" class="max-w-full max-h-[90vh] object-contain border-2 border-primary rounded">
+            </div>
         </div>
+
+        <!-- Gallery Content -->
+        <section class="bg-[rgba(30,30,30,0.8)] backdrop-blur-lg rounded-2xl p-8 shadow-2xl">
+            <h1 class="text-4xl text-primary text-center uppercase mb-4 font-bold font-[Orbitron] tracking-wider">
+                <span class="inline-block transform hover:scale-105 transition-transform duration-300">Gallery</span>
+            </h1>
+            <p class="text-gray-300 text-center text-xl mb-8 font-[Rajdhani]">Snapshots of Unforgettable Memories from Yukti Fest 2024!</p>
+
+            <!-- Flash Mob Section -->
+            <div class="mb-12 bg-black bg-opacity-30 rounded-xl p-6 border border-primary/10">
+                <h2 class="text-3xl text-primary text-center mb-6 font-[Audiowide] tracking-wide transform hover:scale-105 transition-transform duration-300">
+                    Flash Mob
+                </h2>
+                <div class="mb-8 text-gray-300">
+                    <p class="text-lg leading-relaxed mb-4">
+                        A high-energy, surprise dance performance where a group of students suddenly gathered and performed in a public space, engaging the audience and setting the festive mood for the tech fest.
+                    </p>
+                    <p class="text-lg leading-relaxed mb-4">
+                        The flash mob served as an electrifying opening act, bringing together performers from various departments who had practiced in secret for weeks. The unexpected nature of the performance created a buzz of excitement throughout the campus.
+                    </p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Gallery Items -->
+                    {% for i in range(6) %}
+                    <div class="gallery-item group relative overflow-hidden rounded-xl border-2 border-secondary hover:border-primary/50 transition-all duration-300 hover:-translate-y-2 hover:shadow-lg hover:shadow-primary/20">
+                        <img src="{{ url_for('static', filename='gallery/fl' + loop.index|string + '.webp') }}"
+                             alt="Flash Mob Performance {{ loop.index }}"
+                             class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110"
+                             loading="lazy">
+                        <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4 opacity-0 group-hover:opacity-100 transition-opacity">
+                            <p class="text-primary text-sm">Flash Mob - Performance {{ loop.index }}</p>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <!-- Welcome Ceremony Section -->
+            <div class="mb-12 bg-black bg-opacity-30 rounded-xl p-6 border border-primary/10">
+                <h2 class="text-3xl text-primary text-center mb-6 font-[Syncopate] tracking-wide transform hover:scale-105 transition-transform duration-300">
+                    Welcome Ceremony
+                </h2>
+                <div class="mb-8 text-gray-300">
+                    <p class="text-lg leading-relaxed mb-4">
+                        The grand opening of the tech fest, featuring speeches from dignitaries, a ceremonial lamp lighting, and an introduction to the exciting events lined up for the festival.
+                    </p>
+                    <p class="text-lg leading-relaxed mb-4">
+                        Distinguished guests and university officials came together to mark the beginning of this grand celebration, setting the tone for the upcoming days of innovation, creativity, and excellence.
+                    </p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Gallery Items -->
+                    {% for i in range(6) %}
+                    <div class="gallery-item group relative overflow-hidden rounded-xl border-2 border-secondary hover:border-primary/50 transition-all duration-300 hover:-translate-y-2 hover:shadow-lg hover:shadow-primary/20">
+                        <img src="{{ url_for('static', filename='gallery/wel' + loop.index|string + '.webp') }}"
+                             alt="Welcome Ceremony Image {{ loop.index }}"
+                             class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110"
+                             loading="lazy">
+                        <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4 opacity-0 group-hover:opacity-100 transition-opacity">
+                            <p class="text-primary text-sm">Welcome Ceremony - Moment {{ loop.index }}</p>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <!-- Combined Events Section -->
+            <div class="mb-12 bg-black bg-opacity-30 rounded-xl p-6 border border-primary/10">
+                <h2 class="text-3xl text-primary text-center mb-6 font-[Audiowide] tracking-wide transform hover:scale-105 transition-transform duration-300">
+                    Festival Events Showcase
+                </h2>
+                
+                <!-- Events Description -->
+                <div class="mb-8 text-gray-300">
+                    <p class="text-lg leading-relaxed mb-4">
+                        A spectacular fusion of technical brilliance, cultural excellence, and management acumen came together in our grand festival. From coding competitions to dance performances, and from robotics to business challenges, the events showcased diverse talents across multiple domains.
+                    </p>
+                </div>
+
+                <!-- Technical Events Subsection -->
+                <div class="mb-8">
+                    <h3 class="text-2xl text-primary mb-4 font-[Rajdhani] pl-4 border-l-4 border-secondary">Technical Events</h3>
+                    <p class="text-gray-300 mb-4 text-lg leading-relaxed">
+                        Showcasing innovation through hackathons, coding competitions, robotics challenges, and technical workshops that pushed the boundaries of technological creativity.
+                    </p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+                        {% for i in range(6) %}
+                        <div class="gallery-item group relative overflow-hidden rounded-xl border-2 border-secondary hover:border-primary/50 transition-all duration-300 hover:-translate-y-2 hover:shadow-lg hover:shadow-primary/20">
+                            <img src="{{ url_for('static', filename='gallery/tc' + loop.index|string + '.webp') }}"
+                                 alt="Technical Event {{ loop.index }}"
+                                 class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110"
+                                 loading="lazy">
+                            <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4 opacity-0 group-hover:opacity-100 transition-opacity">
+                                <p class="text-primary text-sm">Technical Events - Moment {{ loop.index }}</p>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <!-- Cultural Events Subsection -->
+                <div class="mb-8">
+                    <h3 class="text-2xl text-primary mb-4 font-[Rajdhani] pl-4 border-l-4 border-secondary">Cultural Events</h3>
+                    <p class="text-gray-300 mb-4 text-lg leading-relaxed">
+                        Celebrating artistic expression through dance, music, drama, and fashion shows that brought color and creativity to the festival atmosphere.
+                    </p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+                        {% for i in range(6) %}
+                        <div class="gallery-item group relative overflow-hidden rounded-xl border-2 border-secondary hover:border-primary/50 transition-all duration-300 hover:-translate-y-2 hover:shadow-lg hover:shadow-primary/20">
+                            <img src="{{ url_for('static', filename='gallery/cl' + loop.index|string + '.webp') }}"
+                                 alt="Cultural Event {{ loop.index }}"
+                                 class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110"
+                                 loading="lazy">
+                            <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4 opacity-0 group-hover:opacity-100 transition-opacity">
+                                <p class="text-primary text-sm">Cultural Events - Moment {{ loop.index }}</p>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <!-- Management Events Subsection -->
+                <div class="mb-8">
+                    <h3 class="text-2xl text-primary mb-4 font-[Rajdhani] pl-4 border-l-4 border-secondary">Management Events</h3>
+                    <p class="text-gray-300 mb-4 text-lg leading-relaxed">
+                        Testing strategic thinking and leadership through business simulations, case studies, and entrepreneurship competitions.
+                    </p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        {% for i in range(6) %}
+                        <div class="gallery-item group relative overflow-hidden rounded-xl border-2 border-secondary hover:border-primary/50 transition-all duration-300 hover:-translate-y-2 hover:shadow-lg hover:shadow-primary/20">
+                            <img src="{{ url_for('static', filename='gallery/mn' + loop.index|string + '.webp') }}"
+                                 alt="Management Event {{ loop.index }}"
+                                 class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110"
+                                 loading="lazy">
+                            <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4 opacity-0 group-hover:opacity-100 transition-opacity">
+                                <p class="text-primary text-sm">Management Events - Moment {{ loop.index }}</p>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+
+            <!-- Celebrity Night - Day 1 Section -->
+            <div class="mb-12 bg-black bg-opacity-30 rounded-xl p-6 border border-primary/10">
+                <h2 class="text-3xl text-primary text-center mb-6 font-[Syncopate] tracking-wide transform hover:scale-105 transition-transform duration-300">
+                    Celebrity Night - Day 1
+                </h2>
+                <div class="mb-8 text-gray-300">
+                    <p class="text-lg leading-relaxed mb-4">
+                        A thrilling evening with a popular celebrity guest, featuring live music, dance performances, and entertainment that kept the crowd energized and excited.
+                    </p>
+                    <p class="text-lg leading-relaxed mb-4">
+                        The electric atmosphere filled with pulsating beats, dazzling lights, and enthusiastic cheers created an unforgettable night of celebration and entertainment.
+                    </p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Gallery Items -->
+                    {% for i in range(6) %}
+                    <div class="gallery-item group relative overflow-hidden rounded-xl border-2 border-secondary hover:border-primary/50 transition-all duration-300 hover:-translate-y-2 hover:shadow-lg hover:shadow-primary/20">
+                        <img src="{{ url_for('static', filename='gallery/nt1' + loop.index|string + '.webp') }}"
+                             alt="Celebrity Night - Day 1 Image {{ loop.index }}"
+                             class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110"
+                             loading="lazy">
+                        <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4 opacity-0 group-hover:opacity-100 transition-opacity">
+                            <p class="text-primary text-sm">Celebrity Night - Day 1 - Moment {{ loop.index }}</p>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <!-- Awards Ceremony Section -->
+            <div class="mb-12 bg-black bg-opacity-30 rounded-xl p-6 border border-primary/10">
+                <h2 class="text-3xl text-primary text-center mb-6 font-[Syncopate] tracking-wide transform hover:scale-105 transition-transform duration-300">
+                    Awards Ceremony
+                </h2>
+                <div class="mb-8 text-gray-300">
+                    <p class="text-lg leading-relaxed mb-4">
+                        A prestigious event honoring the winners of various competitions, recognizing their talent, hard work, and innovation with trophies, certificates, and accolades.
+                    </p>
+                    <p class="text-lg leading-relaxed mb-4">
+                        The ceremony celebrated excellence across technical, cultural, and management domains, inspiring future participants and creating moments of pride for winners and their institutions alike.
+                    </p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Gallery Items -->
+                    {% for i in range(6) %}
+                    <div class="gallery-item group relative overflow-hidden rounded-xl border-2 border-secondary hover:border-primary/50 transition-all duration-300 hover:-translate-y-2 hover:shadow-lg hover:shadow-primary/20">
+                        <img src="{{ url_for('static', filename='gallery/aw' + loop.index|string + '.webp') }}"
+                             alt="Awards Ceremony Image {{ loop.index }}"
+                             class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110"
+                             loading="lazy">
+                        <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4 opacity-0 group-hover:opacity-100 transition-opacity">
+                            <p class="text-primary text-sm">Awards Ceremony - Moment {{ loop.index }}</p>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <!-- Celebrity Night - Day 2 Section -->
+            <div class="mb-12 bg-black bg-opacity-30 rounded-xl p-6 border border-primary/10">
+                <h2 class="text-3xl text-primary text-center mb-6 font-[Syncopate] tracking-wide transform hover:scale-105 transition-transform duration-300">
+                    Celebrity Night - Day 2
+                </h2>
+                <div class="mb-8 text-gray-300">
+                    <p class="text-lg leading-relaxed mb-4">
+                        Another star-studded night with a different celebrity or artist, bringing an electrifying close to the fest with mesmerizing performances, music, and celebrations.
+                    </p>
+                    <p class="text-lg leading-relaxed mb-4">
+                        The grand finale featured spectacular live performances, creating an atmosphere of pure joy and excitement as the festival drew to a memorable close.
+                    </p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Gallery Items -->
+                    {% for i in range(6) %}
+                    <div class="gallery-item group relative overflow-hidden rounded-xl border-2 border-secondary hover:border-primary/50 transition-all duration-300 hover:-translate-y-2 hover:shadow-lg hover:shadow-primary/20">
+                        <img src="{{ url_for('static', filename='gallery/nt2' + loop.index|string + '.webp') }}"
+                             alt="Celebrity Night - Day 2 Image {{ loop.index }}"
+                             class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110"
+                             loading="lazy">
+                        <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4 opacity-0 group-hover:opacity-100 transition-opacity">
+                            <p class="text-primary text-sm">Celebrity Night - Day 2 - Moment {{ loop.index }}</p>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
     </div>
-
-    <section class="gallery">
-        <h1>Gallery</h1>
-        <p>Snapshots of Unforgettable Memories from Yukti Fest 2024!</p>
-
-        <!-- 1. Flash Mob Section -->
-        <div class="event-section">
-            <h2>Flash Mob</h2>
-            <div class="event-description">
-                <p>A flash mob is an electrifying and unexpected performance that captivates the audience with its spontaneous and synchronized dance moves. At our college tech fest, the flash mob was one of the most exhilarating moments that kicked off the excitement. A group of enthusiastic students took center stage in the most unexpected locations, like the campus cafeteria, library courtyard, and even in the middle of a busy hallway.</p>
-                
-                <p>The flash mob served as a promotional event for the tech fest, garnering attention from students and faculty alike. It was meticulously choreographed with vibrant music and energetic dance routines, engaging a diverse group of participants. As the music played, the dancers emerged from different directions, surprising everyone with their coordinated moves. The crowd was mesmerized, and many joined in, making it a truly interactive experience.</p>
-            </div>
-            <div class="gallery-grid">
-                <div class="gallery-item">
-                    <img src="{{ url_for('static', filename='gallery/fl1.webp') }}" alt="Flash Mob Performance" loading="lazy">
-                </div>
-                <div class="gallery-item">
-                    <img src="{{ url_for('static', filename='gallery/fl.webp') }}"alt="Dance Moves" loading="lazy">
-                </div>
-                <div class="gallery-item">
-                    <img src="{{ url_for('static', filename='gallery/fl44.webp') }}"alt="Crowd Interaction" loading="lazy">
-                </div>
-                <div class="gallery-item">
-                    <img src="{{ url_for('static', filename='gallery/cl.webp') }}" alt="Group Performance" loading="lazy">
-                </div>
-                <div class="gallery-item">
-                    <img src="{{ url_for('static', filename='gallery/fl3.webp') }}" alt="Final Formation" loading="lazy">
-                </div>
-            </div>
-        </div>
-
-        <!-- 2. Guest Invitation Section -->
-        <div class="event-section">
-            <h2>Welcome Ceremony</h2>
-            <div class="event-description">
-                <p>The grand welcome of our esteemed guests was one of the most awaited highlights of our tech fest. Unlike traditional welcomes, we planned something extraordinary—an electrifying drum set performance that left everyone spellbound. As our chief guests arrived, the rhythmic beats of the drums filled the air, creating an ambiance of excitement and anticipation.</p>
-                
-                <p>A team of talented drummers from our college took the stage, performing a fusion of traditional and modern beats. The synchronization of the drumsticks hitting the drums created a powerful symphony that resonated across the campus. The pulsating beats not only set the mood for the festival but also gave our guests an unforgettable welcome.</p>
-            </div>
-            <div class="gallery-grid">
-                <div class="gallery-item">
-                    <img src="{{ url_for('static', filename='gallery/wel1.webp') }}" alt="Drum Performance" loading="lazy">
-                </div>
-                <div class="gallery-item">
-                    <img src="{{ url_for('static', filename='gallery/wel2.webp') }}" alt="Guest Arrival" loading="lazy">
-                </div>
-                <div class="gallery-item">
-                    <img src="{{ url_for('static', filename='gallery/wel3.webp') }}" alt="Traditional Welcome" loading="lazy">
-                </div>
-                <div class="gallery-item">
-                    <img src="{{ url_for('static', filename='gallery/wel4.webp') }}" alt="Welcome Ceremony" loading="lazy">
-                </div>
-                <div class="gallery-item">
-                    <img src="{{ url_for('static', filename='gallery/wel5.webp') }}"alt="Guest Honor" loading="lazy">
-                </div>
-            </div>
-        </div>
-
-        <!-- 3. Events Section -->
-        <div class="event-section">
-            <h2>Technical, Cultural, Management Events & Games</h2>
-            <div class="event-description">
-                <p>Our tech fest was an amalgamation of various domains, bringing together technology enthusiasts, cultural performers, management experts, and gaming fanatics under one roof. The fest was strategically divided into different categories to cater to a wide range of interests.</p>
-                
-                <!-- Technical Events -->
-                <h3>Technical Events</h3>
-                <p>Workshops, hackathons, coding competitions, and robotics challenges were the highlights of the technical segment. Budding engineers and tech geeks engaged in brainstorming sessions, innovative projects, and real-time problem-solving. The participants showcased their programming skills, AI knowledge, and automation expertise, making the competition intense and intellectually stimulating.</p>
-                <div class="gallery-grid">
-                    <div class="gallery-item">
-                        <img src="{{ url_for('static', filename='gallery/tc1.webp') }}" alt="Hackathon in Progress" loading="lazy">
-                    </div>
-                    <div class="gallery-item">
-                        <img src="{{ url_for('static', filename='gallery/tc2.webp') }}" alt="Robotics Challenge" loading="lazy">
-                    </div>
-                    <div class="gallery-item">
-                        <img src="{{ url_for('static', filename='gallery/tc6.webp') }}" alt="Coding Competition" loading="lazy">
-                    </div>
-                    <div class="gallery-item">
-                        <img src="{{ url_for('static', filename='gallery/mn6.webp') }}" alt="Technical Workshop" loading="lazy">
-                    </div>
-                </div>
-
-                <!-- Cultural Events -->
-                <h3>Cultural Events</h3>
-                <p>The cultural section was a feast for the senses, featuring dance competitions, music battles, drama performances, and fashion shows. Talented students from various departments showcased their artistic skills, leaving the audience mesmerized with their creativity and expressions.</p>
-                <div class="gallery-grid">
-                    <div class="gallery-item">
-                        <img src="{{ url_for('static', filename='gallery/cl.webp') }}" alt="Dance Performance" loading="lazy">
-                    </div>
-                    <div class="gallery-item">
-                        <img src="{{ url_for('static', filename='gallery/cl3.webp') }}" alt="Music Battle" loading="lazy">
-                    </div>
-                    <div class="gallery-item">
-                        <img src="{{ url_for('static', filename='gallery/cl4.webp') }}" alt="Drama Performance" loading="lazy">
-                    </div>
-                    <div class="gallery-item">
-                        <img src="{{ url_for('static', filename='gallery/cl5.webp') }}" alt="Fashion Show" loading="lazy">
-                    </div>
-                </div>
-
-                <!-- Management Events -->
-                <h3>Management Events</h3>
-                <p>For business-minded individuals, the management events offered a platform to demonstrate leadership and strategic thinking. Events like business plan presentations, stock market simulations, and corporate quizzes tested the analytical and decision-making skills of participants.</p>
-                <div class="gallery-grid">
-                    <div class="gallery-item">
-                        <img src="{{ url_for('static', filename='gallery/mn1.webp') }}" alt="Business Plan Presentation" loading="lazy">
-                    </div>
-                    <div class="gallery-item">
-                        <img src="{{ url_for('static', filename='gallery/mn2.webp') }}" alt="Stock Market Simulation" loading="lazy">
-                    </div>
-                    <div class="gallery-item">
-                        <img src="{{ url_for('static', filename='gallery/mn5.webp') }}" alt="Corporate Quiz" loading="lazy">
-                    </div>
-                </div>
-
-                <!-- Games -->
-                <h3>Games</h3>
-                <p>Fun-filled games like treasure hunts, esports tournaments, and outdoor sports kept the participants engaged and entertained throughout the fest. The friendly yet competitive spirit made these games highly enjoyable for both players and spectators.</p>
-                <div class="gallery-grid">
-                    <div class="gallery-item">
-                        <img src="{{ url_for('static', filename='gallery/tc6.webp') }}" alt="Esports Tournament" loading="lazy">
-                    </div>
-                    <div class="gallery-item">
-                        <img src="{{ url_for('static', filename='gallery/mn1.webp') }}" alt="Treasure Hunt" loading="lazy">
-                    </div>
-                    <div class="gallery-item">
-                        <img src="{{ url_for('static', filename='gallery/mn6.webp') }}" alt="Outdoor Sports" loading="lazy">
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- 4. Celebrity Night - Day 1 -->
-        <div class="event-section">
-            <h2>Celebrity Night - Day 1</h2>
-            <div class="event-description">
-                <p>The excitement of the first day didn't end with the technical and cultural events; instead, it reached its peak with the star-studded night performances. Celebrities from the entertainment industry graced our stage, bringing a wave of joy and enthusiasm among students.</p>
-                
-                <p>Renowned dancers dazzled the stage with their breathtaking moves, singers mesmerized the audience with their soulful melodies, and comedians had everyone in splits with their witty humor. The entire campus was transformed into a concert-like arena, with flashing lights, energetic music, and a crowd dancing to the beats.</p>
-                
-                <p>The celebrity performances were a perfect way to end the first day on a high note, ensuring that the energy and excitement carried over to the second day. It was a night to remember, filled with laughter, music, and unforgettable moments.</p>
-            </div>
-            <div class="gallery-grid">
-                <div class="gallery-item">
-                    <img src="{{ url_for('static', filename='gallery/nt11.webp') }}"alt="Grand Stage Opening" loading="lazy">
-                </div>
-                <div class="gallery-item">
-                    <img src="{{ url_for('static', filename='gallery/nt12.webp') }}" alt="Celebrity Dance Performance" loading="lazy">
-                </div>
-                <div class="gallery-item">
-                    <img src="{{ url_for('static', filename='gallery/nt13.webp') }}" alt="Live Singing Performance" loading="lazy">
-                </div>
-                <div class="gallery-item">
-                    <img src="{{ url_for('static', filename='gallery/nt15.webp') }}" alt="Stand-up Comedy" loading="lazy">
-                </div>
-                <div class="gallery-item">
-                    <img src="{{ url_for('static', filename='gallery/nt16.webp') }}" alt="Celebrity Crowd Interaction" loading="lazy">
-                </div>
-                <div class="gallery-item">
-                    <img src="{{ url_for('static', filename='gallery/nt17.webp') }}" alt="Stage Light Show" loading="lazy">
-                </div>
-                <div class="gallery-item">
-                    <img src="{{ url_for('static', filename='gallery/nt18.webp') }}" alt="Cheering Audience" loading="lazy">
-                </div>
-                <div class="gallery-item">
-                    <img src="{{ url_for('static', filename='gallery/nt19.webp') }}" alt="Celebrity Group Finale" loading="lazy">
-                </div>
-            </div>
-        </div>
-
-        <!-- 5. Day 2 Events -->
-        <div class="event-section">
-            <h2>Day 2 Events</h2>
-            <div class="event-description">
-                <p>The second day of the tech fest continued with the remaining events from the first day. Participants who couldn't complete their challenges had the opportunity to showcase their talents and skills.</p>
-            </div>
-            <div class="gallery-grid">
-                <div class="gallery-item">
-                    <img src="{{ url_for('static', filename='gallery/fl44.webp') }}" alt="Technical Event Finals" loading="lazy">
-                </div>
-                <div class="gallery-item">
-                    <img src="{{ url_for('static', filename='gallery/cl.webp') }}" alt="Cultural Performance" loading="lazy">
-                </div>
-                <div class="gallery-item">
-                    <img src="{{ url_for('static', filename='gallery/nt222.webp') }}" alt="Project Demonstrations" loading="lazy">
-                </div>
-                <div class="gallery-item">
-                    <img src="{{ url_for('static', filename='gallery/nt21.webp') }}" alt="Management Event Final Round" loading="lazy">
-                </div>
-                <div class="gallery-item">
-                    <img src="{{ url_for('static', filename='gallery/nt25.webp') }}" alt="Gaming Tournament Finals" loading="lazy">
-                </div>
-                <div class="gallery-item">
-                    <img src="{{ url_for('static', filename='gallery/nt15.webp') }}" alt="Final Presentations" loading="lazy">
-                </div>
-            </div>
-        </div>
-
-        <!-- 6. Awards Ceremony -->
-        <div class="event-section">
-            <h2>Awards Ceremony</h2>
-            <div class="event-description">
-                <p>As the day progressed, anticipation grew for the much-awaited award distribution ceremony. The winners of various competitions were honored with prizes, certificates, and trophies. This moment was a true celebration of talent, hard work, and determination. The winners were cheered on by their peers, making it a moment of immense pride and joy.</p>
-                
-                <p>The awards were distributed by our esteemed guests, faculty members, and event sponsors, who congratulated the winners for their outstanding performances. It was a moment of recognition for all those who had put in their best efforts throughout the fest.</p>
-            </div>
-            <div class="gallery-grid">
-                <div class="gallery-item">
-                    <img src="{{ url_for('static', filename='gallery/w11.webp') }}" alt="Awards Ceremony Opening" loading="lazy">
-                </div>
-                <div class="gallery-item">
-                    <img src="{{ url_for('static', filename='gallery/w22.webp') }}" alt="Technical Events Awards" loading="lazy">
-                </div>
-                <div class="gallery-item">
-                    <img src="{{ url_for('static', filename='gallery/w33.webp') }}" alt="Cultural Events Awards" loading="lazy">
-                </div>
-                <div class="gallery-item">
-                    <img src="{{ url_for('static', filename='gallery/w44.webp') }}" alt="Management Events Awards" loading="lazy">
-                </div>
-                <div class="gallery-item">
-                    <img src="{{ url_for('static', filename='gallery/w55.webp') }}" alt="Special Recognition Awards" loading="lazy">
-                </div>
-                <div class="gallery-item">
-                    <img src="{{ url_for('static', filename='gallery/ww1.webp') }}" alt="Winners Group Photo" loading="lazy">
-                </div>
-                <div class="gallery-item">
-                    <img src="{{ url_for('static', filename='gallery/ww2.webp') }}" alt="Award Celebration Moment" loading="lazy">
-                </div>
-                <div class="gallery-item">
-                    <img src="{{ url_for('static', filename='gallery/ww3.webp') }}" alt="Certificate Distribution" loading="lazy">
-                </div>
-            </div>
-        </div>
-
-        <!-- 7. Celebrity Night - Day 2 -->
-        <div class="event-section">
-            <h2>Celebrity Night - Day 2</h2>
-            <div class="event-description">
-                <p>As the sun set on the final day of the tech fest, the excitement reached its climax with another round of celebrity performances. Just like the first day, the second night was filled with mesmerizing acts, bringing the fest to a grand conclusion.</p>
-                
-                <p>This time, the performances included live bands, stand-up comedians, and a spectacular fireworks display that lit up the night sky. The audience cheered, sang along, and danced their hearts out, making it an unforgettable experience.</p>
-                
-                <p>The tech fest concluded with a heartfelt vote of thanks, acknowledging the efforts of organizers, volunteers, and participants. The two-day extravaganza left a lasting impact, creating memories that would be cherished for years to come.</p>
-            </div>
-            <div class="gallery-grid">
-                <div class="gallery-item">
-                    <img src="{{ url_for('static', filename='gallery/nt21.webp') }}"  alt="Live Band Performance" loading="lazy">
-                </div>
-                <div class="gallery-item">
-                    <img src="{{ url_for('static', filename='gallery/nt22.webp') }}" alt="Stand-up Comedy Show" loading="lazy">
-                </div>
-                <div class="gallery-item">
-                    <img src="{{ url_for('static', filename='gallery/nt23.webp') }}" alt="Fireworks Display" loading="lazy">
-                </div>
-                <div class="gallery-item">
-                    <img src="{{ url_for('static', filename='gallery/nt24.webp') }}" alt="Crowd Dancing" loading="lazy">
-                </div>
-                <div class="gallery-item">
-                    <img src="{{ url_for('static', filename='gallery/nt25.webp') }}" alt="Stage Performance" loading="lazy">
-                </div>
-                <div class="gallery-item">
-                    <img src="{{ url_for('static', filename='gallery/nt26.webp') }}" alt="Closing Ceremony" loading="lazy">
-                </div>
-                <div class="gallery-item">
-                    <img src="{{ url_for('static', filename='gallery/nt27.webp') }}" alt="Vote of Thanks" loading="lazy">
-                </div>
-                <div class="gallery-item">
-                    <img src="{{ url_for('static', filename='gallery/nt28.webp') }}"alt="Final Moments" loading="lazy">
-                </div>
-            </div>
-        </div>
-    </section>
 </div>
 
 <script>
-    // Add this script at the end of your content block
     const popup = document.getElementById('imagePopup');
     const popupImage = document.getElementById('popupImage');
 
-    // Add click event listeners to all gallery items
     document.querySelectorAll('.gallery-item img').forEach(image => {
         image.addEventListener('click', function() {
             popupImage.src = this.src;
             popupImage.alt = this.alt;
-            popup.classList.add('active');
-            document.body.style.overflow = 'hidden'; // Prevent scrolling when popup is open
+            popup.classList.remove('hidden');
+            popup.classList.add('flex');
+            document.body.style.overflow = 'hidden';
         });
     });
 
-    // Function to close popup
     function closePopup() {
-        popup.classList.remove('active');
-        document.body.style.overflow = ''; // Restore scrolling
+        popup.classList.add('hidden');
+        popup.classList.remove('flex');
+        document.body.style.overflow = '';
     }
 
-    // Close popup when clicking outside the image
     popup.addEventListener('click', function(e) {
         if (e.target === popup) {
             closePopup();
         }
     });
 
-    // Close popup with Escape key
     document.addEventListener('keydown', function(e) {
         if (e.key === 'Escape') {
             closePopup();
