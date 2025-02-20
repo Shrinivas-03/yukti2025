@@ -4,1202 +4,227 @@
 
 {% block content %}
 <!-- Hero Section -->
-<section class="hero carnival-hero">
-    <!-- Add video background -->
-    <video class="hero-video" autoplay muted loop playsinline
+<section class="relative min-h-screen overflow-hidden">
+    <!-- Video Background -->
+    <video class="absolute top-0 left-0 w-full h-full object-cover z-0" autoplay muted loop playsinline
         poster="{{ url_for('static', filename='assets/poster.jpg') }}" preload="metadata">
         <source src="{{ url_for('static', filename='assets/bg-video.mp4') }}" type="video/mp4">
     </video>
-    <div class="video-overlay"></div>
+    <div class="absolute inset-0 bg-black/60 z-10"></div>
 
-    <div class="grid-background"></div>
-    <div class="hero-content">
-        <div class="college-section">
-            <h1 style="font-size: 3rem; color: #ff6600; margin: 0.5rem;">VTU KALABURAGI</h1>
-            <h1>Presents</h1>
+    <!-- Grid Background -->
+    <div class="absolute inset-0 bg-[linear-gradient(#FFD700_1px,transparent_1px),linear-gradient(90deg,#FFD700_1px,transparent_1px)] bg-[size:50px_50px] opacity-10 transform perspective-[500px] rotate-x-60 animate-gridMove pointer-events-none z-20"></div>
+
+    <!-- Hero Content -->
+    <div class="relative flex flex-col items-center justify-center min-h-screen text-center px-4 z-30 -mt-12 w-full max-w-7xl mx-auto">
+        <div class="mb-8">
+            <h1 class="text-[2rem] md:text-[2.5rem] lg:text-[3rem] text-[#ff6600] my-2">VTU KALABURAGI</h1>
+            <h1 class="text-white text-xl md:text-2xl lg:text-3xl">Presents</h1>
         </div>
-        <div class="hero-section">
-            <div class="hero-content">
-                <h1 class="main-title">Yu<span>k</span>ti 2<span>0</span>25</h1>
-                <p class="subtitle">Beyond Imagination</p>
-            </div>
+
+        <div class="hero-content w-full">
+            <h1 class="text-[4rem] sm:text-[5rem] md:text-[6rem] lg:text-[7.5rem] font-bold text-[#FFD700] mb-4 opacity-0 transform translate-y-8 animate-[fadeIn_0.8s_ease_forwards] leading-tight">
+                Yu<span class="inline-block text-[#ff571b] animate-[pulse_2s_ease-in-out_infinite]">k</span>ti 
+                2<span class="inline-block text-[#ff571b] animate-[pulse_2s_ease-in-out_infinite]">0</span>25
+            </h1>
+            <p class="text-xl sm:text-2xl md:text-3xl lg:text-[3rem] text-[#C0C0C0] opacity-0 transform translate-y-5 animate-[fadeIn_0.8s_ease_forwards_0.3s]">
+                Beyond Imagination
+            </p>
         </div>
 
         <!-- Countdown Timer -->
-        <div id="countdown" class="countdown-container carnival-countdown">
-            <div class="countdown-box">
-                <span class="countdown-label">Days</span>
-                <span id="days" class="countdown-value">00</span>
+        <div class="flex flex-wrap justify-center gap-3 sm:gap-4 lg:gap-5 my-8 md:my-12 w-full px-4">
+            <div class="min-w-[90px] sm:min-w-[100px] md:min-w-[120px] p-3 md:p-4 bg-black/30 backdrop-blur rounded-lg border border-[#FFD700]">
+                <span class="block text-sm text-[#FFD700] mb-2">Days</span>
+                <span id="days" class="block text-3xl text-white">00</span>
             </div>
-            <div class="countdown-box">
-                <span class="countdown-label">Hours</span>
-                <span id="hours" class="countdown-value">00</span>
+            <div class="min-w-[90px] sm:min-w-[100px] md:min-w-[120px] p-3 md:p-4 bg-black/30 backdrop-blur rounded-lg border border-[#FFD700]">
+                <span class="block text-sm text-[#FFD700] mb-2">Hours</span>
+                <span id="hours" class="block text-3xl text-white">00</span>
             </div>
-            <div class="countdown-box">
-                <span class="countdown-label">Minutes</span>
-                <span id="minutes" class="countdown-value">00</span>
+            <div class="min-w-[90px] sm:min-w-[100px] md:min-w-[120px] p-3 md:p-4 bg-black/30 backdrop-blur rounded-lg border border-[#FFD700]">
+                <span class="block text-sm text-[#FFD700] mb-2">Minutes</span>
+                <span id="minutes" class="block text-3xl text-white">00</span>
             </div>
-            <div class="countdown-box">
-                <span class="countdown-label">Seconds</span>
-                <span id="seconds" class="countdown-value">00</span>
+            <div class="min-w-[90px] sm:min-w-[100px] md:min-w-[120px] p-3 md:p-4 bg-black/30 backdrop-blur rounded-lg border border-[#FFD700]">
+                <span class="block text-sm text-[#FFD700] mb-2">Seconds</span>
+                <span id="seconds" class="block text-3xl text-white">00</span>
             </div>
         </div>
 
-        <div class="cta">
-            <a class="cta-button carnival-button" href="{{ url_for('signin') }}">Register Now</a>
+        <div class="mt-4 sm:mt-6 md:mt-8">
+            <a href="{{ url_for('signin') }}" 
+               class="inline-block bg-[#8B0000] text-white border-2 border-[#FFD700] px-4 sm:px-6 py-2 sm:py-3 rounded-md font-bold uppercase 
+                      hover:bg-[#FFD700] hover:text-[#1C1C1C] transition-all duration-300 text-sm sm:text-base">
+                Register Now
+            </a>
         </div>
     </div>
 </section>
+<div class="h-0.5 bg-[#CD7F32] "></div>
 
 <!-- About Festival Section -->
-<section class="about-festival carnival-about">
-    <div class="about-container">
-        <h2 class="section-title">About the Festival</h2>
-        <div class="about-card">
+<section class="py-12 md:py-16 lg:py-20 bg-gradient-to-br from-[#1C1C1C] to-[#2E2E2E] relative overflow-hidden">
+    <div class="relative z-10 max-w-4xl mx-auto px-4 sm:px-6">
+        <h2 class="text-4xl text-[#FFD700] text-center mb-12 font-bold uppercase font-[Oswald]">About the Festival</h2>
+        <div class="bg-[rgba(46,46,46,0.7)] backdrop-blur-md rounded-xl p-8 border-2 border-[#ff6600] shadow-xl 
+                    transform transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_15px_30px_rgba(3,233,244,0.4)] 
+                    hover:border-[#03e9f4]">
             <p>
-                <span class="highlight">YUKTI</span>, the visionary initiative of Vice-Chancellor Prof. Vidyashankar S.,
+                <span class="text-[#FFD700]">YUKTI</span>, the visionary initiative of Vice-Chancellor Prof. Vidyashankar S.,
                 is a National-Level Techno-Cultural Fest that celebrates innovation, creativity, and cultural
                 excellence. Organized by Visvesvaraya Technological University (VTU) and hosted every year by its
                 regional centers, Yukti has become a vibrant platform for students to showcase their talents, explore
                 cutting-edge ideas, and embrace artistic expression.
             </p>
             <p>
-                <span class="highlight">VTU Kalaburagi</span>, This year will be hosting Yukti 2025, and the excitement
-                is bigger than ever! With the theme <span class="theme-highlight">Beyond Imagination</span>, Yukti 2025
+                <span class="text-[#FFD700]">VTU Kalaburagi</span>, This year will be hosting Yukti 2025, and the excitement
+                is bigger than ever! With the theme <span class="text-[#FFD700]">Beyond Imagination</span>, Yukti 2025
                 is set to take place on March 10th and 11th, 2025, inviting participants to step into a future shaped by
                 bold innovation, unbridled creativity, and endless possibilities.
             </p>
             <p>
-                Step into <span class="theme-highlight">Beyond Imagination</span> — where the synergy of technology and
+                Step into <span class="text-[#FFD700]">Beyond Imagination</span> — where the synergy of technology and
                 tradition takes center stage, and your ideas soar to new heights. Yukti 2025 is the place to push
                 boundaries, embrace creativity, and shape the future.
             </p>
         </div>
-        <a href="{{ url_for('about') }}" class="animated-button carnival-button">LEARN MORE →</a>
+        <div class="text-center mt-8">
+            <a href="{{ url_for('about') }}" 
+               class="inline-block bg-[#03e9f4] text-[#1C1C1C] px-6 py-3 rounded-md font-bold uppercase 
+                      transition-all duration-300 hover:bg-transparent hover:text-[#03e9f4] hover:border-2 hover:border-[#03e9f4]">
+                LEARN MORE →
+            </a>
+        </div>
     </div>
 </section>
-<div class="section-divider carnival-divider"></div>
+<div class="h-0.5 bg-[#CD7F32] "></div>
 
 <!-- Artist Announcement -->
-<div class="artist-announcement carnival-artist">
-    <h2 class="section-title">Artist Announcement</h2>
-    <div class="artist-card carnival-card">
-        <div class="card-content">
-            <h3 class="artist-name">Coming Soon</h3>
-            <p class="announcement-text">
+<div class="py-12 bg-gradient-to-br from-[#1C1C1C] to-[#2E2E2E] relative overflow-hidden">
+    <h2 class="text-4xl text-[#FFD700] text-center mb-12 font-bold uppercase font-[Oswald]">Artist Announcement</h2>
+    <div class="bg-[rgba(46,46,46,0.8)] backdrop-blur-md rounded-xl p-8 border-2 border-[#ff6600] shadow-xl 
+                transform transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_15px_30px_rgba(3,233,244,0.4)] 
+                hover:border-[#03e9f4] max-w-4xl mx-auto">
+        <div class="text-center">
+            <h3 class="text-2xl text-[#FFD700] mb-4">Coming Soon</h3>
+            <p class="text-[#C0C0C0] mb-8">
                 Get ready to witness an amazing performance! The artist reveal is just around the corner. Stay tuned for
                 more details!
             </p>
             <a href="https://www.instagram.com/vtu_cpgs_kalaburagi?igsh=MXJkNnVsMzJqaDkxcw%3D%3D&utm_source=qr"
-                target="_blank" class="btn notify-btn carnival-button">Stay Notified →</a>
+                target="_blank" class="inline-block bg-[#03e9f4] text-[#1C1C1C] px-6 py-3 rounded-md font-bold uppercase 
+                      transition-all duration-300 hover:bg-transparent hover:text-[#03e9f4] hover:border-2 hover:border-[#03e9f4]">
+                Stay Notified →
+            </a>
         </div>
     </div>
 </div>
-<div class="section-divider carnival-divider"></div>
+<div class="h-0.5 bg-[#CD7F32] "></div>
 
 <!-- Events Section -->
-<section class="events carnival-events">
-    <div class="events-container">
-        <h2 class="section-title">Event Highlights</h2>
-        <div class="event-cards">
-            <div class="event-card">
-                <h3 class="event-title">Manthana Events(Tech)</h3>
+<section class="py-12 md:py-16 lg:py-20 bg-[#1C1C1C] text-[#ff6600] text-center">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+        <h2 class="text-3xl sm:text-4xl text-[#FFD700] text-center mb-8 md:mb-12 font-bold uppercase font-[Oswald]">Event Highlights</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
+            <div class="bg-[#2E2E2E] border-2 border-[#ff6600] text-[#C0C0C0] rounded-lg p-6 transition-transform duration-300 hover:scale-105 hover:border-[#03e9f4]">
+                <h3 class="text-2xl text-[#ff6600] mb-4">Manthana Events(Tech)</h3>
                 <p>Experience groundbreaking technology from the brightest minds. From AI to robotics, this event is
                     where innovation meets reality.</p>
-                <a href="{{ url_for('tech') }}" class="event-button carnival-button">Explore →</a>
+                <a href="{{ url_for('tech') }}" class="inline-block bg-[#03e9f4] text-[#1C1C1C] px-6 py-3 rounded-md font-bold uppercase 
+                      transition-all duration-300 hover:bg-transparent hover:text-[#03e9f4] hover:border-2 hover:border-[#03e9f4] mt-4">
+                    Explore →
+                </a>
             </div>
-            <div class="event-card">
-                <h3 class="event-title">Manoranjana Events(Cultural)</h3>
+            <div class="bg-[#2E2E2E] border-2 border-[#ff6600] text-[#C0C0C0] rounded-lg p-6 transition-transform duration-300 hover:scale-105 hover:border-[#03e9f4]">
+                <h3 class="text-2xl text-[#ff6600] mb-4">Manoranjana Events(Cultural)</h3>
                 <p>Dive into a celebration of dance, music, and art that transcends boundaries. A night of unforgettable
                     performances awaits!</p>
-                <a href="{{ url_for('cultural') }}" class="event-button carnival-button">Explore →</a>
+                <a href="{{ url_for('cultural') }}" class="inline-block bg-[#03e9f4] text-[#1C1C1C] px-6 py-3 rounded-md font-bold uppercase 
+                      transition-all duration-300 hover:bg-transparent hover:text-[#03e9f4] hover:border-2 hover:border-[#03e9f4] mt-4">
+                    Explore →
+                </a>
             </div>
-            <div class="event-card">
-                <h3 class="event-title">Chinthana Events(Management)</h3>
+            <div class="bg-[#2E2E2E] border-2 border-[#ff6600] text-[#C0C0C0] rounded-lg p-6 transition-transform duration-300 hover:scale-105 hover:border-[#03e9f4]">
+                <h3 class="text-2xl text-[#ff6600] mb-4">Chinthana Events(Management)</h3>
                 <p>Pitch your ideas and connect with mentors and investors. Where big dreams are born and realized!</p>
-                <a href="{{ url_for('management') }}" class="event-button carnival-button">Explore →</a>
+                <a href="{{ url_for('management') }}" class="inline-block bg-[#03e9f4] text-[#1C1C1C] px-6 py-3 rounded-md font-bold uppercase 
+                      transition-all duration-300 hover:bg-transparent hover:text-[#03e9f4] hover:border-2 hover:border-[#03e9f4] mt-4">
+                    Explore →
+                </a>
             </div>
-            <div class="event-card">
-                <h3 class="event-title">Krida Ratna(Gaming)</h3>
+            <div class="bg-[#2E2E2E] border-2 border-[#ff6600] text-[#C0C0C0] rounded-lg p-6 transition-transform duration-300 hover:scale-105 hover:border-[#03e9f4]">
+                <h3 class="text-2xl text-[#ff6600] mb-4">Krida Ratna(Gaming)</h3>
                 <p>Battle it out in a high-energy gaming arena! Prizes and glory await the ultimate champions.</p>
-                <a href="{{ url_for('games') }}" class="event-button carnival-button">Explore →</a>
+                <a href="{{ url_for('games') }}" class="inline-block bg-[#03e9f4] text-[#1C1C1C] px-6 py-3 rounded-md font-bold uppercase 
+                      transition-all duration-300 hover:bg-transparent hover:text-[#03e9f4] hover:border-2 hover:border-[#03e9f4] mt-4">
+                    Explore →
+                </a>
             </div>
-            <div class="event-card">
-                <h3 class="event-title">kalachitrana</h3>
+            <div class="bg-[#2E2E2E] border-2 border-[#ff6600] text-[#C0C0C0] rounded-lg p-6 transition-transform duration-300 hover:scale-105 hover:border-[#03e9f4]">
+                <h3 class="text-2xl text-[#ff6600] mb-4">kalachitrana</h3>
                 <p>Battle it out in a high-energy gaming arena! Prizes and glory await the ultimate champions.</p>
-                <a href="{{ url_for('kalachitrana') }}" class="event-button carnival-button">Explore →</a>
+                <a href="{{ url_for('kalachitrana') }}" class="inline-block bg-[#03e9f4] text-[#1C1C1C] px-6 py-3 rounded-md font-bold uppercase 
+                      transition-all duration-300 hover:bg-transparent hover:text-[#03e9f4] hover:border-2 hover:border-[#03e9f4] mt-4">
+                    Explore →
+                </a>
             </div>
         </div>
     </div>
 </section>
-<div class="section-divider carnival-divider"></div>
+<div class="h-0.5 bg-[#CD7F32] "></div>
 
 <!-- Brochure Section -->
-<div class="brochure-section carnival-brochure">
-    <h2 class="section-title">Event Brochure / Rulebook</h2>
-    <p class="section-description">
+<div class="py-20 bg-gradient-to-br from-[#1C1C1C] to-[#2E2E2E] text-center relative overflow-hidden">
+    <h2 class="text-4xl text-[#FFD700] text-center mb-12 font-bold uppercase font-[Oswald]">Event Brochure / Rulebook</h2>
+    <p class="text-[#C0C0C0] mb-8">
         Download our comprehensive event brochure cum rulebook to explore all the exciting events, schedules, and
         opportunities waiting for you at Yukti 2k25.
     </p>
-    <a href="#" class="download-btn carnival-button">
+    <a href="#" class="inline-block bg-[#03e9f4] text-[#1C1C1C] px-6 py-3 rounded-md font-bold uppercase 
+              transition-all duration-300 hover:bg-transparent hover:text-[#03e9f4] hover:border-2 hover:border-[#03e9f4]">
         <i class="icon-download"></i> Download Brochure / Rulebook (10.7 MB)
     </a>
 </div>
 
 <style>
-    /* Industrial Revolution Theme */
-
-    /* General Styles */
-    body {
-        background-color: #1C1C1C;
-        /* Deep Black */
-        color: #C0C0C0;
-        /* Silver */
-        font-family: 'Roboto', sans-serif;
-        margin: 0;
-        padding: 0;
-    }
-
-    h1,
-    h2,
-    h3,
-    .main-title,
-    .section-title {
-        font-family: 'Oswald', sans-serif;
-        /* Bold industrial style font */
-        color: #FFD700;
-        /* Gold */
-        text-transform: uppercase;
-    }
-
-    a {
-        color: #FFD700;
-        /* Gold */
-        text-decoration: none;
-        transition: color 0.3s ease;
-    }
-
-    a:hover {
-        color: #CD7F32;
-        /* Bronze */
-    }
-
-    /* Add before existing styles */
-    .carnival-hero {
-        position: relative;
-        overflow: hidden;
-    }
-
-    .grid-background {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-image: linear-gradient(#FFD700 1px, transparent 1px),
-            linear-gradient(90deg, #FFD700 1px, transparent 1px);
-        background-size: 50px 50px;
-        opacity: 0.1;
-        transform: perspective(500px) rotateX(60deg);
-        animation: gridMove 15s linear infinite;
-        pointer-events: none;
-    }
-
     @keyframes gridMove {
-        0% {
-            background-position: 0 0;
-        }
-
-        100% {
-            background-position: 0 50px;
-        }
+        0% { background-position: 0 0; }
+        100% { background-position: 0 50px; }
     }
-
-    /* Update hero section styles */
-    .hero {
-        /* ...existing hero styles... */
-        position: relative;
-        background: linear-gradient(45deg, #1C1C1C, #2E2E2E);
-    }
-
-    .hero::after {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: radial-gradient(circle at center,
-                rgba(255, 215, 0, 0.1) 0%,
-                rgba(0, 0, 0, 0.5) 100%);
-        pointer-events: none;
-    }
-
-    .hero-content {
-        position: relative;
-        z-index: 2;
-        margin-top: -3vh;
-        /* Added negative margin to shift upward */
-    }
-
-    /* Hero Section */
-    .hero {
-        background: linear-gradient(to bottom, #2E2E2E, #1C1C1C);
-        /* Industrial Gradient */
-        color: #FFD700;
-        /* Gold */
-        text-align: center;
-        padding: 100px 20px;
-        position: relative;
-        overflow: hidden;
-    }
-
-    .hero .main-title {
-        font-size: 7.5rem;
-        font-weight: bold;
-        color: #FFD700;
-        margin: 20px 0;
-    }
-
-    .hero .subtitle {
-        font-size: 3rem;
-        color: #C0C0C0;
-        /* Silver */
-        margin-bottom: 10px;
-    }
-
-    .hero .cta-button {
-        background-color: #8B0000;
-        /* Rust Red */
-        color: #FFF;
-        border: 2px solid #FFD700;
-        /* Gold border */
-        padding: 10px 20px;
-        text-transform: uppercase;
-        font-weight: bold;
-        cursor: pointer;
-        margin-top: 0.5rem;
-        transition: all 0.3s ease;
-        border-radius: 5px;
-    }
-
-    .hero .cta-button:hover {
-        background-color: #FFD700;
-        /* Gold on hover */
-        color: #1C1C1C;
-        /* Black text */
-    }
-
-    .hero-visual .rotating-gear {
-        background: url('/static/images/gear.png');
-        /* Placeholder for gear image */
-        width: 150px;
-        height: 150px;
-        position: absolute;
-        top: 10%;
-        left: 5%;
-        animation: rotate 5s linear infinite;
-    }
-
-    .hero-visual .rotating-gear.smaller {
-        width: 100px;
-        height: 100px;
-        top: 40%;
-        left: 80%;
-        animation: rotate-reverse 7s linear infinite;
-    }
-
-    @keyframes rotate {
-        0% {
-            transform: rotate(0deg);
-        }
-
-        100% {
-            transform: rotate(360deg);
-        }
-    }
-
-    @keyframes rotate-reverse {
-        0% {
-            transform: rotate(0deg);
-        }
-
-        100% {
-            transform: rotate(-360deg);
-        }
-    }
-
-    @keyframes appear{
-    from{
-        opacity: 0;
-        scale: 0.5;
-    }
-    to{
-        opacity: 1;
-        scale: 1;
-    }
-}
-
-    /* Section Divider */
-    .section-divider {
-        height: 2px;
-        background: #CD7F32;
-        /* Bronze */
-        margin: 40px 0;
-    }
-
-    /* About Section */
-    .about-festival {
-        background: linear-gradient(45deg, #1C1C1C, #2E2E2E);
-        padding: 50px 20px;
-        text-align: center;
-    }
-
-    .about-container {
-        position: relative;
-        z-index: 1;
-        background: rgba(46, 46, 46, 0.7);
-        backdrop-filter: blur(5px);
-        border-radius: 15px;
-        padding: 2rem;
-        box-shadow: 0 8px 15px rgba(0, 0, 0, 0.4);
-        border: 2px solid #ff6600;
-        /* Added orange border */
-        transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
-        max-width: 800px;
-        margin: 0 auto;
-    }
-
-    .about-container:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 15px 30px rgba(3, 233, 244, 0.4);
-        border-color: #03e9f4;
-    }
-
-    .about-festival .about-container {
-        max-width: 800px;
-        margin: 0 auto;
-    }
-
-    .about-festival .about-text {
-        color: #C0C0C0;
-        /* Silver */
-        line-height: 1.6;
-    }
-
-    .about-festival .animated-button {
-        background: #03e9f4;
-        /* Changed from #FFD700 to solid blue */
-        color: #1C1C1C;
-        border: 2px solid #03e9f4;
-        /* Changed border color to match */
-        padding: 10px 20px;
-        font-weight: bold;
-        text-transform: uppercase;
-        transition: all 0.3s ease;
-        display: inline-block;
-        margin-top: 20px;
-        border-radius: 5px;
-    }
-
-    .about-festival .animated-button:hover {
-        background: transparent;
-        /* Changed hover state */
-        color: #03e9f4;
-        /* Text color changes to blue on hover */
-        border-color: #03e9f4;
-    }
-
-    /* Events Section */
-    .events {
-        background-color: #1C1C1C;
-        /* Black */
-        color: #ff6600;
-        /* Orange */
-        padding: 50px 20px;
-        text-align: center;
-    }
-
-    .events .event-cards {
-        display: flex;
-        justify-content: center;
-        gap: 20px;
-        flex-wrap: wrap;
-    }
-
-    .events .event-card {
-        background: #2E2E2E;
-        /* Dark Gray */
-        border: 2px solid #ff6600;
-        /* Orange */
-        color: #C0C0C0;
-        /* Silver */
-        border-radius: 10px;
-        padding: 20px;
-        width: 280px;
-        text-align: center;
-        transition: transform 0.3s ease, border-color 0.3s ease;
-    }
-
-    .events .event-card:hover {
-        transform: scale(1.05);
-        border-color: #03e9f4;
-        /* Blue */
-    }
-
-    .events .event-title {
-        font-size: 1.5rem;
-        margin-bottom: 15px;
-        color: #ff6600;
-        /* Orange */
-    }
-
-    .events .event-button {
-        background-color: #03e9f4;
-        /* Blue */
-        color: #1C1C1C;
-        /* Black text */
-        padding: 10px 15px;
-        font-weight: bold;
-        text-transform: uppercase;
-        text-decoration: none;
-        border: none;
-        border-radius: 5px;
-        transition: background-color 0.3s ease, color 0.3s ease;
-        display: inline-block;
-    }
-
-    .events .event-button:hover {
-        background: transparent;
-        color: #03e9f4;
-        /* Blue */
-        border: 2px solid #03e9f4;
-        /* Blue border */
-    }
-
-    /* Brochure Section */
-    .brochure-section {
-        background: linear-gradient(to bottom, #1C1C1C, #2E2E2E);
-        padding: 50px;
-        text-align: center;
-        color: #C0C0C0;
-        /* Silver */
-        border: 2px solid #ff6600;
-        /* Added orange border */
-        border-radius: 15px;
-        margin: 2rem auto;
-        max-width: 1000px;
-        box-shadow: 0 8px 15px rgba(0, 0, 0, 0.4);
-        transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
-    }
-
-    .brochure-section:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 15px 30px rgba(3, 233, 244, 0.4);
-        border-color: #03e9f4;
-    }
-
-    .brochure-section .download-btn {
-        background-color: #03e9f4;
-        /* Changed to blue */
-        color: #1C1C1C;
-        padding: 10px 20px;
-        font-weight: bold;
-        text-transform: uppercase;
-        border-radius: 5px;
-        text-decoration: none;
-        display: inline-block;
-        transition: all 0.3s ease;
-        border: 2px solid #03e9f4;
-        /* Added border */
-    }
-
-    .brochure-section .download-btn:hover {
-        background: transparent;
-        color: #03e9f4;
-        border-color: #03e9f4;
-    }
-
-    /* Updated Hero Title Animation Styles */
-    .hero-content .main-title {
-        font-size: 7.5rem;
-        font-weight: bold;
-        color: #FFD700;
-        margin: 10px 0;
-        opacity: 0;
-        transform: translateY(30px);
-        animation: fadeIn 0.8s ease forwards;
-    }
-
-    .hero-content .main-title span {
-        display: inline-block;
-        color: #ff571b;
-        animation: pulse 2s ease-in-out infinite;
-    }
-
-    .hero-content .subtitle {
-        font-size: 3rem;
-        color: #C0C0C0;
-        margin-bottom: 30px;
-        opacity: 0;
-        transform: translateY(20px);
-        animation: fadeIn 0.8s ease forwards 0.3s;
-    }
-
+    
     @keyframes fadeIn {
         to {
             opacity: 1;
             transform: translateY(0);
         }
     }
-
+    
     @keyframes pulse {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.1); }
+    }
 
-        0%,
-        100% {
-            transform: scale(1);
-        }
+    @keyframes appear {
+        from { opacity: 0; scale: 0.5; }
+        to { opacity: 1; scale: 1; }
+    }
 
-        50% {
-            transform: scale(1.1);
+    @media (max-width: 640px) {
+        .hero-content h1 {
+            line-height: 1.1;
         }
     }
 
-    /* Remove the old typing animation styles */
-
-    /* Responsive adjustments */
-    @media (max-width: 768px) {
-        .hero-content .main-title {
-            font-size: 4rem;
-        }
-
-        .hero-content .subtitle {
-            font-size: 2rem;
-        }
-    }
-
-    /* About Section Grid Animation */
-    .carnival-about {
-        position: relative;
-        overflow: hidden;
-    }
-
-    .carnival-about::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-image:
-            linear-gradient(to right, rgba(255, 215, 0, 0.1) 1px, transparent 1px),
-            linear-gradient(to bottom, rgba(255, 215, 0, 0.1) 1px, transparent 1px);
-        background-size: 30px 30px;
-        transform: perspective(500px) rotateX(45deg) scale(2);
-        animation: gridFloat 20s linear infinite;
-        pointer-events: none;
-        opacity: 0.3;
-    }
-
-    .about-container {
-        position: relative;
-        z-index: 1;
-        background: rgba(46, 46, 46, 0.7);
-        backdrop-filter: blur(5px);
-        border-radius: 15px;
-        padding: 2rem;
-        box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
-    }
-
-    @keyframes gridFloat {
-        0% {
-            transform: perspective(500px) rotateX(45deg) translateY(0) scale(2);
-        }
-
-        100% {
-            transform: perspective(500px) rotateX(45deg) translateY(-30px) scale(2);
-        }
-    }
-
-    /* Update about section background for better contrast */
-    .about-festival {
-        background: linear-gradient(45deg, #1C1C1C, #2E2E2E);
-        /* ...existing about-festival styles... */
-    }
-
-    /* Artist Announcement Grid Animation */
-    .carnival-artist {
-        position: relative;
-        overflow: hidden;
-        padding: 3rem 0;
-    }
-
-    .carnival-artist::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-image:
-            linear-gradient(to right, rgba(255, 215, 0, 0.1) 1px, transparent 1px),
-            linear-gradient(to bottom, rgba(255, 215, 0, 0.1) 1px, transparent 1px);
-        background-size: 25px 25px;
-        transform: perspective(700px) rotateX(45deg) scale(2.5);
-        animation: artistGridFloat 25s linear infinite;
-        pointer-events: none;
-        opacity: 0.2;
-    }
-
-    .carnival-artist .card-content {
-        position: relative;
-        z-index: 1;
-        background: rgba(46, 46, 46, 0.8);
-        backdrop-filter: blur(5px);
-        border-radius: 15px;
-        padding: 2rem;
-        box-shadow: 0 0 30px rgba(0, 0, 0, 0.4);
-    }
-
-    @keyframes artistGridFloat {
-        0% {
-            transform: perspective(700px) rotateX(45deg) translateY(0) scale(2.5);
-        }
-
-        100% {
-            transform: perspective(700px) rotateX(45deg) translateY(-25px) scale(2.5);
-        }
-    }
-
-    /* Update artist section background */
-    .artist-announcement {
-        background: linear-gradient(45deg, #1C1C1C, #2E2E2E);
-        /* ...existing artist-announcement styles... */
-    }
-
-    .hero-video {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        z-index: 0;
-    }
-
-    .video-overlay {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.6);
-        /* Dark overlay for better text visibility */
-        z-index: 1;
-    }
-
-    .hero-content {
-        position: relative;
-        z-index: 2;
-        /* Place content above video */
-    }
-
-    /* Mobile optimization */
-    @media (max-width: 768px) {
-        .hero-video {
-            /* Optional: Show a static image on mobile */
-            display: none;
-        }
-
-        .carnival-hero {
-            background: linear-gradient(135deg, #1C1C1C 0%, #2d1f1f 100%);
-        }
-    }
-
-    /* Enhanced Responsive Design */
-
-    /* General Responsive Typography */
-    html {
-        font-size: 16px;
-        /* Base font size */
-    }
-
-    @media (max-width: 1200px) {
-        html {
-            font-size: 15px;
-        }
-    }
-
-    @media (max-width: 992px) {
-        html {
-            font-size: 14px;
-        }
-    }
-
-    @media (max-width: 768px) {
-        html {
-            font-size: 13px;
-        }
-    }
-
-    @media (max-width: 576px) {
-        html {
-            font-size: 12px;
-        }
-    }
-
-    /* Hero Section Responsiveness */
-    .hero-content .main-title {
-        font-size: 7.5rem;
-    }
-
-    .hero-content .subtitle {
-        font-size: 3rem;
-    }
-
-    @media (max-width: 1200px) {
-        .hero-content .main-title {
-            font-size: 6rem;
-        }
-
-        .hero-content .subtitle {
-            font-size: 2.5rem;
-        }
-    }
-
-    @media (max-width: 992px) {
-        .hero-content .main-title {
-            font-size: 5rem;
-        }
-
-        .hero-content .subtitle {
-            font-size: 2rem;
-        }
-    }
-
-    @media (max-width: 768px) {
-        .hero-content .main-title {
-            font-size: 4rem;
-        }
-
-        .hero-content .subtitle {
-            font-size: 1.8rem;
-        }
-
-        .hero {
-            padding: 60px 15px;
-        }
-    }
-
-    @media (max-width: 576px) {
-        .hero-content .main-title {
-            font-size: 3rem;
-        }
-
-        .hero-content .subtitle {
-            font-size: 1.5rem;
-        }
-
-        .hero {
-            padding: 40px 10px;
-        }
-    }
-
-    /* Countdown Timer Responsiveness */
-    .countdown-container {
-        display: flex;
-        justify-content: center;
-        gap: 1.2rem;
-        flex-wrap: wrap;
-        padding: 1rem;
-    }
-
-    .countdown-box {
-        min-width: 120px;
-        padding: 1rem;
-    }
-
-    @media (max-width: 768px) {
-        .countdown-container {
-            gap: 1rem;
-        }
-
-        .countdown-box {
-            min-width: 100px;
-            padding: 0.8rem;
-        }
-
-        .countdown-value {
-            font-size: 2rem;
-        }
-
-        .countdown-label {
-            font-size: 0.9rem;
-        }
-    }
-
-    @media (max-width: 576px) {
-        .countdown-container {
-            gap: 0.5rem;
-        }
-
-        .countdown-box {
-            min-width: 80px;
-            padding: 0.6rem;
-        }
-
-        .countdown-value {
-            font-size: 1.5rem;
-        }
-
-        .countdown-label {
-            font-size: 0.8rem;
-        }
-    }
-
-    /* Event Cards Responsiveness */
-    .event-cards {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-        gap: 2rem;
-        padding: 1rem;
-    }
-
-    @media (max-width: 992px) {
-        .event-cards {
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5rem;
-        }
-    }
-
-    @media (max-width: 768px) {
-        .event-cards {
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 1rem;
-        }
-
-        .event-card {
-            padding: 1rem;
-        }
-
-        .event-title {
-            font-size: 1.2rem;
-        }
-    }
-
-    /* About Section Responsiveness */
-    .about-container {
-        width: 90%;
-        max-width: 1200px;
-        padding: 2rem;
-    }
-
-    @media (max-width: 768px) {
-        .about-container {
-            width: 95%;
-            padding: 1.5rem;
-        }
-
-        .about-text {
-            font-size: 0.9rem;
-        }
-    }
-
-    /* Artist Card Responsiveness */
-    .artist-card {
-        max-width: 800px;
-        margin: 0 auto;
-        padding: 2rem;
-    }
-
-    @media (max-width: 768px) {
-        .artist-card {
-            padding: 1.5rem;
-        }
-
-        .artist-name {
-            font-size: 1.8rem;
-        }
-
-        .announcement-text {
-            font-size: 0.9rem;
-        }
-    }
-
-    /* Brochure Section Responsiveness */
-    .brochure-section {
-        width: 90%;
-        max-width: 1000px;
-        padding: 2rem;
-    }
-
-    @media (max-width: 768px) {
-        .brochure-section {
-            width: 95%;
-            padding: 1.5rem;
-        }
-
-        .section-title {
-            font-size: 1.8rem;
-        }
-
-        .section-description {
-            font-size: 0.9rem;
-        }
-
-        .download-btn {
-            padding: 0.8rem 1.5rem;
-            font-size: 0.9rem;
-        }
-    }
-
-    /* Button Responsiveness */
-    .btn,
-    .cta-button,
-    .event-button,
-    .download-btn {
-        padding: 0.8rem 1.6rem;
-        font-size: 1rem;
-    }
-
-    @media (max-width: 768px) {
-
-        .btn,
-        .cta-button,
-        .event-button,
-        .download-btn {
-            padding: 0.6rem 1.2rem;
-            font-size: 0.9rem;
-        }
-    }
-
-    /* Touch Device Optimizations */
-    @media (hover: none) {
-
-        .event-card:hover,
-        .about-container:hover,
-        .btn:hover {
-            transform: none !important;
-        }
-
-        .btn,
-        .cta-button,
-        .event-button,
-        .download-btn {
-            -webkit-tap-highlight-color: transparent;
-        }
-    }
-
-    /* High-DPI Screen Optimizations */
-    @media (-webkit-min-device-pixel-ratio: 2),
-    (min-resolution: 192dpi) {
-        .grid-background {
-            background-size: 25px 25px;
-        }
-    }
-
-    /* Landscape Mode Optimization */
-    @media (max-height: 500px) and (orientation: landscape) {
-        .hero {
-            min-height: 100vh;
-            padding: 1rem;
-        }
-
-        .hero-content .main-title {
-            font-size: 3rem;
-        }
-
-        .hero-content .subtitle {
-            font-size: 1.5rem;
-        }
-
-        .countdown-container {
-            margin: 1rem 0;
-        }
-    }
-
-    /* Print Media Optimization */
-    @media print {
-
-        .hero-video,
-        .video-overlay,
-        .grid-background,
-        .countdown-container,
-        .cta {
-            display: none;
-        }
-
-        .hero-content .main-title {
-            color: #000;
-            text-shadow: none;
-        }
-    }
-
-    /* Accessibility Improvements */
-    @media (prefers-reduced-motion: reduce) {
-        * {
-            animation: none !important;
-            transition: none !important;
-        }
-    }
-
-    /* Dark Mode Support */
-    @media (prefers-color-scheme: dark) {
-
-        .about-container,
-        .event-card,
-        .artist-card,
-        .brochure-section {
-            background: rgba(28, 28, 28, 0.95);
-        }
-    }
-
-    /* Add these styles after your existing styles */
-
-    /* Header/Navbar Height Management */
-    :root {
-        --navbar-height: 70px;
-        /* Define navbar height as a CSS variable */
-    }
-
-    /* Adjust main content to account for fixed navbar */
-    main {
-        padding-top: var(--navbar-height);
-        /* Add padding equal to navbar height */
-    }
-
-    /* Update hero section padding */
-    .hero.carnival-hero {
-        padding-top: calc(var(--navbar-height) + 2rem);
-        /* Add extra padding for better spacing */
-        min-height: 100vh;
-    }
-
-    /* Responsive adjustments for mobile */
-    @media (max-width: 768px) {
-        :root {
-            --navbar-height: 60px;
-            /* Slightly smaller navbar on mobile */
-        }
-
-        .hero.carnival-hero {
-            padding-top: calc(var(--navbar-height) + 1rem);
-        }
-
-        .hero-content .main-title {
-            margin-top: 2rem;
-            /* Add space between navbar and title */
-        }
-
-        /* Adjust content when menu is open */
-        .navbar.active+main {
-            padding-top: 100vh;
-            /* Push content down when mobile menu is open */
-        }
-    }
-
-    /* Landscape mode optimization */
-    @media (max-height: 500px) and (orientation: landscape) {
-        .hero.carnival-hero {
-            padding-top: calc(var(--navbar-height) + 0.5rem);
-            min-height: 120vh;
-            /* Ensure enough scroll space in landscape */
-        }
-    }
-
-    /* Device-specific adjustments */
-    @supports (-webkit-touch-callout: none) {
-
-        /* iOS-specific padding to handle notch */
-        .hero.carnival-hero {
-            padding-top: calc(var(--navbar-height) + env(safe-area-inset-top, 2rem));
-        }
-    }
-
-    /* Enhanced Video Background Handling */
-    .carnival-hero {
-        position: relative;
-        overflow: hidden;
-        min-height: 100vh;
-        /* Ensure minimum height on all devices */
-    }
-
-    .hero-video {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        z-index: 0;
-    }
-
-    .video-overlay {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.6);
-        z-index: 1;
-    }
-
-    /* Responsive Video Adjustments */
-    @media (max-width: 768px) {
-        .carnival-hero {
-            min-height: 80vh;
-            /* Reduced height on mobile */
-        }
-
-        .hero-video {
-            display: block;
-            /* Keep video visible */
-            height: 80vh;
-            /* Match container height */
-        }
-
-        .video-overlay {
-            background: rgba(0, 0, 0, 0.7);
-            /* Darker overlay for better text visibility */
-        }
-
+    @media (max-height: 700px) {
         .hero-content {
-            padding: 1rem;
-            /* Add padding for better spacing */
-        }
-    }
-
-    /* Device-Specific Optimizations */
-    @media (orientation: landscape) and (max-height: 500px) {
-        .carnival-hero {
-            min-height: 120vh;
-            /* Taller in landscape to ensure content fits */
-        }
-
-        .hero-video {
-            height: 120vh;
-        }
-    }
-
-    /* iOS Safari Fixes */
-    @supports (-webkit-touch-callout: none) {
-        .carnival-hero {
-            height: -webkit-fill-available;
-        }
-
-        .hero-video {
-            position: fixed;
-            /* Better performance on iOS */
-            height: 100%;
-            width: 100%;
-        }
-    }
-
-    /* Low-bandwidth optimization */
-    @media (prefers-reduced-data: reduce) {
-        .hero-video {
-            content-visibility: auto;
+            transform: scale(0.9);
         }
     }
 </style>
+
+<script>
+    // Keep existing JavaScript for countdown timer and other functionality
+    // ...existing scripts...
+</script>
 {% endblock %}
