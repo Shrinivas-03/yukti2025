@@ -3,6 +3,7 @@
 {% block title %}Events - YUKTI 2025{% endblock %}
 
 {% block content %}
+<<<<<<< HEAD
 <div class="h-0.5 bg-[#CD7F32] "></div>
 <section class="py-12 bg-[rgba(30,30,30,0.95)]">
     <div class="text-center">
@@ -33,12 +34,77 @@
                         <a href="{{ url_for('tech') }}" 
                            class="inline-block mt-4 bg-[#03e9f4] text-[#1C1C1C] px-4 py-2 rounded border-2 border-[#03e9f4]
                                   transition-all duration-300 hover:bg-transparent hover:text-[#03e9f4]">
+=======
+<!-- Event Overview Section -->
+<section class="pt-24 text-center px-4 bg-gradient-to-br from-dark via-darker to-dark">
+    <h1 class="text-4xl md:text-5xl font-[Orbitron] text-primary font-bold mb-6">Explore Our Events</h1>
+    <p class="text-xl text-gray-300 mb-8">Choose from a diverse range of challenges and showcases.</p>
+
+    <!-- Events Grid Container -->
+    <div class="max-w-7xl mx-auto px-4 py-10">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Tech Events Card -->
+            <div class="bg-[rgba(46,46,46,0.8)] border-2 border-orange-500 rounded-xl p-6 transition-all duration-300 hover:-translate-y-2 hover:border-[#03e9f4] hover:shadow-lg hover:shadow-[#03e9f4]/40">
+                <img class="w-full h-40 object-cover rounded-lg mb-4" src="{{ url_for('static', filename='assets/tech.png') }}" alt="Tech Events">
+                <div class="text-center">
+                    <h5 class="text-2xl font-bold text-orange-500 mb-3">Manthana Events</h5>
+                    <p class="text-gray-300 mb-4">Innovative challenges and coding competitions await.</p>
+                    
+                    <details class="bg-[rgba(46,46,46,0.9)] border-2 border-orange-500 rounded-lg p-4 mt-4 group transition-all duration-300">
+                        <summary class="text-orange-500 font-bold cursor-pointer hover:text-[#03e9f4] flex items-center justify-between">
+                            <span>View Tech Events</span>
+                            <svg class="w-5 h-5 transform group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </summary>
+                        <ul class="mt-4 space-y-3 transition-all duration-300">
+                            <li class="text-gray-300 bg-[rgba(46,46,46,0.7)] p-3 rounded-lg border border-orange-500/30 hover:border-[#03e9f4] hover:bg-[rgba(46,46,46,0.9)] transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg hover:shadow-[#03e9f4]/20 cursor-pointer group">
+                                <div class="flex items-center space-x-3">
+                                    <span class="text-orange-500 group-hover:text-[#03e9f4]">▶</span>
+                                    <span class="group-hover:text-[#03e9f4] transition-colors">Prakalpa Prastuthi</span>
+                                </div>
+                            </li>
+                            <li class="text-gray-300 bg-[rgba(46,46,46,0.7)] p-3 rounded-lg border border-orange-500/30 hover:border-[#03e9f4] hover:bg-[rgba(46,46,46,0.9)] transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg hover:shadow-[#03e9f4]/20 cursor-pointer group">
+                                <div class="flex items-center space-x-3">
+                                    <span class="text-orange-500 group-hover:text-[#03e9f4]">▶</span>
+                                    <span class="group-hover:text-[#03e9f4] transition-colors">CHANAKSH CODING EVENT</span>
+                                </div>
+                            </li>
+                            <li class="text-gray-300 bg-[rgba(46,46,46,0.7)] p-3 rounded-lg border border-orange-500/30 hover:border-[#03e9f4] hover:bg-[rgba(46,46,46,0.9)] transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg hover:shadow-[#03e9f4]/20 cursor-pointer group">
+                                <div class="flex items-center space-x-3">
+                                    <span class="text-orange-500 group-hover:text-[#03e9f4]">▶</span>
+                                    <span class="group-hover:text-[#03e9f4] transition-colors">Robo Samara</span>
+                                </div>
+                            </li>
+                            <li class="text-gray-300 bg-[rgba(46,46,46,0.7)] p-3 rounded-lg border border-orange-500/30 hover:border-[#03e9f4] hover:bg-[rgba(46,46,46,0.9)] transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg hover:shadow-[#03e9f4]/20 cursor-pointer group">
+                                <div class="flex items-center space-x-3">
+                                    <span class="text-orange-500 group-hover:text-[#03e9f4]">▶</span>
+                                    <span class="group-hover:text-[#03e9f4] transition-colors">Pragyaan Quiz</span>
+                                </div>
+                            </li>
+                            <li class="text-gray-300 bg-[rgba(46,46,46,0.7)] p-3 rounded-lg border border-orange-500/30 hover:border-[#03e9f4] hover:bg-[rgba(46,46,46,0.9)] transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg hover:shadow-[#03e9f4]/20 cursor-pointer group">
+                                <div class="flex items-center space-x-3">
+                                    <span class="text-orange-500 group-hover:text-[#03e9f4]">▶</span>
+                                    <span class="group-hover:text-[#03e9f4] transition-colors">Vagmita (Elocution)</span>
+                                </div>
+                            </li>
+                            <li class="text-gray-300 bg-[rgba(46,46,46,0.7)] p-3 rounded-lg border border-orange-500/30 hover:border-[#03e9f4] hover:bg-[rgba(46,46,46,0.9)] transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg hover:shadow-[#03e9f4]/20 cursor-pointer group">
+                                <div class="flex items-center space-x-3">
+                                    <span class="text-orange-500 group-hover:text-[#03e9f4]">▶</span>
+                                    <span class="group-hover:text-[#03e9f4] transition-colors">Concrete Canoe Mini</span>
+                                </div>
+                            </li>
+                        </ul>
+                        <a href="{{ url_for('tech') }}" 
+                           class="inline-block mt-4 px-6 py-2 bg-transparent text-orange-500 border-2 border-[#03e9f4] rounded-lg font-semibold tracking-wide hover:bg-[#03e9f4]/10 transition-all duration-300 hover:-translate-y-1">
+>>>>>>> 5064b1e46ec992d60690e78c8223909795e0f3b4
                             View More
                         </a>
                     </details>
                 </div>
             </div>
 
+<<<<<<< HEAD
             <!-- Cultural Events Card -->
             <div class="bg-[rgba(46,46,46,0.8)] border-2 border-[#ff6600] rounded-lg transition-all duration-300 
                         hover:-translate-y-2 hover:shadow-[0_15px_30px_rgba(3,233,244,0.4)] hover:border-[#03e9f4]">
@@ -58,12 +124,51 @@
                         <a href="{{ url_for('cultural') }}" 
                            class="inline-block mt-4 bg-[#03e9f4] text-[#1C1C1C] px-4 py-2 rounded border-2 border-[#03e9f4]
                                   transition-all duration-300 hover:bg-transparent hover:text-[#03e9f4]">
+=======
+            <!-- Manoranjana Events Card -->
+            <div class="bg-[rgba(46,46,46,0.8)] border-2 border-orange-500 rounded-xl p-6 transition-all duration-300 hover:-translate-y-2 hover:border-[#03e9f4] hover:shadow-lg hover:shadow-[#03e9f4]/40">
+                <img class="w-full h-40 object-cover rounded-lg mb-4" src="{{ url_for('static', filename='assets/cultural.png') }}" alt="Manoranjana Events">
+                <div class="text-center">
+                    <h5 class="text-2xl font-bold text-orange-500 mb-3">Manoranjana Events</h5>
+                    <p class="text-gray-300 mb-4">Celebrate art, music, dance, and creativity in our vibrant cultural showcase.</p>
+                    
+                    <details class="bg-[rgba(46,46,46,0.9)] border-2 border-orange-500 rounded-lg p-4 mt-4 group transition-all duration-300">
+                        <summary class="text-orange-500 font-bold cursor-pointer hover:text-[#03e9f4] flex items-center justify-between">
+                            <span>View Cultural Events</span>
+                            <svg class="w-5 h-5 transform group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </summary>
+                        <ul class="mt-4 space-y-3 transition-all duration-300">
+                            <li class="text-gray-300 bg-[rgba(46,46,46,0.7)] p-3 rounded-lg border border-orange-500/30 hover:border-[#03e9f4] hover:bg-[rgba(46,46,46,0.9)] transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg hover:shadow-[#03e9f4]/20 cursor-pointer group">
+                                <div class="flex items-center space-x-3">
+                                    <span class="text-orange-500 group-hover:text-[#03e9f4]">▶</span>
+                                    <span class="group-hover:text-[#03e9f4] transition-colors">NINAAD (Singing - Solo & Group)</span>
+                                </div>
+                            </li>
+                            <li class="text-gray-300 bg-[rgba(46,46,46,0.7)] p-3 rounded-lg border border-orange-500/30 hover:border-[#03e9f4] hover:bg-[rgba(46,46,46,0.9)] transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg hover:shadow-[#03e9f4]/20 cursor-pointer group">
+                                <div class="flex items-center space-x-3">
+                                    <span class="text-orange-500 group-hover:text-[#03e9f4]">▶</span>
+                                    <span class="group-hover:text-[#03e9f4] transition-colors">NRITYA SAADHANA (Dance - Solo & Group)</span>
+                                </div>
+                            </li>
+                            <li class="text-gray-300 bg-[rgba(46,46,46,0.7)] p-3 rounded-lg border border-orange-500/30 hover:border-[#03e9f4] hover:bg-[rgba(46,46,46,0.9)] transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg hover:shadow-[#03e9f4]/20 cursor-pointer group">
+                                <div class="flex items-center space-x-3">
+                                    <span class="text-orange-500 group-hover:text-[#03e9f4]">▶</span>
+                                    <span class="group-hover:text-[#03e9f4] transition-colors">NAVYATAA (Ramp Walk)</span>
+                                </div>
+                            </li>
+                        </ul>
+                        <a href="{{ url_for('cultural') }}" 
+                           class="inline-block mt-4 px-6 py-2 bg-transparent text-orange-500 border-2 border-[#03e9f4] rounded-lg font-semibold tracking-wide hover:bg-[#03e9f4]/10 transition-all duration-300 hover:-translate-y-1">
+>>>>>>> 5064b1e46ec992d60690e78c8223909795e0f3b4
                             View More
                         </a>
                     </details>
                 </div>
             </div>
 
+<<<<<<< HEAD
             <!-- Kalachitrana event Card -->
             <div class="bg-[rgba(46,46,46,0.8)] border-2 border-[#ff6600] rounded-lg transition-all duration-300 
                         hover:-translate-y-2 hover:shadow-[0_15px_30px_rgba(3,233,244,0.4)] hover:border-[#03e9f4]">
@@ -84,12 +189,45 @@
                         <a href="{{ url_for('kalachitrana') }}" 
                            class="inline-block mt-4 bg-[#03e9f4] text-[#1C1C1C] px-4 py-2 rounded border-2 border-[#03e9f4]
                                   transition-all duration-300 hover:bg-transparent hover:text-[#03e9f4]">
+=======
+            <!-- KREEDA RATNA Events Card -->
+            <div class="bg-[rgba(46,46,46,0.8)] border-2 border-orange-500 rounded-xl p-6 transition-all duration-300 hover:-translate-y-2 hover:border-[#03e9f4] hover:shadow-lg hover:shadow-[#03e9f4]/40">
+                <img class="w-full h-40 object-cover rounded-lg mb-4" src="{{ url_for('static', filename='assets/gaming.png') }}" alt="KREEDA RATNA Events">
+                <div class="text-center">
+                    <h5 class="text-2xl font-bold text-orange-500 mb-3">KREEDA RATNA Events</h5>
+                    <p class="text-gray-300 mb-4">Challenge yourself in exciting gaming and treasure hunting adventures.</p>
+                    
+                    <details class="bg-[rgba(46,46,46,0.9)] border-2 border-orange-500 rounded-lg p-4 mt-4 group transition-all duration-300">
+                        <summary class="text-orange-500 font-bold cursor-pointer hover:text-[#03e9f4] flex items-center justify-between">
+                            <span>View Gaming Events</span>
+                            <svg class="w-5 h-5 transform group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </summary>
+                        <ul class="mt-4 space-y-3 transition-all duration-300">
+                            <li class="text-gray-300 bg-[rgba(46,46,46,0.7)] p-3 rounded-lg border border-orange-500/30 hover:border-[#03e9f4] hover:bg-[rgba(46,46,46,0.9)] transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg hover:shadow-[#03e9f4]/20 cursor-pointer group">
+                                <div class="flex items-center space-x-3">
+                                    <span class="text-orange-500 group-hover:text-[#03e9f4]">▶</span>
+                                    <span class="group-hover:text-[#03e9f4] transition-colors">TALAASH (Treasure Hunt)</span>
+                                </div>
+                            </li>
+                            <li class="text-gray-300 bg-[rgba(46,46,46,0.7)] p-3 rounded-lg border border-orange-500/30 hover:border-[#03e9f4] hover:bg-[rgba(46,46,46,0.9)] transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg hover:shadow-[#03e9f4]/20 cursor-pointer group">
+                                <div class="flex items-center space-x-3">
+                                    <span class="text-orange-500 group-hover:text-[#03e9f4]">▶</span>
+                                    <span class="group-hover:text-[#03e9f4] transition-colors">BGMI Player</span>
+                                </div>
+                            </li>
+                        </ul>
+                        <a href="{{ url_for('games') }}" 
+                           class="inline-block mt-4 px-6 py-2 bg-transparent text-orange-500 border-2 border-[#03e9f4] rounded-lg font-semibold tracking-wide hover:bg-[#03e9f4]/10 transition-all duration-300 hover:-translate-y-1">
+>>>>>>> 5064b1e46ec992d60690e78c8223909795e0f3b4
                             View More
                         </a>
                     </details>
                 </div>
             </div>
 
+<<<<<<< HEAD
             <!-- Management Events Card -->
             <div class="bg-[rgba(46,46,46,0.8)] border-2 border-[#ff6600] rounded-lg transition-all duration-300 
                         hover:-translate-y-2 hover:shadow-[0_15px_30px_rgba(3,233,244,0.4)] hover:border-[#03e9f4]">
@@ -111,12 +249,69 @@
                         <a href="{{ url_for('management') }}" 
                            class="inline-block mt-4 bg-[#03e9f4] text-[#1C1C1C] px-4 py-2 rounded border-2 border-[#03e9f4]
                                   transition-all duration-300 hover:bg-transparent hover:text-[#03e9f4]">
+=======
+            <!-- CHINTANA Events Card -->
+            <div class="bg-[rgba(46,46,46,0.8)] border-2 border-orange-500 rounded-xl p-6 transition-all duration-300 hover:-translate-y-2 hover:border-[#03e9f4] hover:shadow-lg hover:shadow-[#03e9f4]/40">
+                <img class="w-full h-40 object-cover rounded-lg mb-4" src="{{ url_for('static', filename='assets/management.png') }}" alt="CHINTANA Events">
+                <div class="text-center">
+                    <h5 class="text-2xl font-bold text-orange-500 mb-3">CHINTANA Events</h5>
+                    <p class="text-gray-300 mb-4">Showcase your management and business acumen through exciting challenges.</p>
+                    
+                    <details class="bg-[rgba(46,46,46,0.9)] border-2 border-orange-500 rounded-lg p-4 mt-4 group transition-all duration-300">
+                        <summary class="text-orange-500 font-bold cursor-pointer hover:text-[#03e9f4] flex items-center justify-between">
+                            <span>View Management Events</span>
+                            <svg class="w-5 h-5 transform group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </summary>
+                        <ul class="mt-4 space-y-3 transition-all duration-300">
+                            <li class="text-gray-300 bg-[rgba(46,46,46,0.7)] p-3 rounded-lg border border-orange-500/30 hover:border-[#03e9f4] hover:bg-[rgba(46,46,46,0.9)] transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg hover:shadow-[#03e9f4]/20 cursor-pointer group">
+                                <div class="flex items-center space-x-3">
+                                    <span class="text-orange-500 group-hover:text-[#03e9f4]">▶</span>
+                                    <span class="group-hover:text-[#03e9f4] transition-colors">VAGMITA (Elocution)</span>
+                                </div>
+                            </li>
+                            <li class="text-gray-300 bg-[rgba(46,46,46,0.7)] p-3 rounded-lg border border-orange-500/30 hover:border-[#03e9f4] hover:bg-[rgba(46,46,46,0.9)] transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg hover:shadow-[#03e9f4]/20 cursor-pointer group">
+                                <div class="flex items-center space-x-3">
+                                    <span class="text-orange-500 group-hover:text-[#03e9f4]">▶</span>
+                                    <span class="group-hover:text-[#03e9f4] transition-colors">DAKSH (Best Manager)</span>
+                                </div>
+                            </li>
+                            <li class="text-gray-300 bg-[rgba(46,46,46,0.7)] p-3 rounded-lg border border-orange-500/30 hover:border-[#03e9f4] hover:bg-[rgba(46,46,46,0.9)] transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg hover:shadow-[#03e9f4]/20 cursor-pointer group">
+                                <div class="flex items-center space-x-3">
+                                    <span class="text-orange-500 group-hover:text-[#03e9f4]">▶</span>
+                                    <span class="group-hover:text-[#03e9f4] transition-colors">SHRESTHA VITTA (FINANCE)</span>
+                                </div>
+                            </li>
+                            <li class="text-gray-300 bg-[rgba(46,46,46,0.7)] p-3 rounded-lg border border-orange-500/30 hover:border-[#03e9f4] hover:bg-[rgba(46,46,46,0.9)] transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg hover:shadow-[#03e9f4]/20 cursor-pointer group">
+                                <div class="flex items-center space-x-3">
+                                    <span class="text-orange-500 group-hover:text-[#03e9f4]">▶</span>
+                                    <span class="group-hover:text-[#03e9f4] transition-colors">VIPANAN (Marketing)</span>
+                                </div>
+                            </li>
+                            <li class="text-gray-300 bg-[rgba(46,46,46,0.7)] p-3 rounded-lg border border-orange-500/30 hover:border-[#03e9f4] hover:bg-[rgba(46,46,46,0.9)] transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg hover:shadow-[#03e9f4]/20 cursor-pointer group">
+                                <div class="flex items-center space-x-3">
+                                    <span class="text-orange-500 group-hover:text-[#03e9f4]">▶</span>
+                                    <span class="group-hover:text-[#03e9f4] transition-colors">MANAVA SANSADHAN (HR)</span>
+                                </div>
+                            </li>
+                            <li class="text-gray-300 bg-[rgba(46,46,46,0.7)] p-3 rounded-lg border border-orange-500/30 hover:border-[#03e9f4] hover:bg-[rgba(46,46,46,0.9)] transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg hover:shadow-[#03e9f4]/20 cursor-pointer group">
+                                <div class="flex items-center space-x-3">
+                                    <span class="text-orange-500 group-hover:text-[#03e9f4]">▶</span>
+                                    <span class="group-hover:text-[#03e9f4] transition-colors">SUMEDHA (Business Start-up)</span>
+                                </div>
+                            </li>
+                        </ul>
+                        <a href="{{ url_for('management') }}" 
+                           class="inline-block mt-4 px-6 py-2 bg-transparent text-orange-500 border-2 border-[#03e9f4] rounded-lg font-semibold tracking-wide hover:bg-[#03e9f4]/10 transition-all duration-300 hover:-translate-y-1">
+>>>>>>> 5064b1e46ec992d60690e78c8223909795e0f3b4
                             View More
                         </a>
                     </details>
                 </div>
             </div>
 
+<<<<<<< HEAD
             <!-- Gaming Events Card -->
             <div class="bg-[rgba(46,46,46,0.8)] border-2 border-[#ff6600] rounded-lg transition-all duration-300 
                         hover:-translate-y-2 hover:shadow-[0_15px_30px_rgba(3,233,244,0.4)] hover:border-[#03e9f4]">
@@ -134,89 +329,183 @@
                         <a href="{{ url_for('games') }}" 
                            class="inline-block mt-4 bg-[#03e9f4] text-[#1C1C1C] px-4 py-2 rounded border-2 border-[#03e9f4]
                                   transition-all duration-300 hover:bg-transparent hover:text-[#03e9f4]">
+=======
+            <!-- KALACHITRANA Events Card -->
+            <div class="bg-[rgba(46,46,46,0.8)] border-2 border-orange-500 rounded-xl p-6 transition-all duration-300 hover:-translate-y-2 hover:border-[#03e9f4] hover:shadow-lg hover:shadow-[#03e9f4]/40">
+                <img class="w-full h-40 object-cover rounded-lg mb-4" src="{{ url_for('static', filename='assets/art.png') }}" alt="KALACHITRANA Events">
+                <div class="text-center">
+                    <h5 class="text-2xl font-bold text-orange-500 mb-3">KALACHITRANA Events</h5>
+                    <p class="text-gray-300 mb-4">Express your creativity through visual arts and photography.</p>
+                    
+                    <details class="bg-[rgba(46,46,46,0.9)] border-2 border-orange-500 rounded-lg p-4 mt-4 group transition-all duration-300">
+                        <summary class="text-orange-500 font-bold cursor-pointer hover:text-[#03e9f4] flex items-center justify-between">
+                            <span>View Art Events</span>
+                            <svg class="w-5 h-5 transform group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </summary>
+                        <ul class="mt-4 space-y-3 transition-all duration-300">
+                            <li class="text-gray-300 bg-[rgba(46,46,46,0.7)] p-3 rounded-lg border border-orange-500/30 hover:border-[#03e9f4] hover:bg-[rgba(46,46,46,0.9)] transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg hover:shadow-[#03e9f4]/20 cursor-pointer group">
+                                <div class="flex items-center space-x-3">
+                                    <span class="text-orange-500 group-hover:text-[#03e9f4]">▶</span>
+                                    <span class="group-hover:text-[#03e9f4] transition-colors">STHALA CHITRAPATHA (Spot Photography)</span>
+                                </div>
+                            </li>
+                            <li class="text-gray-300 bg-[rgba(46,46,46,0.7)] p-3 rounded-lg border border-orange-500/30 hover:border-[#03e9f4] hover:bg-[rgba(46,46,46,0.9)] transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg hover:shadow-[#03e9f4]/20 cursor-pointer group">
+                                <div class="flex items-center space-x-3">
+                                    <span class="text-orange-500 group-hover:text-[#03e9f4]">▶</span>
+                                    <span class="group-hover:text-[#03e9f4] transition-colors">CHITRAGATHA (Short Film)</span>
+                                </div>
+                            </li>
+                            <li class="text-gray-300 bg-[rgba(46,46,46,0.7)] p-3 rounded-lg border border-orange-500/30 hover:border-[#03e9f4] hover:bg-[rgba(46,46,46,0.9)] transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg hover:shadow-[#03e9f4]/20 cursor-pointer group">
+                                <div class="flex items-center space-x-3">
+                                    <span class="text-orange-500 group-hover:text-[#03e9f4]">▶</span>
+                                    <span class="group-hover:text-[#03e9f4] transition-colors">RUPREKHA (Sketch Art)</span>
+                                </div>
+                            </li>
+                            <li class="text-gray-300 bg-[rgba(46,46,46,0.7)] p-3 rounded-lg border border-orange-500/30 hover:border-[#03e9f4] hover:bg-[rgba(46,46,46,0.9)] transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg hover:shadow-[#03e9f4]/20 cursor-pointer group">
+                                <div class="flex items-center space-x-3">
+                                    <span class="text-orange-500 group-hover:text-[#03e9f4]">▶</span>
+                                    <span class="group-hover:text-[#03e9f4] transition-colors">HASTAKALA (Painting)</span>
+                                </div>
+                            </li>
+                            <li class="text-gray-300 bg-[rgba(46,46,46,0.7)] p-3 rounded-lg border border-orange-500/30 hover:border-[#03e9f4] hover:bg-[rgba(46,46,46,0.9)] transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg hover:shadow-[#03e9f4]/20 cursor-pointer group">
+                                <div class="flex items-center space-x-3">
+                                    <span class="text-orange-500 group-hover:text-[#03e9f4]">▶</span>
+                                    <span class="group-hover:text-[#03e9f4] transition-colors">SWACHITRA (Selfie Point)</span>
+                                </div>
+                            </li>
+                        </ul>
+                        <a href="{{ url_for('kalachitrana') }}" 
+                           class="inline-block mt-4 px-6 py-2 bg-transparent text-orange-500 border-2 border-[#03e9f4] rounded-lg font-semibold tracking-wide hover:bg-[#03e9f4]/10 transition-all duration-300 hover:-translate-y-1">
+>>>>>>> 5064b1e46ec992d60690e78c8223909795e0f3b4
                             View More
                         </a>
                     </details>
                 </div>
             </div>
+            
         </div>
     </div>
 </section>
 <div class="h-0.5 bg-[#CD7F32] "></div>
 
+<style>
+    /* Details Animation */
+    details[open] summary ~ * {
+        animation: slideDown 0.3s ease-in-out;
+    }
+
+    details:not([open]) summary ~ * {
+        animation: slideUp 0.3s ease-in-out;
+    }
+
+    @keyframes slideDown {
+        0% {
+            opacity: 0;
+            transform: translateY(-10px);
+        }
+        100% {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @keyframes slideUp {
+        0% {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        100% {
+            opacity: 0;
+            transform: translateY(-10px);
+        }
+    }
+
+    /* Hover Effects */
+    .event-card:hover .event-icon {
+        transform: scale(1.1) rotate(5deg);
+    }
+
+    /* Active State */
+    details[open] summary {
+        border-bottom: 1px solid rgba(255, 69, 0, 0.2);
+        padding-bottom: 1rem;
+        margin-bottom: 1rem;
+    }
+
+    /* List Item Stagger Effect */
+    details[open] li {
+        animation: fadeInStagger 0.5s ease forwards;
+        opacity: 0;
+    }
+
+    details[open] li:nth-child(1) { animation-delay: 0.1s; }
+    details[open] li:nth-child(2) { animation-delay: 0.2s; }
+    details[open] li:nth-child(3) { animation-delay: 0.3s; }
+    details[open] li:nth-child(4) { animation-delay: 0.4s; }
+    details[open] li:nth-child(5) { animation-delay: 0.5s; }
+    details[open] li:nth-child(6) { animation-delay: 0.6s; }
+
+    @keyframes fadeInStagger {
+        from {
+            opacity: 0;
+            transform: translateX(-20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+
+    /* Glass Effect */
+    .glass-effect {
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+    }
+</style>
+
 <script>
-document.addEventListener('DOMContentLoaded', function(){
-    // Add this new code for details handling
-    const allDetails = document.querySelectorAll('details');
-    
-    allDetails.forEach((details) => {
-        details.addEventListener('click', (e) => {
-            // Prevent the click from bubbling up to parent elements
-            e.stopPropagation();
-            
-            // Close all other details elements except the clicked one
-            allDetails.forEach((otherDetails) => {
-                if (otherDetails !== details) {
-                    otherDetails.removeAttribute('open');
+    document.addEventListener('DOMContentLoaded', function(){
+        const detailsElements = document.querySelectorAll('details');
+        
+        // Function to close all details except the clicked one
+        function closeOtherDetails(currentDetails) {
+            detailsElements.forEach(details => {
+                if (details !== currentDetails) {
+                    details.removeAttribute('open');
                 }
             });
-        });
-    });
-
-    // Existing modal code
-    const modal = document.getElementById('event-modal');
-    const modalBody = document.getElementById('modal-body');
-    const closeBtn = modal.querySelector('.close');
-    
-    // Get all clickable cards
-    const cards = document.querySelectorAll('.card.clickable');
-    
-    cards.forEach(card => {
-        card.addEventListener('click', function(){
-            // Scale animation on click
-            card.style.transform = 'scale(1.05)';
-            
-            // Load modal content based on category
-            const category = card.getAttribute('data-category');
-            let content = "";
-            if(category === "tech"){
-                content = `<h2>Tech Events</h2>
-                           <!-- ...reference events/tech.html content... -->`;
-            } else if(category === "cultural"){
-                content = `<h2>Cultural Events</h2>
-                           <!-- ...reference events/cultural.html content... -->`;
-            } else if(category === "management"){
-                content = `<h2>Management Events</h2>
-                           <!-- ...reference events/management.html content... -->`;
-            } else if(category === "gaming"){
-                content = `<h2>Gaming Events</h2>
-                           <!-- ...reference events/games.html content... -->`;
-            }
-            modalBody.innerHTML = content;
-            modal.style.display = "block";
-        });
-    });
-    
-    // Prevent clicks on "View More" buttons from propagating to the card
-    const viewMoreBtns = document.querySelectorAll('.card .btn.btn-register');
-    viewMoreBtns.forEach(btn => {
-        btn.addEventListener('click', function(e) {
-            e.stopPropagation();
-        });
-    });
-    
-    // Close modal and reset card scale
-    closeBtn.addEventListener('click', function(){
-        modal.style.display = "none";
-        cards.forEach(card => card.style.transform = 'scale(1)');
-    });
-    
-    window.addEventListener('click', function(event) {
-        if (event.target == modal) {
-            modal.style.display = "none";
-            cards.forEach(card => card.style.transform = 'scale(1)');
         }
+
+        // Add click handler to each details element
+        detailsElements.forEach(details => {
+            details.addEventListener('click', function(e) {
+                // Only handle clicks on the summary element
+                if (e.target.tagName.toLowerCase() === 'summary') {
+                    e.stopPropagation();
+                    
+                    // If this details is being opened, close others
+                    if (!this.hasAttribute('open')) {
+                        closeOtherDetails(this);
+                    }
+                }
+            });
+
+            // Prevent event bubbling for links inside details
+            details.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', e => e.stopPropagation());
+            });
+        });
+
+        // Close all details when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('details')) {
+                detailsElements.forEach(details => {
+                    details.removeAttribute('open');
+                });
+            }
+        });
     });
-});
 </script>
 {% endblock %}
