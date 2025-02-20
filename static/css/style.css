@@ -1685,3 +1685,39 @@ select:focus {
     color: #007bff;
     margin: 15px 0;
 }
+
+.registrations-table {
+    max-height: 500px; /* Adjust height as needed */
+    overflow-y: auto;  /* Enable vertical scrolling */
+    overflow-x: auto;  /* Horizontal scrolling if needed */
+    margin-top: 20px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: rgba(30, 30, 30, 0.9);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th, td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid rgba(255, 215, 0, 0.1);
+}
+
+th {
+    background: #FFD700;
+    color: #1C1C1C;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+td {
+    color: #C0C0C0;
+}
+
+tbody tr:hover {
+    background: rgba(255, 215, 0, 0.1);
+}

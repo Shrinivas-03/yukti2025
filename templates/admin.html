@@ -5,6 +5,26 @@
 {% block content %}
 <div class="admin-container">
     <h1>Admin Dashboard</h1>
+    
+    <!-- Add search section -->
+    <div class="search-section">
+        <h2>Search Registration</h2>
+        <div class="search-box">
+            <input type="text" id="ackId" placeholder="Enter Acknowledgement ID">
+            <button onclick="searchRegistration()">Search</button>
+        </div>
+        
+        <!-- Results container -->
+        <div id="searchResults" class="search-results" style="display: none;">
+            <div class="result-details"></div>
+            <div class="payment-proof">
+                <h3>Payment Proof</h3>
+                <img id="proofImage" src="" alt="Payment Proof" style="max-width: 500px; display: none;" onclick="openModal(this.src)">
+                <p id="noProof" style="display: none;">No payment proof available (DD payment)</p>
+            </div>
+        </div>
+    </div>
+
     <div class="admin-panel">
         <div class="user-info">
             <p>Welcome, {{ session.user_id }}</p>
@@ -370,6 +390,106 @@
         background: #FFC500;
         transform: translateY(-2px);
     }
+
+    .search-section {
+        background: rgba(40, 40, 40, 0.95);
+        padding: 20px;
+        border-radius: 8px;
+        margin-bottom: 2rem;
+        color: #FFD700;
+    }
+
+    .search-box {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 1rem;
+    }
+
+    .search-box input {
+        flex: 1;
+        padding: 8px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        font-size: 16px;
+    }
+
+    .search-box button {
+        padding: 8px 20px;
+        background: #007bff;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    .search-results {
+        background: rgba(40, 40, 40, 0.95);
+        padding: 20px;
+        border-radius: 8px;
+        border: 1px solid #FFD700;
+    }
+
+    .payment-proof {
+        margin-top: 1rem;
+        padding-top: 1rem;
+        border-top: 1px solid #FFD700;
+    }
+
+    .payment-proof img {
+        max-width: 100%;
+        height: auto;
+        border: 2px solid #FFD700;
+        border-radius: 8px;
+        margin-top: 10px;
+        cursor: pointer;
+        transition: transform 0.3s ease;
+        display: block; /* Ensure image is block-level */
+    }
+
+    /* Add debug outline */
+    .payment-proof {
+        border: 1px solid #FFD700;
+        padding: 15px;
+        margin-top: 15px;
+    }
+
+    /* Modal styles for enlarged image */
+    .modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.9);
+        z-index: 1000;
+        cursor: pointer;
+    }
+
+    .modal img {
+        max-width: 90%;
+        max-height: 90vh;
+        margin: auto;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        border: 3px solid #FFD700;
+        border-radius: 8px;
+    }
+
+    .close-modal {
+        position: absolute;
+        top: 15px;
+        right: 25px;
+        color: #FFD700;
+        font-size: 35px;
+        cursor: pointer;
+    }
+
+    .result-details {
+        margin-bottom: 1rem;
+    }
 </style>
 
 <script>
@@ -402,6 +522,7 @@
         });
     });
 
+    // Update the table generation function for registrations
     async function showRegistrations(type) {
         const displaySection = document.getElementById('registrations-display');
         displaySection.style.display = 'block';
@@ -414,7 +535,7 @@
             
             if (data.success && data.registrations) {
                 let tableHtml = `
-                    <div class="registrations-table">
+                    <div class="registrations-table" style="overflow-x:auto;">
                         <table>
                             <thead>
                                 <tr>
@@ -423,7 +544,9 @@
                                     <th>Email</th>
                                     <th>Phone</th>
                                     <th>Events</th>
-                                    ${type === 'spot' ? '<th>UTR Number</th>' : ''}
+                                    <th>Payment Method</th>
+                                    <th>UTR Number</th>
+                                    <th>DD Number</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -431,14 +554,20 @@
 
                 data.registrations.forEach(reg => {
                     const events = reg.event_details.map(e => e.event).join(', ');
+                    const paymentMethod = reg.payment_method || 'Not specified';
+                    const utrNumber = reg.utr_number || '-';
+                    const ddNumber = reg.DD || '-';
+                    
                     tableHtml += `
                         <tr>
-                            <td>${reg.ack_id}</td>
-                            <td>${reg.college}</td>
-                            <td>${reg.email}</td>
-                            <td>${reg.phone}</td>
-                            <td>${events}</td>
-                            ${type === 'spot' ? `<td>${reg.utr_number || '-'}</td>` : ''}
+                            <td>${reg.ack_id || '-'}</td>
+                            <td>${reg.college || '-'}</td>
+                            <td>${reg.email || '-'}</td>
+                            <td>${reg.phone || '-'}</td>
+                            <td>${events || '-'}</td>
+                            <td>${paymentMethod}</td>
+                            <td>${utrNumber}</td>
+                            <td>${ddNumber}</td>
                         </tr>
                     `;
                 });
@@ -462,7 +591,7 @@
         }
     }
 
-    function showEventRegistrations(eventName, category) {
+    async function showEventRegistrations(eventName, category) {
         const displaySection = document.getElementById('registrations-display');
         displaySection.style.display = 'block';
         displaySection.innerHTML = `<h3>Registrations for ${eventName}</h3>
@@ -739,5 +868,99 @@
         }
     `;
     document.head.appendChild(style);
+
+    async function searchRegistration() {
+        const ackId = document.getElementById('ackId').value.trim();
+        if (!ackId) {
+            alert('Please enter an Acknowledgement ID');
+            return;
+        }
+
+        try {
+            const response = await fetch(`/api/search-registration/${ackId}`);
+            const data = await response.json();
+            
+            const resultsDiv = document.getElementById('searchResults');
+            const detailsDiv = resultsDiv.querySelector('.result-details');
+            const proofImg = document.getElementById('proofImage');
+            const noProofText = document.getElementById('noProof');
+            
+            if (data.success) {
+                // Show the results container
+                resultsDiv.style.display = 'block';
+                
+                // Debug log
+                console.log('Registration data:', data.registration);
+                console.log('Payment proof URL:', data.registration.payment_proof_url);
+                
+                // Display registration details
+                detailsDiv.innerHTML = `
+                    <p><strong>Email:</strong> ${data.registration.email}</p>
+                    <p><strong>College:</strong> ${data.registration.college}</p>
+                    <p><strong>Phone:</strong> ${data.registration.phone}</p>
+                    <p><strong>Payment Method:</strong> ${data.registration.payment_method}</p>
+                    ${data.registration.utr_number ? `<p><strong>UTR Number:</strong> ${data.registration.utr_number}</p>` : ''}
+                    ${data.registration.DD ? `<p><strong>DD Number:</strong> ${data.registration.DD}</p>` : ''}
+                `;
+
+                // Handle payment proof image
+                if (data.registration.payment_proof_url) {
+                    console.log('Loading image from:', data.registration.payment_proof_url);
+                    
+                    // Create new image object to test loading
+                    const tempImg = new Image();
+                    tempImg.onload = function() {
+                        proofImg.src = data.registration.payment_proof_url;
+                        proofImg.style.display = 'block';
+                        noProofText.style.display = 'none';
+                    };
+                    tempImg.onerror = function() {
+                        console.error('Failed to load image from URL:', data.registration.payment_proof_url);
+                        proofImg.style.display = 'none';
+                        noProofText.textContent = 'Failed to load payment proof image';
+                        noProofText.style.display = 'block';
+                    };
+                    tempImg.src = data.registration.payment_proof_url;
+                    
+                } else {
+                    console.log('No payment proof URL found');
+                    proofImg.style.display = 'none';
+                    noProofText.textContent = 'No payment proof available';
+                    noProofText.style.display = 'block';
+                }
+            } else {
+                alert(data.message || 'Registration not found');
+                resultsDiv.style.display = 'none';
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            alert('Error searching for registration');
+        }
+    }
+
+    function openModal(imageSrc) {
+        const modal = document.getElementById('imageModal');
+        const modalImg = document.getElementById('modalImage');
+        modal.style.display = "block";
+        modalImg.src = imageSrc;
+    }
+
+    function closeModal() {
+        document.getElementById('imageModal').style.display = "none";
+    }
+
+    // Close modal with Escape key
+    document.addEventListener('keydown', function(event) {
+        if (event.key === "Escape") {
+            closeModal();
+        }
+    });
 </script>
+
+<!-- Add modal div at the bottom of the body -->
+<div id="imageModal" class="modal" onclick="closeModal()">
+    <span class="close-modal">&times;</span>
+    <img id="modalImage" src="" alt="Enlarged payment proof">
+</div>
+
 {% endblock %}
