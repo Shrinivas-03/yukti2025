@@ -3,386 +3,22 @@
 {% block title %}Registration - College Fest{% endblock %}
 
 {% block content %}
-<style>
-    body {
-        display: flex;
-        flex-direction: column;
-        min-height: 100vh;
-    }
-    
-    .registration-container {
-        max-width: 1200px;
-        margin: 100px auto 0; /* Increased from 80px to 100px for more space */
-        padding: 20px;
-        flex: 1; /* This makes the container take up available space */
-    }
-    
-    /* Add padding at the bottom to prevent content from being hidden by footer */
-    .registration-form-container {
-        margin-bottom: 2rem;
-    }
-    
-    /* Ensure footer stays at bottom */
-    .footer {
-        margin-top: auto;
-    }
+<div class="h-0.5 bg-[#CD7F32] "></div>
+<div class="min-h-screen flex flex-col">
+    <!-- Registration Container -->
+    <div class="flex-1 container mx-auto px-4 mt-24 mb-8 max-w-3xl">
+        <h1 class="text-4xl font-bold text-[#FFD700] text-center mb-10">YUKTI-2025 Registration</h1>
 
-    .registration-title {
-        text-align: center;
-        margin-bottom: 40px; /* Increased bottom margin */
-        color: #FFD700; /* Added gold color to match theme */
-        font-size: 2.5rem;
-    }
-
-    .registration-form-container {
-        background: rgba(40, 40, 40, 0.95);
-        padding: 30px;
-        border-radius: 10px;
-        box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
-    }
-
-    /* Main wrapper styles */
-    .page-wrapper {
-        min-height: 100vh;
-        display: flex;
-        flex-direction: column;
-        padding-bottom: 80px; /* Space for footer */
-    }
-
-    /* Registration container styles */
-    .registration-container {
-        max-width: 1200px;
-        margin: 100px auto 2rem; /* Top margin for navbar, bottom margin for footer */
-        padding: 20px;
-        flex: 1;
-        width: 90%; /* Responsive width */
-    }
-
-    /* Form container styles */
-    .registration-form-container {
-        background: rgba(40, 40, 40, 0.95);
-        padding: 30px;
-        border-radius: 10px;
-        box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
-        margin-bottom: 2rem;
-    }
-
-    /* Responsive adjustments */
-    @media (max-width: 768px) {
-        .registration-container {
-            width: 95%;
-            margin: 80px auto 1rem;
-            padding: 15px;
-        }
-        
-        .registration-form-container {
-            padding: 20px;
-        }
-    }
-
-    /* Enhanced Register Button Styles */
-    .registration-form button[type="submit"] {
-        background: #FFD700;
-        color: #1C1C1C;
-        padding: 12px 30px;
-        border: 2px solid #FFD700;
-        border-radius: 5px;
-        font-size: 1.1rem;
-        font-weight: bold;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        margin-top: 20px;
-        position: relative;
-        overflow: hidden;
-    }
-
-    .registration-form button[type="submit"]:hover {
-        background: transparent;
-        color: #FFD700;
-        box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
-        transform: translateY(-2px);
-    }
-
-    .registration-form button[type="submit"]::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: -100%;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(
-            120deg,
-            transparent,
-            rgba(255, 215, 0, 0.2),
-            transparent
-        );
-        transition: 0.5s;
-    }
-
-    .registration-form button[type="submit"]:hover::before {
-        left: 100%;
-    }
-
-    .registration-form button[type="submit"]:active {
-        transform: scale(0.95);
-    }
-
-    /* Loading Button Styles */
-    .registration-form button[type="submit"] {
-        position: relative;
-        overflow: hidden;
-    }
-
-    .registration-form button[type="submit"].loading {
-        pointer-events: none;
-        opacity: 0.8;
-    }
-
-    .registration-form button[type="submit"] .spinner {
-        display: none;
-        position: absolute;
-        left: 50%;
-        top: 50%;
-        transform: translate(-50%, -50%);
-        width: 20px;
-        height: 20px;
-        border: 3px solid transparent;
-        border-top-color: #1C1C1C;
-        border-radius: 50%;
-        animation: spin 1s linear infinite;
-    }
-
-    .registration-form button[type="submit"].loading .spinner {
-        display: block;
-    }
-
-    .registration-form button[type="submit"].loading span {
-        visibility: hidden;
-    }
-
-    @keyframes spin {
-        0% { transform: translate(-50%, -50%) rotate(0deg); }
-        100% { transform: translate(-50%, -50%) rotate(360deg); }
-    }
-
-    .error-message {
-        color: #ff4444;
-        font-size: 0.9rem;
-        margin-top: 5px;
-        display: none;
-    }
-
-    .error-border {
-        border: 1px solid #ff4444 !important;
-    }
-
-    .payment-section {
-        display: none;
-        margin-top: 30px;
-        padding: 20px;
-        background: rgba(40, 40, 40, 0.95);
-        border-radius: 10px;
-        text-align: center;
-        transition: all 0.5s ease;
-        transform: translateY(-20px);
-        opacity: 0;
-    }
-
-    .payment-section.show {
-        display: block;
-        transform: translateY(0);
-        opacity: 1;
-    }
-
-    .qr-code-container {
-        margin: 20px auto;
-        max-width: 300px;
-    }
-
-    .qr-code-container img {
-        width: 100%;
-        height: auto;
-        border: 3px solid #FFD700;
-        border-radius: 10px;
-    }
-
-    .utr-input-container {
-        margin: 20px 0;
-    }
-
-    .utr-input-container input {
-        padding: 10px;
-        width: 100%;
-        max-width: 300px;
-        border: 2px solid #FFD700;
-        background: rgba(0, 0, 0, 0.3);
-        color: #fff;
-        border-radius: 5px;
-        margin-top: 10px;
-    }
-
-    .proceed-btn {
-        background: #FFD700;
-        color: #1C1C1C;
-        padding: 12px 30px;
-        border: 2px solid #FFD700;
-        border-radius: 5px;
-        font-weight: bold;
-        cursor: pointer;
-        transition: all 0.3s ease;
-    }
-
-    .proceed-btn:hover {
-        background: transparent;
-        color: #FFD700;
-    }
-
-    .registration-form-container.payment-active {
-        transform: translateY(-20px);
-        transition: transform 0.5s ease;
-    }
-
-    .bank-details {
-        margin: 20px 0;
-        padding: 15px;
-        border: 1px solid #FFD700;
-        border-radius: 5px;
-        background: rgba(0, 0, 0, 0.2);
-    }
-
-    .bank-details h3 {
-        color: #FFD700;
-        margin-bottom: 15px;
-    }
-
-    .account-details {
-        display: flex;
-        justify-content: space-around;
-        flex-wrap: wrap;
-        gap: 20px;
-        margin: 15px 0;
-    }
-
-    .account-detail-item {
-        color: #fff;
-        padding: 8px 15px;
-        background: rgba(255, 215, 0, 0.1);
-        border-radius: 5px;
-        text-align: center;
-    }
-
-    .payment-divider {
-        margin: 30px 0;
-        text-align: center;
-        position: relative;
-    }
-
-    .payment-divider::before {
-        content: '';
-        position: absolute;
-        left: 0;
-        top: 50%;
-        width: 40%;
-        height: 1px;
-        background: #FFD700;
-    }
-
-    .payment-divider::after {
-        content: '';
-        position: absolute;
-        right: 0;
-        top: 50%;
-        width: 40%;
-        height: 1px;
-        background: #FFD700;
-    }
-
-    .payment-divider span {
-        background: rgba(40, 40, 40, 0.95);
-        padding: 0 15px;
-        color: #FFD700;
-    }
-
-    .dd-input-container {
-        margin: 20px 0;
-    }
-
-    .dd-input-container input {
-        padding: 10px;
-        width: 100%;
-        max-width: 300px;
-        border: 2px solid #FFD700;
-        background: rgba(0, 0, 0, 0.3);
-        color: #fff;
-        border-radius: 5px;
-        margin-top: 10px;
-    }
-
-    .image-upload-container {
-        margin: 20px 0;
-        padding: 15px;
-        border: 2px dashed #FFD700;
-        border-radius: 5px;
-        text-align: center;
-        background: rgba(0, 0, 0, 0.2);
-    }
-
-    .image-upload-container label {
-        display: block;
-        color: #FFD700;
-        margin-bottom: 10px;
-        font-weight: bold;
-    }
-
-    .image-upload-container input[type="file"] {
-        display: none;
-    }
-
-    .upload-btn {
-        background: transparent;
-        color: #FFD700;
-        padding: 10px 20px;
-        border: 2px solid #FFD700;
-        border-radius: 5px;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        display: inline-block;
-        margin-top: 10px;
-    }
-
-    .upload-btn:hover {
-        background: #FFD700;
-        color: #1C1C1C;
-    }
-
-    .image-preview {
-        max-width: 300px;
-        margin: 15px auto;
-        display: none;
-    }
-
-    .image-preview img {
-        width: 100%;
-        height: auto;
-        border-radius: 5px;
-        border: 2px solid #FFD700;
-    }
-</style>
-
-<!-- Update the main structure -->
-<div class="page-wrapper">
-    <div class="registration-container">
-        <h1 class="registration-title">YUKTI-2025 Registration</h1>
-
-        <div class="registration-form-container">
-            <form class="registration-form" id="registrationForm" onsubmit="event.preventDefault(); submitRegistration();">
+        <!-- Main Form Container -->
+        <div class="bg-[rgba(40,40,40,0.95)] p-6 md:p-8 rounded-xl shadow-2xl mb-8">
+            <form id="registrationForm" class="space-y-6" onsubmit="event.preventDefault(); submitRegistration();">
                 <!-- Event Selection Section -->
-                <div class="event-selection-section">
+                <div class="space-y-6">
                     <div class="form-group">
-                        <label for="category"><strong>Select Event Category</strong></label>
-                        <select id="category" required>
+                        <label for="category" class="block text-xl font-bold text-[#FFD700] mb-2">Select Event Category</label>
+                        <select id="category" required 
+                                class="w-full p-3 bg-[rgba(32,34,39,0.8)] border-2 border-[#ff6600] rounded-lg text-white
+                                      outline-none transition-all duration-300 hover:border-[#03e9f4]">
                             <option value="" disabled selected>--Select--</option>
                             <option value="tech">Manthana (Tech Events)</option>
                             <option value="Cultural">Manoranjana (Cultural Events)</option>
@@ -392,124 +28,372 @@
                         </select>
                     </div>
 
+                    <!-- Events Container -->
                     <div class="form-group">
-                        <label><strong>Select an Event</strong></label>
-                        <div id="events-container" class="events-grid">
-                            <p>Please select a category first.</p>
+                        <label class="block text-xl font-bold text-[#FFD700] mb-2">Select an Event</label>
+                        <div id="events-container" 
+                             class="grid grid-cols-1 sm:grid-cols-2 gap-4 p-4 bg-[rgba(32,34,39,0.6)] rounded-lg">
+                            <p class="text-gray-400">Please select a category first.</p>
                         </div>
                     </div>
 
-                    <div class="form-group hidden" id="group-size-container">
-                        <label for="group-size"><strong>Number of Participants</strong></label>
-                        <input type="number" id="group-size" min="1" max="4" value="1" class="group-size-input" />
-                    </div>
-                    <div id="group-size-error" class="hidden" style="color:red; font-size:0.9rem;"></div>
-
-                    <div id="individual-participant-container" class="form-group hidden">
-                        <label for="individual-participant"><strong>Participant Name</strong></label required>
-                        <input type="text" id="individual-participant" placeholder="Enter Your Name" />
-                        <div id="individual-error" class="error-message">Please enter participant name</div>
+                    <!-- Group Size Container -->
+                    <div id="group-size-container" class="hidden space-y-2">
+                        <label for="group-size" class="block text-xl font-bold text-[#FFD700] mb-2">Number of Participants</label>
+                        <input type="number" id="group-size" min="1" max="4" value="1"
+                               class="w-full p-3 bg-[rgba(32,34,39,0.8)] border-2 border-[#ff6600] rounded-lg text-white
+                                      outline-none transition-all duration-300">
                     </div>
 
-                    <div class="form-group hidden" id="team-members-container">
-                        <label><strong>Team Members</strong></label>
-                        <div id="member-inputs"></div>
-                        <div id="team-error" class="error-message">Please enter all team member names</div>
-                    </div>
-                    <!-- New Total Participants Section -->
-                
-
-                    <button type="button" id="add-event-btn" class="add-event-btn" disabled>+ Add Event</button>
-                </div>
-
-                <!-- Selected Events Section -->
-                <div class="selected-events-section hidden">
-                    <h3>Selected Events</h3>
-                    <div id="selected-events-list"></div>
-                </div>
-
-            
-
-                <!-- Personal Details Section -->
-                <div class="personal-details-section hidden">
-                    <div class="form-group">
-                        <label for="college">College Name</label>
-                        <input type="text" id="college" placeholder="Enter your college name" required />
+                    <div id="team-members-container" class="hidden space-y-4">
+                        <label class="block text-xl font-bold text-[#FFD700] mb-2">Team Members</label>
+                        <div id="member-inputs" class="space-y-3">
+                            <!-- Member inputs will be generated dynamically -->
+                        </div>
+                        <div id="team-error" class="text-red-500 text-sm hidden">Please enter all team member names</div>
                     </div>
 
-                    <div class="form-group">
-                        <label for="email">Email</label>
-                        <input type="email" id="email" placeholder="Enter your email" required />
+                    <div id="individual-participant-container" class="hidden space-y-4">
+                        <label for="individual-participant" class="block text-xl font-bold text-[#FFD700] mb-2">Participant Name</label>
+                        <input type="text" 
+                               id="individual-participant" 
+                               placeholder="Enter Your Name" 
+                               class="w-full p-3 bg-[rgba(32,34,39,0.8)] border-2 border-[#ff6600] rounded-lg text-white
+                                      placeholder:text-gray-400 outline-none transition-all duration-300
+                                      focus:border-[#03e9f4] focus:shadow-[0_0_8px_rgba(3,233,244,0.4)]">
+                        <div id="individual-error" class="text-red-500 text-sm hidden">Please enter participant name</div>
                     </div>
 
-                    <div class="form-group">
-                        <label for="phone">Phone (WhatsApp)</label>
-                        <input type="tel" id="phone" placeholder="Enter your WhatsApp number" required />
-                    </div>
-                    <!-- New Overall Total Participants Section -->
-                <div class="overall-participants" id="overall-participants-section" style="margin:10px 0; font-weight:bold;">
-                    Overall Total Participants: <span id="overallParticipants">0</span>
-                </div>
-
-                    <p class="cost-note">*Accommodation is not available.</p>
-                    <p class="total-cost">Total Cost: ₹0</p>
-
-                    <button type="submit">
-                        <div class="spinner"></div>
-                        <span>Register Now</span>
+                    <!-- Add Button -->
+                    <button type="button" id="add-event-btn" disabled
+                            class="w-full bg-[#ff6600] text-white py-3 px-6 rounded-lg font-bold uppercase 
+                                   transition-all duration-300 hover:bg-[#e65c00] hover:-translate-y-1 
+                                   hover:shadow-[0_8px_15px_rgba(255,103,0,0.4)] disabled:opacity-50 
+                                   disabled:cursor-not-allowed">
+                        + Add Event
                     </button>
                 </div>
             </form>
-            <div class="payment-section" id="paymentSection">
-                <h2 style="color: #FFD700; margin-bottom: 20px;">Complete Payment</h2>
-                <p>Please scan the QR code to pay ₹<span id="paymentAmount">0</span></p>
-                
-                
+        </div>
 
-                <div class="qr-code-container">
-                    <img src="/static/assets/qr-code-payment.png" alt="Payment QR Code">
-                </div>
-
-                <div class="image-upload-container">
-                    <label for="payment-proof">Upload Payment Screenshot</label>
-                    <div id="preview-container" class="image-preview">
-                        <img id="preview-image" src="#" alt="Preview">
+        <!-- Add this after the add-event-btn  -->
+        <div class="selected-events-section hidden mt-8 bg-[rgba(40,40,40,0.95)] p-6 rounded-xl border-2 border-[#ff6600]">
+            <h3 class="text-2xl font-bold text-[#FFD700] mb-6">Selected Events</h3>
+            <div id="selected-events-list" class="space-y-4">
+                <!-- Selected events will be dynamically added here -->
+            </div>
+            
+            <!-- Personal Details Section -->
+            <div class="personal-details-section mt-8 space-y-6">
+                <h3 class="text-2xl font-bold text-[#FFD700] mb-6">Personal Details</h3>
+                <div class="space-y-4">
+                    <div>
+                        <label for="college" class="block text-white mb-2">College Name</label>
+                        <input type="text" 
+                               id="college" 
+                               placeholder="Enter your college name" 
+                               required
+                               class="w-full p-3 bg-[rgba(32,34,39,0.8)] border-2 border-[#ff6600] rounded-lg text-white
+                                      placeholder:text-gray-400 outline-none transition-all duration-300
+                                      focus:border-[#03e9f4] focus:shadow-[0_0_8px_rgba(3,233,244,0.4)]">
                     </div>
-                    <input type="file" id="payment-proof" accept="image/*" onchange="previewImage(this)">
-                    <label for="payment-proof" class="upload-btn">Choose File</label>
-                </div>
-
-                <div class="utr-input-container">
-                    <label for="utr" style="color: #fff;">Enter UTR Number / Transaction ID</label>
-                    <input type="text" id="utr" placeholder="Enter UTR number" required>
-                </div>
-
-                <div class="payment-divider">
-                    <span>OR</span>
-                </div>
-
-                <div class="bank-details">
-                    <h3>The Finance officer, VTU Belagavi</h3>
-                    <div class="account-details">
-                        <div class="account-detail-item">A/C no: 110226756934</div>
-                        <div class="account-detail-item">Bank: Canara Bank</div>
-                        <div class="account-detail-item">IFSC: CNRB0001829</div>
+                    
+                    <div>
+                        <label for="email" class="block text-white mb-2">Email</label>
+                        <input type="email" 
+                               id="email" 
+                               placeholder="Enter your email" 
+                               required
+                               class="w-full p-3 bg-[rgba(32,34,39,0.8)] border-2 border-[#ff6600] rounded-lg text-white
+                                      placeholder:text-gray-400 outline-none transition-all duration-300
+                                      focus:border-[#03e9f4] focus:shadow-[0_0_8px_rgba(3,233,244,0.4)]">
+                    </div>
+                    
+                    <div>
+                        <label for="phone" class="block text-white mb-2">Phone (WhatsApp)</label>
+                        <input type="tel" 
+                               id="phone" 
+                               placeholder="Enter your WhatsApp number" 
+                               required
+                               class="w-full p-3 bg-[rgba(32,34,39,0.8)] border-2 border-[#ff6600] rounded-lg text-white
+                                      placeholder:text-gray-400 outline-none transition-all duration-300
+                                      focus:border-[#03e9f4] focus:shadow-[0_0_8px_rgba(3,233,244,0.4)]">
                     </div>
                 </div>
 
-                <div class="dd-input-container">
-                    <label for="dd" style="color: #fff;">Pay by DD (Demand Draft Number)</label>
-                    <input type="text" id="dd" placeholder="Enter DD number">
+                <div class="mt-4">
+                    <p class="text-gray-400 mb-2">*Accommodation is not available.</p>
+                    <p class="text-xl font-bold text-[#FFD700]">Total Cost: ₹<span class="total-cost">0</span></p>
                 </div>
-        
-                <button type="button" class="proceed-btn" onclick="verifyPayment()">
-                    Verify & Proceed
+
+                <button type="button" 
+                        onclick="submitRegistration()"
+                        class="w-full bg-[#ff6600] text-white py-3 px-6 rounded-lg font-bold uppercase 
+                               transition-all duration-300 hover:bg-[#e65c00] hover:-translate-y-1 
+                               hover:shadow-[0_8px_15px_rgba(255,103,0,0.4)]">
+                    Register Now
                 </button>
             </div>
         </div>
     </div>
 </div>
+<div class="h-0.5 bg-[#CD7F32] "></div>
 
+<!-- Replace the existing <style> section with these classes -->
+<style>
+.selected-event {
+    background: rgba(46,46,46,0.9);
+    padding: 1rem;
+    border-radius: 0.5rem;
+    border: 2px solid #ff6600;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.selected-event span {
+    color: #C0C0C0;
+    word-break: break-word;
+    max-width: 80%;
+}
+
+.remove-event-btn {
+    color: rgb(239, 68, 68);
+    font-weight: bold;
+    font-size: 1.25rem;
+    padding: 0.5rem;
+    transition: color 0.3s;
+}
+
+.remove-event-btn:hover {
+    color: rgb(248, 113, 113);
+}
+
+.event-option {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+}
+
+.event-option input[type="radio"] {
+    width: 1rem;
+    height: 1rem;
+    cursor: pointer;
+    accent-color: #03e9f4;
+}
+
+.event-option label {
+    color: #C0C0C0;
+    cursor: pointer;
+    user-select: none;
+}
+
+.error-border {
+    border-color: rgb(239, 68, 68);
+}
+
+/* Additional Styles */
+.event-option {
+    border: 2px solid #03e9f4;
+    transition: all 0.3s ease;
+    background: rgba(3, 233, 244, 0.05);
+}
+
+.event-option:hover {
+    transform: translateX(10px);
+    box-shadow: 0 0 15px rgba(3, 233, 244, 0.5);
+    background: rgba(3, 233, 244, 0.1);
+}
+
+.event-option input[type="radio"]:checked + label {
+    color: #03e9f4;
+    text-shadow: 0 0 5px #03e9f4;
+}
+
+.member-input {
+    margin-bottom: 0.75rem;
+}
+
+.member-input input {
+    width: 100%;
+    padding: 0.75rem;
+    background: rgba(32,34,39,0.8);
+    border: 2px solid #ff6600;
+    border-radius: 0.5rem;
+    color: white;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.member-input input:focus {
+    border-color: #03e9f4;
+    box-shadow: 0 0 8px rgba(3,233,244,0.4);
+}
+
+.member-input input::placeholder {
+    color: #9CA3AF;
+}
+
+/* Responsive styles for all devices */
+@media (max-width: 640px) {
+    .flex-1.container {
+        padding: 0.5rem;
+        margin-top: 5rem;
+    }
+
+    h1.text-4xl {
+        font-size: 1.75rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .form-group label {
+        font-size: 1rem;
+    }
+
+    #events-container {
+        padding: 0.75rem;
+    }
+
+    .selected-event {
+        padding: 0.75rem;
+        font-size: 0.875rem;
+    }
+
+    .selected-event span {
+        font-size: 0.875rem;
+    }
+
+    .member-input input {
+        padding: 0.5rem;
+        font-size: 0.875rem;
+    }
+
+    .personal-details-section h3 {
+        font-size: 1.25rem;
+        margin-bottom: 1rem;
+    }
+
+    .personal-details-section label {
+        font-size: 0.875rem;
+    }
+
+    .personal-details-section input {
+        padding: 0.5rem;
+        font-size: 0.875rem;
+    }
+
+    .total-cost {
+        font-size: 1.25rem;
+    }
+
+    button {
+        padding: 0.5rem 1rem;
+        font-size: 0.875rem;
+    }
+
+    #paymentSection {
+        padding: 1rem;
+    }
+
+    #paymentSection h2 {
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+    }
+
+    .bank-details h3 {
+        font-size: 1.25rem;
+    }
+
+    .account-details {
+        font-size: 0.875rem;
+    }
+}
+
+/* Tablet adjustments */
+@media (min-width: 641px) and (max-width: 1024px) {
+    .flex-1.container {
+        padding: 1rem;
+    }
+
+    h1.text-4xl {
+        font-size: 2rem;
+    }
+
+    .form-group label {
+        font-size: 1.125rem;
+    }
+}
+
+/* Ensure touch targets are large enough on mobile */
+@media (hover: none) and (pointer: coarse) {
+    input, 
+    select, 
+    button {
+        min-height: 44px;
+    }
+
+    .event-option {
+        padding: 0.75rem;
+    }
+
+    .remove-event-btn {
+        padding: 0.5rem 0.75rem;
+        font-size: 1.25rem;
+    }
+}
+
+/* Professional spacing adjustments */
+.space-y-6 > * {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+.rounded-lg {
+    border-radius: 0.5rem;
+}
+
+.shadow-xl {
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+/* Improved input styling */
+input, select {
+    font-size: 0.9375rem;
+    letter-spacing: 0.01em;
+}
+
+/* Better text readability */
+label, p {
+    letter-spacing: 0.01em;
+    line-height: 1.5;
+}
+
+/* Add container width adjustments for different screen sizes */
+@media (max-width: 640px) {
+    .container {
+        max-width: 95%;
+        padding: 0 1rem;
+    }
+}
+
+@media (min-width: 641px) and (max-width: 1024px) {
+    .container {
+        max-width: 85%;
+        padding: 0 2rem;
+    }
+}
+
+@media (min-width: 1025px) {
+    .container {
+        max-width: 800px; /* Fixed maximum width for larger screens */
+    }
+}
+</style>
+
+<!-- Keep existing JavaScript -->
 <script>
     // Declare selectedEvents globally so that submitRegistration can access it.
     let selectedEvents = [];
@@ -577,7 +461,7 @@
             selectedEvents.forEach(event => {
                 totalCost += event.cost; // Use the actual event cost instead of COST_PER_EVENT
             });
-            document.querySelector('.total-cost').textContent = `Total Cost: ₹${totalCost}`;
+            document.querySelector('.total-cost').textContent = totalCost;
         }
 
         // Remove or comment out the COST_PER_EVENT constant since we're not using it anymore
@@ -597,22 +481,23 @@
                 // Clamp count between event.minTeam and event.maxTeam
                 count = Math.min(Math.max(parseInt(count), currentEventSelection.minTeam), currentEventSelection.maxTeam);
                 groupSizeInput.value = count;
-            }
 
-            for (let i = 1; i <= count; i++) {
-                const memberDiv = document.createElement("div");
-                memberDiv.classList.add("member-input");
-                
-                const memberInput = document.createElement("input");
-                memberInput.type = "text";
-                memberInput.id = `member-${i}`;
-                memberInput.name = `member-${i}`;
-                memberInput.placeholder = `Member ${i} Name`;
-                // Removed required attribute to prevent invalid form control error
-                // memberInput.required = true;
-                
-                memberDiv.appendChild(memberInput);
-                memberInputsContainer.appendChild(memberDiv);
+                for (let i = 1; i <= count; i++) {
+                    const memberDiv = document.createElement("div");
+                    memberDiv.className = "member-input";
+                    
+                    const memberInput = document.createElement("input");
+                    memberInput.type = "text";
+                    memberInput.id = `member-${i}`;
+                    memberInput.name = `member-${i}`;
+                    memberInput.placeholder = `Member ${i} Name`;
+                    memberInput.className = "w-full p-3 bg-[rgba(32,34,39,0.8)] border-2 border-[#ff6600] rounded-lg text-white \
+                                           placeholder:text-gray-400 outline-none transition-all duration-300 \
+                                           focus:border-[#03e9f4] focus:shadow-[0_0_8px_rgba(3,233,244,0.4)]";
+                    
+                    memberDiv.appendChild(memberInput);
+                    memberInputsContainer.appendChild(memberDiv);
+                }
             }
             updateTotalParticipants();
         }
@@ -692,10 +577,13 @@
         });
 
         function updateSelectedEventsList() {
+            const selectedEventsList = document.getElementById('selected-events-list');
+            const selectedEventsSection = document.querySelector('.selected-events-section');
             selectedEventsList.innerHTML = '';
+            
             selectedEvents.forEach((event, index) => {
-                const eventDiv = document.createElement("div");
-                eventDiv.classList.add("selected-event");
+                const eventDiv = document.createElement('div');
+                eventDiv.className = 'selected-event';
                 
                 let membersText = '';
                 if (event.members && event.members.length > 0) {
@@ -706,11 +594,24 @@
 
                 eventDiv.innerHTML = `
                     <span>${event.event} (${event.category})${membersText}</span>
-                    <button type="button" onclick="removeEvent(${index})" class="remove-event-btn">✕</button>
+                    <button type="button" onclick="removeEvent(${index})" class="remove-event-btn">×</button>
                 `;
+                
                 selectedEventsList.appendChild(eventDiv);
             });
-            updateOverallTotalParticipants();
+
+            // Show/hide sections based on selected events
+            if (selectedEvents.length > 0) {
+                selectedEventsSection.classList.remove('hidden');
+                document.querySelector('.personal-details-section').classList.remove('hidden');
+            } else {
+                selectedEventsSection.classList.add('hidden');
+                document.querySelector('.personal-details-section').classList.add('hidden');
+            }
+            
+            // Update total cost
+            const totalCost = selectedEvents.reduce((sum, event) => sum + event.cost, 0);
+            document.querySelector('.total-cost').textContent = totalCost;
         }
 
         function resetEventSelection() {
@@ -946,8 +847,6 @@
     });
 
     async function submitRegistration() {
-        const submitBtn = document.querySelector('button[type="submit"]');
-        
         try {
             // Basic validation
             if (selectedEvents.length === 0) {
@@ -964,103 +863,37 @@
                 return;
             }
 
-            // Show payment section
-            const paymentSection = document.getElementById('paymentSection');
-            const registrationForm = document.querySelector('.registration-form-container');
-            const totalCost = document.querySelector('.total-cost').textContent.replace('Total Cost: ₹', '');
-            
-            document.getElementById('paymentAmount').textContent = totalCost;
-            registrationForm.classList.add('payment-active');
-            paymentSection.classList.add('show');
-            
-            // Scroll to payment section
-            paymentSection.scrollIntoView({ behavior: 'smooth' });
-        } catch (error) {
-            console.error('Error:', error);
-            alert('An error occurred. Please try again.');
-        }
-    }
-
-    function previewImage(input) {
-        const preview = document.getElementById('preview-image');
-        const previewContainer = document.getElementById('preview-container');
-        
-        if (input.files && input.files[0]) {
-            const reader = new FileReader();
-            
-            reader.onload = function(e) {
-                preview.src = e.target.result;
-                previewContainer.style.display = 'block';
-            }
-            
-            reader.readAsDataURL(input.files[0]);
-        }
-    }
-
-    // Modify the verifyPayment function to include the image
-    async function verifyPayment() {
-        const proceedBtn = document.querySelector('.proceed-btn');
-        proceedBtn.disabled = true;
-        proceedBtn.innerHTML = '<span class="spinner"></span> Processing...';
-
-        try {
-            const utrNumber = document.getElementById('utr').value.trim();
-            const ddNumber = document.getElementById('dd').value.trim();
-            const paymentProof = document.getElementById('payment-proof').files[0];
-            
-            // Validate file type
-            if (paymentProof) {
-                const validTypes = ['image/jpeg', 'image/png', 'image/jpg'];
-                if (!validTypes.includes(paymentProof.type)) {
-                    alert('Please upload only JPG, JPEG or PNG images');
-                    return;
-                }
-                
-                // Check file size (max 5MB)
-                if (paymentProof.size > 5 * 1024 * 1024) {
-                    alert('File size should be less than 5MB');
-                    return;
-                }
-            }
-            
-            // New validation logic
-            const hasUTRWithProof = utrNumber && paymentProof;
-            const hasDD = ddNumber;
-            
-            if (!hasUTRWithProof && !hasDD) {
-                alert('Please either:\n1. Upload payment proof AND enter UTR number\n- OR -\n2. Enter DD number');
-                return;
-            }
-
-            const formData = new FormData();
-            
-            // Only include payment proof and UTR if that option was chosen
-            if (hasUTRWithProof) {
-                formData.append('paymentProof', paymentProof);
-                formData.append('utrNumber', utrNumber);
-                formData.append('paymentMethod', 'utr');
-            } else {
-                formData.append('ddNumber', ddNumber);
-                formData.append('paymentMethod', 'dd');
-            }
-            
-            // Add registration data
+            // Create registration data object
             const registrationData = {
-                email: document.getElementById('email').value,
-                phone: document.getElementById('phone').value,
-                college: document.getElementById('college').value,
-                selectedEvents: selectedEvents,
-                totalParticipants: document.getElementById('overallParticipants').textContent,
-                totalCost: document.getElementById('paymentAmount').textContent
+                email: email,
+                phone: phone,
+                college: college,
+                selectedEvents: selectedEvents.map(event => ({
+                    category: event.category,
+                    event: event.name,
+                    type: event.type,
+                    cost: event.cost,
+                    members: event.members || [],
+                    participant: event.participant || ''
+                })),
+                totalCost: parseInt(document.querySelector('.total-cost').textContent),
+                payment_method: 'direct', // Add default payment method
+                utr_number: null,
+                dd_number: null
             };
             
-            formData.append('registrationData', JSON.stringify(registrationData));
-            
-            console.log('Sending registration data...');
+            console.log('Sending registration data:', registrationData);
             const response = await fetch('/register', {
                 method: 'POST',
-                body: formData
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(registrationData)
             });
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
 
             const data = await response.json();
             console.log('Server response:', data);
@@ -1073,15 +906,8 @@
             }
         } catch (error) {
             console.error('Error:', error);
-            alert('An error occurred during registration. Please try again.');
-        } finally {
-            proceedBtn.disabled = false;
-            proceedBtn.textContent = 'Verify & Proceed';
+            alert('An error occurred. Please try again.');
         }
     }
 </script>
-
-
-
-
 {% endblock %}

@@ -3,151 +3,72 @@
 {% block title %}SignIn | YUKTI 2025{% endblock %}
 
 {% block content %}
+<div class="min-h-screen bg-gradient-to-br from-[#2D3138] to-[#202227] font-['Cinzel']">
+    <div class="flex justify-center items-center min-h-[calc(100vh-150px)] px-4 pt-12">
+        <div class="w-full max-w-[700px] -mt-12">
+            <!-- Sign In Container -->
+            <div class="flex flex-col items-center">
+                <h1 class="text-3xl text-white mb-6">Sign In</h1>
+                
+                {% if error %}
+                <p class="text-red-400 text-sm mb-4">{{ error }}</p>
+                {% endif %}
 
-<style>
-    /* Sign In Section Theme */
-    body {
-        background: linear-gradient(145deg, rgba(45, 49, 56, 0.9), rgba(32, 34, 39, 0.95));
-        font-family: 'Cinzel', serif;
-        color: #e0e0e0;
-        margin: 0;
-        padding: 0;
-        display: flex;
-        flex-direction: column;
-        min-height: 100vh;
-    }
+                <!-- Sign In Form -->
+                <form method="POST" action="{{ url_for('signin') }}" 
+                      class="w-full max-w-[400px] bg-[rgba(45,49,56,0.9)] p-6 rounded-xl shadow-xl 
+                             border-2 border-[#ff6600] mb-4">
+                    <!-- User ID Field -->
+                    <div class="mb-4">
+                        <label for="user_id" class="block text-gray-200 text-left mb-2">User ID:</label>
+                        <input type="text" 
+                               name="user_id" 
+                               id="user_id" 
+                               placeholder="Enter your User ID" 
+                               required
+                               class="w-full p-3 bg-[rgba(32,34,39,0.8)] border-2 border-[#ff6600] rounded-lg text-white
+                                      placeholder:text-gray-400 outline-none transition-all duration-300
+                                      focus:border-[#ff6600] focus:shadow-[0_0_8px_rgba(255,103,0,0.8)]">
+                    </div>
 
-    main {
-        flex: 1;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin-top: 70px; /* Reduced from 80px */
-        min-height: calc(100vh - 150px); /* Reduced from calc(100vh - 80px) */
-        padding: 1rem; /* Reduced from 2rem */
-    }
+                    <!-- Password Field -->
+                    <div class="mb-6">
+                        <label for="password" class="block text-gray-200 text-left mb-2">Password:</label>
+                        <input type="password" 
+                               name="password" 
+                               id="password" 
+                               placeholder="Enter your password" 
+                               required
+                               class="w-full p-3 bg-[rgba(32,34,39,0.8)] border-2 border-[#ff6600] rounded-lg text-white
+                                      placeholder:text-gray-400 outline-none transition-all duration-300
+                                      focus:border-[#ff6600] focus:shadow-[0_0_8px_rgba(255,103,0,0.8)]">
+                    </div>
 
-    .signin-section {
-        text-align: center;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        width: 100%;
-        max-width: 700px;
-        margin: 0 auto;
-        margin-top: -50px; /* Added negative margin to pull content up */
-    }
+                    <!-- Submit Button -->
+                    <button type="submit" 
+                            class="w-full bg-[#ff6600] text-white py-3 px-6 rounded-lg font-bold
+                                   transition-all duration-300 hover:bg-[#e65c00] hover:-translate-y-1 
+                                   hover:shadow-[0_8px_15px_rgba(255,103,0,0.4)]">
+                        Sign In
+                    </button>
+                </form>
 
-    form {
-        background: rgba(45, 49, 56, 0.9);
-        padding: 1.5rem; /* Reduced from 2rem */
-        border-radius: 15px;
-        max-width: 400px;
-        width: 90%;
-        box-shadow: 0 8px 15px rgba(0, 0, 0, 0.4);
-        color: #e0e0e0;
-        margin-bottom: 1rem; /* Reduced from 1.5rem */
-    }
-
-    form label {
-        display: block;
-        font-size: 1rem;
-        text-align: left;
-        margin-bottom: 0.5rem;
-    }
-
-    form input {
-        width: 100%;
-        padding: 0.8rem;
-        font-size: 1rem;
-        background: rgba(32, 34, 39, 0.8);
-        border: 2px solid #ff6700;
-        border-radius: 10px;
-        outline: none;
-        color: #ffffff;
-        margin-bottom: 1rem;
-        transition: border-color 0.3s ease;
-    }
-
-    form input:focus {
-        border-color: #ff6700;
-        box-shadow: 0 0 8px rgba(255, 103, 0, 0.8);
-    }
-
-    form button {
-        background: #ff6700;
-        color: #ffffff;
-        border: none;
-        padding: 0.8rem 1.5rem;
-        font-size: 1rem;
-        font-weight: bold;
-        border-radius: 10px;
-        cursor: pointer;
-        transition: background-color 0.3s ease, transform 0.2s ease;
-        width: 100%;
-    }
-
-    form button:hover {
-        background: #e65c00;
-        transform: translateY(-3px);
-        box-shadow: 0 8px 15px rgba(255, 103, 0, 0.4);
-    }
-
-    /* Adjusting text alignment above the sign-in section */
-    p.error {
-        color: #ff4d4d;
-        font-size: 0.9rem;
-        margin-bottom: 1rem;
-        text-align: center;
-    }
-
-    .help-link {
-        color: #25d366; /* WhatsApp green color */
-        text-decoration: none;
-        display: inline-flex;
-        align-items: center;
-        gap: 5px;
-        transition: all 0.3s ease;
-    }
-
-    .help-link:hover {
-        color: #128C7E;
-        text-decoration: underline;
-    }
-
-    .help-link i {
-        font-size: 1.2em;
-    }
-
-    .help-section {
-        text-align: center;
-        margin-top: 10px;
-        color: #e0e0e0;
-    }
-</style>
-
-<main>
-    <div class="signin-section">
-        <h1 style="margin-bottom: 10px;">Sign In</h1>
-        {% if error %}
-        <p class="error">{{ error }}</p>
-        {% endif %}
-        <form method="POST" action="{{ url_for('signin') }}">
-            <label for="user_id">User ID:</label>
-            <input type="text" name="user_id" id="user_id" placeholder="Enter your User ID" required>
-            <label for="password">Password:</label>
-            <input type="password" name="password" id="password" placeholder="Enter your password" required>
-            <button type="submit">Sign In</button>
-        </form>
-        <div class="help-section">
-            Registration is allowed through colleges only. <br>
-            <p>Need help? 
-                <a href="https://wa.me/+919590775699" target="_blank" class="help-link">
-                    <i class="fab fa-whatsapp"></i> Contact Support
-                </a>
-            </p>
+                <!-- Help Section -->
+                <div class="text-center text-gray-200">
+                    <p class="mb-2">Registration is allowed through colleges only.</p>
+                    <p class="flex items-center justify-center gap-2">
+                        Need help? 
+                        <a href="https://wa.me/+919590775699" 
+                           target="_blank" 
+                           class="inline-flex items-center gap-2 text-[#25d366] hover:text-[#128C7E] 
+                                  hover:underline transition-colors">
+                            <i class="fab fa-whatsapp text-lg"></i>
+                            Contact Support
+                        </a>
+                    </p>
+                </div>
+            </div>
         </div>
     </div>
-</main>
-
+</div>
 {% endblock %}
