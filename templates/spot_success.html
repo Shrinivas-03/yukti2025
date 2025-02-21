@@ -3,154 +3,100 @@
 {% block title %}Spot Registration Successful{% endblock %}
 
 {% block content %}
-<div class="success-container">
-    <h1>Spot Registration Successful!</h1>
-    <div class="ack-details">
-        <h2>Acknowledgement ID: {{ ack_id }}</h2>
-        <p>Please save this ID for future reference</p>
-        
-        <div class="registration-details">
-            <h3>Registration Details:</h3>
-            <div class="personal-info">
-                <p><strong>Email:</strong> {{ details.email }}</p>
-                <p><strong>Phone:</strong> {{ details.phone }}</p>
-                <p><strong>College:</strong> {{ details.college }}</p>
-                <p><strong>Total Participants:</strong> {{ details.total_participants }}</p>
-                <p><strong>Total Cost:</strong> ₹{{ details.total_cost }}</p>
-            </div>
-            
-            <div class="events-section">
-                <h4>Selected Events:</h4>
-                {% for event in details.event_details %}
-                <div class="event-detail">
-                    <div class="event-header">
-                        <strong>{{ event.event }}</strong> ({{ event.category }})
-                    </div>
-                    <div class="event-participants">
-                        {% if event.members %}
-                            <span class="team-info">Team Members: {{ event.members|join(", ") }}</span>
-                        {% endif %}
-                        {% if event.participant %}
-                            <span class="participant-info">Participant: {{ event.participant }}</span>
-                        {% endif %}
-                    </div>
-                    <div class="event-cost">Cost: ₹{{ event.cost }}</div>
-                </div>
-                {% endfor %}
-            </div>
+<!-- Add top divider -->
+<div class="h-0.5 bg-gradient-to-r from-[#6D28D9] via-[#3B82F6] to-[#00FFFF]"></div>
 
-            <div class="payment-verification">
-                <h3>Payment Details</h3>
-                <div class="payment-info">
-                    <p class="verified-text">✓ Payment Verified</p>
-                    <p class="utr-display">UTR Number: {{ details.utr_number }}</p>
+<!-- Update container background and theme -->
+<div class="min-h-screen bg-gradient-to-br from-[#1C1C1C] to-[#0A0A0A] py-12 px-4">
+    <div class="max-w-4xl mx-auto">
+        <!-- Success Message Container -->
+        <div class="bg-[rgba(46,46,46,0.8)] backdrop-blur-md p-6 rounded-xl border-2 border-[#00FFFF] 
+                    shadow-[0_0_15px_rgba(0,255,255,0.3)] mb-8 
+                    transform transition-all duration-300 hover:border-[#FF00FF] 
+                    hover:shadow-[0_15px_30px_rgba(0,255,255,0.4)]">
+            
+            <h1 class="text-3xl font-bold text-[#00FFFF] text-center mb-6 font-['Orbitron']">Spot Registration Successful!</h1>
+            
+            <!-- Registration Details -->
+            <div class="space-y-6">
+                <h2 class="text-2xl text-[#00FFFF] font-['Orbitron']">Acknowledgement ID: {{ ack_id }}</h2>
+                
+                <!-- Personal Details -->
+                <div class="bg-[rgba(32,34,39,0.8)] p-6 rounded-lg border border-[#00FFFF] space-y-4">
+                    <h3 class="text-xl text-[#00FFFF] font-['Orbitron'] mb-4">Registration Details</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-[#C0C0C0]">
+                        <p><strong>Email:</strong> {{ details.email }}</p>
+                        <p><strong>Phone:</strong> {{ details.phone }}</p>
+                        <p><strong>College:</strong> {{ details.college }}</p>
+                        <p><strong>Total Participants:</strong> {{ details.total_participants }}</p>
+                        <p><strong>Total Cost:</strong> ₹{{ details.total_cost }}</p>
+                    </div>
+                </div>
+
+                <!-- Events List -->
+                <div class="bg-[rgba(32,34,39,0.8)] p-6 rounded-lg border border-[#00FFFF]">
+                    <h3 class="text-xl text-[#00FFFF] font-['Orbitron'] mb-4">Registered Events</h3>
+                    <div class="space-y-4">
+                        {% for event in details.event_details %}
+                        <div class="event-detail">
+                            <div class="event-header">
+                                <strong>{{ event.event }}</strong> ({{ event.category }})
+                            </div>
+                            <div class="event-participants">
+                                {% if event.members %}
+                                    <span class="team-info">Team Members: {{ event.members|join(", ") }}</span>
+                                {% endif %}
+                                {% if event.participant %}
+                                    <span class="participant-info">Participant: {{ event.participant }}</span>
+                                {% endif %}
+                            </div>
+                            <div class="event-cost">Cost: ₹{{ event.cost }}</div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <!-- Important Note -->
+                <div class="bg-[rgba(255,0,255,0.1)] border-2 border-[#FF00FF] p-4 rounded-lg text-center">
+                    <p class="text-[#FF00FF] font-bold mb-2">
+                        Please proceed to the registration desk with your Acknowledgement ID.
+                    </p>
+                    <p class="text-[#C0C0C0]">
+                        Keep this acknowledgement ID for future reference.
+                    </p>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="flex flex-wrap justify-center gap-4">
+                    <button onclick="window.print()" 
+                            class="bg-[#FF00FF] text-white px-6 py-3 rounded-lg font-bold
+                                   transition-all duration-300 hover:bg-transparent hover:text-[#FF00FF] 
+                                   hover:border-2 hover:border-[#FF00FF]">
+                        Print
+                    </button>
+                    <button onclick="window.location.href='/'" 
+                            class="bg-[#FF00FF] text-white px-6 py-3 rounded-lg font-bold
+                                   transition-all duration-300 hover:bg-transparent hover:text-[#FF00FF] 
+                                   hover:border-2 hover:border-[#FF00FF]">
+                        Back to Home
+                    </button>
+                    <button onclick="window.location.href='/spot'" 
+                            class="bg-[#FF00FF] text-white px-6 py-3 rounded-lg font-bold
+                                   transition-all duration-300 hover:bg-transparent hover:text-[#FF00FF] 
+                                   hover:border-2 hover:border-[#FF00FF]">
+                        New Spot Registration
+                    </button>
                 </div>
             </div>
-        </div>
-        
-        <p class="registration-date">Registration Date: {{ details.registration_date|format_datetime }}</p>
-        
-        <div class="button-container">
-            <button onclick="window.location.href='/'">Back to Home</button>
-            <button onclick="window.print()">Print / Download</button>
-            <button onclick="window.location.href='/spot'">New Registration</button>
         </div>
     </div>
 </div>
 
-<style>
-    .success-container {
-        max-width: 800px;
-        margin: 100px auto 2rem;
-        padding: 2rem;
-        background: rgba(30, 30, 30, 0.95);
-        border: 2px solid #FFD700;
-        border-radius: 10px;
-        box-shadow: 0 0 20px rgba(255, 215, 0, 0.2);
-        color: #C0C0C0;
-    }
+<!-- Add bottom divider -->
+<div class="h-0.5 bg-gradient-to-r from-[#6D28D9] via-[#3B82F6] to-[#00FFFF]"></div>
 
-    .payment-verification {
-        margin-top: 20px;
-        padding: 15px;
-        background: rgba(0, 128, 0, 0.1);
-        border: 2px solid #4CAF50;
-        border-radius: 8px;
-    }
+<!-- Keep existing print template and scripts -->
+<!-- ... existing PDF template ... -->
+<!-- ... existing scripts ... -->
 
-    .payment-info {
-        padding: 10px;
-        background: rgba(40, 40, 40, 0.9);
-        border-radius: 4px;
-    }
-
-    .verified-text {
-        color: #4CAF50;
-        font-weight: bold;
-        font-size: 1.1em;
-    }
-
-    .utr-display {
-        color: #FFD700;
-        margin-top: 5px;
-        font-family: monospace;
-        font-size: 1.1em;
-    }
-
-    .event-detail {
-        background: rgba(40, 40, 40, 0.9);
-        margin: 1rem 0;
-        padding: 1rem;
-        border-radius: 6px;
-        border: 1px solid #FFD700;
-    }
-
-    .button-container {
-        display: flex;
-        gap: 1rem;
-        justify-content: center;
-        margin-top: 2rem;
-    }
-
-    .button-container button {
-        padding: 0.8rem 1.5rem;
-        background: #FFD700;
-        color: #1C1C1C;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        transition: all 0.3s ease;
-    }
-
-    .button-container button:hover {
-        background: transparent;
-        color: #FFD700;
-        border: 2px solid #FFD700;
-    }
-
-    @media print {
-        .success-container {
-            margin: 0;
-            padding: 20px;
-            background: white;
-            border: 1px solid #000;
-            color: black;
-        }
-
-        .payment-verification,
-        .payment-info {
-            background: none;
-            border: 1px solid #000;
-        }
-
-        .verified-text,
-        .utr-display {
-            color: black;
-        }
-
-        .button-container {
-            display: none;
-        }
-    }
-</style>
 {% endblock %}

@@ -3,20 +3,27 @@
 {% block title %}About | YUKTI 2025{% endblock %}
 
 {% block content %}
-<div class="h-0.5 bg-[#CD7F32] "></div>
-<section class="py-8 sm:py-10 md:py-12 px-4 sm:px-[5%]">
+<div class="h-0.5 bg-gradient-to-r from-[#6D28D9] via-[#3B82F6] to-[#00FFFF]"></div>
+<section class="py-8 sm:py-10 md:py-12 px-4 sm:px-[5%] bg-gradient-to-br from-[#1C1C1C] to-[#0A0A0A]">
     <!-- VTU Section -->
     <div class="max-w-4xl mx-auto">
-        <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-[#ff6600] text-center mb-6 sm:mb-8 font-['Rajdhani'] tracking-widest leading-tight uppercase font-bold">
+        <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-[#00FFFF] text-center mb-6 sm:mb-8 font-['Orbitron'] tracking-widest leading-tight uppercase font-bold">
             VISVESVARAYA<br>
             TECHNOLOGICAL UNIVERSITY
         </h1>
         <div class="bg-[rgba(32,34,39,0.95)] p-4 sm:p-6 md:p-8 rounded-2xl shadow-2xl text-gray-300 
-                    border-2 border-[#ff6600] transform transition-all duration-300 hover:-translate-y-2 
-                    hover:shadow-[0_15px_30px_rgba(3,233,244,0.4)] hover:border-[#03e9f4]">
+                    border-2 border-[#00FFFF] transform transition-all duration-300 hover:-translate-y-2 
+                    hover:shadow-[0_15px_30px_rgba(0,255,255,0.4)] hover:border-[#FF00FF]">
             <div class="flex justify-center mb-4">
-                <a href="https://vtu.ac.in/" target="_blank" class="inline-block">
-                    <img class="w-[120px] rounded-full border-3 border-[#ff6700]" 
+                <a href="https://vtu.ac.in/" 
+                   target="_blank" 
+                   class="inline-block transform transition-all duration-500 hover:scale-110">
+                    <img class="w-[120px] rounded-full 
+                                border-4 border-[#00FFFF] 
+                                shadow-[0_0_15px_rgba(0,255,255,0.5)] 
+                                transition-all duration-500 
+                                hover:border-[#FF00FF] 
+                                hover:shadow-[0_0_30px_rgba(255,0,255,0.6)]" 
                          src="{{ url_for('static', filename='assets/vtu-logo.webp') }}" 
                          alt="VTU Logo">
                 </a>
@@ -24,7 +31,7 @@
             <div class="space-y-4 text-justify sm:text-left px-2 sm:px-4">
                 <p class="text-sm sm:text-base leading-relaxed">
                     <strong>Visvesvaraya Technological University (VTU)</strong>, headquartered in
-                    <span class="text-[#ff6700]">Belagavi, Karnataka</span>, stands as one of India’s most prestigious
+                    <span class="text-[#00FFFF]">Belagavi, Karnataka</span>, stands as one of India’s most prestigious
                     technological universities. Named after <strong>Sir M. Visvesvaraya</strong>, a celebrated engineer
                     and statesman, VTU fosters innovation, research, and academic excellence across engineering,
                     technology, and management disciplines.
@@ -33,8 +40,8 @@
                     With its sprawling campus in Belagavi, VTU serves as a central hub for nurturing the next generation
                     of technologists and leaders. The university is renowned for its robust curriculum, cutting-edge
                     research facilities, and partnerships with industry leaders. Housing over
-                    <span class="text-[#ff6700]">200 affiliated colleges</span>, VTU empowers more than
-                    <span class="text-[#ff6700]">400,000 students annually</span>, shaping the future of engineering
+                    <span class="text-[#00FFFF]">200 affiliated colleges</span>, VTU empowers more than
+                    <span class="text-[#00FFFF]">400,000 students annually</span>, shaping the future of engineering
                     education.
                 </p>
                 <p class="text-sm sm:text-base leading-relaxed">
@@ -46,9 +53,9 @@
     </div>
 
     <!-- Vice Chancellor Section -->
-    <div class="mt-8 sm:mt-10 md:mt-12 bg-[rgba(45,49,56,0.9)] rounded-2xl p-4 sm:p-6 md:p-8 max-w-4xl mx-auto border-2 border-[#ff6600] 
-                transform transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_15px_30px_rgba(3,233,244,0.4)] 
-                hover:border-[#03e9f4]">
+    <div class="mt-8 sm:mt-10 md:mt-12 bg-[rgba(45,49,56,0.9)] rounded-2xl p-4 sm:p-6 md:p-8 max-w-4xl mx-auto 
+                border-2 border-[#00FFFF] transform transition-all duration-300 hover:-translate-y-2 
+                hover:shadow-[0_15px_30px_rgba(0,255,255,0.4)] hover:border-[#FF00FF]">
         <div class="flex flex-col md:flex-row items-center gap-4 sm:gap-6">
             <div class="flex-shrink-0">
                 <img class="w-[150px] md:w-[210px] rounded-full border-3 border-[#ff6700]" 
@@ -56,8 +63,8 @@
                      alt="Dr. S. Vidyashankar">
             </div>
             <div class="flex-grow text-justify sm:text-left px-2 sm:px-4">
-                <h2 class="text-2xl sm:text-3xl text-white mb-2 text-center sm:text-left">Dr. S. Vidyashankar</h2>
-                <h3 class="text-xl sm:text-2xl text-[#ff6700] mb-4 text-center sm:text-left"> Hon.Vice Chancellor, VTU, Belagavi</h3>
+                <h2 class="text-2xl sm:text-3xl text-[#00FFFF] mb-2 text-center sm:text-left">Dr. S. Vidyashankar</h2>
+                <h3 class="text-xl sm:text-2xl text-[#FF00FF] mb-4 text-center sm:text-left"> Hon.Vice Chancellor, VTU, Belagavi</h3>
                 <div class="space-y-4">
                     <p class="text-sm sm:text-base leading-relaxed">
                         Dear Friends and Students,
@@ -66,7 +73,7 @@
                         It is with immense pleasure and pride that I extend a warm welcome to you all to
                         <strong>Visvesvaraya Technological University “Yukti 2025”</strong>, a Regional Level
                         Techno,Cultural,management Fest. The second edition of the fest, this year’s theme
-                        <span class="text-[#ff6700]">“Beyond Imagination”</span> with the tagline
+                        <span class="text-[#00FFFF]">“Beyond Imagination”</span> with the tagline
                         <strong>Innovate, Elevate, and Celebrate</strong>, promises to be a vibrant confluence of
                         technology,
                         culture, and creativity.
@@ -85,68 +92,68 @@
     </div>
 
     <!-- Leadership Team Section -->
-    <div class="mt-8 sm:mt-10 md:mt-12 bg-[rgba(45,49,56,0.9)] rounded-2xl p-4 sm:p-6 md:p-8 max-w-4xl mx-auto border-2 border-[#ff6600]
-                transform transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_15px_30px_rgba(3,233,244,0.4)]
-                hover:border-[#03e9f4]">
-        <h2 class="text-2xl sm:text-3xl text-[#ff6600] text-center mb-6 sm:mb-8 font-['Cinzel']">Leadership Team</h2>
+    <div class="mt-8 sm:mt-10 md:mt-12 bg-[rgba(45,49,56,0.9)] rounded-2xl p-4 sm:p-6 md:p-8 max-w-4xl mx-auto border-2 border-[#00FFFF]
+                transform transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_15px_30px_rgba(0,255,255,0.4)]
+                hover:border-[#FF00FF]">
+        <h2 class="text-2xl sm:text-3xl text-[#00FFFF] text-center mb-6 sm:mb-8 font-['Cinzel']">Leadership Team</h2>
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
             <!-- Team Member Cards -->
-            <div class="bg-[rgba(32,34,39,0.95)] p-3 sm:p-4 md:p-6 rounded-2xl border-2 border-[#03e9f4] shadow-xl
-                        transform transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_12px_20px_rgba(0,0,0,0.7)]">
+            <div class="bg-[rgba(32,34,39,0.95)] p-3 sm:p-4 md:p-6 rounded-2xl border-2 border-[#00FFFF] shadow-xl
+                        transform transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_15px_30px_rgba(0,255,255,0.4)] hover:border-[#FF00FF]">
                 <img class="w-[80px] h-[80px] sm:w-[100px] sm:h-[100px] rounded-full border-3 border-[#ff6700] mx-auto mb-3 sm:mb-4 object-cover"
                      src="static/assets/RG.webp" 
                      alt="Dr. B.E. Rangaswamy">
-                <h4 class="text-base sm:text-lg md:text-xl text-white font-bold mb-2 text-center md:text-left">Dr. B.E. Rangaswamy</h4>
+                <h4 class="text-base sm:text-lg md:text-xl text-[#00FFFF] font-bold mb-2 text-center md:text-left">Dr. B.E. Rangaswamy</h4>
                 <p class="text-sm sm:text-base text-gray-300 text-center md:text-left">Registrar, VTU</p>
             </div>
-            <div class="bg-[rgba(32,34,39,0.95)] p-3 sm:p-4 md:p-6 rounded-2xl border-2 border-[#03e9f4] shadow-xl
-                        transform transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_12px_20px_rgba(0,0,0,0.7)]">
+            <div class="bg-[rgba(32,34,39,0.95)] p-3 sm:p-4 md:p-6 rounded-2xl border-2 border-[#00FFFF] shadow-xl
+                        transform transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_15px_30px_rgba(0,255,255,0.4)] hover:border-[#FF00FF]">
                 <img class="w-[80px] h-[80px] sm:w-[100px] sm:h-[100px] rounded-full border-3 border-[#ff6700] mx-auto mb-3 sm:mb-4 object-cover"
                      src="static/assets/RE.webp" 
                      alt="Dr. T.N. Sreenivasa">
-                <h4 class="text-base sm:text-lg md:text-xl text-white font-bold mb-2 text-center md:text-left">Dr. T.N. Sreenivasa</h4>
+                <h4 class="text-base sm:text-lg md:text-xl text-[#00FFFF] font-bold mb-2 text-center md:text-left">Dr. T.N. Sreenivasa</h4>
                 <p class="text-sm sm:text-base text-gray-300 text-center md:text-left">Registrar (Evaluation), VTU</p>
             </div>
-            <div class="bg-[rgba(32,34,39,0.95)] p-3 sm:p-4 md:p-6 rounded-2xl border-2 border-[#03e9f4] shadow-xl
-                        transform transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_12px_20px_rgba(0,0,0,0.7)]">
+            <div class="bg-[rgba(32,34,39,0.95)] p-3 sm:p-4 md:p-6 rounded-2xl border-2 border-[#00FFFF] shadow-xl
+                        transform transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_15px_30px_rgba(0,255,255,0.4)] hover:border-[#FF00FF]">
                 <img class="w-[80px] h-[80px] sm:w-[100px] sm:h-[100px] rounded-full border-3 border-[#ff6700] mx-auto mb-3 sm:mb-4 object-cover"
                      src="static/assets/FO.webp" 
                      alt="Dr. Prashantha Nayaka G.">
-                <h4 class="text-base sm:text-lg md:text-xl text-white font-bold mb-2 text-center md:text-left">Dr.Prashantha Nayaka G.</h4>
+                <h4 class="text-base sm:text-lg md:text-xl text-[#00FFFF] font-bold mb-2 text-center md:text-left">Dr.Prashantha Nayaka G.</h4>
                 <p class="text-sm sm:text-base text-gray-300 text-center md:text-left">Finance Officer, VTU</p>
             </div>
-            <div class="bg-[rgba(32,34,39,0.95)] p-3 sm:p-4 md:p-6 rounded-2xl border-2 border-[#03e9f4] shadow-xl
-                        transform transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_12px_20px_rgba(0,0,0,0.7)]">
+            <div class="bg-[rgba(32,34,39,0.95)] p-3 sm:p-4 md:p-6 rounded-2xl border-2 border-[#00FFFF] shadow-xl
+                        transform transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_15px_30px_rgba(0,255,255,0.4)] hover:border-[#FF00FF]">
                 <img class="w-[80px] h-[80px] sm:w-[100px] sm:h-[100px] rounded-full border-3 border-[#ff6700] mx-auto mb-3 sm:mb-4 object-cover"
                      src="static/assets/Srd.jpg" 
                      alt="Dr. Shambu Lingappa">
-                <h4 class="text-base sm:text-lg md:text-xl text-white font-bold mb-2 text-center md:text-left" style="font-size: 15px;">Dr. Shambu Lingappa</h4>
+                <h4 class="text-base sm:text-lg md:text-xl text-[#00FFFF] font-bold mb-2 text-center md:text-left" style="font-size: 15px;">Dr. Shambu Lingappa</h4>
                 <p class="text-sm sm:text-base text-gray-300 text-center md:text-left" style="font-size: 13px;">Regional Director(I/c), VTU's RO,Kalaburagi</p>
             </div>
         </div>
     </div>
 
     <!-- Fest Coordinators Section -->
-    <div class="mt-8 sm:mt-10 md:mt-12 bg-[rgba(45,49,56,0.9)] rounded-2xl p-4 sm:p-6 md:p-8 max-w-4xl mx-auto border-2 border-[#ff6600]
-                transform transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_15px_30px_rgba(3,233,244,0.4)]
-                hover:border-[#03e9f4]">
-        <h2 class="text-2xl sm:text-3xl text-[#FFD700] text-center mb-6 sm:mb-8 font-['Cinzel']">Fest Coordinators</h2>
+    <div class="mt-8 sm:mt-10 md:mt-12 bg-[rgba(45,49,56,0.9)] rounded-2xl p-4 sm:p-6 md:p-8 max-w-4xl mx-auto border-2 border-[#00FFFF]
+                transform transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_15px_30px_rgba(0,255,255,0.4)]
+                hover:border-[#FF00FF]">
+        <h2 class="text-2xl sm:text-3xl text-[#00FFFF] text-center mb-6 sm:mb-8 font-['Cinzel']">Fest Coordinators</h2>
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
             <!-- Coordinator Cards -->
-            <div class="bg-[rgba(32,34,39,0.95)] p-3 sm:p-4 md:p-6 rounded-2xl border-2 border-[#03e9f4] shadow-xl
-                        transform transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_12px_20px_rgba(0,0,0,0.7)]">
+            <div class="bg-[rgba(32,34,39,0.95)] p-3 sm:p-4 md:p-6 rounded-2xl border-2 border-[#00FFFF] shadow-xl
+                        transform transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_15px_30px_rgba(0,255,255,0.4)] hover:border-[#FF00FF]">
                 <img class="w-[80px] h-[80px] sm:w-[100px] sm:h-[100px] rounded-full border-3 border-[#ff6700] mx-auto mb-3 sm:mb-4 object-cover"
                      src="static/assets/Ambresh.png" 
                      alt="Dr. Ambresh Bhadrasheetty">
-                <h4 class="text-base sm:text-lg text-white font-bold mb-2 text-center md:text-left">Dr. Ambresh Bhadrasheetty</h4>
+                <h4 class="text-base sm:text-lg text-[#00FFFF] font-bold mb-2 text-center md:text-left">Dr. Ambresh Bhadrasheetty</h4>
                 <p class="text-xs sm:text-sm text-gray-300 text-center md:text-left">Cultural Coordinator, VTU's CPGS, Kalaburagi</p>
             </div>
-            <div class="bg-[rgba(32,34,39,0.95)] p-3 sm:p-4 md:p-6 rounded-2xl border-2 border-[#03e9f4] shadow-xl
-                        transform transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_12px_20px_rgba(0,0,0,0.7)]">
+            <div class="bg-[rgba(32,34,39,0.95)] p-3 sm:p-4 md:p-6 rounded-2xl border-2 border-[#00FFFF] shadow-xl
+                        transform transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_15px_30px_rgba(0,255,255,0.4)] hover:border-[#FF00FF]">
                 <img class="w-[80px] h-[80px] sm:w-[100px] sm:h-[100px] rounded-full border-3 border-[#ff6700] mx-auto mb-3 sm:mb-4 object-cover"
                      src="static/assets/.webp" 
                      alt="Prof. Maneeth P.D.">
-                <h4 class="text-base sm:text-lg text-white font-bold mb-2 text-center md:text-left">Prof. Maneeth P.D.</h4>
+                <h4 class="text-base sm:text-lg text-[#00FFFF] font-bold mb-2 text-center md:text-left">Prof. Maneeth P.D.</h4>
                 <p class="text-xs sm:text-sm text-gray-300 text-center md:text-left">Fest Coordinator, VTU's CPGS, Kalaburagi</p>
             </div>
         </div>
@@ -155,14 +162,14 @@
     <!-- Call-to-Action -->
     <div class="text-center mt-8 sm:mt-10 md:mt-12">
         <a href="{{ url_for('about') }}" 
-           class="inline-block bg-[#ff6700] text-white px-6 sm:px-8 py-3 sm:py-4 rounded-full text-sm sm:text-base font-bold uppercase
-                  transform transition-all duration-300 hover:bg-[#e95f00] hover:-translate-y-1 
-                  hover:shadow-[0_8px_15px_rgba(0,0,0,0.7)]">
+           class="inline-block bg-[#FF00FF] text-[#1C1C1C] px-6 sm:px-8 py-3 sm:py-4 rounded-md text-sm sm:text-base 
+                  font-bold uppercase transform transition-all duration-300 hover:bg-transparent 
+                  hover:text-[#FF00FF] hover:border-2 hover:border-[#FF00FF]">
             Learn More
         </a>
     </div>
 </section>
-<div class="h-0.5 bg-[#CD7F32] "></div>
+<div class="h-0.5 bg-gradient-to-r from-[#6D28D9] via-[#3B82F6] to-[#00FFFF]"></div>
 
 <style>
     @keyframes appear {
