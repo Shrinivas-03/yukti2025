@@ -7,3 +7,4 @@ cryptography
 pillow
 python-dotenv
 flask_minify
+Flask-Compress

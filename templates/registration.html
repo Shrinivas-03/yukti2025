@@ -548,12 +548,14 @@ label, p {
                 if (!hasError) {
                     const eventDetails = {
                         category: categorySelect.value,
-                        event: currentEventSelection.name,
+                        event: currentEventSelection.name,  // This is the event name from the events object
                         type: currentEventSelection.type,
-                        cost: currentEventSelection.cost
+                        cost: currentEventSelection.cost,
+                        minTeam: currentEventSelection.minTeam,
+                        maxTeam: currentEventSelection.maxTeam
                     };
 
-                    if (currentEventSelection.type === "team" || currentEventSelection.type === "group") {
+                    if (currentEventSelection.type === "team") {
                         eventDetails.members = [];
                         const memberInputs = document.querySelectorAll("#member-inputs input");
                         memberInputs.forEach(input => {
@@ -566,6 +568,7 @@ label, p {
                         eventDetails.participant = individualParticipantInput.value.trim();
                     }
 
+                    console.log("Adding event:", eventDetails); // Debug log
                     selectedEvents.push(eventDetails);
                     updateSelectedEventsList();
                     updateTotalCost();
@@ -593,7 +596,9 @@ label, p {
                 }
 
                 eventDiv.innerHTML = `
-                    <span>${event.event} (${event.category})${membersText}</span>
+                    <span>${event.event} - ${event.type.charAt(0).toUpperCase() + event.type.slice(1)}
+                    <br>Category: ${event.category}${membersText}
+                    <br>Cost: ₹${event.cost}</span>
                     <button type="button" onclick="removeEvent(${index})" class="remove-event-btn">×</button>
                 `;
                 
@@ -609,9 +614,7 @@ label, p {
                 document.querySelector('.personal-details-section').classList.add('hidden');
             }
             
-            // Update total cost
-            const totalCost = selectedEvents.reduce((sum, event) => sum + event.cost, 0);
-            document.querySelector('.total-cost').textContent = totalCost;
+            updateTotalCost();
         }
 
         function resetEventSelection() {
@@ -848,7 +851,6 @@ label, p {
 
     async function submitRegistration() {
         try {
-            // Basic validation
             if (selectedEvents.length === 0) {
                 alert('Please select at least one event');
                 return;
@@ -863,26 +865,26 @@ label, p {
                 return;
             }
 
-            // Create registration data object
+            // Format the selected events with correct field names
+            const formattedEvents = selectedEvents.map(event => ({
+                event: event.event,           // Use 'event' instead of 'name'
+                type: event.type,             
+                cost: event.cost,             
+                category: event.category,      
+                members: event.members || [],  
+                participant: event.participant 
+            }));
+
             const registrationData = {
                 email: email,
                 phone: phone,
                 college: college,
-                selectedEvents: selectedEvents.map(event => ({
-                    category: event.category,
-                    event: event.name,
-                    type: event.type,
-                    cost: event.cost,
-                    members: event.members || [],
-                    participant: event.participant || ''
-                })),
-                totalCost: parseInt(document.querySelector('.total-cost').textContent),
-                payment_method: 'direct', // Add default payment method
-                utr_number: null,
-                dd_number: null
+                selectedEvents: formattedEvents,
+                totalCost: parseInt(document.querySelector('.total-cost').textContent)
             };
             
             console.log('Sending registration data:', registrationData);
+
             const response = await fetch('/register', {
                 method: 'POST',
                 headers: {
@@ -899,7 +901,6 @@ label, p {
             console.log('Server response:', data);
             
             if (data.success) {
-                alert('Registration successful! Check your email for confirmation.');
                 window.location.href = `/acknowledgement/${data.ack_id}`;
             } else {
                 alert('Registration failed: ' + (data.message || 'Unknown error'));

@@ -1,5 +1,5 @@
-from flask import Flask, render_template, request, redirect, url_for, session, flash, jsonify, Response
-from datetime import datetime
+from flask import Flask, render_template, request, redirect, url_for, session, flash, jsonify, Response, send_from_directory
+from datetime import datetime, timedelta
 import string
 import secrets
 import os
@@ -14,11 +14,10 @@ from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from dotenv import load_dotenv
 import cryptography
-from PIL import Image
-import uuid
-import json
 from flask_minify import Minify
-load_dotenv()  # Load the .env file
+
+
+load_dotenv() 
 
 
 class Config:
@@ -36,6 +35,7 @@ app = Flask(__name__,
     static_folder='static'
 )
 Minify(app=app, html=True, js=True, cssless=True)
+# Remove Compress(app) line
 
 # Apply configuration
 app.config.from_object(Config)
@@ -50,10 +50,21 @@ app.config.update(
     SESSION_COOKIE_SAMESITE='Lax' # Helps prevent CSRF attacks
 )
 
+# Function to set cache headers
+# Set Cache-Control headers for static responses
+@app.after_request
+def add_cache_headers(response):
+    if 'Cache-Control' not in response.headers:
+        response.headers['Cache-Control'] = 'public, max-age=31536000'  # Cache for 1 year
+    return response
 
-
-
-
+# Serve images from multiple static subdirectories
+@app.route('/static/<folder>/<path:filename>')
+def serve_static_files(folder, filename):
+    allowed_folders = ['assets', 'gallery', 'images']  # Define allowed folders
+    if folder not in allowed_folders:
+        return "Folder not found", 404
+    return send_from_directory(f'static/{folder}', filename)
 
 def send_registration_email(to_email, ack_id, details):
     try:
@@ -62,17 +73,30 @@ def send_registration_email(to_email, ack_id, details):
         msg['To'] = to_email
         msg['Subject'] = f"YUKTI 2025 Registration Confirmation - {ack_id}"
 
+        # Create email body with better formatting
         body = f"""
         <html>
-        <body>
-            <h2>Registration Successful!</h2>
-            <p><strong>Acknowledgement ID:</strong> {ack_id}</p>
-            <p><strong>Event Details:</strong> {details['event_name']}</p>
-            <p><strong>College:</strong> {details['college']}</p>
-            <p><strong>Team Members:</strong> {details['team_members']}</p>
-            <p><strong>Total Cost:</strong> ₹{details['total_cost']}</p>
-            <p><em>Please pay the registration fees at the registration desk on the event day.</em></p>
-            <p>Thank you for registering!</p>
+        <body style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+            <div style="background-color: #1c1c1c; padding: 20px; color: #ffffff;">
+                <h2 style="color: #FFD700; text-align: center;">Registration Successful!</h2>
+                <div style="margin-bottom: 20px;">
+                    <h3 style="color: #FFD700;">Registration Details</h3>
+                    <p><strong>Acknowledgement ID:</strong> {ack_id}</p>
+                    <p><strong>Email:</strong> {details['email']}</p>
+                    <p><strong>Phone:</strong> {details['phone']}</p>
+                    <p><strong>College:</strong> {details['college']}</p>
+                    <p><strong>Total Cost:</strong> ₹{details['total_cost']}</p>
+                </div>
+
+                <div style="margin-bottom: 20px;">
+                    <h3 style="color: #FFD700;">Event Details</h3>
+                    {details['event_details_html']}
+                </div>
+
+                <p style="background-color: #8B0000; padding: 10px; text-align: center; margin: 20px 0;">
+                    Please pay the registration fees at the registration desk on the event day.
+                </p>
+            </div>
         </body>
         </html>
         """
@@ -226,75 +250,92 @@ def spot():
 def register():
     if request.method == "POST":
         try:
-            # Get and validate data
-            if request.is_json:
-                data = request.get_json()
-            else:
-                form_data = request.form.get('registrationData')
-                if not form_data:
-                    return jsonify({
-                        'success': False,
-                        'message': 'No registration data received'
-                    })
-                data = json.loads(form_data)
+            data = request.get_json(silent=True)
+            if not data:
+                return jsonify({'success': False, 'message': 'No data received'})
             
-            print("Received data:", json.dumps(data, indent=2))
-
-            # Calculate total participants
-            total_participants = sum(
-                len(event['members']) if event.get('type') == 'team' and event.get('members')
-                else 1 for event in data['selectedEvents']
-            )
-
-            # Create registration record matching table schema
+            print("Received registration data:", data)
+            
+            ack_id = generate_ack_id()
+            
+            # Format event details
+            formatted_events = []
+            total_participants = 0
+            
+            for event in data['selectedEvents']:
+                print("Processing event:", event)  # Debug log
+                formatted_event = {
+                    'event': event.get('event'),  # Get event name from 'event' field
+                    'type': event.get('type'),
+                    'cost': event.get('cost'),
+                    'category': event.get('category')
+                }
+                
+                # Handle team members or individual participant
+                if event.get('type') == 'team' and event.get('members'):
+                    formatted_event['members'] = event['members']
+                    total_participants += len(event['members'])
+                elif event.get('participant'):
+                    formatted_event['participant'] = event['participant']
+                    total_participants += 1
+                
+                formatted_events.append(formatted_event)
+            
+            # Registration data for database
             registration_data = {
-                'ack_id': generate_ack_id(),
+                'ack_id': ack_id,
                 'email': data['email'],
                 'phone': data['phone'],
                 'college': data['college'],
                 'total_participants': total_participants,
-                'total_cost': float(data['totalCost']),  # Ensure numeric type
+                'total_cost': data['totalCost'],
                 'registration_date': datetime.now().isoformat(),
-                'event_details': json.loads(json.dumps(data['selectedEvents']))  # Ensure valid JSONB
+                'event_details': formatted_events
             }
-
-            print("Prepared registration data:", json.dumps(registration_data, indent=2))
-
+            
+            print("Formatted registration data:", registration_data)  # Debug log
+            
             # Insert into Supabase
             response = supabase.table('registrations').insert(registration_data).execute()
             
-            if not response.data:
-                return jsonify({
-                    'success': False,
-                    'message': 'Failed to save registration'
-                })
+            if response.data:
+                # Format event details for email
+                event_details_html = []
+                for event in formatted_events:
+                    event_html = f"""
+                    <div style="background-color: #2c2c2c; padding: 15px; margin: 10px 0; border-radius: 5px;">
+                        <h4 style="color: #FFD700; margin: 0 0 10px 0;">{event['event']}</h4>
+                        <p><strong>Category:</strong> {event['category']}</p>
+                        <p><strong>Type:</strong> {event['type'].title()}</p>
+                        <p><strong>Cost:</strong> ₹{event['cost']}</p>
+                    """
+                    
+                    if 'members' in event:
+                        event_html += f"<p><strong>Team Members:</strong> {', '.join(event['members'])}</p>"
+                    elif 'participant' in event:
+                        event_html += f"<p><strong>Participant:</strong> {event['participant']}</p>"
+                    
+                    event_html += "</div>"
+                    event_details_html.append(event_html)
 
-            # Prepare email details
-            email_details = {
-                'event_name': ", ".join(event.get('eventName', event.get('event', '')) for event in data['selectedEvents']),
-                'college': data['college'],
-                'team_members': ", ".join(
-                    ", ".join(event.get('members', [])) if event.get('members') 
-                    else event.get('participant', '') 
-                    for event in data['selectedEvents']
-                ),
-                'total_cost': data['totalCost']
-            }
+                email_details = {
+                    'email': data['email'],
+                    'phone': data['phone'],
+                    'college': data['college'],
+                    'total_cost': data['totalCost'],
+                    'event_details_html': ''.join(event_details_html)
+                }
+                
+                # Send the email without the PDF attachment
+                send_registration_email(data['email'], ack_id, email_details)
 
-            # Send confirmation email
-            email_sent = send_registration_email(data['email'], registration_data['ack_id'], email_details)
-            
-            if not email_sent:
-                print(f"Warning: Failed to send email to {data['email']}")
-
-            return jsonify({
-                'success': True,
-                'ack_id': registration_data['ack_id'],
-                'message': 'Registration successful' + ('' if email_sent else ' (email delivery failed)')
-            })
+                return jsonify({'success': True, 'ack_id': ack_id})
+            else:
+                return jsonify({'success': False, 'message': 'Registration failed'})
                 
         except Exception as e:
             print(f"Registration Error: {str(e)}")
+            print("Full error details:", str(e.__dict__))  # More detailed error info
             return jsonify({
                 'success': False,
                 'message': str(e)
@@ -310,35 +351,45 @@ def show_ack(ack_id):
         if response.data and len(response.data) > 0:
             registration = response.data[0]
             
-            # Format event details with categories
+            # Format events for display
             formatted_events = []
             for event in registration['event_details']:
-                # Extract category and event name
-                event_parts = event.get('event', '').split(' - ', 1)
-                category = event_parts[0] if len(event_parts) > 1 else 'General'
-                event_name = event_parts[1] if len(event_parts) > 1 else event_parts[0]
+                event_info = {
+                    'name': event['event'],
+                    'type': event['type'],
+                    'category': event.get('category', ''),
+                    'cost': event['cost'],
+                    'participants': []
+                }
                 
-                formatted_events.append({
-                    'category': category,
-                    'name': event_name,
-                    'members': event.get('members', []) if event.get('type') == 'team' else [event.get('participant', '')]
-                })
+                if event['type'] == 'team' and 'members' in event:
+                    event_info['participants'] = event['members']
+                elif 'participant' in event:
+                    event_info['participants'] = [event['participant']]
+                
+                formatted_events.append(event_info)
             
-            # Format the data for the template
             details = {
                 'email': registration['email'],
                 'phone': registration['phone'],
                 'college': registration['college'],
                 'total_participants': registration['total_participants'],
                 'total_cost': registration['total_cost'],
-                'events': formatted_events,  # Replace event_details with formatted events
+                'events': formatted_events,
                 'registration_date': registration['registration_date']
+            }
+            
+            # Set headers to prevent caching
+            headers = {
+                'Cache-Control': 'no-cache, no-store, must-revalidate',
+                'Pragma': 'no-cache',
+                'Expires': '0'
             }
             
             return render_template("registration_success.html", 
                 ack_id=ack_id,
                 details=details
-            )
+            ), 200, headers
             
         return "Registration not found", 404
         
@@ -346,71 +397,64 @@ def show_ack(ack_id):
         print(f"Error fetching registration: {str(e)}")
         return "Error fetching registration details", 500
 
-
 @app.route('/spot-register', methods=['GET', 'POST'])
 @login_required(allowed_pages=['spot'])
 def spot_register():
     if request.method == "POST":
         try:
-            print("Received POST request at /spot-register")
+            print("Received POST request at /spot-register")  # Debug log
             data = request.get_json(silent=True)
             
             if not data:
-                print("No JSON data received")
+                print("No JSON data received")  # Debug log
                 return jsonify({'success': False, 'message': 'No data received'})
             
-            print("Received data:", data)
+            print("Received data:", data)  # Debug log
             
             ack_id = generate_ack_id()
             
-            # Prepare registration data with UTR
+            # Calculate total participants from event details
+            total_participants = 0
+            for event in data['selectedEvents']:
+                if event.get('type') == 'team' and event.get('members'):
+                    total_participants += len(event['members'])
+                elif event.get('participant'):
+                    total_participants += 1
+            
+            # Prepare registration data
             registration_data = {
                 'ack_id': ack_id,
                 'email': data['email'],
                 'phone': data['phone'],
                 'college': data['college'],
-                'total_participants': data['totalParticipants'],
+                'total_participants': total_participants,  # Use calculated value
                 'total_cost': data['totalCost'],
                 'event_details': data['selectedEvents'],
                 'registration_date': datetime.now().isoformat(),
-                'utr_number': data.get('utrNumber')  # Add UTR number back
+                'utr_number': data['utrNumber']
             }
             
-            print("Attempting to insert data:", registration_data)
+            print("Attempting to insert data:", registration_data)  # Debug log
             
             # Insert into Supabase
             response = supabase.table('spot_registrations').insert(registration_data).execute()
-            print("Supabase response:", response)
+            print("Supabase response:", response)  # Debug log
             
             if response.data:
-                print(f"Successfully created registration with ack_id: {ack_id}")
-                
-                email_details = {
-                    'event_name': ", ".join(event['event'] for event in data['selectedEvents']),
-                    'college': data['college'],
-                    'team_members': ", ".join(
-                        ", ".join(event.get('members', [])) if event.get('members') 
-                        else event.get('participant', '') 
-                        for event in data['selectedEvents']
-                    ),
-                    'total_cost': data['totalCost'],
-                    'utr_number': data.get('utrNumber')  # Add UTR to email details
-                }
-                send_registration_email(data['email'], ack_id, email_details)
-                
+                print(f"Successfully created registration with ack_id: {ack_id}")  # Debug log
                 return jsonify({
                     'success': True,
                     'ack_id': ack_id
                 })
             else:
-                print("Registration failed - no data in response")
+                print("Registration failed - no data in response")  # Debug log
                 return jsonify({
                     'success': False,
                     'message': 'Registration failed'
                 })
                 
         except Exception as e:
-            print(f"Error in spot registration: {str(e)}")
+            print(f"Error in spot registration: {str(e)}")  # Debug log
             return jsonify({
                 'success': False,
                 'message': str(e)
@@ -435,7 +479,7 @@ def show_spot_ack(ack_id):
                 'total_cost': registration['total_cost'],
                 'event_details': registration['event_details'],
                 'registration_date': registration['registration_date'],
-                'utr_number': registration.get('utr_number')  # Add UTR to details
+                'utr_number': registration['utr_number']  # Include UTR number in details
             }
             
             return render_template('spot_success.html', 
@@ -464,7 +508,7 @@ def get_matching_registrations(table_name, norm_event, reg_type):
             stored_event = event.get('event', '')
             norm_stored = normalize_event_name(stored_event)
             print(f"[{table_name}] Searching if '{norm_event}' is in '{norm_stored}'")
-            # Use substring matching
+            # Use universal substring matching
             if norm_event in norm_stored:
                 reg_data = {
                     'ack_id': reg['ack_id'],
@@ -537,7 +581,7 @@ def get_registrations():
                 'email': reg['email'],
                 'phone': reg['phone'],
                 'event_details': reg['event_details'],
-                'payment_method': reg.get('payment_method')
+                'utr_number': reg.get('utr_number') if reg_type == 'spot' else None
             } for reg in response.data]
             
             return jsonify({
@@ -579,40 +623,72 @@ def download_registrations():
             table_name = 'spot_registrations' if reg_type == 'spot' else 'registrations'
             response = supabase.table(table_name).select('*').execute()
             for reg in response.data:
+                # Process event_details field as CSV string
                 events_joined = ", ".join([e.get('event', '') for e in reg.get('event_details', [])])
+                utr = reg.get('utr_number', '') if reg_type == 'spot' else ''
                 matches.append({
                     'ack_id': reg.get('ack_id', ''),
                     'college': reg.get('college', ''),
                     'email': reg.get('email', ''),
                     'phone': reg.get('phone', ''),
-                    'team_members': events_joined
+                    'events': events_joined,
+                    'utr_number': utr
                 })
 
         # Prepare CSV output from matches
-        output = io.StringIO()
-        writer = csv.writer(output)
+        output = io.StringIO(newline='')
+        
+        # Write UTF-8-BOM to ensure Excel recognizes the encoding
+        output.write('\ufeff')
+        
+        writer = csv.writer(output, dialect='excel', quoting=csv.QUOTE_ALL)
         header = ['Ack ID', 'College', 'Email', 'Phone', 'Participant', 'UTR Number']
         writer.writerow(header)
+        
+        def clean_text(text):
+            if text is None:
+                return ''
+            # Convert to string and handle encoding
+            try:
+                # Try direct string conversion
+                return str(text).strip()
+            except UnicodeEncodeError:
+                # If that fails, try encoding/decoding with error handling
+                return text.encode('ascii', 'ignore').decode('ascii').strip()
+
         for reg in matches:
-            writer.writerow([
-                reg.get('ack_id', ''),
-                reg.get('college', ''),
-                reg.get('email', ''),
-                reg.get('phone', ''),
-                reg.get('team_members', reg.get('events', '')),
-                reg.get('utr_number', '')
-            ])
+            # Clean and encode each field
+            row = [
+                clean_text(reg.get('ack_id')),
+                clean_text(reg.get('college')),
+                clean_text(reg.get('email')),
+                clean_text(reg.get('phone')),
+                clean_text(reg.get('team_members', reg.get('events', ''))),
+                clean_text(reg.get('utr_number'))
+            ]
+            writer.writerow(row)
+
+        # Get the CSV content
         csv_output = output.getvalue()
         output.close()
 
-        return Response(
-            csv_output,
-            mimetype="text/csv",
-            headers={"Content-Disposition": f"attachment;filename=registrations_{reg_type}_{event_name or 'all'}.csv"}
+        # Create response with proper headers
+        response = Response(
+            csv_output.encode('utf-8-sig'),
+            mimetype='text/csv; charset=utf-8-sig',
+            headers={
+                'Content-Disposition': f'attachment; filename=registrations_{reg_type}.csv',
+                'Content-Type': 'text/csv; charset=utf-8-sig',
+                'Cache-Control': 'no-cache'
+            }
         )
+        
+        return response
+
     except Exception as e:
         print(f"Error in download_registrations: {str(e)}")
         return jsonify({'success': False, 'message': str(e)})
+
 
 @app.route('/api/search-registration/<ack_id>')
 @login_required(allowed_pages=['admin'])
@@ -654,3 +730,4 @@ def search_registration(ack_id):
 if __name__ == "__main__":
 
     app.run(debug=app.config['DEBUG'])
+

@@ -3,64 +3,133 @@
 {% block title %}Registration Successful{% endblock %}
 
 {% block content %}
+<!-- Regular display container -->
 <div class="success-container">
     <h1>Registration Successful!</h1>
     <div class="ack-details">
         <h2>Acknowledgement ID: {{ ack_id }}</h2>
-        <p>Please save this ID for future reference</p>
         
-        <div class="registration-details">
-            <h3>Registration Details:</h3>
-            <div class="personal-info">
+        <!-- Registration Details Section -->
+        <div class="section registration-info">
+            <h3>Registration Details</h3>
+            <div class="info-grid">
                 <p><strong>Email:</strong> {{ details.email }}</p>
                 <p><strong>Phone:</strong> {{ details.phone }}</p>
                 <p><strong>College:</strong> {{ details.college }}</p>
                 <p><strong>Total Participants:</strong> {{ details.total_participants }}</p>
-                <p><strong>Total Cost:</strong> ₹{{ details.total_cost }}</p>  <!-- This will now show correct total -->
-            </div>
-            
-            <div class="events-section">
-                <h4>Selected Events:</h4>
-                {% for event in details.event_details %}
-                <div class="event-detail">
-                    <div class="event-header">
-                        <strong>{{ event.event }}</strong> ({{ event.category }})
-                    </div>
-                    <div class="event-participants">
-                        {% if event.members %}
-                            <span class="team-info">Team Members: {{ event.members|join(", ") }}</span>
-                        {% endif %}
-                        {% if event.participant %}
-                            <span class="participant-info">Participant: {{ event.participant }}</span>
-                        {% endif %}
-                    </div>
-                    <div class="event-cost">Cost: ₹{{ event.cost }}</div>  <!-- Individual event cost -->
-                </div>
-                {% endfor %}
-            </div>
-
-            <div class="event-details">
-                <h3>Registered Events:</h3>
-                {% for event in details.events %}
-                <div class="event">
-                    <p><strong>Category:</strong> {{ event.category }}</p>
-                    <p><strong>Event:</strong> {{ event.name }}</p>
-                    <p><strong>Participants:</strong> {{ event.members|join(', ') }}</p>
-                </div>
-                {% endfor %}
+                <p><strong>Total Cost:</strong> ₹{{ details.total_cost }}</p>
+                <p><strong>Registration Date:</strong> {{ details.registration_date|format_datetime }}</p>
             </div>
         </div>
-        
-        <p class="important-note">Please pay the registration fees at the registration desk on the event day.</p>
-        <p class="registration-date">
-            <span class="date-label">Registration Date:</span> 
-            <span class="date-value">{{ details.registration_date|format_datetime }}</span>
-        </p>
-        
+
+        <!-- Events Details Section -->
+        <div class="section events-info">
+            <h3>Registered Events</h3>
+            {% for event in details.events %}
+            <div class="event-card">
+                <div class="event-header">
+                    <h4>{{ event.name }}</h4>
+                    <span class="category">Category: {{ event.category }}</span>
+                </div>
+                <div class="event-body">
+                    <p><strong>Event Type:</strong> {{ event.type|title }}</p>
+                    <p><strong>Cost:</strong> ₹{{ event.cost }}</p>
+                    {% if event.participants %}
+                    <div class="participants">
+                        <strong>{% if event.type == 'team' %}Team Members{% else %}Participant{% endif %}:</strong>
+                        <ul>
+                            {% for participant in event.participants %}
+                            <li>{{ participant }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <div class="important-note">
+            <p>Please pay the registration fees at the registration desk on the event day.</p>
+            <p>Keep this acknowledgement ID for future reference.</p>
+        </div>
+
         <div class="button-container">
-            <button onclick="window.location.href='/'">Back to Home</button>
-            <button onclick="window.print()">Print / Download</button>
-            <button onclick="window.location.href='/register'">Back to Registration</button>
+            <button onclick="window.print()">Print</button>
+            <button onclick="window.location.href='/'">Home</button>
+            <button onclick="window.location.href='/'" class="nav-button home-btn">
+                Back to Home
+            </button>
+            <button onclick="window.location.href='/register'" class="nav-button register-btn">
+                New Registration
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- PDF Template -->
+<div id="pdf-template" style="display: none;">
+    <div style="padding: 20px; font-family: Arial, sans-serif; color: black;">
+        <div style="text-align: center; border-bottom: 2px solid black; padding-bottom: 10px; margin-bottom: 20px;">
+            <img src="{{ url_for('static', filename='images/logo.png') }}" alt="YUKTI 2025" style="width: 100px; margin-bottom: 10px; display: block; margin-left: auto; margin-right: auto;">
+            <h1 style="margin: 0;">YUKTI 2025</h1>
+            <h2 style="margin: 10px 0;">Registration Confirmation</h2>
+            <p style="color: #666;">{{ details.registration_date|format_datetime }}</p>
+        </div>
+
+        <div style="margin-bottom: 20px;">
+            <h3 style="margin: 0 0 10px 0;">Acknowledgement ID: {{ ack_id }}</h3>
+        </div>
+
+        <div style="margin-bottom: 20px;">
+            <h3 style="border-bottom: 2px solid black; padding-bottom: 5px;">Registration Details</h3>
+            <table style="width: 100%; border-collapse: collapse; margin-top: 10px;">
+                <tr>
+                    <td style="padding: 8px; border: 1px solid black;"><strong>Email:</strong></td>
+                    <td style="padding: 8px; border: 1px solid black;">{{ details.email }}</td>
+                </tr>
+                <tr>
+                    <td style="padding: 8px; border: 1px solid black;"><strong>Phone:</strong></td>
+                    <td style="padding: 8px; border: 1px solid black;">{{ details.phone }}</td>
+                </tr>
+                <tr>
+                    <td style="padding: 8px; border: 1px solid black;"><strong>College:</strong></td>
+                    <td style="padding: 8px; border: 1px solid black;">{{ details.college }}</td>
+                </tr>
+                <tr>
+                    <td style="padding: 8px; border: 1px solid black;"><strong>Total Participants:</strong></td>
+                    <td style="padding: 8px; border: 1px solid black;">{{ details.total_participants }}</td>
+                </tr>
+                <tr>
+                    <td style="padding: 8px; border: 1px solid black;"><strong>Total Cost:</strong></td>
+                    <td style="padding: 8px; border: 1px solid black;">₹{{ details.total_cost }}</td>
+                </tr>
+            </table>
+        </div>
+
+        <div style="margin-bottom: 20px;">
+            <h3 style="border-bottom: 2px solid black; padding-bottom: 5px;">Registered Events</h3>
+            {% for event in details.events %}
+            <div style="border: 1px solid black; margin-top: 10px; padding: 10px;">
+                <h4 style="margin: 0 0 10px 0; border-bottom: 1px solid black;">{{ event.name }}</h4>
+                <p style="margin: 5px 0;"><strong>Category:</strong> {{ event.category }}</p>
+                <p style="margin: 5px 0;"><strong>Type:</strong> {{ event.type|title }}</p>
+                <p style="margin: 5px 0;"><strong>Cost:</strong> ₹{{ event.cost }}</p>
+                {% if event.participants %}
+                <p style="margin: 5px 0;"><strong>{{ event.type|title }} Members:</strong> {{ event.participants|join(", ") }}</p>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+
+        <div style="margin-top: 20px; text-align: center;">
+            <div style="border: 2px solid black; padding: 10px; margin-bottom: 20px;">
+                <p style="margin: 5px 0; font-weight: bold;">Please pay the registration fees at the registration desk on the event day.</p>
+            </div>
+            <div style="margin-top: 30px; border-top: 1px solid black; padding-top: 10px;">
+                <p style="font-size: 12px; color: #666;">Generated on: {{ details.registration_date|format_datetime }}</p>
+                <p style="font-size: 12px; color: #666;">YUKTI 2025 - Registration ID: {{ ack_id }}</p>
+            </div>
         </div>
     </div>
 </div>
@@ -68,79 +137,54 @@
 <style>
     .success-container {
         max-width: 800px;
-        margin: 100px auto 2rem; /* Added top margin to prevent navbar overlap */
+        margin: 2rem auto;
         padding: 2rem;
         background: rgba(30, 30, 30, 0.95);
-        border: 2px solid #FFD700; /* Gold border */
         border-radius: 10px;
-        box-shadow: 0 0 20px rgba(255, 215, 0, 0.2); /* Gold glow */
-        color: #C0C0C0; /* Silver text */
     }
 
-    .success-container h1 {
-        color: #FFD700;
-        text-align: center;
-        font-size: 2.5rem;
-        margin-bottom: 1.5rem;
-        text-transform: uppercase;
-        text-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
-    }
-
-    .ack-details {
-        background: rgba(46, 46, 46, 0.8);
-        padding: 2rem;
-        border-radius: 8px;
-        border: 1px solid #8B0000; /* Rust Red */
-    }
-
-    .ack-details h2 {
-        color: #FFD700;
-        margin-bottom: 1rem;
-        font-size: 1.8rem;
-    }
-
-    .registration-details {
-        margin: 2rem 0;
-        padding: 1.5rem;
-        background: rgba(20, 20, 20, 0.8);
-        border: 1px solid #CD7F32; /* Bronze */
-        border-radius: 6px;
-    }
-
-    .personal-info {
-        margin-bottom: 2rem;
-        padding: 1rem;
-        border-left: 3px solid #FFD700;
-    }
-
-    .event-detail {
+    .section {
         background: rgba(40, 40, 40, 0.9);
+        margin: 1.5rem 0;
+        padding: 1.5rem;
+        border-radius: 8px;
+        border: 1px solid #FFD700;
+    }
+
+    .info-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1rem;
+    }
+
+    .event-card {
+        background: rgba(50, 50, 50, 0.9);
         margin: 1rem 0;
         padding: 1rem;
         border-radius: 6px;
-        border: 1px solid #8B0000;
-        transition: transform 0.3s ease;
-    }
-
-    .event-detail:hover {
-        transform: translateX(10px);
-        box-shadow: 0 0 15px rgba(255, 215, 0, 0.1);
+        border: 1px solid #CD7F32;
     }
 
     .event-header {
+        border-bottom: 1px solid #FFD700;
+        margin-bottom: 1rem;
+        padding-bottom: 0.5rem;
+    }
+
+    .event-header h4 {
         color: #FFD700;
-        font-size: 1.2rem;
-        margin-bottom: 0.5rem;
+        margin: 0;
     }
 
-    .event-participants {
-        color: #C0C0C0;
-        margin: 0.5rem 0;
+    .category {
+        color: #CD7F32;
+        font-size: 0.9rem;
     }
 
-    .event-cost {
-        color: #CD7F32; /* Bronze */
-        font-weight: bold;
+    .participants ul {
+        list-style: none;
+        padding-left: 1rem;
+        margin-top: 0.5rem;
     }
 
     .important-note {
@@ -154,34 +198,9 @@
         font-weight: bold;
     }
 
-    .registration-date {
-        color: #C0C0C0;
-        text-align: right;
-        font-style: normal;
-        margin-top: 1.5rem;
-        padding: 0.5rem 1rem;
-        background: rgba(40, 40, 40, 0.9);
-        border-radius: 4px;
-        display: flex;
-        justify-content: flex-end;
-        align-items: center;
-        gap: 1rem;
-    }
-
-    .date-label {
-        color: #FFD700; /* Gold */
-        font-weight: bold;
-    }
-
-    .date-value {
-        color: #CD7F32; /* Bronze */
-        font-family: 'Consolas', monospace;
-        letter-spacing: 1px;
-    }
-
     .button-container {
         display: flex;
-        gap: 1rem;
+        gap: 2rem;
         justify-content: center;
         margin-top: 2rem;
     }
@@ -206,6 +225,39 @@
         box-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
     }
 
+    .nav-button {
+        background: #FFD700;
+        color: #1C1C1C;
+        border: none;
+        padding: 1rem 2rem;
+        border-radius: 5px;
+        cursor: pointer;
+        font-weight: bold;
+        text-transform: uppercase;
+        transition: all 0.3s ease;
+        border: 2px solid transparent;
+    }
+
+    .nav-button:hover {
+        background: #1C1C1C;
+        color: #FFD700;
+        border: 2px solid #FFD700;
+        box-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+    }
+
+    .home-btn {
+        background: #FFD700;
+    }
+
+    .register-btn {
+        background: #FF6600;
+    }
+
+    .register-btn:hover {
+        border-color: #FF6600;
+        color: #FF6600;
+    }
+
     @media print {
         body {
             background: white;
@@ -220,7 +272,7 @@
             background: white;
         }
 
-        .event-detail {
+        .event-card {
             border: 1px solid #000;
             background: white;
             page-break-inside: avoid;
@@ -235,17 +287,49 @@
             background: white;
             color: black;
         }
-
-        .registration-date {
-            background: none;
-            color: black;
-            border-top: 1px solid #000;
-            padding-top: 1rem;
-        }
-
-        .date-label, .date-value {
-            color: black;
-        }
     }
 </style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Wait for fonts to load
+    document.fonts.ready.then(function() {
+        // Get the template
+        const element = document.getElementById('pdf-template');
+        
+        // Make it visible temporarily for PDF generation
+        element.style.display = 'block';
+        
+        // PDF options
+        const opt = {
+            filename: `YUKTI2025_Registration_{{ ack_id }}.pdf`,
+            image: { type: 'jpeg', quality: 1 },
+            html2canvas: { 
+                scale: 2,
+                useCORS: true,
+                logging: true,
+                backgroundColor: '#FFFFFF'
+            },
+            jsPDF: { 
+                unit: 'mm',
+                format: 'a4',
+                orientation: 'portrait'
+            }
+        };
+
+        // Generate PDF
+        html2pdf().set(opt).from(element).save().then(() => {
+            // Hide the template again after generation
+            element.style.display = 'none';
+            console.log('PDF generated successfully');
+        }).catch(err => {
+            console.error('PDF generation failed:', err);
+            element.style.display = 'none';
+        });
+    });
+});
+</script>
+
+<!-- Load html2pdf library -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 {% endblock %}
