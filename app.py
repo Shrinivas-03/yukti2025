@@ -17,6 +17,7 @@ import cryptography
 from PIL import Image
 import uuid
 import json
+from flask_minify import Minify
 load_dotenv()  # Load the .env file
 
 
@@ -34,7 +35,7 @@ app = Flask(__name__,
     static_url_path='/static',
     static_folder='static'
 )
-
+Minify(app=app, html=True, js=True, cssless=True)
 
 # Apply configuration
 app.config.from_object(Config)
@@ -61,7 +62,6 @@ def send_registration_email(to_email, ack_id, details):
         msg['To'] = to_email
         msg['Subject'] = f"YUKTI 2025 Registration Confirmation - {ack_id}"
 
-        # Modified email body to conditionally include UTR number
         body = f"""
         <html>
         <body>
@@ -71,7 +71,7 @@ def send_registration_email(to_email, ack_id, details):
             <p><strong>College:</strong> {details['college']}</p>
             <p><strong>Team Members:</strong> {details['team_members']}</p>
             <p><strong>Total Cost:</strong> ₹{details['total_cost']}</p>
-            {f'<p><strong>UTR Number:</strong> {details["utr_number"]}</p>' if 'utr_number' in details else ''}
+            <p><em>Please pay the registration fees at the registration desk on the event day.</em></p>
             <p>Thank you for registering!</p>
         </body>
         </html>
@@ -122,11 +122,10 @@ def format_datetime(value):
         return ''
     try:
         if isinstance(value, str):
-            # Handle ISO format string with timezone
-            dt = datetime.fromisoformat(value.split('+')[0])  # Remove timezone part
+            dt = datetime.fromisoformat(value)
         else:
             dt = value
-        return dt.strftime('%d-%m-%Y %I:%M %p')  # Format: DD-MM-YYYY HH:MM AM/PM
+        return dt.strftime('%B %d, %Y at %I:%M %p')
     except Exception as e:
         print(f"Date formatting error: {str(e)}")
         return value
@@ -223,141 +222,43 @@ def admin():
 def spot():
     return render_template('spot.html')
 
-def compress_image(image_file, max_size_kb=100):
-    try:
-        print(f"Starting image compression for file: {image_file.filename}")
-        # Open the image
-        img = Image.open(image_file)
-        
-        # Convert to RGB if necessary
-        if img.mode in ('RGBA', 'P'):
-            print(f"Converting image from {img.mode} to RGB")
-            img = img.convert('RGB')
-        
-        # Initial quality
-        quality = 95
-        output = io.BytesIO()
-        
-        # Resize if too large
-        max_dimension = 1500
-        if max(img.size) > max_dimension:
-            ratio = max_dimension / max(img.size)
-            new_size = tuple(int(dim * ratio) for dim in img.size)
-            print(f"Resizing image from {img.size} to {new_size}")
-            img = img.resize(new_size, Image.LANCZOS)
-        
-        # Compress until file size is under max_size_kb
-        while quality > 5:
-            output = io.BytesIO()
-            img.save(output, format='JPEG', quality=quality, optimize=True)
-            size_kb = len(output.getvalue()) / 1024
-            print(f"Compressed size at quality {quality}: {size_kb:.2f}KB")
-            if size_kb <= max_size_kb:
-                break
-            quality -= 5
-        
-        output.seek(0)
-        print("Image compression completed successfully")
-        return output
-    except Exception as e:
-        print(f"Error in compress_image: {str(e)}")
-        raise
-
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == "POST":
         try:
-            # Get form data
-            payment_proof = request.files.get('paymentProof')
-            utr_number = request.form.get('utrNumber')
-            dd_number = request.form.get('ddNumber')
-            payment_method = request.form.get('paymentMethod')
-            
-            print(f"Received payment_method: {payment_method}")
-            print(f"UTR number: {utr_number}")
-            print(f"DD number: {dd_number}")
-            print(f"Payment proof file: {payment_proof.filename if payment_proof else 'No file'}")
-            
-            data = json.loads(request.form.get('registrationData'))
-            
-            # Validate payment method and requirements
-            if (payment_method == 'utr'):
-                if not payment_proof:
-                    return jsonify({
-                        'success': False, 
-                        'message': 'Payment proof image is required for UTR payment'
-                    })
-                if not utr_number:
-                    return jsonify({
-                        'success': False, 
-                        'message': 'UTR number is required for UTR payment'
-                    })
-            elif payment_method == 'dd':
-                if not dd_number:
-                    return jsonify({
-                        'success': False, 
-                        'message': 'DD number is required for DD payment'
-                    })
-            
-            file_url = None
-            if payment_method == 'utr' and payment_proof:
-                try:
-                    # Check file type
-                    allowed_extensions = {'png', 'jpg', 'jpeg'}
-                    if '.' not in payment_proof.filename or \
-                       payment_proof.filename.rsplit('.', 1)[1].lower() not in allowed_extensions:
-                        return jsonify({
-                            'success': False,
-                            'message': 'Invalid file type. Please upload PNG or JPEG images only.'
-                        })
-                    
-                    # Compress and upload image
-                    compressed_image = compress_image(payment_proof, max_size_kb=100)
-                    timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
-                    unique_id = str(uuid.uuid4())[:8]
-                    file_extension = os.path.splitext(payment_proof.filename)[1]
-                    new_filename = f"payment_{timestamp}_{unique_id}{file_extension}"
-                    
-                    file_path = f"payment_proofs/{new_filename}"
-                    print(f"Uploading to path: {file_path}")
-                    
-                    # Upload to Supabase
-                    upload_response = supabase.storage.from_('payment').upload(
-                        path=file_path,
-                        file=compressed_image.getvalue(),
-                        file_options={"content-type": "image/jpeg"}
-                    )
-                    print(f"Upload response: {upload_response}")
-                    
-                    # Get public URL
-                    file_url = supabase.storage.from_('payment').get_public_url(file_path)
-                    print(f"File URL: {file_url}")
-                    
-                except Exception as e:
-                    print(f"Error processing image: {str(e)}")
+            # Get and validate data
+            if request.is_json:
+                data = request.get_json()
+            else:
+                form_data = request.form.get('registrationData')
+                if not form_data:
                     return jsonify({
                         'success': False,
-                        'message': f'Error processing payment proof: {str(e)}'
+                        'message': 'No registration data received'
                     })
+                data = json.loads(form_data)
+            
+            print("Received data:", json.dumps(data, indent=2))
 
-            # Create registration record with correct column names
+            # Calculate total participants
+            total_participants = sum(
+                len(event['members']) if event.get('type') == 'team' and event.get('members')
+                else 1 for event in data['selectedEvents']
+            )
+
+            # Create registration record matching table schema
             registration_data = {
                 'ack_id': generate_ack_id(),
                 'email': data['email'],
                 'phone': data['phone'],
                 'college': data['college'],
-                'total_participants': data['totalParticipants'],
-                'total_cost': data['totalCost'],
+                'total_participants': total_participants,
+                'total_cost': float(data['totalCost']),  # Ensure numeric type
                 'registration_date': datetime.now().isoformat(),
-                'event_details': data['selectedEvents'],
-                'utr_number': utr_number if payment_method == 'utr' else None,  # Store in utr_number column
-                'DD': dd_number if payment_method == 'dd' else None,  # Store in DD column
-                'payment_proof_url': file_url
+                'event_details': json.loads(json.dumps(data['selectedEvents']))  # Ensure valid JSONB
             }
-            
-            # Only add payment_method if it's supported by the database
-            if payment_method in ['utr', 'dd']:
-                registration_data['payment_method'] = payment_method
+
+            print("Prepared registration data:", json.dumps(registration_data, indent=2))
 
             # Insert into Supabase
             response = supabase.table('registrations').insert(registration_data).execute()
@@ -370,22 +271,15 @@ def register():
 
             # Prepare email details
             email_details = {
-                'event_name': ", ".join(event['event'] for event in data['selectedEvents']),
+                'event_name': ", ".join(event.get('eventName', event.get('event', '')) for event in data['selectedEvents']),
                 'college': data['college'],
                 'team_members': ", ".join(
                     ", ".join(event.get('members', [])) if event.get('members') 
                     else event.get('participant', '') 
                     for event in data['selectedEvents']
                 ),
-                'total_cost': data['totalCost'],
-                'payment_method': payment_method
+                'total_cost': data['totalCost']
             }
-
-            # Add payment details to email
-            if payment_method == 'utr':
-                email_details['utr_number'] = utr_number
-            elif payment_method == 'dd':
-                email_details['dd_number'] = dd_number
 
             # Send confirmation email
             email_sent = send_registration_email(data['email'], registration_data['ack_id'], email_details)
@@ -416,6 +310,20 @@ def show_ack(ack_id):
         if response.data and len(response.data) > 0:
             registration = response.data[0]
             
+            # Format event details with categories
+            formatted_events = []
+            for event in registration['event_details']:
+                # Extract category and event name
+                event_parts = event.get('event', '').split(' - ', 1)
+                category = event_parts[0] if len(event_parts) > 1 else 'General'
+                event_name = event_parts[1] if len(event_parts) > 1 else event_parts[0]
+                
+                formatted_events.append({
+                    'category': category,
+                    'name': event_name,
+                    'members': event.get('members', []) if event.get('type') == 'team' else [event.get('participant', '')]
+                })
+            
             # Format the data for the template
             details = {
                 'email': registration['email'],
@@ -423,7 +331,7 @@ def show_ack(ack_id):
                 'college': registration['college'],
                 'total_participants': registration['total_participants'],
                 'total_cost': registration['total_cost'],
-                'event_details': registration['event_details'],  # Already in correct format
+                'events': formatted_events,  # Replace event_details with formatted events
                 'registration_date': registration['registration_date']
             }
             
@@ -444,18 +352,18 @@ def show_ack(ack_id):
 def spot_register():
     if request.method == "POST":
         try:
-            print("Received POST request at /spot-register")  # Debug log
+            print("Received POST request at /spot-register")
             data = request.get_json(silent=True)
             
             if not data:
-                print("No JSON data received")  # Debug log
+                print("No JSON data received")
                 return jsonify({'success': False, 'message': 'No data received'})
             
-            print("Received data:", data)  # Debug log
+            print("Received data:", data)
             
             ack_id = generate_ack_id()
             
-            # Prepare registration data
+            # Prepare registration data with UTR
             registration_data = {
                 'ack_id': ack_id,
                 'email': data['email'],
@@ -465,19 +373,18 @@ def spot_register():
                 'total_cost': data['totalCost'],
                 'event_details': data['selectedEvents'],
                 'registration_date': datetime.now().isoformat(),
-                'utr_number': data['utrNumber']
+                'utr_number': data.get('utrNumber')  # Add UTR number back
             }
             
-            print("Attempting to insert data:", registration_data)  # Debug log
+            print("Attempting to insert data:", registration_data)
             
             # Insert into Supabase
             response = supabase.table('spot_registrations').insert(registration_data).execute()
-            print("Supabase response:", response)  # Debug log
+            print("Supabase response:", response)
             
             if response.data:
-                print(f"Successfully created registration with ack_id: {ack_id}")  # Debug log
+                print(f"Successfully created registration with ack_id: {ack_id}")
                 
-                # Modified email_details to include UTR number
                 email_details = {
                     'event_name': ", ".join(event['event'] for event in data['selectedEvents']),
                     'college': data['college'],
@@ -487,7 +394,7 @@ def spot_register():
                         for event in data['selectedEvents']
                     ),
                     'total_cost': data['totalCost'],
-                    'utr_number': data['utrNumber']  # Add UTR number to email details
+                    'utr_number': data.get('utrNumber')  # Add UTR to email details
                 }
                 send_registration_email(data['email'], ack_id, email_details)
                 
@@ -496,14 +403,14 @@ def spot_register():
                     'ack_id': ack_id
                 })
             else:
-                print("Registration failed - no data in response")  # Debug log
+                print("Registration failed - no data in response")
                 return jsonify({
                     'success': False,
                     'message': 'Registration failed'
                 })
                 
         except Exception as e:
-            print(f"Error in spot registration: {str(e)}")  # Debug log
+            print(f"Error in spot registration: {str(e)}")
             return jsonify({
                 'success': False,
                 'message': str(e)
@@ -528,7 +435,7 @@ def show_spot_ack(ack_id):
                 'total_cost': registration['total_cost'],
                 'event_details': registration['event_details'],
                 'registration_date': registration['registration_date'],
-                'utr_number': registration['utr_number']  # Include UTR number in details
+                'utr_number': registration.get('utr_number')  # Add UTR to details
             }
             
             return render_template('spot_success.html', 
@@ -556,9 +463,9 @@ def get_matching_registrations(table_name, norm_event, reg_type):
         for event in reg['event_details']:
             stored_event = event.get('event', '')
             norm_stored = normalize_event_name(stored_event)
-            print(f"[{table_name}] Comparing '{norm_event}' with '{norm_stored}'")
-            # Use exact match instead of substring matching
-            if norm_event == norm_stored:
+            print(f"[{table_name}] Searching if '{norm_event}' is in '{norm_stored}'")
+            # Use substring matching
+            if norm_event in norm_stored:
                 reg_data = {
                     'ack_id': reg['ack_id'],
                     'college': reg['college'],
@@ -566,14 +473,14 @@ def get_matching_registrations(table_name, norm_event, reg_type):
                     'phone': reg['phone'],
                     'event_cost': event.get('cost', 0),
                     'type': reg_type,
-                    'team_members': '',
-                    'utr_number': reg.get('utr_number', ''),
-                    'DD': reg.get('DD', '') or reg.get('dd', '')
+                    'team_members': ''
                 }
                 if event.get('type') == 'team' and event.get('members'):
                     reg_data['team_members'] = ', '.join(event['members'])
                 elif event.get('participant'):
                     reg_data['team_members'] = event['participant']
+                if reg_type == 'spot':
+                    reg_data['utr_number'] = reg.get('utr_number', '')
                 matches.append(reg_data)
                 print(f"Added registration from {table_name}: {reg_data}")
     return matches
@@ -630,9 +537,7 @@ def get_registrations():
                 'email': reg['email'],
                 'phone': reg['phone'],
                 'event_details': reg['event_details'],
-                'payment_method': reg.get('payment_method'),
-                'utr_number': reg.get('utr_number'),
-                'DD': reg.get('DD') or reg.get('dd')
+                'payment_method': reg.get('payment_method')
             } for reg in response.data]
             
             return jsonify({
@@ -680,15 +585,13 @@ def download_registrations():
                     'college': reg.get('college', ''),
                     'email': reg.get('email', ''),
                     'phone': reg.get('phone', ''),
-                    'team_members': events_joined,
-                    'utr_number': reg.get('utr_number', ''),
-                    'DD': reg.get('DD', '') or reg.get('dd', '')
+                    'team_members': events_joined
                 })
 
         # Prepare CSV output from matches
         output = io.StringIO()
         writer = csv.writer(output)
-        header = ['Ack ID', 'College', 'Email', 'Phone', 'Participant/Team', 'UTR Number', 'DD Number']
+        header = ['Ack ID', 'College', 'Email', 'Phone', 'Participant', 'UTR Number']
         writer.writerow(header)
         for reg in matches:
             writer.writerow([
@@ -696,9 +599,8 @@ def download_registrations():
                 reg.get('college', ''),
                 reg.get('email', ''),
                 reg.get('phone', ''),
-                reg.get('team_members', ''),
-                reg.get('utr_number', ''),
-                reg.get('DD', '')
+                reg.get('team_members', reg.get('events', '')),
+                reg.get('utr_number', '')
             ])
         csv_output = output.getvalue()
         output.close()
@@ -727,43 +629,13 @@ def search_registration(ack_id):
             registration = response.data[0]
             print(f"Found registration: {registration}")  # Debug log
             
-            # Handle payment proof URL
-            payment_proof_url = registration.get('payment_proof_url')
-            if payment_proof_url:
-                print(f"Original payment_proof_url: {payment_proof_url}")  # Debug log
-                
-                try:
-                    # Always regenerate the public URL
-                    if payment_proof_url.startswith('payment_proofs/'):
-                        file_path = payment_proof_url
-                    else:
-                        # Extract path from full URL if needed
-                        file_path = payment_proof_url.split('/payment/')[-1]
-                    
-                    # Get fresh public URL with proper CORS headers
-                    payment_proof_url = supabase.storage.from_('payment').create_signed_url(
-                        path=file_path,
-                        expires_in=3600  # URL valid for 1 hour
-                    )
-                    print(f"Generated signed URL: {payment_proof_url}")
-                    
-                    if isinstance(payment_proof_url, dict) and 'signedURL' in payment_proof_url:
-                        payment_proof_url = payment_proof_url['signedURL']
-                    
-                except Exception as e:
-                    print(f"Error generating signed URL: {str(e)}")
-                    payment_proof_url = None
-            
             return jsonify({
                 'success': True,
                 'registration': {
                     'email': registration['email'],
                     'college': registration['college'],
                     'phone': registration['phone'],
-                    'payment_method': registration.get('payment_method', 'Not specified'),
-                    'utr_number': registration.get('utr_number'),
-                    'DD': registration.get('DD') or registration.get('dd'),
-                    'payment_proof_url': payment_proof_url
+                    'payment_method': registration.get('payment_method')
                 }
             })
         

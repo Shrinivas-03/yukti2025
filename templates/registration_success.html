@@ -38,6 +38,17 @@
                 </div>
                 {% endfor %}
             </div>
+
+            <div class="event-details">
+                <h3>Registered Events:</h3>
+                {% for event in details.events %}
+                <div class="event">
+                    <p><strong>Category:</strong> {{ event.category }}</p>
+                    <p><strong>Event:</strong> {{ event.name }}</p>
+                    <p><strong>Participants:</strong> {{ event.members|join(', ') }}</p>
+                </div>
+                {% endfor %}
+            </div>
         </div>
         
         <p class="important-note">Please pay the registration fees at the registration desk on the event day.</p>
