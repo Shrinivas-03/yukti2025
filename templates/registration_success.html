@@ -3,69 +3,105 @@
 {% block title %}Registration Successful{% endblock %}
 
 {% block content %}
-<!-- Regular display container -->
-<div class="success-container">
-    <h1>Registration Successful!</h1>
-    <div class="ack-details">
-        <h2>Acknowledgement ID: {{ ack_id }}</h2>
-        
-        <!-- Registration Details Section -->
-        <div class="section registration-info">
-            <h3>Registration Details</h3>
-            <div class="info-grid">
-                <p><strong>Email:</strong> {{ details.email }}</p>
-                <p><strong>Phone:</strong> {{ details.phone }}</p>
-                <p><strong>College:</strong> {{ details.college }}</p>
-                <p><strong>Total Participants:</strong> {{ details.total_participants }}</p>
-                <p><strong>Total Cost:</strong> ₹{{ details.total_cost }}</p>
-                <p><strong>Registration Date:</strong> {{ details.registration_date|format_datetime }}</p>
-            </div>
-        </div>
+<!-- Add top divider -->
+<div class="h-0.5 bg-gradient-to-r from-[#6D28D9] via-[#3B82F6] to-[#00FFFF]"></div>
 
-        <!-- Events Details Section -->
-        <div class="section events-info">
-            <h3>Registered Events</h3>
-            {% for event in details.events %}
-            <div class="event-card">
-                <div class="event-header">
-                    <h4>{{ event.name }}</h4>
-                    <span class="category">Category: {{ event.category }}</span>
-                </div>
-                <div class="event-body">
-                    <p><strong>Event Type:</strong> {{ event.type|title }}</p>
-                    <p><strong>Cost:</strong> ₹{{ event.cost }}</p>
-                    {% if event.participants %}
-                    <div class="participants">
-                        <strong>{% if event.type == 'team' %}Team Members{% else %}Participant{% endif %}:</strong>
-                        <ul>
-                            {% for participant in event.participants %}
-                            <li>{{ participant }}</li>
-                            {% endfor %}
-                        </ul>
+<!-- Update container background and theme -->
+<div class="min-h-screen bg-gradient-to-br from-[#1C1C1C] to-[#0A0A0A] py-12 px-4">
+    <div class="max-w-4xl mx-auto">
+        <!-- Success Message Container -->
+        <div class="bg-[rgba(46,46,46,0.8)] backdrop-blur-md p-6 rounded-xl border-2 border-[#00FFFF] 
+                    shadow-[0_0_15px_rgba(0,255,255,0.3)] mb-8 
+                    transform transition-all duration-300 hover:border-[#FF00FF] 
+                    hover:shadow-[0_15px_30px_rgba(0,255,255,0.4)]">
+            
+            <h1 class="text-3xl font-bold text-[#00FFFF] text-center mb-6 font-['Orbitron']">Registration Successful!</h1>
+            
+            <!-- Registration Details -->
+            <div class="space-y-6">
+                <h2 class="text-2xl text-[#00FFFF] font-['Orbitron']">Acknowledgement ID: {{ ack_id }}</h2>
+                
+                <!-- Personal Details -->
+                <div class="bg-[rgba(32,34,39,0.8)] p-6 rounded-lg border border-[#00FFFF] space-y-4">
+                    <h3 class="text-xl text-[#00FFFF] font-['Orbitron'] mb-4">Registration Details</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-[#C0C0C0]">
+                        <p><strong>Email:</strong> {{ details.email }}</p>
+                        <p><strong>Phone:</strong> {{ details.phone }}</p>
+                        <p><strong>College:</strong> {{ details.college }}</p>
+                        <p><strong>Total Participants:</strong> {{ details.total_participants }}</p>
+                        <p><strong>Total Cost:</strong> ₹{{ details.total_cost }}</p>
+                        <p><strong>Registration Date:</strong> {{ details.registration_date|format_datetime }}</p>
                     </div>
-                    {% endif %}
+                </div>
+
+                <!-- Events List -->
+                <div class="bg-[rgba(32,34,39,0.8)] p-6 rounded-lg border border-[#00FFFF]">
+                    <h3 class="text-xl text-[#00FFFF] font-['Orbitron'] mb-4">Registered Events</h3>
+                    <div class="space-y-4">
+                        {% for event in details.events %}
+                        <div class="bg-[rgba(46,46,46,0.8)] p-4 rounded-lg border border-[#00FFFF] 
+                                  hover:border-[#FF00FF] transition-all duration-300">
+                            <div class="event-header">
+                                <h4>{{ event.name }}</h4>
+                                <span class="category">Category: {{ event.category }}</span>
+                            </div>
+                            <div class="event-body">
+                                <p><strong>Event Type:</strong> {{ event.type|title }}</p>
+                                <p><strong>Cost:</strong> ₹{{ event.cost }}</p>
+                                {% if event.participants %}
+                                <div class="participants">
+                                    <strong>{% if event.type == 'team' %}Team Members{% else %}Participant{% endif %}:</strong>
+                                    <ul>
+                                        {% for participant in event.participants %}
+                                        <li>{{ participant }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <!-- Important Note -->
+                <div class="bg-[rgba(255,0,255,0.1)] border-2 border-[#FF00FF] p-4 rounded-lg text-center">
+                    <p class="text-[#FF00FF] font-bold mb-2">
+                        Please pay the registration fees at the registration desk on the event day.
+                    </p>
+                    <p class="text-[#C0C0C0]">
+                        Keep this acknowledgement ID for future reference.
+                    </p>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="flex flex-wrap justify-center gap-4">
+                    <button onclick="window.print()" 
+                            class="bg-[#FF00FF] text-white px-6 py-3 rounded-lg font-bold
+                                   transition-all duration-300 hover:bg-transparent hover:text-[#FF00FF] 
+                                   hover:border-2 hover:border-[#FF00FF]">
+                        Print
+                    </button>
+                    <button onclick="window.location.href='/'" 
+                            class="bg-[#FF00FF] text-white px-6 py-3 rounded-lg font-bold
+                                   transition-all duration-300 hover:bg-transparent hover:text-[#FF00FF] 
+                                   hover:border-2 hover:border-[#FF00FF]">
+                        Back to Home
+                    </button>
+                    <button onclick="window.location.href='/register'" 
+                            class="bg-[#FF00FF] text-white px-6 py-3 rounded-lg font-bold
+                                   transition-all duration-300 hover:bg-transparent hover:text-[#FF00FF] 
+                                   hover:border-2 hover:border-[#FF00FF]">
+                        New Registration
+                    </button>
                 </div>
             </div>
-            {% endfor %}
-        </div>
-
-        <div class="important-note">
-            <p>Please pay the registration fees at the registration desk on the event day.</p>
-            <p>Keep this acknowledgement ID for future reference.</p>
-        </div>
-
-        <div class="button-container">
-            <button onclick="window.print()">Print</button>
-            <button onclick="window.location.href='/'">Home</button>
-            <button onclick="window.location.href='/'" class="nav-button home-btn">
-                Back to Home
-            </button>
-            <button onclick="window.location.href='/register'" class="nav-button register-btn">
-                New Registration
-            </button>
         </div>
     </div>
 </div>
+
+<!-- Add bottom divider -->
+<div class="h-0.5 bg-gradient-to-r from-[#6D28D9] via-[#3B82F6] to-[#00FFFF]"></div>
 
 <!-- PDF Template -->
 <div id="pdf-template" style="display: none;">

@@ -3,65 +3,68 @@
 {% block title %}SignIn | YUKTI 2025{% endblock %}
 
 {% block content %}
-<div class="min-h-screen bg-gradient-to-br from-[#2D3138] to-[#202227] font-['Cinzel']">
+<div class="h-0.5 bg-gradient-to-r from-[#6D28D9] via-[#3B82F6] to-[#00FFFF]"></div>
+<div class="min-h-screen bg-gradient-to-br from-[#1C1C1C] to-[#0A0A0A] font-['Orbitron']">
     <div class="flex justify-center items-center min-h-[calc(100vh-150px)] px-4 pt-12">
         <div class="w-full max-w-[700px] -mt-12">
             <!-- Sign In Container -->
             <div class="flex flex-col items-center">
-                <h1 class="text-3xl text-white mb-6">Sign In</h1>
+                <h1 class="text-3xl text-[#00FFFF] mb-6 font-bold">Sign In</h1>
                 
                 {% if error %}
-                <p class="text-red-400 text-sm mb-4">{{ error }}</p>
+                <p class="text-[#FF00FF] text-sm mb-4">{{ error }}</p>
                 {% endif %}
 
                 <!-- Sign In Form -->
                 <form method="POST" action="{{ url_for('signin') }}" 
-                      class="w-full max-w-[400px] bg-[rgba(45,49,56,0.9)] p-6 rounded-xl shadow-xl 
-                             border-2 border-[#ff6600] mb-4">
+                      class="w-full max-w-[400px] bg-[rgba(46,46,46,0.8)] backdrop-blur-md p-6 rounded-xl 
+                             border-2 border-[#00FFFF] shadow-[0_0_15px_rgba(0,255,255,0.3)] mb-4
+                             transform transition-all duration-300 hover:-translate-y-2 
+                             hover:shadow-[0_15px_30px_rgba(0,255,255,0.4)] hover:border-[#FF00FF]">
                     <!-- User ID Field -->
                     <div class="mb-4">
-                        <label for="user_id" class="block text-gray-200 text-left mb-2">User ID:</label>
+                        <label for="user_id" class="block text-[#00FFFF] text-left mb-2">User ID:</label>
                         <input type="text" 
                                name="user_id" 
                                id="user_id" 
                                placeholder="Enter your User ID" 
                                required
-                               class="w-full p-3 bg-[rgba(32,34,39,0.8)] border-2 border-[#ff6600] rounded-lg text-white
+                               class="w-full p-3 bg-[rgba(32,34,39,0.8)] border-2 border-[#00FFFF] rounded-lg text-white
                                       placeholder:text-gray-400 outline-none transition-all duration-300
-                                      focus:border-[#ff6600] focus:shadow-[0_0_8px_rgba(255,103,0,0.8)]">
+                                      focus:border-[#FF00FF] focus:shadow-[0_0_15px_rgba(255,0,255,0.3)]">
                     </div>
 
                     <!-- Password Field -->
                     <div class="mb-6">
-                        <label for="password" class="block text-gray-200 text-left mb-2">Password:</label>
+                        <label for="password" class="block text-[#00FFFF] text-left mb-2">Password:</label>
                         <input type="password" 
                                name="password" 
                                id="password" 
                                placeholder="Enter your password" 
                                required
-                               class="w-full p-3 bg-[rgba(32,34,39,0.8)] border-2 border-[#ff6600] rounded-lg text-white
+                               class="w-full p-3 bg-[rgba(32,34,39,0.8)] border-2 border-[#00FFFF] rounded-lg text-white
                                       placeholder:text-gray-400 outline-none transition-all duration-300
-                                      focus:border-[#ff6600] focus:shadow-[0_0_8px_rgba(255,103,0,0.8)]">
+                                      focus:border-[#FF00FF] focus:shadow-[0_0_15px_rgba(255,0,255,0.3)]">
                     </div>
 
                     <!-- Submit Button -->
                     <button type="submit" 
-                            class="w-full bg-[#ff6600] text-white py-3 px-6 rounded-lg font-bold
-                                   transition-all duration-300 hover:bg-[#e65c00] hover:-translate-y-1 
-                                   hover:shadow-[0_8px_15px_rgba(255,103,0,0.4)]">
+                            class="w-full bg-[#FF00FF] text-white py-3 px-6 rounded-lg font-bold
+                                   transition-all duration-300 hover:bg-transparent hover:text-[#FF00FF] 
+                                   hover:border-2 hover:border-[#FF00FF] hover:shadow-[0_0_15px_rgba(255,0,255,0.3)]">
                         Sign In
                     </button>
                 </form>
 
                 <!-- Help Section -->
-                <div class="text-center text-gray-200">
+                <div class="text-center text-[#C0C0C0]">
                     <p class="mb-2">Registration is allowed through colleges only.</p>
                     <p class="flex items-center justify-center gap-2">
                         Need help? 
                         <a href="https://wa.me/+919590775699" 
                            target="_blank" 
-                           class="inline-flex items-center gap-2 text-[#25d366] hover:text-[#128C7E] 
-                                  hover:underline transition-colors">
+                           class="inline-flex items-center gap-2 text-[#00FFFF] hover:text-[#FF00FF] 
+                                  transition-colors duration-300">
                             <i class="fab fa-whatsapp text-lg"></i>
                             Contact Support
                         </a>
@@ -71,4 +74,7 @@
         </div>
     </div>
 </div>
+
+<!-- Add divider at bottom -->
+<div class="h-0.5 bg-gradient-to-r from-[#6D28D9] via-[#3B82F6] to-[#00FFFF]"></div>
 {% endblock %}

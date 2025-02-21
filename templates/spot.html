@@ -1,200 +1,34 @@
 {% extends "base.html" %}
 
-{% block title %}Registration - College Fest{% endblock %}
+{% block title %}Spot Registration - YUKTI 2025{% endblock %}
 
 {% block content %}
-<style>
-    body {
-        display: flex;
-        flex-direction: column;
-        min-height: 100vh;
-    }
-    
-    .registration-container {
-        max-width: 1200px;
-        margin: 100px auto 0; /* Increased from 80px to 100px for more space */
-        padding: 20px;
-        flex: 1; /* This makes the container take up available space */
-    }
-    
-    /* Add padding at the bottom to prevent content from being hidden by footer */
-    .registration-form-container {
-        margin-bottom: 2rem;
-    }
-    
-    /* Ensure footer stays at bottom */
-    .footer {
-        margin-top: auto;
-    }
+<!-- Add top divider -->
+<div class="h-0.5 bg-gradient-to-r from-[#6D28D9] via-[#3B82F6] to-[#00FFFF]"></div>
 
-    .registration-title {
-        text-align: center;
-        margin-bottom: 40px; /* Increased bottom margin */
-        color: #FFD700; /* Added gold color to match theme */
-        font-size: 2.5rem;
-    }
+<div class="min-h-screen bg-gradient-to-br from-[#1C1C1C] to-[#0A0A0A] py-12 px-4">
+    <div class="max-w-4xl mx-auto mt-20">
+        <!-- Title -->
+        <h1 class="text-4xl font-bold text-[#00FFFF] text-center mb-8 font-['Orbitron']">
+            YUKTI-2025 Spot Registration
+        </h1>
 
-    .registration-form-container {
-        background: rgba(40, 40, 40, 0.95);
-        padding: 30px;
-        border-radius: 10px;
-        box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
-    }
-
-    /* Main wrapper styles */
-    .page-wrapper {
-        min-height: 100vh;
-        display: flex;
-        flex-direction: column;
-        padding-bottom: 80px; /* Space for footer */
-    }
-
-    /* Registration container styles */
-    .registration-container {
-        max-width: 1200px;
-        margin: 100px auto 2rem; /* Top margin for navbar, bottom margin for footer */
-        padding: 20px;
-        flex: 1;
-        width: 90%; /* Responsive width */
-    }
-
-    /* Form container styles */
-    .registration-form-container {
-        background: rgba(40, 40, 40, 0.95);
-        padding: 30px;
-        border-radius: 10px;
-        box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
-        margin-bottom: 2rem;
-    }
-
-    /* Responsive adjustments */
-    @media (max-width: 768px) {
-        .registration-container {
-            width: 95%;
-            margin: 80px auto 1rem;
-            padding: 15px;
-        }
-        
-        .registration-form-container {
-            padding: 20px;
-        }
-    }
-
-    /* Enhanced Register Button Styles */
-    .registration-form button[type="submit"] {
-        background: #FFD700;
-        color: #1C1C1C;
-        padding: 12px 30px;
-        border: 2px solid #FFD700;
-        border-radius: 5px;
-        font-size: 1.1rem;
-        font-weight: bold;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        margin-top: 20px;
-        position: relative;
-        overflow: hidden;
-    }
-
-    .registration-form button[type="submit"]:hover {
-        background: transparent;
-        color: #FFD700;
-        box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
-        transform: translateY(-2px);
-    }
-
-    .registration-form button[type="submit"]::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: -100%;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(
-            120deg,
-            transparent,
-            rgba(255, 215, 0, 0.2),
-            transparent
-        );
-        transition: 0.5s;
-    }
-
-    .registration-form button[type="submit"]:hover::before {
-        left: 100%;
-    }
-
-    .registration-form button[type="submit"]:active {
-        transform: scale(0.95);
-    }
-
-    /* Loading Button Styles */
-    .registration-form button[type="submit"] {
-        position: relative;
-        overflow: hidden;
-    }
-
-    .registration-form button[type="submit"].loading {
-        pointer-events: none;
-        opacity: 0.8;
-    }
-
-    .registration-form button[type="submit"] .spinner {
-        display: none;
-        position: absolute;
-        left: 50%;
-        top: 50%;
-        transform: translate(-50%, -50%);
-        width: 20px;
-        height: 20px;
-        border: 3px solid transparent;
-        border-top-color: #1C1C1C;
-        border-radius: 50%;
-        animation: spin 1s linear infinite;
-    }
-
-    .registration-form button[type="submit"].loading .spinner {
-        display: block;
-    }
-
-    .registration-form button[type="submit"].loading span {
-        visibility: hidden;
-    }
-
-    @keyframes spin {
-        0% { transform: translate(-50%, -50%) rotate(0deg); }
-        100% { transform: translate(-50%, -50%) rotate(360deg); }
-    }
-
-    .utr-hint {
-        font-size: 0.8rem;
-        color: #888;
-        margin-top: 5px;
-    }
-    
-    #utr-number {
-        border: 2px solid #FFD700;
-        background: rgba(255, 215, 0, 0.1);
-    }
-    
-    #utr-number:focus {
-        box-shadow: 0 0 5px rgba(255, 215, 0, 0.5);
-    }
-</style>
-
-<!-- Update the main structure -->
-<div class="page-wrapper">
-    <div class="registration-container">
-        <h1 class="registration-title">YUKTI-2025 Spot-Registration</h1>
-
-        <div class="registration-form-container">
-            <form class="registration-form" id="registrationForm" onsubmit="event.preventDefault(); submitRegistration();">
+        <!-- Registration Form Container -->
+        <div class="bg-[rgba(46,46,46,0.8)] backdrop-blur-md p-8 rounded-xl border-2 border-[#00FFFF] 
+                    shadow-[0_0_15px_rgba(0,255,255,0.3)]">
+            
+            <form id="registrationForm" onsubmit="event.preventDefault(); submitRegistration();" class="space-y-8">
                 <!-- Event Selection Section -->
-                <div class="event-selection-section">
+                <div class="space-y-6">
+                    <!-- Category Selection -->
                     <div class="form-group">
-                        <label for="category"><strong>Select Event Category</strong></label>
-                        <select id="category" required>
+                        <label class="block text-[#00FFFF] mb-2 font-['Orbitron']" for="category">
+                            Select Event Category
+                        </label>
+                        <select id="category" required 
+                                class="w-full p-3 bg-[rgba(32,34,39,0.8)] border-2 border-[#00FFFF] rounded-lg text-white
+                                       outline-none transition-all duration-300 focus:border-[#FF00FF]
+                                       focus:shadow-[0_0_15px_rgba(255,0,255,0.3)]">
                             <option value="" disabled selected>--Select--</option>
                             <option value="tech">Manthana (Tech Events)</option>
                             <option value="Cultural">Manoranjana (Cultural Events)</option>
@@ -204,80 +38,126 @@
                         </select>
                     </div>
 
+                    <!-- Events Container -->
                     <div class="form-group">
-                        <label><strong>Select an Event</strong></label>
-                        <div id="events-container" class="events-grid">
+                        <label class="block text-[#00FFFF] mb-2 font-['Orbitron']">Select an Event</label>
+                        <div id="events-container" class="space-y-2 text-[#C0C0C0]">
                             <p>Please select a category first.</p>
                         </div>
                     </div>
 
-                    <div class="form-group hidden" id="group-size-container">
-                        <label for="group-size"><strong>Number of Participants</strong></label>
-                        <input type="number" id="group-size" min="1" max="4" value="1" class="group-size-input" />
+                    <!-- Group Size Container -->
+                    <div id="group-size-container" class="hidden">
+                        <label class="block text-[#00FFFF] mb-2 font-['Orbitron']" for="group-size">
+                            Number of Participants
+                        </label>
+                        <input type="number" id="group-size" min="1" max="4" value="1"
+                               class="w-full p-3 bg-[rgba(32,34,39,0.8)] border-2 border-[#00FFFF] rounded-lg text-white
+                                      outline-none transition-all duration-300 focus:border-[#FF00FF]
+                                      focus:shadow-[0_0_15px_rgba(255,0,255,0.3)]">
                     </div>
-                    <div id="group-size-error" class="hidden" style="color:red; font-size:0.9rem;"></div>
 
-                    <div id="individual-participant-container" class="form-group hidden">
-                        <label for="individual-participant"><strong>Participant Name</strong></label>
-                        <input type="text" id="individual-participant" placeholder="Enter Your Name" />
+                    <!-- Individual Participant Container -->
+                    <div id="individual-participant-container" class="hidden">
+                        <label class="block text-[#00FFFF] mb-2 font-['Orbitron']" for="individual-participant">
+                            Participant Name
+                        </label>
+                        <input type="text" id="individual-participant" 
+                               class="w-full p-3 bg-[rgba(32,34,39,0.8)] border-2 border-[#00FFFF] rounded-lg text-white
+                                      outline-none transition-all duration-300 focus:border-[#FF00FF]
+                                      focus:shadow-[0_0_15px_rgba(255,0,255,0.3)]"
+                               placeholder="Enter Your Name">
                     </div>
 
-                    <div class="form-group hidden" id="team-members-container">
-                        <label><strong>Team Members</strong></label>
-                        <div id="member-inputs"></div>
+                    <!-- Team Members Container -->
+                    <div id="team-members-container" class="hidden space-y-4">
+                        <label class="block text-[#00FFFF] mb-2 font-['Orbitron']">Team Members</label>
+                        <div id="member-inputs" class="space-y-3">
+                            <!-- Member inputs will be dynamically added here -->
+                        </div>
                     </div>
-                    <!-- New Total Participants Section -->
-                
 
-                    <button type="button" id="add-event-btn" class="add-event-btn" disabled>+ Add Event</button>
+                    <!-- Add Event Button -->
+                    <button type="button" id="add-event-btn" disabled
+                            class="w-full bg-[#FF00FF] text-white px-6 py-3 rounded-lg font-bold
+                                   transition-all duration-300 hover:bg-transparent hover:text-[#FF00FF] 
+                                   hover:border-2 hover:border-[#FF00FF] disabled:opacity-50 
+                                   disabled:cursor-not-allowed">
+                        + Add Event
+                    </button>
                 </div>
 
                 <!-- Selected Events Section -->
                 <div class="selected-events-section hidden">
-                    <h3>Selected Events</h3>
-                    <div id="selected-events-list"></div>
+                    <h3 class="text-2xl font-bold text-[#00FFFF] mb-4 font-['Orbitron']">Selected Events</h3>
+                    <div id="selected-events-list" class="space-y-3">
+                        <!-- Selected events will be displayed here -->
+                    </div>
                 </div>
-
-            
 
                 <!-- Personal Details Section -->
-                <div class="personal-details-section hidden">
+                <div class="personal-details-section hidden space-y-6">
+                    <!-- ... existing personal details fields with updated styles ... -->
                     <div class="form-group">
-                        <label for="college">College Name</label>
-                        <input type="text" id="college" placeholder="Enter your college name" required />
+                        <label class="block text-[#00FFFF] mb-2 font-['Orbitron']" for="college">College Name</label>
+                        <input type="text" id="college" required 
+                               class="w-full p-3 bg-[rgba(32,34,39,0.8)] border-2 border-[#00FFFF] rounded-lg text-white
+                                      outline-none transition-all duration-300 focus:border-[#FF00FF]
+                                      focus:shadow-[0_0_15px_rgba(255,0,255,0.3)]"
+                               placeholder="Enter your college name">
                     </div>
 
                     <div class="form-group">
-                        <label for="email">Email</label>
-                        <input type="email" id="email" placeholder="Enter your email" required />
+                        <label class="block text-[#00FFFF] mb-2 font-['Orbitron']" for="email">Email</label>
+                        <input type="email" id="email" required 
+                               class="w-full p-3 bg-[rgba(32,34,39,0.8)] border-2 border-[#00FFFF] rounded-lg text-white
+                                      outline-none transition-all duration-300 focus:border-[#FF00FF]
+                                      focus:shadow-[0_0_15px_rgba(255,0,255,0.3)]"
+                               placeholder="Enter your email">
                     </div>
 
                     <div class="form-group">
-                        <label for="phone">Phone (WhatsApp)</label>
-                        <input type="tel" id="phone" placeholder="Enter your WhatsApp number" required />
+                        <label class="block text-[#00FFFF] mb-2 font-['Orbitron']" for="phone">Phone (WhatsApp)</label>
+                        <input type="tel" id="phone" required 
+                               class="w-full p-3 bg-[rgba(32,34,39,0.8)] border-2 border-[#00FFFF] rounded-lg text-white
+                                      outline-none transition-all duration-300 focus:border-[#FF00FF]
+                                      focus:shadow-[0_0_15px_rgba(255,0,255,0.3)]"
+                               placeholder="Enter your WhatsApp number">
                     </div>
-                    <!-- New Overall Total Participants Section -->
-                <div class="overall-participants" id="overall-participants-section" style="margin:10px 0; font-weight:bold;">
-                    Overall Total Participants: <span id="overallParticipants">0</span>
-                </div>
 
+                    <!-- Overall Participants -->
+                    <div class="bg-[rgba(32,34,39,0.8)] p-4 rounded-lg border border-[#00FFFF]">
+                        <p class="text-[#00FFFF] font-['Orbitron']">
+                            Overall Total Participants: <span id="overallParticipants" class="text-white">0</span>
+                        </p>
+                    </div>
+
+                    <!-- UTR Number -->
                     <div class="form-group">
-                        <label for="utr-number">UTR Number</label>
-                        <input type="text" 
-                               id="utr-number" 
-                               name="utr-number" 
-                               placeholder="Enter UTR/Transaction Number" 
-                               required />
-                        <p class="utr-hint">Enter the UTR number from your payment transaction</p>
+                        <label class="block text-[#00FFFF] mb-2 font-['Orbitron']" for="utr-number">UTR Number</label>
+                        <input type="text" id="utr-number" required 
+                               class="w-full p-3 bg-[rgba(32,34,39,0.8)] border-2 border-[#00FFFF] rounded-lg text-white
+                                      outline-none transition-all duration-300 focus:border-[#FF00FF]
+                                      focus:shadow-[0_0_15px_rgba(255,0,255,0.3)]"
+                               placeholder="Enter UTR/Transaction Number">
+                        <p class="mt-2 text-sm text-[#C0C0C0]">Enter the UTR number from your payment transaction</p>
                     </div>
 
-                    <p class="cost-note">*Accommodation is not available.</p>
-                    <p class="total-cost">Total Cost: ₹0</p>
-                    
+                    <!-- Cost Display -->
+                    <div class="text-center p-4 bg-[rgba(32,34,39,0.8)] rounded-lg border border-[#00FFFF]">
+                        <p class="text-[#C0C0C0] mb-2">*Accommodation is not available.</p>
+                        <p class="text-2xl font-bold text-[#00FFFF] font-['Orbitron']"><span class="total-cost">0</span></p>
+                    </div>
 
-                    <button type="submit">
-                        <div class="spinner"></div>
-                        <span>Register Now</span>
+                    <!-- Submit Button -->
+                    <button type="submit"
+                            class="w-full bg-[#FF00FF] text-white px-6 py-3 rounded-lg font-bold
+                                   transition-all duration-300 hover:bg-transparent hover:text-[#FF00FF] 
+                                   hover:border-2 hover:border-[#FF00FF]">
+                        <div class="button-content flex items-center justify-center gap-2">
+                            <span>Register Now</span>
+                            <div class="spinner hidden w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                        </div>
                     </button>
                 </div>
             </form>
@@ -285,6 +165,10 @@
     </div>
 </div>
 
+<!-- Add bottom divider -->
+<div class="h-0.5 bg-gradient-to-r from-[#6D28D9] via-[#3B82F6] to-[#00FFFF]"></div>
+
+<!-- Keep existing JavaScript -->
 <script>
     // Declare selectedEvents globally so that submitRegistration can access it.
     let selectedEvents = [];
@@ -739,7 +623,261 @@
 
 </script>
 
+<!-- Add these enhanced styles for event options -->
+<style>
+.event-option {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    border: 2px solid #00FFFF;
+    background: rgba(32,34,39,0.8);
+    margin-bottom: 0.75rem;
+    transition: all 0.3s ease;
+}
 
+.event-option:hover {
+    border-color: #FF00FF;
+    box-shadow: 0 0 15px rgba(255,0,255,0.3);
+}
 
+.event-option input[type="radio"] {
+    width: 1.25rem;
+    height: 1.25rem;
+    accent-color: #00FFFF;
+    cursor: pointer;
+}
+
+.event-option label {
+    color: #C0C0C0;
+    cursor: pointer;
+    flex: 1;
+    transition: all 0.3s ease;
+}
+
+.event-option:has(input:checked) {
+    border-color: #FF00FF;
+    background: rgba(255,0,255,0.1);
+}
+
+.event-option input:checked + label {
+    color: #00FFFF;
+}
+
+/* Selected Events Styling */
+.selected-event {
+    background: rgba(32,34,39,0.8);
+    padding: 1rem;
+    border-radius: 0.5rem;
+    border: 2px solid #00FFFF;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1rem;
+    transition: all 0.3s ease;
+}
+
+.selected-event:hover {
+    border-color: #FF00FF;
+    box-shadow: 0 0 15px rgba(255,0,255,0.3);
+}
+
+.selected-event span {
+    color: #C0C0C0;
+}
+
+.remove-event-btn {
+    color: #FF00FF;
+    font-size: 1.25rem;
+    font-weight: bold;
+    padding: 0.5rem;
+    transition: all 0.3s ease;
+}
+
+.remove-event-btn:hover {
+    transform: scale(1.25);
+}
+
+/* Input Field Enhancement */
+.member-input input {
+    width: 100%;
+    padding: 0.75rem;
+    background: rgba(32,34,39,0.8);
+    border: 2px solid #00FFFF;
+    border-radius: 0.5rem;
+    color: white;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.member-input input::placeholder {
+    color: #9CA3AF;
+}
+
+.member-input input:focus {
+    border-color: #FF00FF;
+    box-shadow: 0 0 15px rgba(255,0,255,0.3);
+}
+
+/* Loading State */
+.button-content {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+button.loading .button-content span {
+    opacity: 0;
+}
+
+button.loading .button-content .spinner {
+    position: absolute;
+    display: block;
+}
+
+/* Error States */
+.invalid-input {
+    border-color: rgb(239, 68, 68);
+    background: rgba(239, 68, 68, 0.1);
+}
+
+.error-message {
+    color: rgb(239, 68, 68);
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+}
+
+/* Hover Effects */
+.form-group:hover label {
+    color: #FF00FF;
+    transition: color 0.3s ease;
+}
+
+/* Group Size Container Enhancement */
+#group-size-container input[type="number"] {
+    -webkit-appearance: none;
+    -moz-appearance: textfield;
+    appearance: none; /* Add standard property */
+}
+
+#group-size-container input[type="number"]::-webkit-outer-spin-button,
+#group-size-container input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none; /* Add standard property */
+    margin: 0;
+}
+
+/* Event Selection Inputs */
+select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none; /* Add standard property */
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2300FFFF' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 0.7rem center;
+    background-size: 1em;
+    padding-right: 2.5rem;
+}
+
+/* Radio Buttons */
+input[type="radio"] {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none; /* Add standard property */
+    width: 1.25rem;
+    height: 1.25rem;
+    border: 2px solid #00FFFF;
+    border-radius: 50%;
+    outline: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+input[type="radio"]:checked {
+    background-color: #00FFFF;
+    box-shadow: 0 0 10px rgba(0,255,255,0.5);
+    border-color: #FF00FF;
+}
+
+/* Container Animations */
+.selected-events-section,
+.personal-details-section {
+    transform: translateY(0);
+    transition: all 0.5s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.selected-events-section:not(.hidden),
+.personal-details-section:not(.hidden) {
+    animation: fadeIn 0.5s ease forwards;
+}
+
+/* Cost Display Enhancement */
+.total-cost {
+    position: relative;
+    font-size: 1.875rem;
+    font-weight: bold;
+    color: #00FFFF;
+}
+
+.total-cost::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(to right, #6D28D9, #3B82F6, #00FFFF);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 640px) {
+    .event-option {
+        padding: 0.75rem;
+    }
+    
+    .selected-event {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    .remove-event-btn {
+        align-self: flex-end;
+    }
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+    width: 0.5rem;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(32,34,39,0.8);
+}
+
+::-webkit-scrollbar-thumb {
+    background: #00FFFF;
+    border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #FF00FF;
+    transition: background-color 0.3s ease;
+}
+</style>
 
 {% endblock %}
