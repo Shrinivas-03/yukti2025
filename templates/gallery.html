@@ -10,7 +10,7 @@
         <div id="imagePopup" class="fixed inset-0 bg-black bg-opacity-90 hidden z-50 justify-center items-center">
             <div class="relative max-w-4xl mx-auto p-4">
                 <button onclick="closePopup()" class="absolute -top-12 right-0 w-10 h-10 bg-primary text-black rounded-full flex items-center justify-center hover:bg-white transition-all transform hover:scale-110">
-
+                    ✕
                 </button>
                 <img id="popupImage" src="" alt="" class="max-w-full max-h-[90vh] object-contain border-2 border-primary rounded">
             </div>
@@ -40,10 +40,11 @@
                     <!-- Gallery Items -->
                     {% for i in range(6) %}
                     <div class="gallery-item group relative overflow-hidden rounded-xl border-2 border-secondary hover:border-primary/50 transition-all duration-300 hover:-translate-y-2 hover:shadow-lg hover:shadow-primary/20">
-                        <img src="{{ url_for('static', filename='gallery/fl' + loop.index|string + '.webp') }}"
+                        <img src="{{ url_for('static', filename='gallery/fl' ~ loop.index ~ '.jpg') }}"
                              alt="Flash Mob Performance {{ loop.index }}"
                              class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110"
-                             loading="lazy">
+                             loading="lazy"
+                             onerror="this.src='{{ url_for('static', filename='gallery/place.jpg') }}'; console.error('Failed to load:', this.src);">
                         <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4 opacity-0 group-hover:opacity-100 transition-opacity">
                             <p class="text-primary text-sm">Flash Mob - Performance {{ loop.index }}</p>
                         </div>
@@ -67,12 +68,14 @@
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     <!-- Gallery Items -->
-                    {% for i in range(6) %}
+                    {% for i in range(4) %}
                     <div class="gallery-item group relative overflow-hidden rounded-xl border-2 border-secondary hover:border-primary/50 transition-all duration-300 hover:-translate-y-2 hover:shadow-lg hover:shadow-primary/20">
-                        <img src="{{ url_for('static', filename='gallery/wel' + loop.index|string + '.webp') }}"
-                             alt="Welcome Ceremony Image {{ loop.index }}"
-                             class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110"
-                             loading="lazy">
+                        <img src="{{ url_for('static', filename='gallery/wl' ~ loop.index ~ '.jpg') }}"
+     alt="Welcome Ceremony Image {{ loop.index }}"
+     class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110"
+     loading="lazy"
+     onerror="this.src='{{ url_for('static', filename='gallery/place.jpg') }}'; console.error('Failed to load:', this.src);">
+
                         <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4 opacity-0 group-hover:opacity-100 transition-opacity">
                             <p class="text-primary text-sm">Welcome Ceremony - Moment {{ loop.index }}</p>
                         </div>
@@ -101,12 +104,13 @@
                         Showcasing innovation through hackathons, coding competitions, robotics challenges, and technical workshops that pushed the boundaries of technological creativity.
                     </p>
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-                        {% for i in range(6) %}
+                        {% for i in range(3) %}
                         <div class="gallery-item group relative overflow-hidden rounded-xl border-2 border-secondary hover:border-primary/50 transition-all duration-300 hover:-translate-y-2 hover:shadow-lg hover:shadow-primary/20">
-                            <img src="{{ url_for('static', filename='gallery/tc' + loop.index|string + '.webp') }}"
+                            <img src="{{ url_for('static', filename='gallery/tc' ~ loop.index ~ '.jpg') }}"
                                  alt="Technical Event {{ loop.index }}"
                                  class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110"
-                                 loading="lazy">
+                                 loading="lazy"
+                                 onerror="this.src='{{ url_for('static', filename='gallery/place.jpg') }}'; console.error('Failed to load:', this.src);">
                             <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4 opacity-0 group-hover:opacity-100 transition-opacity">
                                 <p class="text-primary text-sm">Technical Events - Moment {{ loop.index }}</p>
                             </div>
@@ -124,10 +128,11 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
                         {% for i in range(6) %}
                         <div class="gallery-item group relative overflow-hidden rounded-xl border-2 border-secondary hover:border-primary/50 transition-all duration-300 hover:-translate-y-2 hover:shadow-lg hover:shadow-primary/20">
-                            <img src="{{ url_for('static', filename='gallery/cl' + loop.index|string + '.webp') }}"
+                            <img src="{{ url_for('static', filename='gallery/cl' ~ loop.index ~ '.jpg') }}"
                                  alt="Cultural Event {{ loop.index }}"
                                  class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110"
-                                 loading="lazy">
+                                 loading="lazy"
+                                 onerror="this.src='{{ url_for('static', filename='gallery/place.jpg') }}'; console.error('Failed to load:', this.src);">
                             <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4 opacity-0 group-hover:opacity-100 transition-opacity">
                                 <p class="text-primary text-sm">Cultural Events - Moment {{ loop.index }}</p>
                             </div>
@@ -143,12 +148,13 @@
                         Testing strategic thinking and leadership through business simulations, case studies, and entrepreneurship competitions.
                     </p>
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                        {% for i in range(6) %}
+                        {% for i in range(2) %}
                         <div class="gallery-item group relative overflow-hidden rounded-xl border-2 border-secondary hover:border-primary/50 transition-all duration-300 hover:-translate-y-2 hover:shadow-lg hover:shadow-primary/20">
-                            <img src="{{ url_for('static', filename='gallery/mn' + loop.index|string + '.webp') }}"
+                            <img src="{{ url_for('static', filename='gallery/mn' ~ loop.index ~ '.jpg') }}"
                                  alt="Management Event {{ loop.index }}"
                                  class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110"
-                                 loading="lazy">
+                                 loading="lazy"
+                                 onerror="this.src='{{ url_for('static', filename='gallery/place.jpg') }}'; console.error('Failed to load:', this.src);">
                             <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4 opacity-0 group-hover:opacity-100 transition-opacity">
                                 <p class="text-primary text-sm">Management Events - Moment {{ loop.index }}</p>
                             </div>
@@ -173,12 +179,13 @@
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     <!-- Gallery Items -->
-                    {% for i in range(6) %}
+                    {% for i in range(10) %}
                     <div class="gallery-item group relative overflow-hidden rounded-xl border-2 border-secondary hover:border-primary/50 transition-all duration-300 hover:-translate-y-2 hover:shadow-lg hover:shadow-primary/20">
-                        <img src="{{ url_for('static', filename='gallery/nt1' + loop.index|string + '.webp') }}"
+                        <img src="{{ url_for('static', filename='gallery/nt1' ~ loop.index ~ '.jpg') }}"
                              alt="Celebrity Night - Day 1 Image {{ loop.index }}"
                              class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110"
-                             loading="lazy">
+                             loading="lazy"
+                             onerror="this.src='{{ url_for('static', filename='gallery/place.jpg') }}'; console.error('Failed to load:', this.src);">
                         <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4 opacity-0 group-hover:opacity-100 transition-opacity">
                             <p class="text-primary text-sm">Celebrity Night - Day 1 - Moment {{ loop.index }}</p>
                         </div>
@@ -204,10 +211,11 @@
                     <!-- Gallery Items -->
                     {% for i in range(6) %}
                     <div class="gallery-item group relative overflow-hidden rounded-xl border-2 border-secondary hover:border-primary/50 transition-all duration-300 hover:-translate-y-2 hover:shadow-lg hover:shadow-primary/20">
-                        <img src="{{ url_for('static', filename='gallery/aw' + loop.index|string + '.webp') }}"
+                        <img src="{{ url_for('static', filename='gallery/aw' ~ loop.index ~ '.jpg') }}"
                              alt="Awards Ceremony Image {{ loop.index }}"
                              class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110"
-                             loading="lazy">
+                             loading="lazy"
+                             onerror="this.src='{{ url_for('static', filename='gallery/place.jpg') }}'; console.error('Failed to load:', this.src);">
                         <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4 opacity-0 group-hover:opacity-100 transition-opacity">
                             <p class="text-primary text-sm">Awards Ceremony - Moment {{ loop.index }}</p>
                         </div>
@@ -231,12 +239,13 @@
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     <!-- Gallery Items -->
-                    {% for i in range(6) %}
+                    {% for i in range(4) %}
                     <div class="gallery-item group relative overflow-hidden rounded-xl border-2 border-secondary hover:border-primary/50 transition-all duration-300 hover:-translate-y-2 hover:shadow-lg hover:shadow-primary/20">
-                        <img src="{{ url_for('static', filename='gallery/nt2' + loop.index|string + '.webp') }}"
+                        <img src="{{ url_for('static', filename='gallery/n' ~ loop.index ~ '.jpg') }}?v=1"
                              alt="Celebrity Night - Day 2 Image {{ loop.index }}"
                              class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110"
-                             loading="lazy">
+                             loading="lazy"
+                             onerror="this.src='{{ url_for('static', filename='gallery/place.jpg') }}'; console.error('Failed to load:', this.src);">
                         <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4 opacity-0 group-hover:opacity-100 transition-opacity">
                             <p class="text-primary text-sm">Celebrity Night - Day 2 - Moment {{ loop.index }}</p>
                         </div>
@@ -249,6 +258,18 @@
 </div>
 
 <script>
+    // Remove handleImageError function as we're using simpler error handling
+
+    // Add debug logging for image loading
+    document.querySelectorAll('.gallery-item img').forEach(img => {
+        img.addEventListener('load', function() {
+            console.log('Successfully loaded:', this.src);
+        });
+        img.addEventListener('error', function() {
+            console.error('Failed to load:', this.src);
+        });
+    });
+
     const popup = document.getElementById('imagePopup');
     const popupImage = document.getElementById('popupImage');
 
