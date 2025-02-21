@@ -15,55 +15,64 @@
     <div class="absolute inset-0 bg-black/60 z-10"></div>
 
     <!-- Hero Content -->
-    <div class="relative flex flex-col items-center justify-center min-h-screen text-center px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 
-            z-30 w-full max-w-7xl mx-auto mt-[-3rem] sm:mt-[-2rem] md:mt-[-1rem] lg:mt-0">
-        <div class="mb-8">
-            <h1 class="text-[4rem] md:text-[5rem] lg:text-[6rem] text-[#00FFFF] mb-0 font-['Orbitron'] tracking-wider transform hover:scale-105 transition-all duration-300 text-shadow-lg leading-none">
+    <div class="relative flex flex-col items-center justify-center min-h-screen text-center px-4 sm:px-6 md:px-8 
+                z-30 w-full max-w-7xl mx-auto">
+        <div class="mb-4 sm:mb-6 md:mb-8">
+            <h1 class="text-[2.5rem] sm:text-[4rem] md:text-[5rem] lg:text-[6rem] text-[#00FFFF] mb-0 font-['Orbitron'] 
+                       tracking-wider transform hover:scale-105 transition-all duration-300 text-shadow-lg leading-none">
                 VTU
             </h1>
-            <h2 class="text-[1.5rem] md:text-[2rem] lg:text-[2.5rem] text-[#00FFFF] font-['Rajdhani'] mt-0 leading-tight">
+            <h2 class="text-[1rem] sm:text-[1.5rem] md:text-[2rem] lg:text-[2.5rem] text-[#00FFFF] font-['Rajdhani'] 
+                       mt-0 leading-tight">
                 KALABURAGI
             </h2>
-            <h3 class="text-white text-xl md:text-2xl lg:text-3xl mt-4 font-['Orbitron']">
+            <h3 class="text-base sm:text-lg md:text-xl lg:text-2xl mt-2 sm:mt-4 font-['Orbitron'] text-white">
                 Presents
             </h3>
         </div>
 
-        <div class="hero-content w-full">
-            <h1 class="text-[4rem] sm:text-[5rem] md:text-[6rem] lg:text-[7.5rem] font-bold text-[#00FFFF] mb-4 opacity-0 transform translate-y-8 animate-[fadeIn_0.8s_ease_forwards] leading-tight">
+        <div class="hero-content w-full px-4">
+            <h1 class="text-[2.5rem] sm:text-[3.5rem] md:text-[4.5rem] lg:text-[6rem] font-bold text-[#00FFFF] mb-4 
+                       opacity-0 transform translate-y-8 animate-[fadeIn_0.8s_ease_forwards] leading-tight">
                 Yu<span class="inline-block text-[#FF00FF] animate-[pulse_2s_ease-in-out_infinite]">k</span>ti 
                 2<span class="inline-block text-[#FF00FF] animate-[pulse_2s_ease-in-out_infinite]">0</span>25
             </h1>
-            <p class="text-xl sm:text-2xl md:text-3xl lg:text-[3rem] text-[#C0C0C0] opacity-0 transform translate-y-5 animate-[fadeIn_0.8s_ease_forwards_0.3s]">
+            <p class="text-lg sm:text-xl md:text-2xl lg:text-[3rem] text-[#C0C0C0] opacity-0 transform translate-y-5 
+                     animate-[fadeIn_0.8s_ease-forwards_0.3s]">
                 "Re<span class="inline-block text-[#FF00FF] animate-[pulse_2s_ease-in-out_infinite]">im</span>agining 
                 Tom<span class="inline-block text-[#FF00FF] animate-[pulse_2s_ease-in-out_infinite]">orr</span>ow"
             </p>
         </div>
 
         <!-- Countdown Timer -->
-        <div class="flex flex-wrap justify-center gap-3 sm:gap-4 lg:gap-5 my-8 md:my-12 w-full px-4">
-            <div class="min-w-[90px] sm:min-w-[100px] md:min-w-[120px] p-3 md:p-4 bg-black/30 backdrop-blur rounded-lg border border-[#00FFFF]">
-                <span class="block text-sm text-[#00FFFF] mb-2">Days</span>
-                <span id="days" class="block text-3xl text-white">00</span>
+        <div class="flex flex-wrap justify-center gap-2 sm:gap-3 md:gap-4 lg:gap-5 my-6 sm:my-8 md:my-10 w-full px-2 sm:px-4">
+            <div class="min-w-[70px] sm:min-w-[90px] md:min-w-[100px] p-2 sm:p-3 md:p-4 bg-black/30 backdrop-blur 
+                        rounded-lg border border-[#00FFFF]">
+                <span class="block text-xs sm:text-sm text-[#00FFFF] mb-1 sm:mb-2">Days</span>
+                <span id="days" class="block text-xl sm:text-2xl md:text-3xl text-white">00</span>
             </div>
-            <div class="min-w-[90px] sm:min-w-[100px] md:min-w-[120px] p-3 md:p-4 bg-black/30 backdrop-blur rounded-lg border border-[#00FFFF]">
-                <span class="block text-sm text-[#00FFFF] mb-2">Hours</span>
-                <span id="hours" class="block text-3xl text-white">00</span>
+            <div class="min-w-[70px] sm:min-w-[90px] md:min-w-[100px] p-2 sm:p-3 md:p-4 bg-black/30 backdrop-blur 
+                        rounded-lg border border-[#00FFFF]">
+                <span class="block text-xs sm:text-sm text-[#00FFFF] mb-1 sm:mb-2">Hours</span>
+                <span id="hours" class="block text-xl sm:text-2xl md:text-3xl text-white">00</span>
             </div>
-            <div class="min-w-[90px] sm:min-w-[100px] md:min-w-[120px] p-3 md:p-4 bg-black/30 backdrop-blur rounded-lg border border-[#00FFFF]">
-                <span class="block text-sm text-[#00FFFF] mb-2">Minutes</span>
-                <span id="minutes" class="block text-3xl text-white">00</span>
+            <div class="min-w-[70px] sm:min-w-[90px] md:min-w-[100px] p-2 sm:p-3 md:p-4 bg-black/30 backdrop-blur 
+                        rounded-lg border border-[#00FFFF]">
+                <span class="block text-xs sm:text-sm text-[#00FFFF] mb-1 sm:mb-2">Minutes</span>
+                <span id="minutes" class="block text-xl sm:text-2xl md:text-3xl text-white">00</span>
             </div>
-            <div class="min-w-[90px] sm:min-w-[100px] md:min-w-[120px] p-3 md:p-4 bg-black/30 backdrop-blur rounded-lg border border-[#00FFFF]">
-                <span class="block text-sm text-[#00FFFF] mb-2">Seconds</span>
-                <span id="seconds" class="block text-3xl text-white">00</span>
+            <div class="min-w-[70px] sm:min-w-[90px] md:min-w-[100px] p-2 sm:p-3 md:p-4 bg-black/30 backdrop-blur 
+                        rounded-lg border border-[#00FFFF]">
+                <span class="block text-xs sm:text-sm text-[#00FFFF] mb-1 sm:mb-2">Seconds</span>
+                <span id="seconds" class="block text-xl sm:text-2xl md:text-3xl text-white">00</span>
             </div>
         </div>
 
         <div class="mt-4 sm:mt-6 md:mt-8">
             <a href="{{ url_for('signin') }}" 
-               class="inline-block bg-[#6D28D9] text-white border-2 border-[#00FFFF] px-4 sm:px-6 py-2 sm:py-3 rounded-md font-bold uppercase 
-                      hover:bg-[#00FFFF] hover:text-[#1C1C1C] transition-all duration-300 text-sm sm:text-base">
+               class="inline-block bg-[#6D28D9] text-white border-2 border-[#00FFFF] px-4 sm:px-6 py-2 sm:py-3 rounded-md 
+                      font-bold uppercase text-xs sm:text-sm md:text-base hover:bg-[#00FFFF] hover:text-[#1C1C1C] 
+                      transition-all duration-300">
                 Register Now
             </a>
         </div>
@@ -109,21 +118,25 @@
 <div class="h-0.5 bg-gradient-to-r from-[#6D28D9] via-[#3B82F6] to-[#00FFFF]"></div>
 
 <!-- Artist Announcement -->
-<div class="py-12 bg-gradient-to-br from-[#1C1C1C] to-[#0A0A0A] relative overflow-hidden">
-    <h2 class="text-4xl text-[#00FFFF] text-center mb-12 font-bold uppercase font-['Orbitron']">Artist Announcement</h2>
-    <div class="bg-[rgba(46,46,46,0.8)] backdrop-blur-md rounded-xl p-8 border-2 border-[#00FFFF] shadow-xl 
+<div class="py-8 sm:py-12 bg-gradient-to-br from-[#1C1C1C] to-[#0A0A0A] relative overflow-hidden px-4 sm:px-6">
+    <h2 class="text-2xl sm:text-3xl md:text-4xl text-[#00FFFF] text-center mb-6 sm:mb-8 font-bold uppercase font-['Orbitron']">
+        Artist Announcement
+    </h2>
+    <div class="bg-[rgba(46,46,46,0.8)] backdrop-blur-md rounded-xl p-4 sm:p-6 md:p-8 border-2 border-[#00FFFF] shadow-xl 
                 transform transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_15px_30px_rgba(0,255,255,0.4)] 
-                hover:border-[#FF00FF] max-w-4xl mx-auto">
+                hover:border-[#FF00FF] max-w-4xl mx-auto w-full">
         <div class="text-center">
-            <h3 class="text-2xl text-[#00FFFF] mb-4">Coming Soon</h3>
-            <p class="text-[#C0C0C0] mb-8">
+            <h3 class="text-xl sm:text-2xl text-[#00FFFF] mb-3 sm:mb-4">Coming Soon</h3>
+            <p class="text-sm sm:text-base text-[#C0C0C0] mb-4 sm:mb-6 max-w-2xl mx-auto">
                 Get ready to witness an amazing performance! The artist reveal is just around the corner. Stay tuned for
                 more details!
             </p>
             <a href="https://www.instagram.com/vtu_cpgs_kalaburagi?igsh=MXJkNnVsMzJqaDkxcw%3D%3D&utm_source=qr"
-                target="_blank" class="inline-block bg-[#FF00FF] text-[#1C1C1C] px-6 py-3 rounded-md font-bold uppercase 
-                      transition-all duration-300 hover:bg-transparent hover:text-[#FF00FF] hover:border-2 hover:border-[#FF00FF]">
-                Stay Notified →
+               target="_blank" 
+               class="inline-block bg-[#FF00FF] text-[#1C1C1C] px-4 sm:px-6 py-2 sm:py-3 rounded-md text-sm sm:text-base 
+                      font-bold uppercase transform transition-all duration-300 hover:bg-transparent 
+                      hover:text-[#FF00FF] hover:border-2 hover:border-[#FF00FF] whitespace-nowrap">
+                Stay Notified <span class="hidden sm:inline">→</span>
             </a>
         </div>
     </div>
@@ -183,16 +196,28 @@
 <div class="h-0.5 bg-gradient-to-r from-[#6D28D9] via-[#3B82F6] to-[#00FFFF]"></div>
 
 <!-- Brochure Section -->
-<div class="py-20 bg-gradient-to-br from-[#1C1C1C] to-[#0A0A0A] text-center relative overflow-hidden">
-    <h2 class="text-4xl text-[#00FFFF] text-center mb-12 font-bold uppercase font-['Orbitron']">Event Brochure / Rulebook</h2>
-    <p class="text-[#C0C0C0] mb-8">
-        Download our comprehensive event brochure cum rulebook to explore all the exciting events, schedules, and
-        opportunities waiting for you at Yukti 2k25.
-    </p>
-    <a href="#" class="inline-block bg-[#FF00FF] text-[#1C1C1C] px-6 py-3 rounded-md font-bold uppercase 
-              transition-all duration-300 hover:bg-transparent hover:text-[#FF00FF] hover:border-2 hover:border-[#FF00FF]">
-        <i class="icon-download"></i> Download Brochure / Rulebook (10.7 MB)
-    </a>
+<div class="py-12 sm:py-16 md:py-20 bg-gradient-to-br from-[#1C1C1C] to-[#0A0A0A] text-center relative">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6">
+        <h2 class="text-2xl sm:text-3xl md:text-4xl text-[#00FFFF] mb-6 sm:mb-8 md:mb-12 font-bold uppercase font-['Orbitron']">
+            Event Brochure / Rulebook
+        </h2>
+        <p class="text-[#C0C0C0] mb-6 sm:mb-8 text-sm sm:text-base max-w-2xl mx-auto">
+            Download our comprehensive event brochure cum rulebook to explore all the exciting events, schedules, and
+            opportunities waiting for you at Yukti 2k25.
+        </p>
+        <div class="inline-block">
+            <a href="#" 
+               class="flex items-center justify-center gap-2 bg-[#FF00FF] text-[#1C1C1C] 
+                      px-4 sm:px-6 py-2 sm:py-3 rounded-md font-bold uppercase text-sm sm:text-base
+                      transition-all duration-300 hover:bg-transparent hover:text-[#FF00FF] 
+                      hover:border-2 hover:border-[#FF00FF] whitespace-nowrap">
+                <i class="fas fa-download"></i>
+                <span class="hidden sm:inline">Download Brochure / Rulebook</span>
+                <span class="sm:hidden">Download PDF</span>
+                <span class="text-xs opacity-75">(10.7 MB)</span>
+            </a>
+        </div>
+    </div>
 </div>
 
 <style>
@@ -237,6 +262,54 @@
     @media (max-height: 700px) {
         .hero-content {
             transform: scale(0.9);
+        }
+    }
+
+    /* Mobile Optimizations */
+    @media (max-width: 640px) {
+        .hero-content {
+            padding: 0 1rem;
+        }
+        
+        .hero-content h1 {
+            line-height: 1.1;
+            margin-bottom: 0.5rem;
+        }
+
+        .countdown-container > div {
+            padding: 0.5rem;
+        }
+
+        .text-shadow-lg {
+            text-shadow: 
+                0 0 5px rgba(0, 255, 255, 0.3),
+                0 0 10px rgba(0, 255, 255, 0.2);
+        }
+    }
+
+    /* Tablet Optimizations */
+    @media (min-width: 641px) and (max-width: 1024px) {
+        .hero-content {
+            padding: 0 2rem;
+        }
+    }
+
+    /* Height-based adjustments */
+    @media (max-height: 700px) {
+        .hero-content {
+            transform: scale(0.9);
+        }
+        
+        .countdown-container {
+            margin: 1rem 0;
+        }
+    }
+
+    /* Ensure minimum touch targets for mobile */
+    @media (hover: none) and (pointer: coarse) {
+        .register-button {
+            min-height: 44px;
+            padding: 0.75rem 1.5rem;
         }
     }
 </style>
