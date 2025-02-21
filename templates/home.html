@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}Home | YUKTI 2025{% endblock %}
+{% block title %}YUKTI 2025 - VTU's Regional Level Techno-Cultural fest | March 10-11, 2025{% endblock %}
 
 {% block content %}
 <div class="h-0.5 bg-gradient-to-r from-[#6D28D9] via-[#3B82F6] to-[#00FFFF]"></div>
@@ -312,10 +312,71 @@
             padding: 0.75rem 1.5rem;
         }
     }
+
+    @keyframes numberChange {
+        0% { transform: scale(1.1); color: #FF00FF; }
+        100% { transform: scale(1); color: white; }
+    }
+
+    .number-changed {
+        animation: numberChange 0.3s ease-out;
+    }
 </style>
 
 <script>
-    // Keep existing JavaScript for countdown timer and other functionality
-    // ...existing scripts...
+    // Set the target date for YUKTI 2025 (March 10, 2025 at 9:00 AM IST)
+    const targetDate = new Date('2025-03-10T09:00:00+05:30').getTime();
+
+    // Update countdown every second
+    const countdown = setInterval(function() {
+        // Get current date and time
+        const now = new Date().getTime();
+        
+        // Calculate the time remaining
+        const timeRemaining = targetDate - now;
+        
+        // Calculate days, hours, minutes, seconds
+        const days = Math.floor(timeRemaining / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((timeRemaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
+        
+        // Add leading zeros for single digits
+        const formatNumber = (num) => num.toString().padStart(2, '0');
+        
+        // Update the HTML elements
+        document.getElementById('days').textContent = formatNumber(days);
+        document.getElementById('hours').textContent = formatNumber(hours);
+        document.getElementById('minutes').textContent = formatNumber(minutes);
+        document.getElementById('seconds').textContent = formatNumber(seconds);
+        
+        // When countdown is finished
+        if (timeRemaining < 0) {
+            clearInterval(countdown);
+            document.getElementById('days').textContent = '00';
+            document.getElementById('hours').textContent = '00';
+            document.getElementById('minutes').textContent = '00';
+            document.getElementById('seconds').textContent = '00';
+            
+            // Optional: Add a message when countdown is complete
+            const countdownContainers = document.querySelectorAll('.countdown-box');
+            countdownContainers.forEach(container => {
+                container.innerHTML = '<span class="text-[#FF00FF]">Event Started!</span>';
+            });
+        }
+    }, 1000);
+
+    // Add animation class when numbers change
+    const countdownElements = document.querySelectorAll('#days, #hours, #minutes, #seconds');
+    countdownElements.forEach(element => {
+        const observer = new MutationObserver(() => {
+            element.classList.add('number-changed');
+            setTimeout(() => {
+                element.classList.remove('number-changed');
+            }, 300);
+        });
+        observer.observe(element, { childList: true });
+    });
 </script>
+
 {% endblock %}
