@@ -8,23 +8,25 @@
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Cinzel:wght@700&display=swap"
         rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&family=Rajdhani:wght@500;600;700&family=Audiowide&family=Syncopate:wght@400;700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&family=Rajdhani:wght@500;600;700&family=Audiowide&family=Syncopate:wght@400;700&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-QT7MPH0J8R"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-QT7MPH0J8R"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
 
-  gtag('config', 'G-QT7MPH0J8R');
-</script>
+        gtag('config', 'G-QT7MPH0J8R');
+    </script>
 
-</script>
+    </script>
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-3940N664KQ"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
+        function gtag() { dataLayer.push(arguments); }
         gtag('js', new Date());
         gtag('config', 'G-3940N664KQ');
     </script>
@@ -63,8 +65,15 @@
     </script>
     <style>
         @keyframes glow {
-            0%, 100% { text-shadow: 0 0 10px rgba(0,255,255,0.5); }
-            50% { text-shadow: 0 0 20px rgba(255,0,255,0.5); }
+
+            0%,
+            100% {
+                text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+            }
+
+            50% {
+                text-shadow: 0 0 20px rgba(255, 0, 255, 0.5);
+            }
         }
 
         .nav-link-hover {
@@ -89,44 +98,124 @@
         }
 
         @keyframes borderGlow {
-            0%, 100% { border-color: #00FFFF; }
-            50% { border-color: #FF00FF; }
+
+            0%,
+            100% {
+                border-color: #00FFFF;
+            }
+
+            50% {
+                border-color: #FF00FF;
+            }
         }
 
         @keyframes gradient-flow {
-            0%, 100% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
+
+            0%,
+            100% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
         }
 
         @keyframes shine {
-            from { transform: translateX(-100%); }
-            to { transform: translateX(200%); }
+            from {
+                transform: translateX(-100%);
+            }
+
+            to {
+                transform: translateX(200%);
+            }
         }
 
         @keyframes pulse-glow {
-            0%, 100% { text-shadow: 0 0 10px rgba(0,255,255,0.5), 0 0 20px rgba(0,255,255,0.3); }
-            50% { text-shadow: 0 0 20px rgba(255,0,255,0.5), 0 0 40px rgba(255,0,255,0.3); }
+
+            0%,
+            100% {
+                text-shadow: 0 0 10px rgba(0, 255, 255, 0.5), 0 0 20px rgba(0, 255, 255, 0.3);
+            }
+
+            50% {
+                text-shadow: 0 0 20px rgba(255, 0, 255, 0.5), 0 0 40px rgba(255, 0, 255, 0.3);
+            }
         }
 
         @keyframes shine {
-            0% { transform: translateX(-100%); opacity: 0; }
-            50% { opacity: 0.5; }
-            100% { transform: translateX(100%); opacity: 0; }
+            0% {
+                transform: translateX(-100%);
+                opacity: 0;
+            }
+
+            50% {
+                opacity: 0.5;
+            }
+
+            100% {
+                transform: translateX(100%);
+                opacity: 0;
+            }
         }
 
         @keyframes gradient-flow {
-            0% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+            0% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
         }
 
         @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-5px); }
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-5px);
+            }
         }
 
         @keyframes pulse-glow {
-            0%, 100% { text-shadow: 0 0 10px rgba(0,255,255,0.5), 0 0 20px rgba(0,255,255,0.3); }
-            50% { text-shadow: 0 0 20px rgba(255,0,255,0.5), 0 0 40px rgba(255,0,255,0.3); }
+
+            0%,
+            100% {
+                text-shadow: 0 0 10px rgba(0, 255, 255, 0.5), 0 0 20px rgba(0, 255, 255, 0.3);
+            }
+
+            50% {
+                text-shadow: 0 0 20px rgba(255, 0, 255, 0.5), 0 0 40px rgba(255, 0, 255, 0.3);
+            }
+        }
+
+        .developer-link {
+            display: inline-block;
+            transform: translateY(0);
+            transition: transform 0.3s ease;
+        }
+
+        .developer-link:hover {
+            transform: translateY(-2px);
+        }
+
+        .developer-link a {
+            text-shadow: 0 0 0 rgba(0, 255, 255, 0);
+            transition: text-shadow 0.3s ease;
+        }
+
+        .developer-link a:hover {
+            text-shadow: 0 0 10px rgba(255, 0, 255, 0.5);
+        }
+
+        @media (max-width: 640px) {
+            .developer-link {
+                display: inline;
+            }
         }
     </style>
 </head>
@@ -138,19 +227,17 @@
             <!-- Enhanced Left Side with Overflow Fix -->
             <div class="flex items-center gap-2 sm:gap-4 md:gap-6 group">
                 <!-- Logo with glow effect -->
-                <a href="https://vtu.ac.in/" target="_blank" 
-                   class="relative transform transition-all duration-500 hover:scale-105 shrink-0">
+                <a href="https://vtu.ac.in/" target="_blank"
+                    class="relative transform transition-all duration-500 hover:scale-105 shrink-0">
                     <div class="absolute -inset-1 bg-gradient-to-r from-[#00FFFF] via-[#FF00FF] to-[#00FFFF] 
                                 rounded-full opacity-75 blur-sm group-hover:opacity-100 group-hover:blur-md 
                                 animate-[gradient-flow_3s_ease-in-out_infinite]">
                     </div>
-                    <img src="{{ url_for('static', filename='assets/vtu-logo.webp') }}" 
-                         alt="VTU Logo" 
-                         class="relative h-[40px] w-[40px] sm:h-[50px] sm:w-[50px] md:h-[60px] md:w-[60px] 
+                    <img src="{{ url_for('static', filename='assets/vtu-logo.webp') }}" alt="VTU Logo" class="relative h-[40px] w-[40px] sm:h-[50px] sm:w-[50px] md:h-[60px] md:w-[60px] 
                                 rounded-full border-2 border-[#00FFFF] bg-[#1C1C1C] z-10 
                                 transition-transform duration-500 object-cover">
                 </a>
-                
+
                 <!-- Enhanced Text Content with Overflow Protection -->
                 <div class="relative group/text min-w-0 flex-1 overflow-hidden">
                     <a href="{{ url_for('home') }}" class="block">
@@ -163,7 +250,7 @@
                                        relative z-10">
                                 VTU KALABURAGI
                             </h1>
-                            
+
                             <!-- Animated glow line under main heading -->
                             <div class="absolute bottom-0 left-0 w-full h-[2px] 
                                         bg-gradient-to-r from-[#00FFFF] via-[#FF00FF] to-[#00FFFF] 
@@ -179,7 +266,7 @@
                                       group-hover/text:from-[#00FFFF] group-hover:text:to-[#FF00FF]">
                                 centre for PG studies
                             </p>
-                            
+
                             <!-- Animated shine effect -->
                             <div class="absolute inset-0 bg-gradient-to-r from-transparent 
                                         via-white to-transparent opacity-0 translate-x-[-100%]
@@ -193,94 +280,94 @@
                                 mix-blend-overlay"></div>
                 </div>
             </div>
-            
+
             <div class="flex items-center">
-                <button class="lg:hidden text-xl sm:text-2xl text-white cursor-pointer menu-btn p-2" aria-label="Toggle menu">
+                <button class="lg:hidden text-xl sm:text-2xl text-white cursor-pointer menu-btn p-2"
+                    aria-label="Toggle menu">
                     <i class="fas fa-bars"></i>
                 </button>
                 <nav class="hidden lg:block">
-    <ul class="flex items-center gap-3 sm:gap-4 md:gap-6">
-        <!-- About Link -->
-        <li>
-            <a href="{{ url_for('about') }}" 
-               class="relative group px-2 sm:px-3 md:px-4 py-2 overflow-hidden">
-                <span class="relative z-10 text-sm sm:text-base md:text-lg font-medium
+                    <ul class="flex items-center gap-3 sm:gap-4 md:gap-6">
+                        <!-- About Link -->
+                        <li>
+                            <a href="{{ url_for('about') }}"
+                                class="relative group px-2 sm:px-3 md:px-4 py-2 overflow-hidden">
+                                <span class="relative z-10 text-sm sm:text-base md:text-lg font-medium
                            bg-gradient-to-r from-[#00FFFF] via-[#FF00FF] to-[#00FFFF] 
                            bg-[length:200%_auto] bg-clip-text text-transparent
                            animate-[gradient-flow_3s_linear_infinite]">
-                    About
-                </span>
-                <div class="absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r from-[#00FFFF] to-[#FF00FF] 
+                                    About
+                                </span>
+                                <div class="absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r from-[#00FFFF] to-[#FF00FF] 
                             transform scale-x-0 transition-transform duration-300 origin-left
                             group-hover:scale-x-100"></div>
-                <div class="absolute inset-0 bg-gradient-to-r from-[#00FFFF]/10 to-[#FF00FF]/10 
+                                <div class="absolute inset-0 bg-gradient-to-r from-[#00FFFF]/10 to-[#FF00FF]/10 
                             transform scale-y-0 transition-transform duration-300
                             group-hover:scale-y-100 rounded-lg"></div>
-            </a>
-        </li>
+                            </a>
+                        </li>
 
-        <!-- Events Link with Glow Effect -->
-        <li>
-            <a href="{{ url_for('events') }}" 
-               class="relative group px-2 sm:px-3 md:px-4 py-2 overflow-hidden">
-                <span class="relative z-10 text-sm sm:text-base md:text-lg font-medium
+                        <!-- Events Link with Glow Effect -->
+                        <li>
+                            <a href="{{ url_for('events') }}"
+                                class="relative group px-2 sm:px-3 md:px-4 py-2 overflow-hidden">
+                                <span class="relative z-10 text-sm sm:text-base md:text-lg font-medium
                            bg-gradient-to-r from-[#00FFFF] via-[#FF00FF] to-[#00FFFF] 
                            bg-[length:200%_auto] bg-clip-text text-transparent
                            animate-[gradient-flow_3s_linear_infinite]">
-                    Events
-                </span>
-                <div class="absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r from-[#00FFFF] to-[#FF00FF] 
+                                    Events
+                                </span>
+                                <div class="absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r from-[#00FFFF] to-[#FF00FF] 
                             transform scale-x-0 transition-transform duration-300 origin-left
                             group-hover:scale-x-100"></div>
-                <div class="absolute inset-0 bg-gradient-to-r from-[#00FFFF]/10 to-[#FF00FF]/10 
+                                <div class="absolute inset-0 bg-gradient-to-r from-[#00FFFF]/10 to-[#FF00FF]/10 
                             transform scale-y-0 transition-transform duration-300
                             group-hover:scale-y-100 rounded-lg"></div>
-            </a>
-        </li>
+                            </a>
+                        </li>
 
-        <!-- Gallery Link -->
-        <li>
-            <a href="{{ url_for('gallery') }}" 
-               class="relative group px-2 sm:px-3 md:px-4 py-2 overflow-hidden">
-                <span class="relative z-10 text-sm sm:text-base md:text-lg font-medium
+                        <!-- Gallery Link -->
+                        <li>
+                            <a href="{{ url_for('gallery') }}"
+                                class="relative group px-2 sm:px-3 md:px-4 py-2 overflow-hidden">
+                                <span class="relative z-10 text-sm sm:text-base md:text-lg font-medium
                            bg-gradient-to-r from-[#00FFFF] via-[#FF00FF] to-[#00FFFF] 
                            bg-[length:200%_auto] bg-clip-text text-transparent
                            animate-[gradient-flow_3s_linear_infinite]">
-                    Gallery
-                </span>
-                <div class="absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r from-[#00FFFF] to-[#FF00FF] 
+                                    Gallery
+                                </span>
+                                <div class="absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r from-[#00FFFF] to-[#FF00FF] 
                             transform scale-x-0 transition-transform duration-300 origin-left
                             group-hover:scale-x-100"></div>
-                <div class="absolute inset-0 bg-gradient-to-r from-[#00FFFF]/10 to-[#FF00FF]/10 
+                                <div class="absolute inset-0 bg-gradient-to-r from-[#00FFFF]/10 to-[#FF00FF]/10 
                             transform scale-y-0 transition-transform duration-300
                             group-hover:scale-y-100 rounded-lg"></div>
-            </a>
-        </li>
+                            </a>
+                        </li>
 
-        <!-- Register Button with Enhanced Animation -->
-        <li>
-            <a href="{{ url_for('signin') }}" 
-               class="relative overflow-hidden px-4 sm:px-6 py-2 sm:py-3 rounded-lg font-bold
+                        <!-- Register Button with Enhanced Animation -->
+                        <li>
+                            <a href="{{ url_for('signin') }}" class="relative overflow-hidden px-4 sm:px-6 py-2 sm:py-3 rounded-lg font-bold
                       text-sm sm:text-base md:text-lg group">
-                <span class="relative z-10 text-white">Register</span>
-                <div class="absolute inset-0 bg-gradient-to-r from-[#6D28D9] via-[#00FFFF] to-[#FF00FF]
+                                <span class="relative z-10 text-white">Register</span>
+                                <div class="absolute inset-0 bg-gradient-to-r from-[#6D28D9] via-[#00FFFF] to-[#FF00FF]
                             animate-[gradient-flow_3s_ease-in-out_infinite]"></div>
-                <div class="absolute inset-0 opacity-0 group-hover:opacity-100 
+                                <div class="absolute inset-0 opacity-0 group-hover:opacity-100 
                             transition-opacity duration-300 bg-gradient-to-r 
                             from-[#FF00FF] via-[#00FFFF] to-[#6D28D9]
                             animate-[gradient-flow_3s_ease-in-out_infinite]"></div>
-                <div class="absolute -inset-[2px] bg-gradient-to-r from-[#00FFFF] to-[#FF00FF] 
+                                <div class="absolute -inset-[2px] bg-gradient-to-r from-[#00FFFF] to-[#FF00FF] 
                             rounded-lg opacity-0 group-hover:opacity-100 blur-md 
                             transition-opacity duration-300"></div>
-            </a>
-        </li>
-    </ul>
-</nav>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
 
             </div>
         </div>
     </header>
-    
+
     <!-- Dynamic Content Block -->
     <main class="min-h-screen pt-20 relative z-0">
         {% block content %}{% endblock %}
@@ -292,40 +379,42 @@
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                 <!-- Quick Links Section -->
                 <div class="text-center">
-                    <h3 class="text-[#00FFFF] text-xl mb-4 relative after:content-[''] after:absolute after:left-1/2 after:-translate-x-1/2 after:-bottom-1 after:w-10 after:h-0.5 after:bg-[#00FFFF]">Quick Links</h3>
+                    <h3
+                        class="text-[#00FFFF] text-xl mb-4 relative after:content-[''] after:absolute after:left-1/2 after:-translate-x-1/2 after:-bottom-1 after:w-10 after:h-0.5 after:bg-[#00FFFF]">
+                        Quick Links</h3>
                     <ul class="space-y-3 inline-block text-left">
                         <li class="flex items-center gap-2 group">
                             <span class="text-[#00FFFF] text-lg">•</span>
-                            <a href="{{ url_for('home') }}" 
-                               class="text-gray-300 hover:text-[#FF00FF] transition-colors duration-300">
+                            <a href="{{ url_for('home') }}"
+                                class="text-gray-300 hover:text-[#FF00FF] transition-colors duration-300">
                                 Home
                             </a>
                         </li>
                         <li class="flex items-center gap-2 group">
                             <span class="text-[#00FFFF] text-lg">•</span>
-                            <a href="{{ url_for('about') }}" 
-                               class="text-gray-300 hover:text-[#FF00FF] transition-colors duration-300">
+                            <a href="{{ url_for('about') }}"
+                                class="text-gray-300 hover:text-[#FF00FF] transition-colors duration-300">
                                 About
                             </a>
                         </li>
                         <li class="flex items-center gap-2 group">
                             <span class="text-[#00FFFF] text-lg">•</span>
-                            <a href="{{ url_for('events') }}" 
-                               class="text-gray-300 hover:text-[#FF00FF] transition-colors duration-300">
+                            <a href="{{ url_for('events') }}"
+                                class="text-gray-300 hover:text-[#FF00FF] transition-colors duration-300">
                                 Events
                             </a>
                         </li>
                         <li class="flex items-center gap-2 group">
                             <span class="text-[#00FFFF] text-lg">•</span>
-                            <a href="{{ url_for('gallery') }}" 
-                               class="text-gray-300 hover:text-[#FF00FF] transition-colors duration-300">
+                            <a href="{{ url_for('gallery') }}"
+                                class="text-gray-300 hover:text-[#FF00FF] transition-colors duration-300">
                                 Gallery
                             </a>
                         </li>
                         <li class="flex items-center gap-2 group">
                             <span class="text-[#00FFFF] text-lg">•</span>
-                            <a href="{{ url_for('signin') }}" 
-                               class="text-gray-300 hover:text-[#FF00FF] transition-colors duration-300">
+                            <a href="{{ url_for('signin') }}"
+                                class="text-gray-300 hover:text-[#FF00FF] transition-colors duration-300">
                                 Register
                             </a>
                         </li>
@@ -333,11 +422,14 @@
                 </div>
                 <!-- Contact Info Section -->
                 <div class="text-center">
-                    <h3 class="text-[#00FFFF] text-xl mb-4 relative after:content-[''] after:absolute after:left-1/2 after:-translate-x-1/2 after:-bottom-1 after:w-10 after:h-0.5 after:bg-[#00FFFF]">Contact Info</h3>
+                    <h3
+                        class="text-[#00FFFF] text-xl mb-4 relative after:content-[''] after:absolute after:left-1/2 after:-translate-x-1/2 after:-bottom-1 after:w-10 after:h-0.5 after:bg-[#00FFFF]">
+                        Contact Info</h3>
                     <ul class="space-y-2">
                         <li class="flex items-center justify-center gap-2">
                             <i class="fas fa-map-marker-alt text-[#00FFFF]"></i>
-                            <p class="text-sm">VTU CPGS Regional Office, Beside New RTO Office, Kusnoor Road, Kalaburagi – 585105</p>
+                            <p class="text-sm">VTU CPGS Regional Office, Beside New RTO Office, Kusnoor Road, Kalaburagi
+                                – 585105</p>
                         </li>
                         <li class="flex items-center justify-center gap-2">
                             <i class="fas fa-phone text-[#00FFFF]"></i> +91 9590775699
@@ -349,29 +441,40 @@
                 </div>
                 <!-- Social Links Section -->
                 <div class="text-center">
-                    <h3 class="text-[#00FFFF] text-xl mb-4 relative after:content-[''] after:absolute after:left-1/2 after:-translate-x-1/2 after:-bottom-1 after:w-10 after:h-0.5 after:bg-[#00FFFF]">Follow Us</h3>
+                    <h3
+                        class="text-[#00FFFF] text-xl mb-4 relative after:content-[''] after:absolute after:left-1/2 after:-translate-x-1/2 after:-bottom-1 after:w-10 after:h-0.5 after:bg-[#00FFFF]">
+                        Follow Us</h3>
                     <div class="flex justify-center gap-4">
-                        <a href="https://www.facebook.com" target="_blank" class="w-10 h-10 rounded-full bg-[rgba(0,255,255,0.1)] border border-[#00FFFF] flex items-center justify-center hover:bg-[#00FFFF] hover:-translate-y-1 transition-all duration-300">
+                        <a href="https://www.facebook.com" target="_blank"
+                            class="w-10 h-10 rounded-full bg-[rgba(0,255,255,0.1)] border border-[#00FFFF] flex items-center justify-center hover:bg-[#00FFFF] hover:-translate-y-1 transition-all duration-300">
                             <i class="fab fa-facebook-f text-[#00FFFF]"></i>
                         </a>
-                        <a href="https://www.instagram.com/vtu_kalaburagi_yukti_2025" target="_blank" class="w-10 h-10 rounded-full bg-[rgba(0,255,255,0.1)] border border-[#00FFFF] flex items-center justify-center hover:bg-[#00FFFF] hover:-translate-y-1 transition-all duration-300">
+                        <a href="https://www.instagram.com/vtu_kalaburagi_yukti_2025" target="_blank"
+                            class="w-10 h-10 rounded-full bg-[rgba(0,255,255,0.1)] border border-[#00FFFF] flex items-center justify-center hover:bg-[#00FFFF] hover:-translate-y-1 transition-all duration-300">
                             <i class="fab fa-instagram text-[#FF00FF]"></i>
                         </a>
-                        <a href="https://x.com" target="_blank" class="w-10 h-10 rounded-full bg-[rgba(0,255,255,0.1)] border border-[#00FFFF] flex items-center justify-center hover:bg-[#00FFFF] hover:-translate-y-1 transition-all duration-300">
+                        <a href="https://x.com" target="_blank"
+                            class="w-10 h-10 rounded-full bg-[rgba(0,255,255,0.1)] border border-[#00FFFF] flex items-center justify-center hover:bg-[#00FFFF] hover:-translate-y-1 transition-all duration-300">
                             <i class="fab fa-x text-white"></i>
                         </a>
-                        <a href="https://www.youtube.com" target="_blank" class="w-10 h-10 rounded-full bg-[rgba(0,255,255,0.1)] border border-[#00FFFF] flex items-center justify-center hover:bg-[#00FFFF] hover:-translate-y-1 transition-all duration-300">
+                        <a href="https://www.youtube.com" target="_blank"
+                            class="w-10 h-10 rounded-full bg-[rgba(0,255,255,0.1)] border border-[#00FFFF] flex items-center justify-center hover:bg-[#00FFFF] hover:-translate-y-1 transition-all duration-300">
                             <i class="fab fa-youtube text-[#FF00FF]"></i>
                         </a>
                     </div>
                 </div>
                 <!-- College Location Section -->
                 <div class="text-center">
-                    <h3 class="text-[#00FFFF] text-xl mb-4 relative after:content-[''] after:absolute after:left-1/2 after:-translate-x-1/2 after:-bottom-1 after:w-10 after:h-0.5 after:bg-[#00FFFF]">College Location</h3>
+                    <h3
+                        class="text-[#00FFFF] text-xl mb-4 relative after:content-[''] after:absolute after:left-1/2 after:-translate-x-1/2 after:-bottom-1 after:w-10 after:h-0.5 after:bg-[#00FFFF]">
+                        College Location</h3>
                     <div class="mt-4">
                         <a href="https://maps.app.goo.gl/rRLF5XK59ztBdHii8" target="_blank" class="inline-block">
-                            <img src="{{ url_for('static', filename='assets/location.png') }}" alt="QR Code for College Location" class="w-24 h-auto mx-auto border-2 border-[#00FFFF] rounded-lg p-1 bg-[#1C1C1C]">
-                            <p class="mt-2 text-[#00FFFF] text-sm hover:text-[#C0C0C0] underline cursor-pointer">Click to go location</p>
+                            <img src="{{ url_for('static', filename='assets/location.png') }}"
+                                alt="QR Code for College Location"
+                                class="w-24 h-auto mx-auto border-2 border-[#00FFFF] rounded-lg p-1 bg-[#1C1C1C]">
+                            <p class="mt-2 text-[#00FFFF] text-sm hover:text-[#C0C0C0] underline cursor-pointer">Click
+                                to go location</p>
                         </a>
                     </div>
                 </div>
@@ -379,27 +482,63 @@
             <div class="mt-8 pt-4 border-t border-[rgba(0,255,255,0.2)] text-center text-sm text-gray-500">
                 <p>&copy; 2025 Yukti - VTU Techno-Cultural Fest. All rights reserved.</p>
                 <p>
-                    Crafted by <span><a href="https://yousufsky.github.io/my-portfolio/" target="_blank" class="text-[#00FFFF]">Yousuf</a></span> & <span><a href="#" class="text-[#00FFFF]">Narasareddy</a></span> (Frontend) and <span><a href="https://www.linkedin.com/in/shrinivas-nadager" target="_blank" class="text-[#00FFFF]">Shrinivas</a></span> & <span><a href="https://www.syeddanish.xyz" target="_blank" class="text-[#00FFFF]">Danish</a></span> (Backend),</p>
-                    <p> with support from <span><a href="https://www.linkedin.com/in/basavaraj-h-gurikar-95b739284" class="text-[#00FFFF]">Basavaraj</a></span> (Web Security).
-                  </p>
+                    Crafted by
+                    <span><a href="https://yousufsky.github.io/my-portfolio/" target="_blank"
+                            class="text-[#00FFFF] hover:text-[#FF00FF] transition-colors duration-300 relative group">
+                            Yousuf
+                            <span
+                                class="absolute -bottom-0.5 left-0 w-0 h-0.5 bg-[#FF00FF] transition-all duration-300 group-hover:w-full"></span>
+                        </a></span> &
+                    <span><a href="#"
+                            class="text-[#00FFFF] hover:text-[#FF00FF] transition-colors duration-300 relative group">
+                            Narasareddy
+                            <span
+                                class="absolute -bottom-0.5 left-0 w-0 h-0.5 bg-[#FF00FF] transition-all duration-300 group-hover:w-full"></span>
+                        </a></span> (Frontend) and
+                    <span><a href="https://shrinivas-03.github.io/portfolio/" target="_blank"
+                            class="text-[#00FFFF] hover:text-[#FF00FF] transition-colors duration-300 relative group">
+                            Shrinivas
+                            <span
+                                class="absolute -bottom-0.5 left-0 w-0 h-0.5 bg-[#FF00FF] transition-all duration-300 group-hover:w-full"></span>
+                        </a></span> &
+                    <span><a href="#"
+                            class="text-[#00FFFF] hover:text-[#FF00FF] transition-colors duration-300 relative group">
+                            Danish
+                            <span
+                                class="absolute -bottom-0.5 left-0 w-0 h-0.5 bg-[#FF00FF] transition-all duration-300 group-hover:w-full"></span>
+                        </a></span> (Backend),
+                </p>
+                <p>with support from
+                    <span><a href="https://www.linkedin.com/in/basavaraj-h-gurikar-95b739284"
+                            class="text-[#00FFFF] hover:text-[#FF00FF] transition-colors duration-300 relative group">
+                            Basavaraj
+                            <span
+                                class="absolute -bottom-0.5 left-0 w-0 h-0.5 bg-[#FF00FF] transition-all duration-300 group-hover:w-full"></span>
+                        </a></span> (Web Security).
+                </p>
             </div>
+
         </div>
     </footer>
 
     <!-- Mobile Menu (Hidden by default) -->
     <nav class="lg:hidden fixed top-16 sm:top-18 md:top-20 left-0 w-full h-[calc(100vh-4rem)] sm:h-[calc(100vh-4.5rem)] md:h-[calc(100vh-5rem)] 
-            bg-[rgba(20,20,20,0.98)] -translate-x-full transition-transform duration-300 z-[2000]" 
-     id="mobileMenu">
+            bg-[rgba(20,20,20,0.98)] -translate-x-full transition-transform duration-300 z-[2000]" id="mobileMenu">
         <ul class="flex flex-col items-center gap-4 sm:gap-6 pt-6 sm:pt-8">
-            <li><a href="{{ url_for('about') }}" class="text-base sm:text-lg text-gray-200 hover:text-[#00FFFF] transition-colors">About</a></li>
-            <li><a href="{{ url_for('events') }}" class="text-base sm:text-lg text-gray-200 hover:text-[#00FFFF] transition-colors">Events</a></li>
-            <li><a href="{{ url_for('gallery') }}" class="text-base sm:text-lg text-gray-200 hover:text-[#00FFFF] transition-colors">Gallery</a></li>
-            <li><a href="{{ url_for('signin') }}" class="bg-[#6D28D9] hover:bg-[#00FFFF] px-4 py-2 rounded-md transition-colors text-white">Register</a></li>
+            <li><a href="{{ url_for('about') }}"
+                    class="text-base sm:text-lg text-gray-200 hover:text-[#00FFFF] transition-colors">About</a></li>
+            <li><a href="{{ url_for('events') }}"
+                    class="text-base sm:text-lg text-gray-200 hover:text-[#00FFFF] transition-colors">Events</a></li>
+            <li><a href="{{ url_for('gallery') }}"
+                    class="text-base sm:text-lg text-gray-200 hover:text-[#00FFFF] transition-colors">Gallery</a></li>
+            <li><a href="{{ url_for('signin') }}"
+                    class="bg-[#6D28D9] hover:bg-[#00FFFF] px-4 py-2 rounded-md transition-colors text-white">Register</a>
+            </li>
         </ul>
     </nav>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             const menuBtn = document.querySelector('.menu-btn');
             const mobileMenu = document.getElementById('mobileMenu');
 
@@ -424,62 +563,64 @@
         });
     </script>
     <style>
-@media screen and (max-width: 640px) {
-    .header-content {
-        gap: 0.5rem;
-    }
-    
-    .logo-text h1 {
-        font-size: 1rem;
-        line-height: 1.2;
-    }
-    
-    .logo-text p {
-        font-size: 0.75rem;
-    }
-    
-    .nav-link {
-        padding: 0.5rem 0.75rem;
-        font-size: 0.875rem;
-    }
-    
-    .register-button {
-        padding: 0.5rem 1rem;
-        font-size: 0.875rem;
-    }
-}
+        @media screen and (max-width: 640px) {
+            .header-content {
+                gap: 0.5rem;
+            }
 
-@media screen and (min-width: 641px) and (max-width: 1024px) {
-    .header-content {
-        gap: 1rem;
-    }
-    
-    .logo-text h1 {
-        font-size: 1.25rem;
-    }
-    
-    .logo-text p {
-        font-size: 0.875rem;
-    }
-    
-    .nav-link {
-        padding: 0.75rem 1rem;
-    }
-}
+            .logo-text h1 {
+                font-size: 1rem;
+                line-height: 1.2;
+            }
 
-/* Ensure touch targets are large enough on mobile */
-@media (hover: none) and (pointer: coarse) {
-    .nav-link, .register-button {
-        min-height: 44px;
-        padding: 0.75rem 1rem;
-    }
-    
-    .menu-btn {
-        padding: 0.75rem;
-        margin: -0.75rem;
-    }
-}
-</style>
+            .logo-text p {
+                font-size: 0.75rem;
+            }
+
+            .nav-link {
+                padding: 0.5rem 0.75rem;
+                font-size: 0.875rem;
+            }
+
+            .register-button {
+                padding: 0.5rem 1rem;
+                font-size: 0.875rem;
+            }
+        }
+
+        @media screen and (min-width: 641px) and (max-width: 1024px) {
+            .header-content {
+                gap: 1rem;
+            }
+
+            .logo-text h1 {
+                font-size: 1.25rem;
+            }
+
+            .logo-text p {
+                font-size: 0.875rem;
+            }
+
+            .nav-link {
+                padding: 0.75rem 1rem;
+            }
+        }
+
+        /* Ensure touch targets are large enough on mobile */
+        @media (hover: none) and (pointer: coarse) {
+
+            .nav-link,
+            .register-button {
+                min-height: 44px;
+                padding: 0.75rem 1rem;
+            }
+
+            .menu-btn {
+                padding: 0.75rem;
+                margin: -0.75rem;
+            }
+        }
+    </style>
 </body>
 
 </html>

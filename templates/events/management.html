@@ -1,1074 +1,626 @@
 {% extends "base.html" %}
 
-{% block title %}Management Events - College Fest{% endblock %}
+{% block title %}Management Events - YUKTI 2025{% endblock %}
 
 {% block content %}
-<style>
-    /* Copy exact styles from cultural.html */
-    .event-page {
-        background: linear-gradient(135deg, #1C1C1C 0%, #2d1f1f 100%);
-        position: relative;
-        padding: 6rem 0 4rem;
-        overflow: hidden;
-    }
-
-    .event-page::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: 
-            linear-gradient(90deg, transparent 50%, rgba(255, 215, 0, 0.05) 100%),
-            radial-gradient(circle at 50% 50%, rgba(255, 215, 0, 0.1) 0%, transparent 50%);
-        animation: shimmer 10s infinite linear;
-    }
-
-    .event-page h1 {
-        font-size: 4.5rem;
-        background: linear-gradient(45deg, #FFD700, #ff6b00, #FFD700);
-        -webkit-background-clip: text;
-        background-clip: text;
-        color: transparent;
-        margin-bottom: 1.5rem;
-        font-family: 'Orbitron', sans-serif;
-        text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
-    }
-
-    /* Card and container styles */
-    .event-card-horizontal {
-        display: flex;
-        flex-direction: column;
-        background: rgba(18, 18, 18, 0.95);
-        border: 2px solid #58f7f7;
-        border-radius: 15px;
-        overflow: hidden;
-        backdrop-filter: blur(10px);
-        box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-        max-width: 800px; /* Reduced from 1000px for better readability */
-        margin: 2rem auto;
-    }
-
-    .event-card-horizontal .event-image {
-        width: 100%;
-        height: 25px; /* Reduced height */
-        position: relative;
-        overflow: hidden;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background: #121212;
-    }
-
-    .event-card-horizontal .event-image img {
-        width: 25%;
-        height: 25%;
-        margin-top: 12px;
-        object-fit: cover; /* Maintain aspect ratio */
-        object-position: center; /* Center the image */
-        transition: transform 0.5s ease, filter 0.3s ease;
-    }
-
-    .event-card-horizontal:hover .event-image img {
-        transform: scale(1.05);
-        filter: brightness(1.1);
-    }
-
-    .event-card-horizontal .event-image::after {
-        content: '';
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        height: 50%;
-        background: linear-gradient(to bottom, 
-                          rgba(18, 18, 18, 0) 0%,
-                          rgba(18, 18, 18, 0.95) 100%);
-        pointer-events: none;
-    }
-
-    .event-card-horizontal .event-content {
-        padding: 1.5rem;
-        background: linear-gradient(180deg, rgba(18, 18, 18, 0.95) 0%, rgba(18, 18, 18, 1) 100%);
-    }
-
-    .event-card-horizontal h3 {
-        font-size: 2rem;
-        margin-bottom: 1rem;
-        background: linear-gradient(45deg, #ff4500, #ff8c00);
-        -webkit-background-clip: text;
-        background-clip: text;
-        color: transparent;
-        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-    }
-
-    .event-card-horizontal .event-description p {
-        font-size: 1.1rem;
-        line-height: 1.6;
-        color: #e0e0e0;
-        margin-bottom: 1.5rem;
-    }
-
-    .event-details {
-        background: rgba(0, 0, 0, 0.2);
-        padding: 1.5rem;
-        border-radius: 10px;
-        margin: 1.5rem 0;
-    }
-
-    .event-details li {
-        margin-bottom: 0.8rem;
-        font-size: 1rem;
-        display: flex;
-        align-items: center;
-        gap: 10px;
-    }
-
-    .event-details li i {
-        color: #58f7f7;
-        font-size: 1.2rem;
-    }
-
-    /* Enhanced Button Container */
-    .button-container {
-        display: flex;
-        gap: 1rem;
-        margin-top: 2rem;
-        justify-content: center;
-    }
-
-    /* Responsive adjustments */
-    @media (max-width: 768px) {
-        .event-card-horizontal {
-            margin: 1.5rem 1rem;
-        }
-
-        .event-card-horizontal .event-image {
-            height: 180px; /* Even smaller on mobile */
-        }
-
-        .event-card-horizontal h3 {
-            font-size: 1.5rem;
-        }
-
-        .event-card-horizontal .event-content {
-            padding: 1.5rem;
-        }
-    }
-
-    @media (max-width: 480px) {
-        .event-card-horizontal .event-image {
-            height: 160px; /* Smallest size for mobile */
-        }
-    }
-
-    .event-content {
-        padding: 1.5rem;
-    }
-
-    .event-details {
-        margin-top: 1rem;
-        font-size: 1rem;
-    }
-
-    /* Button styles */
-    .button-container {
-        display: flex;
-        gap: 1.5rem;
-        margin-top: 2rem;
-        justify-content: center;
-    }
-
-    .btn-read-more, .btn-register {
-        padding: 1rem 2.5rem;
-        font-size: 1rem;
-        font-weight: 600;
-        letter-spacing: 2px;
-        border-radius: 8px;
-        position: relative;
-        overflow: hidden;
-        z-index: 1;
-        transition: all 0.4s ease;
-    }
-
-    .btn-read-more {
-        background: transparent;
-        color: #ff4500;
-        border: 2px solid #03e9f4;
-        cursor: pointer;
-    }
-
-    .btn-register {
-        background: transparent;
-        color: #ff4500;
-        border: none;
-    }
-
-    .btn-read-more:hover, .btn-register:hover {
-        transform: translateY(-1px);
-        box-shadow: 0 5px 15px rgba(255, 215, 0, 0.3);
-    }
-
-    /* Expanded content styles */
-    .expanded-content {
-        display: none;
-        opacity: 0;
-        transition: opacity 0.3s ease;
-        padding: 50px;
-        background: rgba(45, 49, 56, 0.8);
-        border-radius: 8px;
-        margin-top: 1rem;
-    }
-
-    .expanded-content.active {
-        display: block;
-        opacity: 1;
-    }
-
-    /* Animations */
-    @keyframes shimmer {
-        0% { background-position: -1000px 0; }
-        100% { background-position: 1000px 0; }
-    }
-
-    /* Responsive styles */
-    @media (max-width: 768px) {
-        .event-page h1 { font-size: 2.5rem; }
-        .event-content h3 { font-size: 1.8rem; }
-        .button-container { flex-direction: column; }
-    }
-
-    /* Content Card Styles */
-    .content-card {
-        background: rgba(46, 46, 46, 0.8);
-        border: 2px solid #ff6600;  /* Orange border */
-        border-radius: 15px;
-        padding: 2rem;
-        margin: 1.5rem 0;
-        transition: all 0.3s ease;
-        box-shadow: 0 8px 15px rgba(0, 0, 0, 0.4);
-    }
-
-    .content-card:hover {
-        transform: translateY(-5px);
-        border-color: #03e9f4;  /* Blue border on hover */
-        box-shadow: 0 15px 30px rgba(3, 233, 244, 0.4);
-    }
-
-    .content-card h3 {
-        color: #ff6600;  /* Orange heading */
-        font-size: 1.5rem;
-        margin-bottom: 1rem;
-    }
-
-    .content-card p {
-        color: #e0e0e0;
-        line-height: 1.6;
-        margin-bottom: 1rem;
-    }
-
-    .content-card ul {
-        list-style: none;
-        padding: 0;
-    }
-
-    .content-card li {
-        color: #e0e0e0;
-        padding: 0.5rem 0;
-        border-bottom: 1px solid rgba(255, 102, 0, 0.2);
-    }
-
-    .content-card li:last-child {
-        border-bottom: none;
-    }
-
-    .content-card .highlight {
-        color: #03e9f4;  /* Blue highlight text */
-        font-weight: bold;
-    }
-
-    /* Rules Section */
-    .rules-section {
-        background: rgba(32, 34, 39, 0.95);
-        border: 2px solid #ff6600;
-        border-radius: 15px;
-        padding: 1.5rem;
-        margin-top: 1rem;
-        transition: all 0.3s ease;
-    }
-
-    .rules-section:hover {
-        border-color: #03e9f4;
-        box-shadow: 0 15px 30px rgba(3, 233, 244, 0.4);
-    }
-
-    .rules-section h4 {
-        color: #ff6600;
-        margin-bottom: 1rem;
-    }
-
-    /* Section Containers */
-    .section-container {
-        background: rgba(32, 34, 39, 0.95);
-        border: 2px solid #ff6600;  /* Orange border */
-        border-radius: 15px;
-        padding: 2rem;
-        margin: 1.5rem 0;
-        transition: all 0.3s ease;
-    }
-
-    .section-container:hover {
-        border-color: #03e9f4;  /* Blue border on hover */
-        box-shadow: 0 15px 30px rgba(3, 233, 244, 0.4);
-        transform: translateY(-5px);
-    }
-
-    /* Section Headers */
-    .section-header {
-        color: #ff6600;  /* Orange text */
-        font-size: 1.5rem;
-        font-weight: bold;
-        margin-bottom: 1rem;
-        padding-bottom: 0.5rem;
-        border-bottom: 2px solid #ff6600;
-    }
-
-    /* Lists within sections */
-    .section-list {
-        list-style: none;
-        padding: 0;
-        margin: 0;
-    }
-
-    .section-list li {
-        color: #e0e0e0;
-        padding: 0.8rem;
-        margin: 0.5rem 0;
-        background: rgba(46, 46, 46, 0.7);
-        border-radius: 8px;
-        border-left: 3px solid #ff6600;
-        transition: all 0.3s ease;
-    }
-
-    .section-list li:hover {
-        border-left-color: #03e9f4;
-        background: rgba(46, 46, 46, 0.9);
-        transform: translateX(5px);
-    }
-
-    /* Coordinator Sections */
-    .coordinators-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        gap: 1rem;
-        margin-top: 1rem;
-    }
-
-    .coordinator-card {
-        background: rgba(46, 46, 46, 0.8);
-        padding: 1rem;
-        border-radius: 10px;
-        border: 1px solid #ff6600;
-        transition: all 0.3s ease;
-    }
-
-    .coordinator-card:hover {
-        border-color: #03e9f4;
-        transform: translateY(-3px);
-        box-shadow: 0 5px 15px rgba(3, 233, 244, 0.3);
-    }
-
-    .coordinator-name {
-        color: #ff6600;
-        font-weight: bold;
-        margin-bottom: 0.5rem;
-    }
-
-    .coordinator-role {
-        color: #03e9f4;
-        font-size: 0.9rem;
-    }
-
-    /* Contact info */
-    .contact-info {
-        color: #e0e0e0;
-        font-size: 0.9rem;
-        margin-top: 0.5rem;
-    }
-
-    /* Combined Card Container */
-    .mega-card {
-        background: rgba(32, 34, 39, 0.95);
-        border: 2px solid #ff6600;
-        border-radius: 15px;
-        padding: 2.5rem;
-        margin: 2rem auto;
-        max-width: 1200px;
-        transition: all 0.3s ease;
-    }
-
-    .mega-card:hover {
-        border-color: #03e9f4;
-        box-shadow: 0 15px 30px rgba(3, 233, 244, 0.4);
-        transform: translateY(-5px);
-    }
-
-    /* Section Divider */
-    .section-divider {
-        height: 1px;
-        background: linear-gradient(to right, transparent, #ff6600, transparent);
-        margin: 2rem 0;
-        opacity: 0.5;
-    }
-
-    /* Updated Content Layout */
-    .content-wrapper {
-        display: grid;
-        grid-gap: 2rem;
-    }
-
-    /* Existing section-container updates */
-    .section-container {
-        background: rgba(46, 46, 46, 0.8);
-        border: 2px solid #ff6600;
-        margin-bottom: 1.5rem;
-    }
-
-    /* Make coordinators grid more compact */
-    .coordinators-grid {
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-        gap: 1rem;
-    }
-
-    /* Responsive adjustments */
-    @media (max-width: 768px) {
-        .mega-card {
-            padding: 1.5rem;
-            margin: 1rem;
-        }
-    }
-
-    /* Event Details Container */
-    .event-details-container {
-        background: rgba(32, 34, 39, 0.95);
-        border: 2px solid #ff6600;
-        border-radius: 15px;
-        padding: 2.5rem;
-        margin: 1.5rem auto;
-        transition: all 0.3s ease;
-    }
-
-    .event-details-container:hover {
-        border-color: #03e9f4;
-        box-shadow: 0 15px 30px rgba(3, 233, 244, 0.4);
-        transform: translateY(-5px);
-    }
-
-    /* Content Divider */
-    .content-divider {
-        height: 1px;
-        background: linear-gradient(to right, transparent, #ff6600, transparent);
-        margin: 2rem 0;
-        opacity: 0.5;
-    }
-
-    /* Section Styles */
-    .details-section {
-        background: rgba(46, 46, 46, 0.8);
-        border-left: 3px solid #ff6600;
-        padding: 1.5rem;
-        margin-bottom: 1.5rem;
-        border-radius: 0 10px 10px 0;
-        transition: all 0.3s ease;
-    }
-
-    .details-section:hover {
-        border-left-color: #03e9f4;
-        background: rgba(46, 46, 46, 0.9);
-        transform: translateX(5px);
-    }
-
-    .section-title {
-        color: #ff6600;
-        font-size: 1.3rem;
-        margin-bottom: 1rem;
-        padding-bottom: 0.5rem;
-        border-bottom: 1px solid rgba(255, 102, 0, 0.3);
-    }
-
-    /* Device Compatibility Improvements */
-
-    /* Better touch interactions */
-    @media (hover: none) {
-        .btn-read-more {
-            padding: 0.8rem 1.2rem; /* Larger touch target */
-            min-height: 44px; /* iOS minimum touch target */
-            font-size: 1rem;
-            margin: 0.5rem 0;
-        }
-
-        .event-card-horizontal {
-            touch-action: pan-y; /* Enable vertical scrolling */
-        }
-
-        .gallery-grid {
-            touch-action: pan-x pan-y; /* Enable both direction scrolling */
-        }
-    }
-
-    /* Small mobile devices */
-    @media screen and (max-width: 320px) {
-        .btn-read-more {
-            padding: 0.6rem 1rem;
-            font-size: 0.9rem;
-            width: 100%; /* Full width on very small screens */
-        }
-
-        .event-card-horizontal {
-            margin: 1rem 0;
-        }
-
-        .event-description p {
-            font-size: 0.9rem;
-        }
-    }
-
-    /* Medium mobile devices */
-    @media screen and (min-width: 321px) and (max-width: 480px) {
-        .btn-read-more {
-            padding: 0.7rem 1.2rem;
-            font-size: 0.95rem;
-        }
-    }
-
-    /* Tablets */
-    @media screen and (min-width: 481px) and (max-width: 768px) {
-        .btn-read-more {
-            padding: 0.8rem 1.5rem;
-            font-size: 1rem;
-        }
-    }
-
-    /* High DPI Screens */
-    @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
-        .event-card-horizontal {
-            border-width: 0.5px; /* Thinner borders for retina displays */
-        }
-    }
-
-    /* Dark mode support */
-    @media (prefers-color-scheme: dark) {
-        .btn-read-more {
-            background: rgba(255, 102, 0, 0.1);
-        }
-    }
-
-    /* Reduce motion */
-    @media (prefers-reduced-motion: reduce) {
-        .btn-read-more {
-            transition: none;
-        }
+<!-- Event Page Header -->
+<div class="h-0.5 bg-[#CD7F32]"></div>
+<section class="relative py-24 bg-gradient-to-br from-[#1C1C1C] to-[#2d1f1f] overflow-hidden">
+    <!-- Background Overlay -->
+    <div class="absolute inset-0 bg-[linear-gradient(90deg,transparent_50%,rgba(255,215,0,0.05)_100%),radial-gradient(circle_at_50%_50%,rgba(255,215,0,0.1)_0%,transparent_50%)] animate-[shimmer_10s_infinite_linear]"></div>
+    
+    <!-- Header Content -->
+    <h1 class="relative z-10 text-center mb-6 font-['Orbitron'] text-transparent bg-clip-text bg-gradient-to-r from-[#FFD700] via-[#ff6b00] to-[#FFD700] text-4xl sm:text-5xl md:text-[4.5rem] drop-shadow-[2px_2px_8px_rgba(0,0,0,0.5)]">
+        Management Events
+    </h1>
+</section>
+
+<!-- Events Container -->
+<div class="container mx-auto py-12 px-4 text-center">
+    
+    <!-- DAKSH Card -->
+    <div class="max-w-3xl mx-auto mb-12 bg-[rgba(18,18,18,0.95)] border-2 border-[#58f7f7] rounded-xl overflow-hidden
+                backdrop-blur-md shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] 
+                transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_15px_30px_rgba(3,233,244,0.4)]">
         
-        .btn-read-more:hover {
-            transform: none;
-        }
-    }
+        <!-- Event Image -->
+        <div class="relative h-32 bg-[#121212] flex justify-center items-center">
+            <img src="{{ url_for('static', filename='assets/logos/DAKSH.png') }}" 
+                 alt="Best Manager"
+                 class="w-32 h-32 object-contain transition-all duration-500 hover:scale-105 hover:brightness-110">
+            <div class="absolute bottom-0 left-0 w-full h-1/2 bg-gradient-to-b from-transparent to-[rgba(18,18,18,0.95)]"></div>
+        </div>
 
-    /* Print optimization */
-    @media print {
-        .btn-read-more {
-            display: none; /* Hide interactive elements when printing */
-        }
-    }
+        <!-- Event Content -->
+        <div class="p-6 bg-gradient-to-b from-[rgba(18,18,18,0.95)] to-[rgba(18,18,18,1)]">
+            <h3 class="text-2xl mb-4 text-transparent bg-clip-text bg-gradient-to-r from-[#ff4500] to-[#ff8c00] 
+                       drop-shadow-[2px_2px_4px_rgba(0,0,0,0.3)] text-center">
+                DAKSH<br>
+                <span class="text-lg text-[#03e9f4]">(Best Manager)</span>
+            </h3>
+            
+            <!-- Event Description -->
+            <div class="event-description text-center">
+                <p class="text-lg text-[#e0e0e0] leading-relaxed mb-6 mx-auto italic">
+                    "It's hard to beat a person who never gives up."
+                </p>
+                <p class="text-lg text-[#e0e0e0] leading-relaxed mb-6 mx-auto">
+                    Prepare for a thrilling journey as you dive into the ultimate managerial challenge! Showcase your grit and determination across the realms of management function.
+                </p>
+                
+                <!-- Expanded Content -->
+                <div class="hidden opacity-0 transition-opacity duration-300 p-8 bg-[rgba(45,49,56,0.8)] rounded-lg mt-4 text-left space-y-6">
+                    <!-- Event Guidelines -->
+                    <div class="bg-[rgba(32,34,39,0.95)] p-4 rounded-lg border-l-4 border-[#ff6600] hover:border-[#03e9f4] transition-all duration-300">
+                        <h4 class="text-[#ff6600] text-lg font-bold mb-3">Event Guidelines:</h4>
+                        <ol class="list-decimal list-inside text-[#e0e0e0] space-y-2 ml-4">
+                            <li>This is an individual event</li>
+                            <li>All participants must be at the venue 45 minutes before the event starts</li>
+                            <li>There will be 4 rounds</li>
+                            <li>The details for each round will be explained before it begins</li>
+                            <li>For technical events, having a laptop is mandatory</li>
+                            <li>The coordinators' decisions are final</li>
+                            <li>The dress code is formal</li>
+                            <li>English will be the medium of communication</li>
+                            <li>Judges' decisions will be considered final and binding</li>
+                        </ol>
+                    </div>
 
-    /* Landscape mode optimization */
-    @media screen and (orientation: landscape) and (max-height: 500px) {
-        .btn-read-more {
-            padding: 0.5rem 1rem;
-            margin: 0.3rem 0;
-        }
-    }
+                    <!-- Round Details -->
+                    <div class="bg-[rgba(32,34,39,0.95)] p-4 rounded-lg border-l-4 border-[#ff6600] hover:border-[#03e9f4] transition-all duration-300">
+                        <h4 class="text-[#ff6600] text-lg font-bold mb-3">Round Details:</h4>
+                        
+                        <div class="mb-4">
+                            <h5 class="text-[#03e9f4] font-bold mb-2">Round 1: Aptitude Test (25 Marks)</h5>
+                            <p class="text-[#e0e0e0] ml-4">Assessment of problem-solving, prioritization, numerical skills and general knowledge. 25 questions, 1 mark each.</p>
+                        </div>
 
-    /* Ensure accessibility */
-    .btn-read-more:focus {
-        outline: 2px solid #ff6600;
-        outline-offset: 2px;
-    }
+                        <div class="mb-4">
+                            <h5 class="text-[#03e9f4] font-bold mb-2">Round 2: Rapid Fire Round - Psychometric Test (25 Marks)</h5>
+                            <p class="text-[#e0e0e0] ml-4">Measures mental capabilities, behavioral styles, abilities, and personality traits. 25 questions, 1 mark each.</p>
+                        </div>
 
-    .btn-read-more:focus:not(:focus-visible) {
-        outline: none;
-    }
-</style>
+                        <div class="mb-4">
+                            <h5 class="text-[#03e9f4] font-bold mb-2">Round 3: Situation Analysis (25 Marks)</h5>
+                            <ul class="list-disc list-inside text-[#e0e0e0] space-y-2 ml-4">
+                                <li>Tests critical thinking and decision-making skills</li>
+                                <li>60 seconds preparation time</li>
+                                <li>3 minutes presentation time</li>
+                            </ul>
+                        </div>
+
+                        <div class="mb-4">
+                            <h5 class="text-[#03e9f4] font-bold mb-2">Round 4: Personal Interview (25 Marks)</h5>
+                            <ul class="list-disc list-inside text-[#e0e0e0] space-y-2 ml-4">
+                                <li>Interview by panel of judges</li>
+                                <li>CV submission required</li>
+                                <li>Evaluation based on Resume Quality, Body Language, and Answer Justification</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Coordinators -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="bg-[rgba(32,34,39,0.95)] p-4 rounded-lg border-l-4 border-[#03e9f4] hover:border-[#ff6600] transition-all duration-300">
+                            <h4 class="text-[#03e9f4] text-lg font-bold mb-3">Faculty Coordinators:</h4>
+                            <ul class="text-[#e0e0e0] space-y-2 ml-4">
+                                <li>Dr. K. Shivaraman Gouda - Chairman</li>
+                                <li>Prof. Sanjay Pattanshetty - Member</li>
+                            </ul>
+                        </div>
+
+                        <div class="bg-[rgba(32,34,39,0.95)] p-4 rounded-lg border-l-4 border-[#03e9f4] hover:border-[#ff6600] transition-all duration-300">
+                            <h4 class="text-[#03e9f4] text-lg font-bold mb-3">Student Coordinators:</h4>
+                            <ul class="text-[#e0e0e0] space-y-2 ml-4">
+                                <li>Mallikarjun - 7892568754</li>
+                                <li>Asif - 7406860007</li>
+                                <li>Vaishnavi Patil - 8951387220</li>
+                                <li>Priya Saware - 9606263341</li>
+                                <li>Jyoti - 9686026173</li>
+                                <li>Radhika - 9535660986</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Buttons -->
+            <div class="flex flex-col items-center gap-4 mt-8">
+                <button onclick="toggleDescription(this)"
+                        class="px-10 py-3 text-base font-semibold tracking-wider rounded-lg bg-transparent text-[#ff4500] 
+                               border-2 border-[#03e9f4] transition-all duration-400 hover:-translate-y-1 
+                               hover:shadow-[0_5px_15px_rgba(255,215,0,0.3)] mx-auto">
+                    Read More
+                </button>
+                
+                <a href="{{ url_for('signin') }}" 
+                   class="px-10 py-3 bg-[#03e9f4] text-[#1C1C1C] rounded-lg font-bold uppercase
+                          transition-all duration-300 hover:bg-transparent hover:text-[#03e9f4] 
+                          hover:border-2 hover:border-[#03e9f4] mx-auto">
+                    Register Now
+                </a>
+            </div>
+
+            <!-- Event Details -->
+            <ul class="mt-6 p-6 bg-black/20 rounded-lg space-y-3 text-center">
+                <li class="flex items-center justify-center gap-3 text-base text-[#e0e0e0]">
+                    <i class="bi bi-person-fill text-[#58f7f7]"></i>
+                    Individual Event
+                </li>
+                <li class="flex items-center justify-center gap-3 text-base text-[#e0e0e0]">
+                    <i class="bi bi-cash text-[#58f7f7]"></i>
+                    Registration Fee: ₹300
+                </li>
+                <li class="flex items-center justify-center gap-3 text-base text-[#e0e0e0]">
+                    <i class="bi bi-trophy-fill text-[#58f7f7]"></i>
+                    Prizes Worth: ₹15,000
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- SHRESTHA VITTA Card -->
+    <div class="max-w-3xl mx-auto mb-12 bg-[rgba(18,18,18,0.95)] border-2 border-[#58f7f7] rounded-xl overflow-hidden
+                backdrop-blur-md shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] 
+                transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_15px_30px_rgba(3,233,244,0.4)]">
+        
+        <!-- Event Image -->
+        <div class="relative h-32 bg-[#121212] flex justify-center items-center">
+            <img src="{{ url_for('static', filename='assets/logos/finance.webp') }}" 
+                 alt="Finance Event"
+                 class="w-32 h-32 object-contain transition-all duration-500 hover:scale-105 hover:brightness-110">
+            <div class="absolute bottom-0 left-0 w-full h-1/2 bg-gradient-to-b from-transparent to-[rgba(18,18,18,0.95)]"></div>
+        </div>
+
+        <!-- Event Content -->
+        <div class="p-6 bg-gradient-to-b from-[rgba(18,18,18,0.95)] to-[rgba(18,18,18,1)]">
+            <h3 class="text-2xl mb-4 text-transparent bg-clip-text bg-gradient-to-r from-[#ff4500] to-[#ff8c00] 
+                       drop-shadow-[2px_2px_4px_rgba(0,0,0,0.3)] text-center">
+                SHRESTHA VITTA<br>
+                <span class="text-lg text-[#03e9f4]">(FINANCE)</span>
+            </h3>
+            
+            <!-- Event Description -->
+            <div class="event-description text-center">
+                <p class="text-lg text-[#e0e0e0] leading-relaxed mb-4 mx-auto font-kannada">
+                    "ಅಪಾಯವಿಲ್ಲದೆ ಸಂಪಾದಿಸಿ, ವಿಷಾದವಿಲ್ಲದೆ ನೀಡಿ: ವಿಜಯೋತ್ಸವಕ್ಕಾಗಿ ನಿಮ್ಮ ಪ್ರತಿಭೆಗಳನ್ನು ವ್ಯಾಪಾರ ಮಾಡಿ!"
+                </p>
+                <p class="text-lg text-[#e0e0e0] leading-relaxed mb-6 mx-auto">
+                    "Earn without Risk, Give without Regret: Trade Your Talents for Triumph!" Money won is twice as sweet as money earned.
+                </p>
+                
+                <!-- Expanded Content -->
+                <div class="hidden opacity-0 transition-opacity duration-300 p-8 bg-[rgba(45,49,56,0.8)] rounded-lg mt-4 text-left space-y-6">
+                    <!-- Round Details -->
+                    <div class="bg-[rgba(32,34,39,0.95)] p-4 rounded-lg border-l-4 border-[#ff6600] hover:border-[#03e9f4] transition-all duration-300">
+                        <h4 class="text-[#ff6600] text-lg font-bold mb-3">Competition Rounds:</h4>
+                        <ul class="list-disc list-inside text-[#e0e0e0] space-y-2 ml-4">
+                            <li>First Round - Case Study Analysis</li>
+                            <li>Second Round - FinQuest: Dive into the Depths (Pick and Speak)</li>
+                            <li>Final Round - Mock Trading</li>
+                        </ul>
+                    </div>
+
+                    <!-- Coordinators -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="bg-[rgba(32,34,39,0.95)] p-4 rounded-lg border-l-4 border-[#03e9f4] hover:border-[#ff6600] transition-all duration-300">
+                            <h4 class="text-[#03e9f4] text-lg font-bold mb-3">Faculty Coordinators:</h4>
+                            <ul class="text-[#e0e0e0] space-y-2 ml-4">
+                                <li>Prof. Manjunath Awalakki - Chairman</li>
+                                <li>Prof. Rahul Moolbharathi - Member</li>
+                            </ul>
+                        </div>
+
+                        <div class="bg-[rgba(32,34,39,0.95)] p-4 rounded-lg border-l-4 border-[#03e9f4] hover:border-[#ff6600] transition-all duration-300">
+                            <h4 class="text-[#03e9f4] text-lg font-bold mb-3">Student Coordinators:</h4>
+                            <ul class="text-[#e0e0e0] space-y-2 ml-4">
+                                <li>Ashwin Kumar - 8277466247</li>
+                                <li>Arun Rajput - 8880163300</li>
+                                <li>Narsingh - 9035691013</li>
+                                <li>Sagar Tengli - 8088502918</li>
+                                <li>Anjali U. - 8073041200</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Buttons -->
+            <div class="flex flex-col items-center gap-4 mt-8">
+                <button onclick="toggleDescription(this)"
+                        class="px-10 py-3 text-base font-semibold tracking-wider rounded-lg bg-transparent text-[#ff4500] 
+                               border-2 border-[#03e9f4] transition-all duration-400 hover:-translate-y-1 
+                               hover:shadow-[0_5px_15px_rgba(255,215,0,0.3)] mx-auto">
+                    Read More
+                </button>
+                
+                <a href="{{ url_for('signin') }}" 
+                   class="px-10 py-3 bg-[#03e9f4] text-[#1C1C1C] rounded-lg font-bold uppercase
+                          transition-all duration-300 hover:bg-transparent hover:text-[#03e9f4] 
+                          hover:border-2 hover:border-[#03e9f4] mx-auto">
+                    Register Now
+                </a>
+            </div>
+
+            <!-- Event Details -->
+            <ul class="mt-6 p-6 bg-black/20 rounded-lg space-y-3 text-center">
+                <li class="flex items-center justify-center gap-3 text-base text-[#e0e0e0]">
+                    <i class="bi bi-people-fill text-[#58f7f7]"></i>
+                    Team Size: 2-3 members
+                </li>
+                <li class="flex items-center justify-center gap-3 text-base text-[#e0e0e0]">
+                    <i class="bi bi-cash text-[#58f7f7]"></i>
+                    Registration Fee: ₹400/team
+                </li>
+                <li class="flex items-center justify-center gap-3 text-base text-[#e0e0e0]">
+                    <i class="bi bi-trophy-fill text-[#58f7f7]"></i>
+                    Prizes Worth: ₹12,000
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- VIPANAN Card -->
+    <div class="max-w-3xl mx-auto mb-12 bg-[rgba(18,18,18,0.95)] border-2 border-[#58f7f7] rounded-xl overflow-hidden
+                backdrop-blur-md shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] 
+                transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_15px_30px_rgba(3,233,244,0.4)]">
+        
+        <!-- Event Image -->
+        <div class="relative h-32 bg-[#121212] flex justify-center items-center">
+            <img src="{{ url_for('static', filename='assets/logos/marketing.webp') }}" 
+                 alt="Marketing Event"
+                 class="w-32 h-32 object-contain transition-all duration-500 hover:scale-105 hover:brightness-110">
+            <div class="absolute bottom-0 left-0 w-full h-1/2 bg-gradient-to-b from-transparent to-[rgba(18,18,18,0.95)]"></div>
+        </div>
+
+        <!-- Event Content -->
+        <div class="p-6 bg-gradient-to-b from-[rgba(18,18,18,0.95)] to-[rgba(18,18,18,1)]">
+            <h3 class="text-2xl mb-4 text-transparent bg-clip-text bg-gradient-to-r from-[#ff4500] to-[#ff8c00] 
+                       drop-shadow-[2px_2px_4px_rgba(0,0,0,0.3)] text-center">
+                VIPANAN<br>
+                <span class="text-lg text-[#03e9f4]">(Marketing)</span>
+            </h3>
+            
+            <!-- Event Description -->
+            <div class="event-description text-center">
+                <p class="text-lg text-[#e0e0e0] leading-relaxed mb-4 mx-auto italic">
+                    "Drive Desire, Spark Action, Elevate Your Business"
+                </p>
+                <p class="text-lg text-[#e0e0e0] leading-relaxed mb-6 mx-auto">
+                    Do you have the innovation to stand out in the marketing world? Vipanan provides a platform for students to showcase their skills, ignite their creativity, and unleash their clever wits on a global stage.
+                </p>
+                
+                <!-- Expanded Content -->
+                <div class="hidden opacity-0 transition-opacity duration-300 p-8 bg-[rgba(45,49,56,0.8)] rounded-lg mt-4 text-left space-y-6">
+                    <!-- Event Guidelines -->
+                    <div class="bg-[rgba(32,34,39,0.95)] p-4 rounded-lg border-l-4 border-[#ff6600] hover:border-[#03e9f4] transition-all duration-300">
+                        <h4 class="text-[#ff6600] text-lg font-bold mb-3">Event Guidelines:</h4>
+                        <ol class="list-decimal list-inside text-[#e0e0e0] space-y-2 ml-4">
+                            <li>Teams consist of 2 members at this event</li>
+                            <li>Bring college ID cards</li>
+                            <li>Bring personal laptops, internet dongles, pen drives, calculators, etc</li>
+                            <li>Specific rules for each round</li>
+                            <li>Disqualification for rule violations</li>
+                            <li>Clarify doubts before the event starts</li>
+                            <li>Judges' decisions are final</li>
+                        </ol>
+                    </div>
+
+                    <!-- Coordinators -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="bg-[rgba(32,34,39,0.95)] p-4 rounded-lg border-l-4 border-[#03e9f4] hover:border-[#ff6600] transition-all duration-300">
+                            <h4 class="text-[#03e9f4] text-lg font-bold mb-3">Faculty Coordinators:</h4>
+                            <ul class="text-[#e0e0e0] space-y-2 ml-4">
+                                <li>Dr. Satish Uplaonkar - Chairman</li>
+                                <li>Dr. Sharangoud Biradar - Member</li>
+                            </ul>
+                        </div>
+
+                        <div class="bg-[rgba(32,34,39,0.95)] p-4 rounded-lg border-l-4 border-[#03e9f4] hover:border-[#ff6600] transition-all duration-300">
+                            <h4 class="text-[#03e9f4] text-lg font-bold mb-3">Student Coordinators:</h4>
+                            <ul class="text-[#e0e0e0] space-y-2 ml-4">
+                                <li>Md. Fayaz - 7795437857</li>
+                                <li>Laxmi Ganachari - 8147499657</li>
+                                <li>Bhuvaneshwari - 7022355053</li>
+                                <li>Md. Furkan - 7676854954</li>
+                                <li>Ramesh Patil - 8095179115</li>
+                                <li>G. Harshita - 8867577689</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Buttons -->
+            <div class="flex flex-col items-center gap-4 mt-8">
+                <button onclick="toggleDescription(this)"
+                        class="px-10 py-3 text-base font-semibold tracking-wider rounded-lg bg-transparent text-[#ff4500] 
+                               border-2 border-[#03e9f4] transition-all duration-400 hover:-translate-y-1 
+                               hover:shadow-[0_5px_15px_rgba(255,215,0,0.3)] mx-auto">
+                    Read More
+                </button>
+                
+                <a href="{{ url_for('signin') }}" 
+                   class="px-10 py-3 bg-[#03e9f4] text-[#1C1C1C] rounded-lg font-bold uppercase
+                          transition-all duration-300 hover:bg-transparent hover:text-[#03e9f4] 
+                          hover:border-2 hover:border-[#03e9f4] mx-auto">
+                    Register Now
+                </a>
+            </div>
+
+            <!-- Event Details -->
+            <ul class="mt-6 p-6 bg-black/20 rounded-lg space-y-3 text-center">
+                <li class="flex items-center justify-center gap-3 text-base text-[#e0e0e0]">
+                    <i class="bi bi-people-fill text-[#58f7f7]"></i>
+                    Team Size: 2 members
+                </li>
+                <li class="flex items-center justify-center gap-3 text-base text-[#e0e0e0]">
+                    <i class="bi bi-cash text-[#58f7f7]"></i>
+                    Registration Fee: ₹300/team
+                </li>
+                <li class="flex items-center justify-center gap-3 text-base text-[#e0e0e0]">
+                    <i class="bi bi-trophy-fill text-[#58f7f7]"></i>
+                    Prizes Worth: ₹10,000
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- MANAVA SANSADHAN Card -->
+    <div class="max-w-3xl mx-auto mb-12 bg-[rgba(18,18,18,0.95)] border-2 border-[#58f7f7] rounded-xl overflow-hidden
+                backdrop-blur-md shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] 
+                transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_15px_30px_rgba(3,233,244,0.4)]">
+        
+        <!-- Event Image -->
+        <div class="relative h-32 bg-[#121212] flex justify-center items-center">
+            <img src="{{ url_for('static', filename='assets/logos/hr.webp') }}" 
+                 alt="HR Event"
+                 class="w-32 h-32 object-contain transition-all duration-500 hover:scale-105 hover:brightness-110">
+            <div class="absolute bottom-0 left-0 w-full h-1/2 bg-gradient-to-b from-transparent to-[rgba(18,18,18,0.95)]"></div>
+        </div>
+
+        <!-- Event Content -->
+        <div class="p-6 bg-gradient-to-b from-[rgba(18,18,18,0.95)] to-[rgba(18,18,18,1)]">
+            <h3 class="text-2xl mb-4 text-transparent bg-clip-text bg-gradient-to-r from-[#ff4500] to-[#ff8c00] 
+                       drop-shadow-[2px_2px_4px_rgba(0,0,0,0.3)] text-center">
+                MANAVA SANSADHAN<br>
+                <span class="text-lg text-[#03e9f4]">(HR)</span>
+            </h3>
+            
+            <!-- Event Description -->
+            <div class="event-description text-center">
+                <p class="text-lg text-[#e0e0e0] leading-relaxed mb-6 mx-auto">
+                    Test your human resource management skills through multiple challenging rounds of assessment.
+                </p>
+                
+                <!-- Expanded Content -->
+                <div class="hidden opacity-0 transition-opacity duration-300 p-8 bg-[rgba(45,49,56,0.8)] rounded-lg mt-4 text-left space-y-6">
+                    <!-- Level Details -->
+                    <div class="bg-[rgba(32,34,39,0.95)] p-4 rounded-lg border-l-4 border-[#ff6600] hover:border-[#03e9f4] transition-all duration-300">
+                        <h4 class="text-[#ff6600] text-lg font-bold mb-3">Competition Levels:</h4>
+                        
+                        <div class="mb-4">
+                            <h5 class="text-[#03e9f4] font-bold mb-2">Level 1: Quiz</h5>
+                            <ul class="list-disc list-inside text-[#e0e0e0] space-y-2 ml-4">
+                                <li>20 questions</li>
+                                <li>Time duration: 10 minutes</li>
+                            </ul>
+                        </div>
+
+                        <div class="mb-4">
+                            <h5 class="text-[#03e9f4] font-bold mb-2">Level 2: Group Discussion</h5>
+                            <ul class="list-disc list-inside text-[#e0e0e0] space-y-2 ml-4">
+                                <li>Debates/case studies</li>
+                                <li>Time duration: 20 minutes</li>
+                            </ul>
+                        </div>
+
+                        <div class="mb-4">
+                            <h5 class="text-[#03e9f4] font-bold mb-2">Level 3: Personal Interview</h5>
+                            <p class="text-[#e0e0e0] ml-4">Interview panel: Dr. Rekha Patil and Dr. Rajshekar Basvapattan</p>
+                        </div>
+                    </div>
+
+                    <!-- Coordinators -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="bg-[rgba(32,34,39,0.95)] p-4 rounded-lg border-l-4 border-[#03e9f4] hover:border-[#ff6600] transition-all duration-300">
+                            <h4 class="text-[#03e9f4] text-lg font-bold mb-3">Faculty Coordinators:</h4>
+                            <ul class="text-[#e0e0e0] space-y-2 ml-4">
+                                <li>Dr. Rekha N. patil - Chairman</li>
+                                <li>Dr. Rajshekhar Basavapattan - Member</li>
+                            </ul>
+                        </div>
+
+                        <div class="bg-[rgba(32,34,39,0.95)] p-4 rounded-lg border-l-4 border-[#03e9f4] hover:border-[#ff6600] transition-all duration-300">
+                            <h4 class="text-[#03e9f4] text-lg font-bold mb-3">Student Coordinators:</h4>
+                            <ul class="text-[#e0e0e0] space-y-2 ml-4">
+                                <li>Saniya Moosa - 8618573867</li>
+                                <li>Asfiya - 6361264134</li>
+                                <li>Khutaja - 6364155204</li>
+                                <li>Subiya - 8123079877</li>
+                                <li>Vishal - 9880567835</li>
+                                <li>Deepak K. - 7349122013</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Buttons -->
+            <div class="flex flex-col items-center gap-4 mt-8">
+                <button onclick="toggleDescription(this)"
+                        class="px-10 py-3 text-base font-semibold tracking-wider rounded-lg bg-transparent text-[#ff4500] 
+                               border-2 border-[#03e9f4] transition-all duration-400 hover:-translate-y-1 
+                               hover:shadow-[0_5px_15px_rgba(255,215,0,0.3)] mx-auto">
+                    Read More
+                </button>
+                
+                <a href="{{ url_for('signin') }}" 
+                   class="px-10 py-3 bg-[#03e9f4] text-[#1C1C1C] rounded-lg font-bold uppercase
+                          transition-all duration-300 hover:bg-transparent hover:text-[#03e9f4] 
+                          hover:border-2 hover:border-[#03e9f4] mx-auto">
+                    Register Now
+                </a>
+            </div>
+
+            <!-- Event Details -->
+            <ul class="mt-6 p-6 bg-black/20 rounded-lg space-y-3 text-center">
+                <li class="flex items-center justify-center gap-3 text-base text-[#e0e0e0]">
+                    <i class="bi bi-person-fill text-[#58f7f7]"></i>
+                    Individual Event
+                </li>
+                <li class="flex items-center justify-center gap-3 text-base text-[#e0e0e0]">
+                    <i class="bi bi-cash text-[#58f7f7]"></i>
+                    Registration Fee: ₹250
+                </li>
+                <li class="flex items-center justify-center gap-3 text-base text-[#e0e0e0]">
+                    <i class="bi bi-trophy-fill text-[#58f7f7]"></i>
+                    Prizes Worth: ₹8,000
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- SUMEDHA Card -->
+    <div class="max-w-3xl mx-auto mb-12 bg-[rgba(18,18,18,0.95)] border-2 border-[#58f7f7] rounded-xl overflow-hidden
+                backdrop-blur-md shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] 
+                transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_15px_30px_rgba(3,233,244,0.4)]">
+        
+        <!-- Event Image -->
+        <div class="relative h-32 bg-[#121212] flex justify-center items-center">
+            <img src="{{ url_for('static', filename='assets/logos/startup.webp') }}" 
+                 alt="Business Startup Event"
+                 class="w-32 h-32 object-contain transition-all duration-500 hover:scale-105 hover:brightness-110">
+            <div class="absolute bottom-0 left-0 w-full h-1/2 bg-gradient-to-b from-transparent to-[rgba(18,18,18,0.95)]"></div>
+        </div>
+
+        <!-- Event Content -->
+        <div class="p-6 bg-gradient-to-b from-[rgba(18,18,18,0.95)] to-[rgba(18,18,18,1)]">
+            <h3 class="text-2xl mb-4 text-transparent bg-clip-text bg-gradient-to-r from-[#ff4500] to-[#ff8c00] 
+                       drop-shadow-[2px_2px_4px_rgba(0,0,0,0.3)] text-center">
+                SUMEDHA<br>
+                <span class="text-lg text-[#03e9f4]">(Business Start-up)</span>
+            </h3>
+            
+            <!-- Event Description -->
+            <div class="event-description text-center">
+                <p class="text-lg text-[#e0e0e0] leading-relaxed mb-6 mx-auto">
+                    Present your innovative business ideas and get mentored by industry experts to transform your vision into reality.
+                </p>
+                
+                <!-- Expanded Content -->
+                <div class="hidden opacity-0 transition-opacity duration-300 p-8 bg-[rgba(45,49,56,0.8)] rounded-lg mt-4 text-left space-y-6">
+                    <!-- Rules and Regulations -->
+                    <div class="bg-[rgba(32,34,39,0.95)] p-4 rounded-lg border-l-4 border-[#ff6600] hover:border-[#03e9f4] transition-all duration-300">
+                        <h4 class="text-[#ff6600] text-lg font-bold mb-3">Rules & Regulations:</h4>
+                        <ol class="list-decimal list-inside text-[#e0e0e0] space-y-2 ml-4">
+                            <li>A team must include a minimum of two members and a maximum of five members</li>
+                            <li>Each team may submit up to three business ideas in separate sheets</li>
+                            <li>One idea per team will be shortlisted by the Jury and the results will be announced</li>
+                            <li>A mentor among the faculty will be assigned to each team</li>
+                            <li>A business proposal has to be subsequently submitted</li>
+                            <li>A 10-minute presentation (elevator pitch) to be given to the Jury</li>
+                            <li>Five teams will be shortlisted for the final competition</li>
+                            <li>The rules of the competition may be amended by the either by organizers / Jury from time to time</li>
+                            <li>The Jury reserves the right to disqualify any entry and its decision is final and binding on all the stakeholders</li>
+                            <li>Privacy will be maintained</li>
+                        </ol>
+                    </div>
+
+                    <!-- Coordinators -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="bg-[rgba(32,34,39,0.95)] p-4 rounded-lg border-l-4 border-[#03e9f4] hover:border-[#ff6600] transition-all duration-300">
+                            <h4 class="text-[#03e9f4] text-lg font-bold mb-3">Faculty Coordinators:</h4>
+                            <ul class="text-[#e0e0e0] space-y-2 ml-4">
+                                <li>Dr. Shubhangi D. C. - Chairman (IPR)</li>
+                                <li>Dr. B. Shambhu Lingappa - Chairman</li>
+                                <li>Dr. Shailaja Kheni - Member</li>
+                            </ul>
+                        </div>
+
+                        <div class="bg-[rgba(32,34,39,0.95)] p-4 rounded-lg border-l-4 border-[#03e9f4] hover:border-[#ff6600] transition-all duration-300">
+                            <h4 class="text-[#03e9f4] text-lg font-bold mb-3">Student Coordinators:</h4>
+                            <ul class="text-[#e0e0e0] space-y-2 ml-4">
+                                <li>Deepak - 8050290826</li>
+                                <li>Anusha - 9663844136</li>
+                                <li>Chandrakala - 9986826481</li>
+                                <li>Akash - 9108817430</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Buttons -->
+            <div class="flex flex-col items-center gap-4 mt-8">
+                <button onclick="toggleDescription(this)"
+                        class="px-10 py-3 text-base font-semibold tracking-wider rounded-lg bg-transparent text-[#ff4500] 
+                               border-2 border-[#03e9f4] transition-all duration-400 hover:-translate-y-1 
+                               hover:shadow-[0_5px_15px_rgba(255,215,0,0.3)] mx-auto">
+                    Read More
+                </button>
+                
+                <a href="{{ url_for('signin') }}" 
+                   class="px-10 py-3 bg-[#03e9f4] text-[#1C1C1C] rounded-lg font-bold uppercase
+                          transition-all duration-300 hover:bg-transparent hover:text-[#03e9f4] 
+                          hover:border-2 hover:border-[#03e9f4] mx-auto">
+                    Register Now
+                </a>
+            </div>
+
+            <!-- Event Details -->
+            <ul class="mt-6 p-6 bg-black/20 rounded-lg space-y-3 text-center">
+                <li class="flex items-center justify-center gap-3 text-base text-[#e0e0e0]">
+                    <i class="bi bi-people-fill text-[#58f7f7]"></i>
+                    Team Size: 2-5 members
+                </li>
+                <li class="flex items-center justify-center gap-3 text-base text-[#e0e0e0]">
+                    <i class="bi bi-cash text-[#58f7f7]"></i>
+                    Registration Fee: ₹500/team
+                </li>
+                <li class="flex items-center justify-center gap-3 text-base text-[#e0e0e0]">
+                    <i class="bi bi-trophy-fill text-[#58f7f7]"></i>
+                    Prizes Worth: ₹20,000
+                </li>
+            </ul>
+        </div>
+    </div>
+
+</div>
 
 <script>
+    // Toggle description functionality
     function toggleDescription(button) {
-        // Store the current scroll position
-        const currentScroll = window.scrollY;
+        const currentCard = button.closest('.max-w-3xl');
+        const expandedContent = currentCard.querySelector('.event-description > div');
         
-        const eventCard = button.closest('.event-card-horizontal');
-        const expandedContent = eventCard.querySelector('.expanded-content');
-        
-        if (expandedContent.style.display === 'none' || !expandedContent.style.display) {
-            // Save the scroll position before expanding
-            expandedContent.dataset.scrollPos = currentScroll;
-            
+        if (expandedContent.classList.contains('hidden')) {
+            expandedContent.classList.remove('hidden');
             expandedContent.style.display = 'block';
-            setTimeout(() => {
+            requestAnimationFrame(() => {
                 expandedContent.style.opacity = '1';
-                button.innerHTML = `<span></span><span></span><span></span><span></span> Show Less`;
-            }, 10);
+                button.textContent = 'Show Less';
+            });
         } else {
             expandedContent.style.opacity = '0';
+            button.textContent = 'Read More';
             setTimeout(() => {
                 expandedContent.style.display = 'none';
-                button.innerHTML = `<span></span><span></span><span></span><span></span> Read More`;
-                
-                // Restore the scroll position
-                if (expandedContent.dataset.scrollPos) {
-                    window.scrollTo({
-                        top: expandedContent.dataset.scrollPos,
-                        behavior: 'auto'
-                    });
-                }
+                expandedContent.classList.add('hidden');
             }, 300);
         }
-        
-        // Prevent default button behavior
-        return false;
     }
 
-    // Initialize all expanded content sections to be hidden on page load
+    // Initialize cards on page load
     document.addEventListener('DOMContentLoaded', function() {
-        document.querySelectorAll('.expanded-content').forEach(content => {
-            content.style.display = 'none';
-            content.style.opacity = '0';
+        document.querySelectorAll('.max-w-3xl').forEach(card => {
+            const content = card.querySelector('.event-description > div');
+            if (content) {
+                content.style.display = 'none';
+                content.style.opacity = '0';
+                content.classList.add('hidden');
+            }
         });
     });
-
-    // Improve touch response
-    document.addEventListener('touchstart', function() {}, {passive: true});
-
-    // Handle button touches
-    const readMoreButtons = document.querySelectorAll('.btn-read-more');
-    readMoreButtons.forEach(button => {
-        button.addEventListener('touchend', function(e) {
-            e.preventDefault();
-            this.click();
-        }, {passive: false});
-    });
 </script>
-
-</div>
-
-
-
-<script>
-// Same toggle function from games page
-function toggleDescription(button) {
-const eventCard = button.closest('.event-card-horizontal');
-const expandedContent = eventCard.querySelector('.expanded-content');
-
-if (expandedContent.style.display === 'none' || !expandedContent.style.display) {
-    expandedContent.style.display = 'block';
-    setTimeout(() => {
-        expandedContent.style.opacity = '1';
-        button.innerHTML = `<span></span><span></span><span></span><span></span> Show Less`;
-    }, 10);
-} else {
-    expandedContent.style.opacity = '0';
-    setTimeout(() => {
-        expandedContent.style.display = 'none';
-        button.innerHTML = `<span></span><span></span><span></span><span></span> Read More`;
-    }, 300);
-}
-}
-
-// Initialize on page load
-document.addEventListener('DOMContentLoaded', function() {
-document.querySelectorAll('.expanded-content').forEach(content => {
-    content.style.display = 'none';
-    content.style.opacity = '0';
-});
-});
-</script>
-</div>
-
-    <!-- DAKSH -->
-    <div class="event-card-horizontal mb-5">
-        <div class="event-image">
-            <img src="{{ url_for('static', filename='assets/logos/DAKSH.webp') }}" alt="DAKSH">
-        </div>
-        <div class="event-content">
-            <h3>DAKSH (THE BEST MANAGER)</h3>
-            <div class="event-description">
-                <p class="quote">"It's hard to beat a person who never gives up."</p>
-                <p>Test your managerial skills in this comprehensive challenge featuring real-world business scenarios.</p>
-                <div class="expanded-content">
-                    <p>Prepare for a thrilling journey as you dive into the Action and Excitement of the ultimate managerial challenge! Embark on an extraordinary journey, striving to elevate to the highly sought title of the best manager in the business world. Showcase your grit and determination across the realms of management function. Unleash your innate managerial instincts, strategically navigating your path to victory because this is your golden opportunity for absolute domination. What's the holdup? Seize the moment and let the conquest begin!</p>
-
-                    <strong>EVENT GUIDELINES:</strong>
-                    <ul>
-                        <li>This is an individual event.</li>
-                        <li>All participants must be at the venue 45 minutes before the event starts.</li>
-                        <li>There will be 4 rounds.</li>
-                        <li>The details for each round will be explained before it begins.</li>
-                        <li>For technical events, having a laptop is mandatory.</li>
-                        <li>The coordinators' decisions are final, and judging criteria will be explained in advance.</li>
-                        <li>The dress code is formal.</li>
-                        <li>English will be the medium of communication.</li>
-                        <li>Judges' decisions will be considered final and binding.</li>
-                    </ul>
-
-                    <strong>ROUND 1: APTITUDE TEST (25 Marks)</strong>
-                    <p>This round is designed to specifically assess the candidate's problem-solving, prioritization, numerical skills as well as general knowledge. This is an elimination round, consisting of 25 questions each carrying 1 mark.</p>
-
-                    <strong>ROUND 2: RAPID FIRE ROUND (PSYCHOMETRIC TEST) (25 Marks)</strong>
-                    <p>Psychometric tests are a standard and scientific method used to measure an individual's mental capabilities and behavioral styles. They are concerned with the objective measurement of skills and knowledge, abilities, attitudes, and personality traits like intelligence and other cognitive abilities. This is an elimination round, consisting of 25 questions each carrying 1 mark.</p>
-
-                    <strong>ROUND 3: SITUATION ANALYSIS (25 Marks)</strong>
-                    <ul>
-                        <li>This round will test the participant's critical thinking and prompt decision-making skills along with their oratory skills concerning modern business situations.</li>
-                        <li>A situation will be provided to the participant's on-the-spot, upon which, the participants are expected to come up with a solution.</li>
-                        <li>60 seconds of preparation time will be allotted to each participant.</li>
-                        <li>Each participant will be allotted a time of 3 minutes to present their analysis in front of the judges' panel.</li>
-                    </ul>
-
-                    <strong>ROUND 4: PERSONAL INTERVIEW (25 Marks)</strong>
-                    <ul>
-                        <li>A personal interview will be conducted by a panel of judges.</li>
-                        <li>The candidate's CV needs to be submitted to the coordinator on the day of the event.</li>
-                        <li>The candidates will be evaluated for their Quality of Resume, Body Language, and Justification of Answers.</li>
-                    </ul>
-
-                    <strong>Faculty Coordinators:</strong>
-                    <ul>
-                        <li>Dr. K. Shivaraman Gouda - Chairman</li>
-                        <li>Prof. Sanjay Pattanshetty - Member</li>
-                    </ul>
-
-                    <strong>Student Coordinators:</strong>
-                    <ul>
-                        <li>Mallikarjun - 7892568754</li>
-                        <li>Asif - 7406860007</li>
-                        <li>Vaishnavi Patil - 8951387220</li>
-                        <li>Priya Saware - 9606263341</li>
-                        <li>Jyoti - 9686026173</li>
-                        <li>Radhika - 9535660986</li>
-                    </ul>
-                </div>
-            </div>
-            
-            <button class="btn-read-more" onclick="toggleDescription(this)">
-                <span></span><span></span><span></span><span></span>
-                Read More
-            </button>
-            
-            <ul class="event-details">
-                <li><i class="bi bi-person-fill"></i> Individual Participation</li>
-                <li><i class="bi bi-cash"></i> Registration Fee: ₹300</li>
-                <li><i class="bi bi-trophy-fill"></i> Prizes Worth: ₹15,000</li>
-            </ul>
-
-            <div class="button-container">
-                <a href="{{ url_for('signin') }}" class="btn btn-register">
-                    <span></span><span></span><span></span><span></span>
-                    Register Now
-                </a>
-            </div>
-        </div>
-    </div>
-
-    <!-- SHRESHTA VITTA Final -->
-    <div class="event-card-horizontal mb-5">
-        <div class="event-image">
-            <img src="{{ url_for('static', filename='assets/logos/finance.webp') }}" alt="SHRESHTA VITTA">
-        </div>
-        <div class="event-content">
-            <h3>SHRESHTA VITTA (FINANCE)</h3>
-            <div class="event-description">
-                <p class="quote-kannada">"ಅಪಾಯವಿಲ್ಲದೆ ಸಂಪಾದಿಸಿ, ವಿಷಾದವಿಲ್ಲದೆ ನೀಡಿ: ವಿಜಯೋತ್ಸವಕ್ಕಾಗಿ ನಿಮ್ಮ ಪ್ರತಿಭೆಗಳನ್ನು ವ್ಯಾಪಾರ ಮಾಡಿ!"</p>
-                <p class="quote">"Earn without Risk, Give without Regret: Trade Your Talents for Triumph!"</p>
-                <p>Money won is twice as sweet as money earned. Win the money neither by gambling nor by investing in a stock game and it's the one opportunity to get money by giving an equivalent in return.</p>
-                <div class="expanded-content">
-                    <strong>Event Rounds:</strong>
-                    <ul>
-                        <li>First Round - Case Study Analysis</li>
-                        <li>Second Round - FinQuest: Dive into the Depths (Pick and Speak)</li>
-                        <li>Final Round - Mock Trading</li>
-                    </ul>
-
-                    <strong>Faculty Coordinators:</strong>
-                    <ul>
-                        <li>Prof. Manjunath Awalakki - Chairman</li>
-                        <li>Prof. Rahul Moolbharathi - Member</li>
-                    </ul>
-
-                    <strong>Student Coordinators:</strong>
-                    <ul>
-                        <li>Ashwin Kumar - 8277466247</li>
-                        <li>Arun Rajput - 8880163300</li>
-                        <li>Narsingh - 9035691013</li>
-                        <li>Sagar Tengli - 8088502918</li>
-                        <li>Anjali U. - 8073041200</li>
-                    </ul>
-                </div>
-            </div>
-            
-            <button class="btn-read-more" onclick="toggleDescription(this)">
-                <span></span><span></span><span></span><span></span>
-                Read More
-            </button>
-            
-            <ul class="event-details">
-                <li><i class="bi bi-people-fill"></i> Team Size: 2-3 members</li>
-                <li><i class="bi bi-cash"></i> Registration Fee: ₹400/team</li>
-                <li><i class="bi bi-trophy-fill"></i> Prizes Worth: ₹20,000</li>
-            </ul>
-
-            <div class="button-container">
-                <a href="{{ url_for('signin') }}" class="btn btn-register">
-                    <span></span><span></span><span></span><span></span>
-                    Register Now
-                </a>
-            </div>
-        </div>
-    </div>
-
-    <!-- MANAVA SANSADHAN -->
-    <div class="event-card-horizontal mb-5">
-        <div class="event-image">
-            <img src="{{ url_for('static', filename='assets/logos/HR.webp') }}" alt="MANAVA SANSADHAN">
-        </div>
-        <div class="event-content">
-            <h3>MANAVA SANSADHAN (HR)</h3>
-            <div class="event-description">
-                <p>Human Resource management challenge featuring case studies and practical scenarios.</p>
-                <div class="expanded-content">
-                    <strong>RULES & REGULATIONS:</strong>
-                    <p>There will be 3 levels:</p>
-                    <ul>
-                        <li>Level 1: Quiz</li>
-                        <li>Level 2: Group Discussion</li>
-                        <li>Level 3: Personal Interview</li>
-                    </ul>
-
-                    <strong>DETAILS:</strong>
-                    <ul>
-                        <li>The quiz contains 20 questions (10 minutes)</li>
-                        <li>Group discussion includes debates/case studies (20 minutes)</li>
-                        <li>Personal interview by: Dr. Rekha Patil and Dr. Rajshekar Basvapattan</li>
-                    </ul>
-
-                    <strong>Faculty Coordinators:</strong>
-                    <ul>
-                        <li>Dr. Rekha N. patil - Chairman</li>
-                        <li>Dr. Rajshekhar Basavapattan - Member</li>
-                    </ul>
-
-                    <strong>Student Coordinators:</strong>
-                    <ul>
-                        <li>Saniya Moosa - 8618573867</li>
-                        <li>Asfiya - 6361264134</li>
-                        <li>Khutaja - 6364155204</li>
-                        <li>Subiya - 8123079877</li>
-                        <li>Vishal - 9880567835</li>
-                        <li>Deepak K. - 7349122013</li>
-                    </ul>
-                </div>
-            </div>
-            
-            <button class="btn-read-more" onclick="toggleDescription(this)">
-                <span></span><span></span><span></span><span></span>
-                Read More
-            </button>
-            
-            <ul class="event-details">
-                <li><i class="bi bi-people-fill"></i> Team Size: 2-3 members</li>
-                <li><i class="bi bi-cash"></i> Registration Fee: ₹300/team</li>
-                <li><i class="bi bi-trophy-fill"></i> Prizes Worth: ₹12,000</li>
-            </ul>
-
-            <div class="button-container">
-                <a href="{{ url_for('signin') }}" class="btn btn-register">
-                    <span></span><span></span><span></span><span></span>
-                    Register Now
-                </a>
-            </div>
-        </div>
-    </div>
-
-    <!-- Startup Logo Design -->
-    <div class="event-card-horizontal mb-5">
-        <div class="event-image">
-            <img src="{{ url_for('static', filename='images/events/logo-design.jpg') }}" alt="Logo Design">
-        </div>
-        <div class="event-content">
-            <h3>Startup Logo Design</h3>
-            <div class="event-description">
-                <p>Create compelling brand identities for startups through innovative logo design.</p>
-                <div class="expanded-content">
-                    <strong>🎯 Event Format</strong>
-                    <ul>
-                        <li>Logo design competition</li>
-                        <li>Brand identity creation</li>
-                        <li>Presentation of designs</li>
-                        <li>Feedback and iteration</li>
-                    </ul>
-                    
-                    <strong>📋 Guidelines</strong>
-                    <ul>
-                        <li>Individual participation only</li>
-                        <li>Bring design software/tools</li>
-                        <li>Business casual dress code</li>
-                        <li>Time management is crucial</li>
-                    </ul>
-                </div>
-            </div>
-            
-            <button class="btn-read-more" onclick="toggleDescription(this)">
-                <span></span><span></span><span></span><span></span>
-                Read More
-            </button>
-            
-            <ul class="event-details">
-                <li><i class="bi bi-person-fill"></i> Individual Participation</li>
-                <li><i class="bi bi-cash"></i> Registration Fee: ₹150</li>
-                <li><i class="bi bi-trophy-fill"></i> Prizes Worth: ₹6,000</li>
-            </ul>
-
-            <div class="button-container">
-                <a href="{{ url_for('signin') }}" class="btn btn-register">
-                    <span></span><span></span><span></span><span></span>
-                    Register Now
-                </a>
-            </div>
-        </div>
-    </div>
-
-    <!-- SUMEDHA (Business Start-up) -->
-    <div class="event-card-horizontal mb-5">
-        <div class="event-image">
-            <img src="{{ url_for('static', filename='images/events/startup.jpg') }}" alt="SUMEDHA">
-        </div>
-        <div class="event-content">
-            <h3>SUMEDHA (Business Start-up)</h3>
-            <div class="event-description">
-                <p>Transform your innovative business ideas into reality through our comprehensive startup challenge.</p>
-                <div class="expanded-content">
-                    <strong>RULES & REGULATIONS:</strong>
-                    <ol>
-                        <li>A team must include a minimum of two members and a maximum of five members.</li>
-                        <li>Each team may submit up to three business ideas in separate sheets.</li>
-                        <li>One idea per team will be shortlisted by the Jury and the results will be announced.</li>
-                        <li>A mentor among the faculty will be assigned to each team.</li>
-                        <li>A business proposal has to be subsequently submitted.</li>
-                        <li>A 10-minute presentation (elevator pitch) to be given to the Jury.</li>
-                        <li>Five teams will be shortlisted for the final competition.</li>
-                        <li>The rules of the competition may be amended by either organizers / Jury from time to time.</li>
-                        <li>The Jury reserves the right to disqualify any entry and its decision is final and binding on all the stakeholders.</li>
-                        <li>Privacy will be maintained</li>
-                    </ol>
-
-                    <strong>Faculty Coordinators:</strong>
-                    <ul>
-                        <li>Dr. Shubhangi D. C. - Chairman (IPR)</li>
-                        <li>Dr. B. Shambhu Lingappa - Chairman</li>
-                        <li>Dr. Shailaja Kheni - Member</li>
-                    </ul>
-
-                    <strong>Student Coordinators:</strong>
-                    <ul>
-                        <li>Deepak - 8050290826</li>
-                        <li>Anusha - 9663844136</li>
-                        <li>Chandrakala - 9986826481</li>
-                        <li>Akash - 9108817430</li>
-                    </ul>
-                </div>
-            </div>
-            
-            <button class="btn-read-more" onclick="toggleDescription(this)">
-                <span></span><span></span><span></span><span></span>
-                Read More
-            </button>
-            
-            <ul class="event-details">
-                <li><i class="bi bi-people-fill"></i> Team Size: 2-5 members</li>
-                <li><i class="bi bi-cash"></i> Registration Fee: ₹500/team</li>
-                <li><i class="bi bi-trophy-fill"></i> Prizes Worth: ₹25,000</li>
-            </ul>
-
-            <div class="button-container">
-                <a href="{{ url_for('signin') }}" class="btn btn-register">
-                    <span></span><span></span><span></span><span></span>
-                    Register Now
-                </a>
-            </div>
-        </div>
-    </div>
-
-    <!-- VIPANAN (Marketing) -->
-    <div class="event-card-horizontal mb-5">
-        <div class="event-image">
-            <img src="{{ url_for('static', filename='assets/logos/marketing.webp') }}" alt="VIPANAN">
-        </div>
-        <div class="event-content">
-            <h3>VIPANAN (Marketing)</h3>
-            <div class="event-description">
-                <p class="quote">"Drive Desire, Spark Action, Elevate Your Business"</p>
-                <p>Do you have the innovation to stand out in the marketing world?
-                Vipanan, a dynamic marketing event, provides a platform for students to showcase their skills, ignite their creativity, and unleash their clever wits on a global stage.</p>
-                <div class="expanded-content">
-                    <strong>EVENT GUIDELINES:</strong>
-                    <ul>
-                        <li>Teams consist of 2 members at this event.</li>
-                        <li>Bring college ID cards.</li>
-                        <li>Bring personal laptops, internet dongles, pen drives, calculators, etc.</li>
-                        <li>Specific rules for each round.</li>
-                        <li>Disqualification for rule violations.</li>
-                        <li>Clarify doubts before the event starts.</li>
-                        <li>Judges' decisions are final.</li>
-                    </ul>
-
-                    <strong>Faculty Coordinators:</strong>
-                    <ul>
-                        <li>Dr. Satish Uplaonkar - Chairman</li>
-                        <li>Dr. Sharangoud Biradar - Member</li>
-                    </ul>
-
-                    <strong>Student Coordinators:</strong>
-                    <ul>
-                        <li>Md. Fayaz - 7795437857</li>
-                        <li>Laxmi Ganachari - 8147499657</li>
-                        <li>Bhuvaneshwari - 7022355053</li>
-                        <li>Md. Furkan - 7676854954</li>
-                        <li>Ramesh Patil - 8095179115</li>
-                        <li>G. Harshita - 8867577689</li>
-                    </ul>
-                </div>
-            </div>
-            
-            <button class="btn-read-more" onclick="toggleDescription(this)">
-                <span></span><span></span><span></span><span></span>
-                Read More
-            </button>
-            
-            <ul class="event-details">
-                <li><i class="bi bi-people-fill"></i> Team Size: 2 members</li>
-                <li><i class="bi bi-cash"></i> Registration Fee: ₹300/team</li>
-                <li><i class="bi bi-trophy-fill"></i> Prizes Worth: ₹12,000</li>
-            </ul>
-
-            <div class="button-container">
-                <a href="{{ url_for('signin') }}" class="btn btn-register">
-                    <span></span><span></span><span></span><span></span>
-                    Register Now
-                </a>
-            </div>
-        </div>
-    </div>
-</div>
-
-
 {% endblock %}

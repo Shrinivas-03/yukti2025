@@ -1,870 +1,306 @@
 {% extends "base.html" %}
 
-{% block title %}Game Events - College Fest{% endblock %}
+{% block title %}Game Events - YUKTI 2025{% endblock %}
 
 {% block content %}
-<style>
-    /* Copy exact styles from cultural.html */
-    .event-page {
-        background: linear-gradient(135deg, #1C1C1C 0%, #2d1f1f 100%);
-        position: relative;
-        padding: 6rem 0 4rem;
-        overflow: hidden;
-    }
-
-    .event-page::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: 
-            linear-gradient(90deg, transparent 50%, rgba(255, 215, 0, 0.05) 100%),
-            radial-gradient(circle at 50% 50%, rgba(255, 215, 0, 0.1) 0%, transparent 50%);
-        animation: shimmer 10s infinite linear;
-    }
-
-    .event-page h1 {
-        font-size: 4.5rem;
-        background: linear-gradient(45deg, #FFD700, #ff6b00, #FFD700);
-        -webkit-background-clip: text;
-        background-clip: text;
-        color: transparent;
-        margin-bottom: 1.5rem;
-        font-family: 'Orbitron', sans-serif;
-        text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
-    }
-
-    /* Card and container styles */
-    .event-card-horizontal {
-        display: flex;
-        flex-direction: column;
-        background: rgba(18, 18, 18, 0.95);
-        border: 2px solid #58f7f7;
-        border-radius: 15px;
-        overflow: hidden;
-        backdrop-filter: blur(10px);
-        box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-        max-width: 800px; /* Reduced from 1000px for better readability */
-        margin: 2rem auto;
-    }
-
-    .event-card-horizontal .event-image {
-        width: 100%;
-        height: 25px; /* Reduced height */
-        position: relative;
-        overflow: hidden;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background: #121212;
-    }
-
-    .event-card-horizontal .event-image img {
-        width: 25%;
-        height: 25%;
-        margin-top: 12px;
-        object-fit: cover; /* Maintain aspect ratio */
-        object-position: center; /* Center the image */
-        transition: transform 0.5s ease, filter 0.3s ease;
-    }
-
-    .event-card-horizontal:hover .event-image img {
-        transform: scale(1.05);
-        filter: brightness(1.1);
-    }
-
-    .event-card-horizontal .event-image::after {
-        content: '';
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        height: 50%;
-        background: linear-gradient(to bottom, 
-                          rgba(18, 18, 18, 0) 0%,
-                          rgba(18, 18, 18, 0.95) 100%);
-        pointer-events: none;
-    }
-
-    .event-card-horizontal .event-content {
-        padding: 1.5rem;
-        background: linear-gradient(180deg, rgba(18, 18, 18, 0.95) 0%, rgba(18, 18, 18, 1) 100%);
-    }
-
-    .event-card-horizontal h3 {
-        font-size: 2rem;
-        margin-bottom: 1rem;
-        background: linear-gradient(45deg, #ff4500, #ff8c00);
-        -webkit-background-clip: text;
-        background-clip: text;
-        color: transparent;
-        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-    }
-
-    .event-card-horizontal .event-description p {
-        font-size: 1.1rem;
-        line-height: 1.6;
-        color: #e0e0e0;
-        margin-bottom: 1.5rem;
-    }
-
-    .event-details {
-        background: rgba(0, 0, 0, 0.2);
-        padding: 1.5rem;
-        border-radius: 10px;
-        margin: 1.5rem 0;
-    }
-
-    .event-details li {
-        margin-bottom: 0.8rem;
-        font-size: 1rem;
-        display: flex;
-        align-items: center;
-        gap: 10px;
-    }
-
-    .event-details li i {
-        color: #58f7f7;
-        font-size: 1.2rem;
-    }
-
-    /* Enhanced Button Container */
-    .button-container {
-        display: flex;
-        gap: 1rem;
-        margin-top: 2rem;
-        justify-content: center;
-    }
-
-    /* Responsive adjustments */
-    @media (max-width: 768px) {
-        .event-card-horizontal {
-            margin: 1.5rem 1rem;
-        }
-
-        .event-card-horizontal .event-image {
-            height: 180px; /* Even smaller on mobile */
-        }
-
-        .event-card-horizontal h3 {
-            font-size: 1.5rem;
-        }
-
-        .event-card-horizontal .event-content {
-            padding: 1.5rem;
-        }
-    }
-
-    @media (max-width: 480px) {
-        .event-card-horizontal .event-image {
-            height: 160px; /* Smallest size for mobile */
-        }
-    }
-
-    .event-content {
-        padding: 1.5rem;
-    }
-
-    .event-details {
-        margin-top: 1rem;
-        font-size: 1rem;
-    }
-
-    /* Button styles */
-    .button-container {
-        display: flex;
-        gap: 1.5rem;
-        margin-top: 2rem;
-        justify-content: center;
-    }
-
-    .btn-read-more, .btn-register {
-        padding: 1rem 2.5rem;
-        font-size: 1rem;
-        font-weight: 600;
-        letter-spacing: 2px;
-        border-radius: 8px;
-        position: relative;
-        overflow: hidden;
-        z-index: 1;
-        transition: all 0.4s ease;
-    }
-
-    .btn-read-more {
-        background: transparent;
-        color: #ff4500;
-        border: 2px solid #03e9f4;
-        cursor: pointer;
-    }
-
-    .btn-register {
-        background: transparent;
-        color: #ff4500;
-        border: none;
-    }
-
-    .btn-read-more:hover, .btn-register:hover {
-        transform: translateY(-1px);
-        box-shadow: 0 5px 15px rgba(255, 215, 0, 0.3);
-    }
-
-    /* Expanded content styles */
-    .expanded-content {
-        display: none;
-        opacity: 0;
-        transition: opacity 0.3s ease;
-        padding: 50px;
-        background: rgba(45, 49, 56, 0.8);
-        border-radius: 8px;
-        margin-top: 1rem;
-    }
-
-    .expanded-content.active {
-        display: block;
-        opacity: 1;
-    }
-
-    /* Animations */
-    @keyframes shimmer {
-        0% { background-position: -1000px 0; }
-        100% { background-position: 1000px 0; }
-    }
-
-    /* Responsive styles */
-    @media (max-width: 768px) {
-        .event-page h1 { font-size: 2.5rem; }
-        .event-content h3 { font-size: 1.8rem; }
-        .button-container { flex-direction: column; }
-    }
-
-    /* Content Card Styles */
-    .content-card {
-        background: rgba(46, 46, 46, 0.8);
-        border: 2px solid #ff6600;  /* Orange border */
-        border-radius: 15px;
-        padding: 2rem;
-        margin: 1.5rem 0;
-        transition: all 0.3s ease;
-        box-shadow: 0 8px 15px rgba(0, 0, 0, 0.4);
-    }
-
-    .content-card:hover {
-        transform: translateY(-5px);
-        border-color: #03e9f4;  /* Blue border on hover */
-        box-shadow: 0 15px 30px rgba(3, 233, 244, 0.4);
-    }
-
-    .content-card h3 {
-        color: #ff6600;  /* Orange heading */
-        font-size: 1.5rem;
-        margin-bottom: 1rem;
-    }
-
-    .content-card p {
-        color: #e0e0e0;
-        line-height: 1.6;
-        margin-bottom: 1rem;
-    }
-
-    .content-card ul {
-        list-style: none;
-        padding: 0;
-    }
-
-    .content-card li {
-        color: #e0e0e0;
-        padding: 0.5rem 0;
-        border-bottom: 1px solid rgba(255, 102, 0, 0.2);
-    }
-
-    .content-card li:last-child {
-        border-bottom: none;
-    }
-
-    .content-card .highlight {
-        color: #03e9f4;  /* Blue highlight text */
-        font-weight: bold;
-    }
-
-    /* Rules Section */
-    .rules-section {
-        background: rgba(32, 34, 39, 0.95);
-        border: 2px solid #ff6600;
-        border-radius: 15px;
-        padding: 1.5rem;
-        margin-top: 1rem;
-        transition: all 0.3s ease;
-    }
-
-    .rules-section:hover {
-        border-color: #03e9f4;
-        box-shadow: 0 15px 30px rgba(3, 233, 244, 0.4);
-    }
-
-    .rules-section h4 {
-        color: #ff6600;
-        margin-bottom: 1rem;
-    }
-
-    /* Section Containers */
-    .section-container {
-        background: rgba(32, 34, 39, 0.95);
-        border: 2px solid #ff6600;  /* Orange border */
-        border-radius: 15px;
-        padding: 2rem;
-        margin: 1.5rem 0;
-        transition: all 0.3s ease;
-    }
-
-    .section-container:hover {
-        border-color: #03e9f4;  /* Blue border on hover */
-        box-shadow: 0 15px 30px rgba(3, 233, 244, 0.4);
-        transform: translateY(-5px);
-    }
-
-    /* Section Headers */
-    .section-header {
-        color: #ff6600;  /* Orange text */
-        font-size: 1.5rem;
-        font-weight: bold;
-        margin-bottom: 1rem;
-        padding-bottom: 0.5rem;
-        border-bottom: 2px solid #ff6600;
-    }
-
-    /* Lists within sections */
-    .section-list {
-        list-style: none;
-        padding: 0;
-        margin: 0;
-    }
-
-    .section-list li {
-        color: #e0e0e0;
-        padding: 0.8rem;
-        margin: 0.5rem 0;
-        background: rgba(46, 46, 46, 0.7);
-        border-radius: 8px;
-        border-left: 3px solid #ff6600;
-        transition: all 0.3s ease;
-    }
-
-    .section-list li:hover {
-        border-left-color: #03e9f4;
-        background: rgba(46, 46, 46, 0.9);
-        transform: translateX(5px);
-    }
-
-    /* Coordinator Sections */
-    .coordinators-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        gap: 1rem;
-        margin-top: 1rem;
-    }
-
-    .coordinator-card {
-        background: rgba(46, 46, 46, 0.8);
-        padding: 1rem;
-        border-radius: 10px;
-        border: 1px solid #ff6600;
-        transition: all 0.3s ease;
-    }
-
-    .coordinator-card:hover {
-        border-color: #03e9f4;
-        transform: translateY(-3px);
-        box-shadow: 0 5px 15px rgba(3, 233, 244, 0.3);
-    }
-
-    .coordinator-name {
-        color: #ff6600;
-        font-weight: bold;
-        margin-bottom: 0.5rem;
-    }
-
-    .coordinator-role {
-        color: #03e9f4;
-        font-size: 0.9rem;
-    }
-
-    /* Contact info */
-    .contact-info {
-        color: #e0e0e0;
-        font-size: 0.9rem;
-        margin-top: 0.5rem;
-    }
-
-    /* Combined Card Container */
-    .mega-card {
-        background: rgba(32, 34, 39, 0.95);
-        border: 2px solid #ff6600;
-        border-radius: 15px;
-        padding: 2.5rem;
-        margin: 2rem auto;
-        max-width: 1200px;
-        transition: all 0.3s ease;
-    }
-
-    .mega-card:hover {
-        border-color: #03e9f4;
-        box-shadow: 0 15px 30px rgba(3, 233, 244, 0.4);
-        transform: translateY(-5px);
-    }
-
-    /* Section Divider */
-    .section-divider {
-        height: 1px;
-        background: linear-gradient(to right, transparent, #ff6600, transparent);
-        margin: 2rem 0;
-        opacity: 0.5;
-    }
-
-    /* Updated Content Layout */
-    .content-wrapper {
-        display: grid;
-        grid-gap: 2rem;
-    }
-
-    /* Existing section-container updates */
-    .section-container {
-        background: rgba(46, 46, 46, 0.8);
-        border: 2px solid #ff6600;
-        margin-bottom: 1.5rem;
-    }
-
-    /* Make coordinators grid more compact */
-    .coordinators-grid {
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-        gap: 1rem;
-    }
-
-    /* Responsive adjustments */
-    @media (max-width: 768px) {
-        .mega-card {
-            padding: 1.5rem;
-            margin: 1rem;
-        }
-    }
-
-    /* Event Details Container */
-    .event-details-container {
-        background: rgba(32, 34, 39, 0.95);
-        border: 2px solid #ff6600;
-        border-radius: 15px;
-        padding: 2.5rem;
-        margin: 1.5rem auto;
-        transition: all 0.3s ease;
-    }
-
-    .event-details-container:hover {
-        border-color: #03e9f4;
-        box-shadow: 0 15px 30px rgba(3, 233, 244, 0.4);
-        transform: translateY(-5px);
-    }
-
-    /* Content Divider */
-    .content-divider {
-        height: 1px;
-        background: linear-gradient(to right, transparent, #ff6600, transparent);
-        margin: 2rem 0;
-        opacity: 0.5;
-    }
-
-    /* Section Styles */
-    .details-section {
-        background: rgba(46, 46, 46, 0.8);
-        border-left: 3px solid #ff6600;
-        padding: 1.5rem;
-        margin-bottom: 1.5rem;
-        border-radius: 0 10px 10px 0;
-        transition: all 0.3s ease;
-    }
-
-    .details-section:hover {
-        border-left-color: #03e9f4;
-        background: rgba(46, 46, 46, 0.9);
-        transform: translateX(5px);
-    }
-
-    .section-title {
-        color: #ff6600;
-        font-size: 1.3rem;
-        margin-bottom: 1rem;
-        padding-bottom: 0.5rem;
-        border-bottom: 1px solid rgba(255, 102, 0, 0.3);
-    }
-
-    /* Device Compatibility Improvements */
-
-    /* Better touch interactions */
-    @media (hover: none) {
-        .btn-read-more {
-            padding: 0.8rem 1.2rem; /* Larger touch target */
-            min-height: 44px; /* iOS minimum touch target */
-            font-size: 1rem;
-            margin: 0.5rem 0;
-        }
-
-        .event-card-horizontal {
-            touch-action: pan-y; /* Enable vertical scrolling */
-        }
-
-        .gallery-grid {
-            touch-action: pan-x pan-y; /* Enable both direction scrolling */
-        }
-    }
-
-    /* Small mobile devices */
-    @media screen and (max-width: 320px) {
-        .btn-read-more {
-            padding: 0.6rem 1rem;
-            font-size: 0.9rem;
-            width: 100%; /* Full width on very small screens */
-        }
-
-        .event-card-horizontal {
-            margin: 1rem 0;
-        }
-
-        .event-description p {
-            font-size: 0.9rem;
-        }
-    }
-
-    /* Medium mobile devices */
-    @media screen and (min-width: 321px) and (max-width: 480px) {
-        .btn-read-more {
-            padding: 0.7rem 1.2rem;
-            font-size: 0.95rem;
-        }
-    }
-
-    /* Tablets */
-    @media screen and (min-width: 481px) and (max-width: 768px) {
-        .btn-read-more {
-            padding: 0.8rem 1.5rem;
-            font-size: 1rem;
-        }
-    }
-
-    /* High DPI Screens */
-    @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
-        .event-card-horizontal {
-            border-width: 0.5px; /* Thinner borders for retina displays */
-        }
-    }
-
-    /* Dark mode support */
-    @media (prefers-color-scheme: dark) {
-        .btn-read-more {
-            background: rgba(255, 102, 0, 0.1);
-        }
-    }
-
-    /* Reduce motion */
-    @media (prefers-reduced-motion: reduce) {
-        .btn-read-more {
-            transition: none;
-        }
+<!-- Event Page Header -->
+<div class="h-0.5 bg-[#CD7F32]"></div>
+<section class="relative py-24 bg-gradient-to-br from-[#1C1C1C] to-[#2d1f1f] overflow-hidden">
+    <!-- Background Overlay -->
+    <div class="absolute inset-0 bg-[linear-gradient(90deg,transparent_50%,rgba(255,215,0,0.05)_100%),radial-gradient(circle_at_50%_50%,rgba(255,215,0,0.1)_0%,transparent_50%)] animate-[shimmer_10s_infinite_linear]"></div>
+    
+    <!-- Header Content -->
+    <h1 class="relative z-10 text-center mb-6 font-['Orbitron'] text-transparent bg-clip-text bg-gradient-to-r from-[#FFD700] via-[#ff6b00] to-[#FFD700] text-4xl sm:text-5xl md:text-[4.5rem] drop-shadow-[2px_2px_8px_rgba(0,0,0,0.5)]">
+        Game Events
+    </h1>
+</section>
+
+<div class="container mx-auto py-12 px-4 text-center">
+    <!-- TALAASH Card -->
+    <div class="max-w-3xl mx-auto mb-12 bg-[rgba(18,18,18,0.95)] border-2 border-[#58f7f7] rounded-xl overflow-hidden
+                backdrop-blur-md shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] 
+                transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_15px_30px_rgba(3,233,244,0.4)]">
         
-        .btn-read-more:hover {
-            transform: none;
-        }
-    }
+        <!-- Event Image -->
+        <div class="relative h-32 bg-[#121212] flex justify-center items-center">
+            <img src="{{ url_for('static', filename='assets/logos/talaash.webp') }}" 
+                 alt="Treasure Hunt"
+                 class="w-32 h-32 object-contain transition-all duration-500 hover:scale-105 hover:brightness-110">
+            <div class="absolute bottom-0 left-0 w-full h-1/2 bg-gradient-to-b from-transparent to-[rgba(18,18,18,0.95)]"></div>
+        </div>
 
-    /* Print optimization */
-    @media print {
-        .btn-read-more {
-            display: none; /* Hide interactive elements when printing */
-        }
-    }
-
-    /* Landscape mode optimization */
-    @media screen and (orientation: landscape) and (max-height: 500px) {
-        .btn-read-more {
-            padding: 0.5rem 1rem;
-            margin: 0.3rem 0;
-        }
-    }
-
-    /* Ensure accessibility */
-    .btn-read-more:focus {
-        outline: 2px solid #ff6600;
-        outline-offset: 2px;
-    }
-
-    .btn-read-more:focus:not(:focus-visible) {
-        outline: none;
-    }
-</style>
-
-<script>
-    function toggleDescription(button) {
-        // Store the current scroll position
-        const currentScroll = window.scrollY;
-        
-        const eventCard = button.closest('.event-card-horizontal');
-        const expandedContent = eventCard.querySelector('.expanded-content');
-        
-        if (expandedContent.style.display === 'none' || !expandedContent.style.display) {
-            // Save the scroll position before expanding
-            expandedContent.dataset.scrollPos = currentScroll;
+        <!-- Event Content -->
+        <div class="p-6 bg-gradient-to-b from-[rgba(18,18,18,0.95)] to-[rgba(18,18,18,1)]">
+            <h3 class="text-2xl mb-4 text-transparent bg-clip-text bg-gradient-to-r from-[#ff4500] to-[#ff8c00] 
+                       drop-shadow-[2px_2px_4px_rgba(0,0,0,0.3)] text-center">
+                TALAASH<br>
+                <span class="text-lg text-[#03e9f4]">(Treasure Hunt)</span>
+            </h3>
             
-            expandedContent.style.display = 'block';
-            setTimeout(() => {
-                expandedContent.style.opacity = '1';
-                button.innerHTML = `<span></span><span></span><span></span><span></span> Show Less`;
-            }, 10);
-        } else {
-            expandedContent.style.opacity = '0';
-            setTimeout(() => {
-                expandedContent.style.display = 'none';
-                button.innerHTML = `<span></span><span></span><span></span><span></span> Read More`;
+            <!-- Event Description -->
+            <div class="event-description text-center">
+                <p class="text-lg text-[#e0e0e0] leading-relaxed mb-4 mx-auto italic">
+                    "Khelo Dimag se, dhundo maze se"
+                </p>
+                <p class="text-lg text-[#e0e0e0] leading-relaxed mb-6 mx-auto">
+                    Test your wit and problem-solving skills in this exciting treasure hunt adventure!
+                </p>
                 
-                // Restore the scroll position
-                if (expandedContent.dataset.scrollPos) {
-                    window.scrollTo({
-                        top: expandedContent.dataset.scrollPos,
-                        behavior: 'auto'
-                    });
-                }
-            }, 300);
-        }
+                <!-- Expanded Content -->
+                <div class="hidden opacity-0 transition-opacity duration-300 p-8 bg-[rgba(45,49,56,0.8)] rounded-lg mt-4 text-left space-y-6">
+                    <!-- Rules and Regulations -->
+                    <div class="bg-[rgba(32,34,39,0.95)] p-4 rounded-lg border-l-4 border-[#ff6600] hover:border-[#03e9f4] transition-all duration-300">
+                        <h4 class="text-[#ff6600] text-lg font-bold mb-3">Rules & Regulations:</h4>
+                        <ol class="list-decimal list-inside text-[#e0e0e0] space-y-2 ml-4">
+                            <li>Each team can have a maximum of 5 members. Each team will be assigned a color code (i.e. piece of paper of their color)</li>
+                            <li>Team color code will be assigned with performing a task</li>
+                            <li>The clues are found to be in a particular order</li>
+                            <li>All the clues of the team are different and located at different places but the final destination, the treasure is the same. The team that finds the treasure is the Winner</li>
+                            <li>Each identified clue carries 10 points</li>
+                            <li>A team cannot skip a clue. Skipping clue leads to the Negative marking (only one chance will be given)</li>
+                            <li>The time given to find each clue for each time is 10 minutes only</li>
+                            <li>If Participants find another team's clue by any chance they are not supposed to tamper with it</li>
+                            <li>A violation of this rule could disqualification of the team</li>
+                            <li>Players of your team should not destroy property belongings if found doing so they will be disqualified and will be charged with a penalty</li>
+                            <li>Disqualification will be done if any team is found Malpracting</li>
+                            <li>Help from the volunteers, friends, and discussion among other team members leads to Negative marking and disqualification</li>
+                            <li>Mobile Phones are strictly banned while playing the game if found direct disqualification</li>
+                        </ol>
+                    </div>
+
+                    <!-- Coordinators -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="bg-[rgba(32,34,39,0.95)] p-4 rounded-lg border-l-4 border-[#03e9f4] hover:border-[#ff6600] transition-all duration-300">
+                            <h4 class="text-[#03e9f4] text-lg font-bold mb-3">Faculty Coordinators:</h4>
+                            <ul class="text-[#e0e0e0] space-y-2 ml-4">
+                                <li>Mr. Sharan Patil - Chairman</li>
+                                <li>Mr. Mallikarjun - Member</li>
+                                <li>Mr. Ramdas Rathod - Member</li>
+                                <li>Ms. Sunitha - Member</li>
+                                <li>Ms. Sudha M - Member</li>
+                            </ul>
+                        </div>
+
+                        <div class="bg-[rgba(32,34,39,0.95)] p-4 rounded-lg border-l-4 border-[#03e9f4] hover:border-[#ff6600] transition-all duration-300">
+                            <h4 class="text-[#03e9f4] text-lg font-bold mb-3">Student Coordinators:</h4>
+                            <ul class="text-[#e0e0e0] space-y-2 ml-4">
+                                <li>Abhishek Pawar - 8197775213</li>
+                                <li>Ranjita - 8147115170</li>
+                                <li>Ayesha - 8088445457</li>
+                                <li>Prabhuling K - 8105578472</li>
+                                <li>Anjali - 8884236065</li>
+                                <li>Vikas C - 8123264580</li>
+                                <li>Abhishek Navale - 7676084780</li>
+                                <li>Naveen Patil - 7411301177</li>
+                                <li>Karthik - 9845034598</li>
+                                <li>Vaishnavi S. - 9035532004</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Buttons -->
+            <div class="flex flex-col items-center gap-4 mt-8">
+                <button onclick="toggleDescription(this)"
+                        class="px-10 py-3 text-base font-semibold tracking-wider rounded-lg bg-transparent text-[#ff4500] 
+                               border-2 border-[#03e9f4] transition-all duration-400 hover:-translate-y-1 
+                               hover:shadow-[0_5px_15px_rgba(255,215,0,0.3)] mx-auto">
+                    Read More
+                </button>
+                
+                <a href="{{ url_for('signin') }}" 
+                   class="px-10 py-3 bg-[#03e9f4] text-[#1C1C1C] rounded-lg font-bold uppercase
+                          transition-all duration-300 hover:bg-transparent hover:text-[#03e9f4] 
+                          hover:border-2 hover:border-[#03e9f4] mx-auto">
+                    Register Now
+                </a>
+            </div>
+
+            <!-- Event Details -->
+            <ul class="mt-6 p-6 bg-black/20 rounded-lg space-y-3 text-center">
+                <li class="flex items-center justify-center gap-3 text-base text-[#e0e0e0]">
+                    <i class="bi bi-people-fill text-[#58f7f7]"></i>
+                    Team Size: Up to 5 members
+                </li>
+                <li class="flex items-center justify-center gap-3 text-base text-[#e0e0e0]">
+                    <i class="bi bi-cash text-[#58f7f7]"></i>
+                    Registration Fee: ₹500/team
+                </li>
+                <li class="flex items-center justify-center gap-3 text-base text-[#e0e0e0]">
+                    <i class="bi bi-trophy-fill text-[#58f7f7]"></i>
+                    Prizes Worth: ₹10,000
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- BGMI Card -->
+    <div class="max-w-3xl mx-auto mb-12 bg-[rgba(18,18,18,0.95)] border-2 border-[#58f7f7] rounded-xl overflow-hidden
+                backdrop-blur-md shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] 
+                transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_15px_30px_rgba(3,233,244,0.4)]">
         
-        // Prevent default button behavior
-        return false;
-    }
+        <!-- Event Image -->
+        <div class="relative h-32 bg-[#121212] flex justify-center items-center">
+            <img src="{{ url_for('static', filename='assets/logos/bgmi.webp') }}" 
+                 alt="BGMI Event"
+                 class="w-32 h-32 object-contain transition-all duration-500 hover:scale-105 hover:brightness-110">
+            <div class="absolute bottom-0 left-0 w-full h-1/2 bg-gradient-to-b from-transparent to-[rgba(18,18,18,0.95)]"></div>
+        </div>
 
-    // Initialize all expanded content sections to be hidden on page load
-    document.addEventListener('DOMContentLoaded', function() {
-        document.querySelectorAll('.expanded-content').forEach(content => {
-            content.style.display = 'none';
-            content.style.opacity = '0';
-        });
-    });
+        <!-- Event Content -->
+        <div class="p-6 bg-gradient-to-b from-[rgba(18,18,18,0.95)] to-[rgba(18,18,18,1)]">
+            <h3 class="text-2xl mb-4 text-transparent bg-clip-text bg-gradient-to-r from-[#ff4500] to-[#ff8c00] 
+                       drop-shadow-[2px_2px_4px_rgba(0,0,0,0.3)] text-center">
+                BGMI<br>
+                <span class="text-lg text-[#03e9f4]">(BATTLEGROUNDS MOBILE INDIA)</span>
+            </h3>
+            
+            <!-- Event Description -->
+            <div class="event-description text-center">
+                <p class="text-lg text-[#e0e0e0] leading-relaxed mb-6 mx-auto">
+                    Compete in intense mobile battle royale matches and prove your tactical supremacy!
+                </p>
+                
+                <!-- Expanded Content -->
+                <div class="hidden opacity-0 transition-opacity duration-300 p-8 bg-[rgba(45,49,56,0.8)] rounded-lg mt-4 text-left space-y-6">
+                    <!-- Guidelines -->
+                    <div class="bg-[rgba(32,34,39,0.95)] p-4 rounded-lg border-l-4 border-[#ff6600] hover:border-[#03e9f4] transition-all duration-300">
+                        <h4 class="text-[#ff6600] text-lg font-bold mb-3">Guidelines:</h4>
+                        <ol class="list-decimal list-inside text-[#e0e0e0] space-y-2 ml-4">
+                            <li>College ID is compulsory</li>
+                            <li>It is a 4(+1) player-team tournament. A 4 man-starter roster and up to 1 substitute</li>
+                            <li>Emulators are not allowed in any game mode organized. The player will be disqualified if found using any kind of emulator</li>
+                            <li>Any game modifying tools except the 'GFX tool' is not allowed</li>
+                            <li>Players can play on Android/ios tablets/ phones only</li>
+                            <li>Only in-game voice chat should be used after the game is started till its completion. Bring your headphones/earphones</li>
+                            <li>Any use of unfair means such as aimbot, triggebot, or ESP will be disqualified</li>
+                            <li>Should a team/player fail to join the room in time, their squad will be disqualified</li>
+                            <li>Waiting time is at most 10 minutes between games</li>
+                            <li>Exiting a game without good reason will disqualify the team</li>
+                            <li>The exploitation of bugs that hinder fair play will result in disqualification</li>
+                            <li>Organizers would not be held responsible for connectivity issues on the participant's side</li>
+                            <li>The entry fee would not be refunded under any circumstances</li>
+                            <li>Organizers reserve the right to accept or reject any entry without a reason thereof</li>
+                            <li>Participants are requested to remain ready a least 30 minutes before the start of any match. Late entries would not be allowed</li>
+                        </ol>
+                    </div>
 
-    // Improve touch response
-    document.addEventListener('touchstart', function() {}, {passive: true});
+                    <!-- Coordinators -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="bg-[rgba(32,34,39,0.95)] p-4 rounded-lg border-l-4 border-[#03e9f4] hover:border-[#ff6600] transition-all duration-300">
+                            <h4 class="text-[#03e9f4] text-lg font-bold mb-3">Faculty Coordinators:</h4>
+                            <ul class="text-[#e0e0e0] space-y-2 ml-4">
+                                <li>Prof. Rahul Moolbharathi - Chairman</li>
+                                <li>Prof. Kiran Patil - Member</li>
+                                <li>Mr. Vijaykumar Patil - Member</li>
+                                <li>Ms. Akshata Awate - Member</li>
+                            </ul>
+                        </div>
 
-    // Handle button touches
-    const readMoreButtons = document.querySelectorAll('.btn-read-more');
-    readMoreButtons.forEach(button => {
-        button.addEventListener('touchend', function(e) {
-            e.preventDefault();
-            this.click();
-        }, {passive: false});
-    });
-</script>
+                        <div class="bg-[rgba(32,34,39,0.95)] p-4 rounded-lg border-l-4 border-[#03e9f4] hover:border-[#ff6600] transition-all duration-300">
+                            <h4 class="text-[#03e9f4] text-lg font-bold mb-3">Student Coordinators:</h4>
+                            <ul class="text-[#e0e0e0] space-y-2 ml-4">
+                                <li>Prashant Biradar - 8431700872</li>
+                                <li>Sangamesh Belure</li>
+                                <li>Aishwarya More</li>
+                                <li>Vishwa Walande</li>
+                                <li>Siddesh</li>
+                                <li>Rahul</li>
+                                <li>Dnyaneshwar</li>
+                                <li>Kiran</li>
+                                <li>Manupriya</li>
+                                <li>Kaif</li>
+                                <li>Darshan</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Buttons -->
+            <div class="flex flex-col items-center gap-4 mt-8">
+                <button onclick="toggleDescription(this)"
+                        class="px-10 py-3 text-base font-semibold tracking-wider rounded-lg bg-transparent text-[#ff4500] 
+                               border-2 border-[#03e9f4] transition-all duration-400 hover:-translate-y-1 
+                               hover:shadow-[0_5px_15px_rgba(255,215,0,0.3)] mx-auto">
+                    Read More
+                </button>
+                
+                <a href="{{ url_for('signin') }}" 
+                   class="px-10 py-3 bg-[#03e9f4] text-[#1C1C1C] rounded-lg font-bold uppercase
+                          transition-all duration-300 hover:bg-transparent hover:text-[#03e9f4] 
+                          hover:border-2 hover:border-[#03e9f4] mx-auto">
+                    Register Now
+                </a>
+            </div>
 
+            <!-- Event Details -->
+            <ul class="mt-6 p-6 bg-black/20 rounded-lg space-y-3 text-center">
+                <li class="flex items-center justify-center gap-3 text-base text-[#e0e0e0]">
+                    <i class="bi bi-people-fill text-[#58f7f7]"></i>
+                    Team Size: 4+1 members
+                </li>
+                <li class="flex items-center justify-center gap-3 text-base text-[#e0e0e0]">
+                    <i class="bi bi-cash text-[#58f7f7]"></i>
+                    Registration Fee: ₹500/team
+                </li>
+                <li class="flex items-center justify-center gap-3 text-base text-[#e0e0e0]">
+                    <i class="bi bi-trophy-fill text-[#58f7f7]"></i>
+                    Prizes Worth: ₹12,000
+                </li>
+            </ul>
+        </div>
+    </div>
 </div>
 
-
-
 <script>
-// Same toggle function from games page
-function toggleDescription(button) {
-const eventCard = button.closest('.event-card-horizontal');
-const expandedContent = eventCard.querySelector('.expanded-content');
+    // Toggle description functionality with smooth scroll
+    function toggleDescription(button) {
+        const currentCard = button.closest('.max-w-3xl');
+        const expandedContent = currentCard.querySelector('.event-description > div');
+        const cardPosition = currentCard.getBoundingClientRect().top + window.pageYOffset;
+        
+        if (expandedContent.classList.contains('hidden')) {
+            expandedContent.dataset.scrollPos = window.pageYOffset;
+            
+            expandedContent.classList.remove('hidden');
+            expandedContent.style.display = 'block';
+            requestAnimationFrame(() => {
+                expandedContent.style.opacity = '1';
+                button.textContent = 'Show Less';
+                
+                window.scrollTo({
+                    top: cardPosition - 20,
+                    behavior: 'smooth'
+                });
+            });
+        } else {
+            expandedContent.style.opacity = '0';
+            button.textContent = 'Read More';
+            
+            setTimeout(() => {
+                expandedContent.style.display = 'none';
+                expandedContent.classList.add('hidden');
+                
+                window.scrollTo({
+                    top: cardPosition - 20,
+                    behavior: 'smooth'
+                });
+            }, 300);
+        }
+    }
 
-if (expandedContent.style.display === 'none' || !expandedContent.style.display) {
-    expandedContent.style.display = 'block';
-    setTimeout(() => {
-        expandedContent.style.opacity = '1';
-        button.innerHTML = `<span></span><span></span><span></span><span></span> Show Less`;
-    }, 10);
-} else {
-    expandedContent.style.opacity = '0';
-    setTimeout(() => {
-        expandedContent.style.display = 'none';
-        button.innerHTML = `<span></span><span></span><span></span><span></span> Read More`;
-    }, 300);
-}
-}
-
-// Initialize on page load
-document.addEventListener('DOMContentLoaded', function() {
-document.querySelectorAll('.expanded-content').forEach(content => {
-    content.style.display = 'none';
-    content.style.opacity = '0';
-});
-});
+    // Initialize cards on page load
+    document.addEventListener('DOMContentLoaded', function() {
+        document.querySelectorAll('.max-w-3xl').forEach(card => {
+            const content = card.querySelector('.event-description > div');
+            if (content) {
+                content.style.display = 'none';
+                content.style.opacity = '0';
+                content.classList.add('hidden');
+            }
+        });
+    });
 </script>
-
-    <!-- BGMI Event Card -->
-    <div class="event-card-horizontal mb-5">
-        <div class="event-image">
-            <img src="{{ url_for('static', filename='assets/logos/bgmi.webp') }}" alt="BGMI">
-        </div>
-        <div class="event-content">
-            <h3>BGMI (BATTLEGROUNDS MOBILE INDIA)</h3>
-            <div class="event-description">
-                <p>Battle it out in India's most popular mobile battle royale game. Compete in squads and prove your
-                    tactical supremacy!</p>
-                <div class="expanded-content">
-                    <!-- Content structure similar to cultural events -->
-                    <strong>GUIDELINES:</strong>
-                    <ol>
-                        <li>College ID is compulsory.</li>
-                        <li>It is a 4(+1) player-team tournament. A 4 man-starter roster and up to 1 substitute.</li>
-                        <li>Emulators are not allowed in any game mode organized. The player will be disqualified if
-                            found using any kind of emulator.</li>
-                        <li>Any game modifying tools except the 'GFX tool' is not allowed.</li>
-                        <li>Players can play on Android/ios tablets/ phones only.</li>
-                        <li>Only in-game voice chat should be used after the game is started till its completion. Bring
-                            your headphones/earphones.</li>
-                        <li>Any use of unfair means such as aimbot, triggebot, or ESP will be disqualified.</li>
-                        <li>Should a team/player fail to join the room in time, their squad will be disqualified.</li>
-                        <li>Waiting time is at most 10 minutes between games.</li>
-                        <li>Exiting a game without good reason will disqualify the team.</li>
-                        <li>The exploitation of bugs that hinder fair play will result in disqualification.</li>
-                        <li>Organizers would not be held responsible for connectivity issues on the participant's side.
-                        </li>
-                        <li>The entry fee would not be refunded under any circumstances.</li>
-                        <li>Organizers reserve the right to accept or reject any entry without a reason thereof.</li>
-                        <li>Participants are requested to remain ready a least 30 minutes before the start of any match.
-                            Late entries would not be allowed.</li>
-                    </ol>
-                    <div><br></div>
-                    <strong>REQUIREMENTS:</strong>
-                    <div class="requirements">
-                        <strong>Faculty Coordinators:</strong>
-                        <ul>
-                            <li>Prof. Rahul Moolbharathi - Chairman</li>
-                            <li>Prof. Kiran Patil - Member</li>
-                            <li>Mr. Vijaykumar Patil - Member</li>
-                            <li>Ms. Akshata Awate - Member</li>
-                        </ul>
-
-                        <strong>Student Coordinators:</strong>
-                        <ul>
-                            <li>Prashant Biradar - 8431700872</li>
-                            <li>Sangamesh Belure</li>
-                            <li>Aishwarya More</li>
-                            <li>Vishwa Walande</li>
-                            <li>Siddesh</li>
-                            <li>Rahul</li>
-                            <li>Dnyaneshwar</li>
-                            <li>Kiran</li>
-                            <li>Manupriya</li>
-                            <li>Kaif</li>
-                            <li>Darshan</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <button class="btn-read-more" onclick="toggleDescription(this)">
-                <span></span><span></span><span></span><span></span>
-                Read More
-            </button>
-
-            <ul class="event-details">
-                <li><i class="bi bi-people-fill"></i> Team Size: 4+1 members</li>
-                <li><i class="bi bi-cash"></i> Registration Fee: ₹400/team</li>
-                <li><i class="bi bi-trophy-fill"></i> Prizes Worth: ₹15,000</li>
-            </ul>
-
-            <div class="button-container">
-                <a href="{{ url_for('signin') }}" class="btn btn-register">
-                    <span></span><span></span><span></span><span></span>
-                    Register Now
-                </a>
-            </div>
-        </div>
-    </div>
-
-    <!-- TALAASH Event Card -->
-    <div class="event-card-horizontal mb-5">
-        <div class="event-image">
-            <img src="{{ url_for('static', filename='assets/logos/talaash.webp') }}" alt="TALAASH">
-        </div>
-        <div class="event-content">
-            <h3>TALAASH (Treasure Hunt)</h3>
-            <div class="event-description">
-                <p class="quote">"Khelo Dimag se, dhundo maze se"</p>
-                <p>An exciting treasure hunt that combines wit, wisdom, and teamwork to solve clues and find the
-                    ultimate prize.</p>
-                <div class="expanded-content">
-                    <strong>RULES AND REGULATIONS:</strong>
-                    <ol>
-                        <li>Each team can have a maximum of 5 members. Each team will be assigned a color code (i.e.
-                            piece of paper of their color).</li>
-                        <li>Team color code will be assigned with performing a task.</li>
-                        <li>The clues are found to be in a particular order.</li>
-                        <li>All the clues of the team are different and located at different places but the final
-                            destination, the treasure is the same. The team that finds the treasure is the Winner.</li>
-                        <li>Each identified clue carries 10 points.</li>
-                        <li>A team cannot skip a clue. Skipping clue leads to the Negative marking (only one chance will
-                            be given).</li>
-                        <li>The time given to find each clue for each time is 10 minutes only.</li>
-                        <li>If Participants find another team's clue by any chance they are not supposed to tamper with
-                            it.</li>
-                        <li>A violation of this rule could disqualification of the team.</li>
-                        <li>Players of your team should not destroy property belongings if found doing so they will be
-                            disqualified and will be charged with a penalty.</li>
-                        <li>Disqualification will be done if any team is found Malpracting</li>
-                        <li>Help from the volunteers, friends, and discussion among other team members leads to Negative
-                            marking and disqualification</li>
-                        <li>Mobile Phones are strictly banned while playing the game if found direct disqualification.
-                        </li>
-                    </ol>
-                    <div>
-                        <br>
-                    </div>
-                    <div class="coordinators">
-                        <strong>Faculty Coordinators:</strong>
-                    <ul>
-                        <li>Mr. Sharan Patil - Chairman</li>
-                        <li>Mr. Mallikarjun - Member</li>
-                        <li>Mr. Ramdas Rathod - Member</li>
-                        <li>Ms. Sunitha - Member</li>
-                        <li>Ms. Sudha M - Member</li>
-                    </ul>
-                    </div>
-                    <div>
-                        <br>
-                    </div>
-                    <div class="coordinators">
-                        <strong>Student Coordinators:</strong>
-                        <ul>
-                            <li>Abhishek Pawar - 8197775213</li>
-                            <li>Ranjita - 8147115170</li>
-                            <li>Ayesha - 8088445457</li>
-                            <li>Prabhuling K - 8105578472</li>
-                            <li>Anjali - 8884236065</li>
-                            <li>Vikas C. - 8123264580</li>
-                            <li>Abhishek Navale - 7676084780</li>
-                            <li>Naveen Patil - 7411301177</li>
-                            <li>Karthik - 9845034598</li>
-                            <li>Vaishnavi S. - 9035532004</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <button class="btn-read-more" onclick="toggleDescription(this)">
-                <span></span><span></span><span></span><span></span>
-                Read More
-            </button>
-
-            <ul class="event-details">
-                <li><i class="bi bi-people-fill"></i> Team Size: Up to 5 members</li>
-                <li><i class="bi bi-cash"></i> Registration Fee: ₹300/team</li>
-                <li><i class="bi bi-trophy-fill"></i> Prizes Worth: ₹10,000</li>
-            </ul>
-
-            <div class="button-container">
-                <a href="{{ url_for('signin') }}" class="btn btn-register">
-                    <span></span><span></span><span></span><span></span>
-                    Register Now
-                </a>
-            </div>
-        </div>
-    </div>
-
-    
 {% endblock %}
