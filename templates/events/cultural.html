@@ -3,23 +3,25 @@
 {% block title %}Cultural Events - YUKTI 2025{% endblock %}
 
 {% block content %}
-<!-- Event Page Header -->
-<div class="h-0.5 bg-[#CD7F32]"></div>
-<section class="relative py-24 bg-gradient-to-br from-[#1C1C1C] to-[#2d1f1f] overflow-hidden">
-    <!-- Background Overlay -->
-    <div class="absolute inset-0 bg-[linear-gradient(90deg,transparent_50%,rgba(255,215,0,0.05)_100%),radial-gradient(circle_at_50%_50%,rgba(255,215,0,0.1)_0%,transparent_50%)] animate-[shimmer_10s_infinite_linear]"></div>
+<!-- Change top divider to match gallery -->
+<div class="h-0.5 bg-gradient-to-r from-[#6D28D9] via-[#3B82F6] to-[#00FFFF]"></div>
+
+<!-- Update background and overlay -->
+<section class="relative py-24 bg-gradient-to-r from-dark via-darker to-dark animate-gradient-flow overflow-hidden">
+    <!-- Update background overlay -->
+    <div class="absolute inset-0 bg-[linear-gradient(90deg,transparent_50%,rgba(0,255,255,0.05)_100%),radial-gradient(circle_at_50%_50%,rgba(0,255,255,0.1)_0%,transparent_50%)] animate-[shimmer_10s_infinite_linear]"></div>
     
-    <!-- Header Content -->
-    <h1 class="relative z-10 text-center mb-6 font-['Orbitron'] text-transparent bg-clip-text bg-gradient-to-r from-[#FFD700] via-[#ff6b00] to-[#FFD700] text-4xl sm:text-5xl md:text-[4.5rem] drop-shadow-[2px_2px_8px_rgba(0,0,0,0.5)]">
+    <!-- Update header gradient -->
+    <h1 class="relative z-10 text-center mb-6 font-['Orbitron'] text-transparent bg-clip-text bg-gradient-to-r from-[#00FFFF] via-[#FF00FF] to-[#00FFFF] text-4xl sm:text-5xl md:text-[4.5rem] drop-shadow-[2px_2px_8px_rgba(0,0,0,0.5)]">
         Cultural Events
     </h1>
 </section>
 
+<!-- Update event card styles -->
 <div class="container mx-auto py-12 px-4 text-center">
     <!-- NRITYA - SAADHANA Card -->
-    <div class="max-w-3xl mx-auto mb-12 bg-[rgba(18,18,18,0.95)] border-2 border-[#58f7f7] rounded-xl overflow-hidden
-                backdrop-blur-md shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] 
-                transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_15px_30px_rgba(3,233,244,0.4)]">
+    <div class="max-w-3xl mx-auto mb-12 bg-[rgba(32,34,39,0.95)] backdrop-blur-md p-4 rounded-xl border-2 border-[#00FFFF] 
+                transform transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_15px_30px_rgba(0,255,255,0.4)] hover:border-[#FF00FF]">
         
         <!-- Event Image -->
         <div class="relative h-32 bg-[#121212] flex justify-center items-center">
@@ -31,24 +33,24 @@
 
         <!-- Event Content -->
         <div class="p-6 bg-gradient-to-b from-[rgba(18,18,18,0.95)] to-[rgba(18,18,18,1)]">
-            <h3 class="text-2xl mb-4 text-transparent bg-clip-text bg-gradient-to-r from-[#ff4500] to-[#ff8c00] 
+            <h3 class="text-2xl mb-4 font-['Orbitron'] text-transparent bg-clip-text bg-gradient-to-r from-[#00FFFF] via-[#FF00FF] to-[#00FFFF] 
                        drop-shadow-[2px_2px_4px_rgba(0,0,0,0.3)] text-center">
                 NRITYA - SAADHANA<br>
-                <span class="text-lg text-[#03e9f4]">(Dance- Solo & Group)</span>
+                <span class="text-lg text-[#00FFFF] font-['Rajdhani']">(Dance- Solo & Group)</span>
             </h3>
             
             <!-- Event Description -->
             <div class="event-description text-center">
-                <p class="text-lg text-[#e0e0e0] leading-relaxed mb-6 mx-auto">
+                <p class="text-lg text-[#C0C0C0] leading-relaxed mb-6 mx-auto font-['Rajdhani']">
                     Express yourself through dance and showcase your talent in solo or group performances.
                 </p>
                 
                 <!-- Expanded Content -->
                 <div class="hidden opacity-0 transition-opacity duration-300 p-8 bg-[rgba(45,49,56,0.8)] rounded-lg mt-4 text-left space-y-6">
                     <!-- Rules and Regulations -->
-                    <div class="bg-[rgba(32,34,39,0.95)] p-4 rounded-lg border-l-4 border-[#ff6600] hover:border-[#03e9f4] transition-all duration-300">
-                        <h4 class="text-[#ff6600] text-lg font-bold mb-3">Rules & Regulations:</h4>
-                        <ol class="list-decimal list-inside text-[#e0e0e0] space-y-2 ml-4">
+                    <div class="bg-[rgba(32,34,39,0.95)] p-4 rounded-lg border-l-4 border-[#00FFFF] hover:border-[#FF00FF] transition-all duration-300">
+                        <h4 class="text-[#00FFFF] text-lg font-['Orbitron'] font-bold mb-3">Rules & Regulations:</h4>
+                        <ol class="list-decimal list-inside text-[#C0C0C0] space-y-2 ml-4 font-['Rajdhani']">
                             <li>The time limit is 4-10 mins for each performance</li>
                             <li>Solo/Group performances both are allowed</li>
                             <li>Group Dance can have 4-8 members</li>
@@ -63,9 +65,9 @@
 
                     <!-- Coordinators -->
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div class="bg-[rgba(32,34,39,0.95)] p-4 rounded-lg border-l-4 border-[#03e9f4] hover:border-[#ff6600] transition-all duration-300">
-                            <h4 class="text-[#03e9f4] text-lg font-bold mb-3">Faculty Coordinators:</h4>
-                            <ul class="text-[#e0e0e0] space-y-2 ml-4">
+                        <div class="bg-[rgba(32,34,39,0.95)] p-4 rounded-lg border-l-4 border-[#00FFFF] hover:border-[#FF00FF] transition-all duration-300">
+                            <h4 class="text-[#00FFFF] text-lg font-['Orbitron'] font-bold mb-3">Faculty Coordinators:</h4>
+                            <ul class="text-[#C0C0C0] space-y-2 ml-4 font-['Rajdhani']">
                                 <li>Dr. Shailaja Kheni - Chairman</li>
                                 <li>Dr. Savita S. G. Member</li>
                                 <li>Prof. Neha Deshmukh - Member</li>
@@ -73,9 +75,9 @@
                             </ul>
                         </div>
 
-                        <div class="bg-[rgba(32,34,39,0.95)] p-4 rounded-lg border-l-4 border-[#03e9f4] hover:border-[#ff6600] transition-all duration-300">
-                            <h4 class="text-[#03e9f4] text-lg font-bold mb-3">Student Coordinators:</h4>
-                            <ul class="text-[#e0e0e0] space-y-2 ml-4">
+                        <div class="bg-[rgba(32,34,39,0.95)] p-4 rounded-lg border-l-4 border-[#00FFFF] hover:border-[#FF00FF] transition-all duration-300">
+                            <h4 class="text-[#00FFFF] text-lg font-['Orbitron'] font-bold mb-3">Student Coordinators:</h4>
+                            <ul class="text-[#C0C0C0] space-y-2 ml-4 font-['Rajdhani']">
                                 <li>Bhavaneshwari - 8050512133</li>
                                 <li>Madhavi - 8971185007</li>
                                 <li>Pallavi - 9036028660</li>
@@ -89,32 +91,32 @@
             <!-- Buttons -->
             <div class="flex flex-col items-center gap-4 mt-8">
                 <button onclick="toggleDescription(this)"
-                        class="px-10 py-3 text-base font-semibold tracking-wider rounded-lg bg-transparent text-[#ff4500] 
-                               border-2 border-[#03e9f4] transition-all duration-400 hover:-translate-y-1 
-                               hover:shadow-[0_5px_15px_rgba(255,215,0,0.3)] mx-auto">
+                        class="px-10 py-3 text-base font-semibold font-['Orbitron'] tracking-wider rounded-lg bg-transparent text-[#00FFFF] 
+                               border-2 border-[#00FFFF] transition-all duration-400 hover:-translate-y-1 
+                               hover:shadow-[0_5px_15px_rgba(0,255,255,0.3)] hover:text-[#FF00FF] hover:border-[#FF00FF] mx-auto">
                     Read More
                 </button>
                 
                 <a href="{{ url_for('signin') }}" 
-                   class="px-10 py-3 bg-[#03e9f4] text-[#1C1C1C] rounded-lg font-bold uppercase
-                          transition-all duration-300 hover:bg-transparent hover:text-[#03e9f4] 
-                          hover:border-2 hover:border-[#03e9f4] mx-auto">
+                   class="px-10 py-3 bg-[#FF00FF] text-white rounded-lg font-bold uppercase font-['Orbitron']
+                          transition-all duration-300 hover:bg-transparent hover:text-[#FF00FF] 
+                          hover:border-2 hover:border-[#FF00FF] mx-auto">
                     Register Now
                 </a>
             </div>
 
             <!-- Event Details -->
             <ul class="mt-6 p-6 bg-black/20 rounded-lg space-y-3 text-center">
-                <li class="flex items-center justify-center gap-3 text-base text-[#e0e0e0]">
-                    <i class="bi bi-people-fill text-[#58f7f7]"></i>
+                <li class="flex items-center justify-center gap-3 text-base text-[#C0C0C0] font-['Rajdhani']">
+                    <i class="bi bi-people-fill text-[#00FFFF]"></i>
                     Solo/Group Event (4-8 members)
                 </li>
-                <li class="flex items-center justify-center gap-3 text-base text-[#e0e0e0]">
-                    <i class="bi bi-cash text-[#58f7f7]"></i>
+                <li class="flex items-center justify-center gap-3 text-base text-[#C0C0C0] font-['Rajdhani']">
+                    <i class="bi bi-cash text-[#00FFFF]"></i>
                     Registration Fee: ₹300/Solo, ₹800/Group
                 </li>
-                <li class="flex items-center justify-center gap-3 text-base text-[#e0e0e0]">
-                    <i class="bi bi-trophy-fill text-[#58f7f7]"></i>
+                <li class="flex items-center justify-center gap-3 text-base text-[#C0C0C0] font-['Rajdhani']">
+                    <i class="bi bi-trophy-fill text-[#00FFFF]"></i>
                     Prizes Worth: ₹15,000
                 </li>
             </ul>
@@ -122,9 +124,8 @@
     </div>
 
     <!-- NINAAD Card -->
-    <div class="max-w-3xl mx-auto mb-12 bg-[rgba(18,18,18,0.95)] border-2 border-[#58f7f7] rounded-xl overflow-hidden
-                backdrop-blur-md shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] 
-                transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_15px_30px_rgba(3,233,244,0.4)]">
+    <div class="max-w-3xl mx-auto mb-12 bg-[rgba(32,34,39,0.95)] backdrop-blur-md p-4 rounded-xl border-2 border-[#00FFFF] 
+                transform transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_15px_30px_rgba(0,255,255,0.4)] hover:border-[#FF00FF]">
         
         <!-- Event Image -->
         <div class="relative h-32 bg-[#121212] flex justify-center items-center">
@@ -136,24 +137,24 @@
 
         <!-- Event Content -->
         <div class="p-6 bg-gradient-to-b from-[rgba(18,18,18,0.95)] to-[rgba(18,18,18,1)]">
-            <h3 class="text-2xl mb-4 text-transparent bg-clip-text bg-gradient-to-r from-[#ff4500] to-[#ff8c00] 
+            <h3 class="text-2xl mb-4 font-['Orbitron'] text-transparent bg-clip-text bg-gradient-to-r from-[#00FFFF] via-[#FF00FF] to-[#00FFFF] 
                        drop-shadow-[2px_2px_4px_rgba(0,0,0,0.3)] text-center">
                 NINAAD<br>
-                <span class="text-lg text-[#03e9f4]">(Singing - Solo & Group)</span>
+                <span class="text-lg text-[#00FFFF] font-['Rajdhani']">(Singing - Solo & Group)</span>
             </h3>
             
             <!-- Event Description -->
             <div class="event-description text-center">
-                <p class="text-lg text-[#e0e0e0] leading-relaxed mb-6 mx-auto">
+                <p class="text-lg text-[#C0C0C0] leading-relaxed mb-6 mx-auto font-['Rajdhani']">
                     Find the voice within! Showcase your vocal talents in solo or group performances.
                 </p>
                 
                 <!-- Expanded Content -->
                 <div class="hidden opacity-0 transition-opacity duration-300 p-8 bg-[rgba(45,49,56,0.8)] rounded-lg mt-4 text-left space-y-6">
                     <!-- Solo Singing Rules -->
-                    <div class="bg-[rgba(32,34,39,0.95)] p-4 rounded-lg border-l-4 border-[#ff6600] hover:border-[#03e9f4] transition-all duration-300">
-                        <h4 class="text-[#ff6600] text-lg font-bold mb-3">Solo Singing (Semiclassical/Retro 1970's - 1980's):</h4>
-                        <ol class="list-decimal list-inside text-[#e0e0e0] space-y-2 ml-4">
+                    <div class="bg-[rgba(32,34,39,0.95)] p-4 rounded-lg border-l-4 border-[#00FFFF] hover:border-[#FF00FF] transition-all duration-300">
+                        <h4 class="text-[#00FFFF] text-lg font-['Orbitron'] font-bold mb-3">Solo Singing Rules:</h4>
+                        <ol class="list-decimal list-inside text-[#C0C0C0] space-y-2 ml-4 font-['Rajdhani']">
                             <li>Each performance has a 3-minute time limit</li>
                             <li>Participants will not be allowed to refer to lyrics while singing</li>
                             <li>The participant will be judged on the song selection, vocal clarity, rhythm, and audience appeal</li>
@@ -164,9 +165,9 @@
                     </div>
 
                     <!-- Group Singing Rules -->
-                    <div class="bg-[rgba(32,34,39,0.95)] p-4 rounded-lg border-l-4 border-[#ff6600] hover:border-[#03e9f4] transition-all duration-300">
-                        <h4 class="text-[#ff6600] text-lg font-bold mb-3">Pop or Rock (Rock out with your socks out):</h4>
-                        <ol class="list-decimal list-inside text-[#e0e0e0] space-y-2 ml-4">
+                    <div class="bg-[rgba(32,34,39,0.95)] p-4 rounded-lg border-l-4 border-[#00FFFF] hover:border-[#FF00FF] transition-all duration-300">
+                        <h4 class="text-[#00FFFF] text-lg font-['Orbitron'] font-bold mb-3">Pop or Rock (Rock out with your socks out):</h4>
+                        <ol class="list-decimal list-inside text-[#C0C0C0] space-y-2 ml-4 font-['Rajdhani']">
                             <li>A team should have a minimum of 4 maximum of 10 members</li>
                             <li>Time duration 15 mins (including set-up and clearance)</li>
                             <li>The participant has to bring their musical gear</li>
@@ -176,18 +177,18 @@
 
                     <!-- Coordinators -->
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div class="bg-[rgba(32,34,39,0.95)] p-4 rounded-lg border-l-4 border-[#03e9f4] hover:border-[#ff6600] transition-all duration-300">
-                            <h4 class="text-[#03e9f4] text-lg font-bold mb-3">Faculty Coordinators:</h4>
-                            <ul class="text-[#e0e0e0] space-y-2 ml-4">
+                        <div class="bg-[rgba(32,34,39,0.95)] p-4 rounded-lg border-l-4 border-[#00FFFF] hover:border-[#FF00FF] transition-all duration-300">
+                            <h4 class="text-[#00FFFF] text-lg font-['Orbitron'] font-bold mb-3">Faculty Coordinators:</h4>
+                            <ul class="text-[#C0C0C0] space-y-2 ml-4 font-['Rajdhani']">
                                 <li>Dr. Swaroopa Shastri - Chairman</li>
                                 <li>Prof. Shilpa Joshi - Member</li>
                                 <li>Prof. Vijayalakshmi - Member</li>
                             </ul>
                         </div>
 
-                        <div class="bg-[rgba(32,34,39,0.95)] p-4 rounded-lg border-l-4 border-[#03e9f4] hover:border-[#ff6600] transition-all duration-300">
-                            <h4 class="text-[#03e9f4] text-lg font-bold mb-3">Student Coordinators:</h4>
-                            <ul class="text-[#e0e0e0] space-y-2 ml-4">
+                        <div class="bg-[rgba(32,34,39,0.95)] p-4 rounded-lg border-l-4 border-[#00FFFF] hover:border-[#FF00FF] transition-all duration-300">
+                            <h4 class="text-[#00FFFF] text-lg font-['Orbitron'] font-bold mb-3">Student Coordinators:</h4>
+                            <ul class="text-[#C0C0C0] space-y-2 ml-4 font-['Rajdhani']">
                                 <li>Mahalaxmi - 8747935698</li>
                                 <li>Bhagyashree S. K. - 6364077916</li>
                                 <li>Jyohi - 9148696704</li>
@@ -202,32 +203,32 @@
             <!-- Buttons -->
             <div class="flex flex-col items-center gap-4 mt-8">
                 <button onclick="toggleDescription(this)"
-                        class="px-10 py-3 text-base font-semibold tracking-wider rounded-lg bg-transparent text-[#ff4500] 
-                               border-2 border-[#03e9f4] transition-all duration-400 hover:-translate-y-1 
-                               hover:shadow-[0_5px_15px_rgba(255,215,0,0.3)] mx-auto">
+                        class="px-10 py-3 text-base font-semibold font-['Orbitron'] tracking-wider rounded-lg bg-transparent text-[#00FFFF] 
+                               border-2 border-[#00FFFF] transition-all duration-400 hover:-translate-y-1 
+                               hover:shadow-[0_5px_15px_rgba(0,255,255,0.3)] hover:text-[#FF00FF] hover:border-[#FF00FF] mx-auto">
                     Read More
                 </button>
                 
                 <a href="{{ url_for('signin') }}" 
-                   class="px-10 py-3 bg-[#03e9f4] text-[#1C1C1C] rounded-lg font-bold uppercase
-                          transition-all duration-300 hover:bg-transparent hover:text-[#03e9f4] 
-                          hover:border-2 hover:border-[#03e9f4] mx-auto">
+                   class="px-10 py-3 bg-[#FF00FF] text-white rounded-lg font-bold uppercase font-['Orbitron']
+                          transition-all duration-300 hover:bg-transparent hover:text-[#FF00FF] 
+                          hover:border-2 hover:border-[#FF00FF] mx-auto">
                     Register Now
                 </a>
             </div>
 
             <!-- Event Details -->
             <ul class="mt-6 p-6 bg-black/20 rounded-lg space-y-3 text-center">
-                <li class="flex items-center justify-center gap-3 text-base text-[#e0e0e0]">
-                    <i class="bi bi-people-fill text-[#58f7f7]"></i>
+                <li class="flex items-center justify-center gap-3 text-base text-[#C0C0C0] font-['Rajdhani']">
+                    <i class="bi bi-people-fill text-[#00FFFF]"></i>
                     Solo & Group Event (4-10 members)
                 </li>
-                <li class="flex items-center justify-center gap-3 text-base text-[#e0e0e0]">
-                    <i class="bi bi-cash text-[#58f7f7]"></i>
+                <li class="flex items-center justify-center gap-3 text-base text-[#C0C0C0] font-['Rajdhani']">
+                    <i class="bi bi-cash text-[#00FFFF]"></i>
                     Registration Fee: ₹300/Solo, ₹1000/Group
                 </li>
-                <li class="flex items-center justify-center gap-3 text-base text-[#e0e0e0]">
-                    <i class="bi bi-trophy-fill text-[#58f7f7]"></i>
+                <li class="flex items-center justify-center gap-3 text-base text-[#C0C0C0] font-['Rajdhani']">
+                    <i class="bi bi-trophy-fill text-[#00FFFF]"></i>
                     Prizes Worth: ₹12,000
                 </li>
             </ul>
@@ -235,9 +236,8 @@
     </div>
 
     <!-- NAVYATAA Card -->
-    <div class="max-w-3xl mx-auto mb-12 bg-[rgba(18,18,18,0.95)] border-2 border-[#58f7f7] rounded-xl overflow-hidden
-                backdrop-blur-md shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] 
-                transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_15px_30px_rgba(3,233,244,0.4)]">
+    <div class="max-w-3xl mx-auto mb-12 bg-[rgba(32,34,39,0.95)] backdrop-blur-md p-4 rounded-xl border-2 border-[#00FFFF] 
+                transform transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_15px_30px_rgba(0,255,255,0.4)] hover:border-[#FF00FF]">
         
         <!-- Event Image -->
         <div class="relative h-32 bg-[#121212] flex justify-center items-center">
@@ -249,24 +249,24 @@
 
         <!-- Event Content -->
         <div class="p-6 bg-gradient-to-b from-[rgba(18,18,18,0.95)] to-[rgba(18,18,18,1)]">
-            <h3 class="text-2xl mb-4 text-transparent bg-clip-text bg-gradient-to-r from-[#ff4500] to-[#ff8c00] 
+            <h3 class="text-2xl mb-4 font-['Orbitron'] text-transparent bg-clip-text bg-gradient-to-r from-[#00FFFF] via-[#FF00FF] to-[#00FFFF] 
                        drop-shadow-[2px_2px_4px_rgba(0,0,0,0.3)] text-center">
                 NAVYATAA<br>
-                <span class="text-lg text-[#03e9f4]">(Ramp Walk)</span>
+                <span class="text-lg text-[#00FFFF] font-['Rajdhani']">(Ramp Walk)</span>
             </h3>
             
             <!-- Event Description -->
             <div class="event-description text-center">
-                <p class="text-lg text-[#e0e0e0] leading-relaxed mb-6 mx-auto">
+                <p class="text-lg text-[#C0C0C0] leading-relaxed mb-6 mx-auto font-['Rajdhani']">
                     Strut your style and showcase your confidence on the ramp under the theme "Be Bold For Change".
                 </p>
                 
                 <!-- Expanded Content -->
                 <div class="hidden opacity-0 transition-opacity duration-300 p-8 bg-[rgba(45,49,56,0.8)] rounded-lg mt-4 text-left space-y-6">
                     <!-- Rules and Regulations -->
-                    <div class="bg-[rgba(32,34,39,0.95)] p-4 rounded-lg border-l-4 border-[#ff6600] hover:border-[#03e9f4] transition-all duration-300">
-                        <h4 class="text-[#ff6600] text-lg font-bold mb-3">Rules & Regulations:</h4>
-                        <ol class="list-decimal list-inside text-[#e0e0e0] space-y-2 ml-4">
+                    <div class="bg-[rgba(32,34,39,0.95)] p-4 rounded-lg border-l-4 border-[#00FFFF] hover:border-[#FF00FF] transition-all duration-300">
+                        <h4 class="text-[#00FFFF] text-lg font-['Orbitron'] font-bold mb-3">Rules & Regulations:</h4>
+                        <ol class="list-decimal list-inside text-[#C0C0C0] space-y-2 ml-4 font-['Rajdhani']">
                             <li>The theme for the event will be: Be Bold For Change</li>
                             <li>Single, Pair, and Group ramp walks are allowed</li>
                             <li>Vulgarity is strongly prohibited. Any form of obscenity will lead to debarring the team from the contest</li>
@@ -281,9 +281,9 @@
 
                     <!-- Coordinators -->
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div class="bg-[rgba(32,34,39,0.95)] p-4 rounded-lg border-l-4 border-[#03e9f4] hover:border-[#ff6600] transition-all duration-300">
-                            <h4 class="text-[#03e9f4] text-lg font-bold mb-3">Faculty Coordinators:</h4>
-                            <ul class="text-[#e0e0e0] space-y-2 ml-4">
+                        <div class="bg-[rgba(32,34,39,0.95)] p-4 rounded-lg border-l-4 border-[#00FFFF] hover:border-[#FF00FF] transition-all duration-300">
+                            <h4 class="text-[#00FFFF] text-lg font-['Orbitron'] font-bold mb-3">Faculty Coordinators:</h4>
+                            <ul class="text-[#C0C0C0] space-y-2 ml-4 font-['Rajdhani']">
                                 <li>Dr. Rekha N. Patil - Chairman</li>
                                 <li>Prof. Neha Deshmukh - Member</li>
                                 <li>Prof. Unnati Ukanal - Member</li>
@@ -291,9 +291,9 @@
                             </ul>
                         </div>
 
-                        <div class="bg-[rgba(32,34,39,0.95)] p-4 rounded-lg border-l-4 border-[#03e9f4] hover:border-[#ff6600] transition-all duration-300">
-                            <h4 class="text-[#03e9f4] text-lg font-bold mb-3">Student Coordinators:</h4>
-                            <ul class="text-[#e0e0e0] space-y-2 ml-4">
+                        <div class="bg-[rgba(32,34,39,0.95)] p-4 rounded-lg border-l-4 border-[#00FFFF] hover:border-[#FF00FF] transition-all duration-300">
+                            <h4 class="text-[#00FFFF] text-lg font-['Orbitron'] font-bold mb-3">Student Coordinators:</h4>
+                            <ul class="text-[#C0C0C0] space-y-2 ml-4 font-['Rajdhani']">
                                 <li>Anjali S. - 6361073516</li>
                                 <li>Amar</li>
                                 <li>Bhavani - 9731511019</li>
@@ -308,38 +308,41 @@
             <!-- Buttons -->
             <div class="flex flex-col items-center gap-4 mt-8">
                 <button onclick="toggleDescription(this)"
-                        class="px-10 py-3 text-base font-semibold tracking-wider rounded-lg bg-transparent text-[#ff4500] 
-                               border-2 border-[#03e9f4] transition-all duration-400 hover:-translate-y-1 
-                               hover:shadow-[0_5px_15px_rgba(255,215,0,0.3)] mx-auto">
+                        class="px-10 py-3 text-base font-semibold font-['Orbitron'] tracking-wider rounded-lg bg-transparent text-[#00FFFF] 
+                               border-2 border-[#00FFFF] transition-all duration-400 hover:-translate-y-1 
+                               hover:shadow-[0_5px_15px_rgba(0,255,255,0.3)] hover:text-[#FF00FF] hover:border-[#FF00FF] mx-auto">
                     Read More
                 </button>
                 
                 <a href="{{ url_for('signin') }}" 
-                   class="px-10 py-3 bg-[#03e9f4] text-[#1C1C1C] rounded-lg font-bold uppercase
-                          transition-all duration-300 hover:bg-transparent hover:text-[#03e9f4] 
-                          hover:border-2 hover:border-[#03e9f4] mx-auto">
+                   class="px-10 py-3 bg-[#FF00FF] text-white rounded-lg font-bold uppercase font-['Orbitron']
+                          transition-all duration-300 hover:bg-transparent hover:text-[#FF00FF] 
+                          hover:border-2 hover:border-[#FF00FF] mx-auto">
                     Register Now
                 </a>
             </div>
 
             <!-- Event Details -->
             <ul class="mt-6 p-6 bg-black/20 rounded-lg space-y-3 text-center">
-                <li class="flex items-center justify-center gap-3 text-base text-[#e0e0e0]">
-                    <i class="bi bi-people-fill text-[#58f7f7]"></i>
+                <li class="flex items-center justify-center gap-3 text-base text-[#C0C0C0] font-['Rajdhani']">
+                    <i class="bi bi-people-fill text-[#00FFFF]"></i>
                     Solo/Duo/Group Event
                 </li>
-                <li class="flex items-center justify-center gap-3 text-base text-[#e0e0e0]">
-                    <i class="bi bi-cash text-[#58f7f7]"></i>
+                <li class="flex items-center justify-center gap-3 text-base text-[#C0C0C0] font-['Rajdhani']">
+                    <i class="bi bi-cash text-[#00FFFF]"></i>
                     Registration Fee: ₹300/Solo, ₹500/Duo, ₹800/Group
                 </li>
-                <li class="flex items-center justify-center gap-3 text-base text-[#e0e0e0]">
-                    <i class="bi bi-trophy-fill text-[#58f7f7]"></i>
+                <li class="flex items-center justify-center gap-3 text-base text-[#C0C0C0] font-['Rajdhani']">
+                    <i class="bi bi-trophy-fill text-[#00FFFF]"></i>
                     Prizes Worth: ₹10,000
                 </li>
             </ul>
         </div>
     </div>
 </div>
+
+<!-- Update bottom divider -->
+<div class="h-0.5 bg-gradient-to-r from-[#6D28D9] via-[#3B82F6] to-[#00FFFF]"></div>
 
 <script>
     // Toggle description functionality
