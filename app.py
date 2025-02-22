@@ -14,7 +14,7 @@ from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from dotenv import load_dotenv
 import cryptography
-from flask_minify import Minify
+#from flask_minify import Minify
 
 
 load_dotenv() 
@@ -34,7 +34,7 @@ app = Flask(__name__,
     static_url_path='/static',
     static_folder='static'
 )
-Minify(app=app, html=True, js=True, cssless=True)
+#Minify(app=app, html=True, js=True, cssless=True)
 # Remove Compress(app) line
 
 # Apply configuration
@@ -53,19 +53,19 @@ app.config.update(
 
 # Function to set cache headers
 # Set Cache-Control headers for static responses
-@app.after_request
-def add_cache_headers(response):
-    if 'Cache-Control' not in response.headers:
-        response.headers['Cache-Control'] = 'public, max-age=31536000'  # Cache for 1 year
-    return response
+#@app.after_request
+#def add_cache_headers(response):
+#   if 'Cache-Control' not in response.headers:
+ #       response.headers['Cache-Control'] = 'public, max-age=31536000'  # Cache for 1 year
+  #  return response
 
 # Serve images from multiple static subdirectories
-@app.route('/static/<folder>/<path:filename>')
-def serve_static_files(folder, filename):
-    allowed_folders = ['assets', 'gallery', 'images']  # Define allowed folders
-    if folder not in allowed_folders:
-        return "Folder not found", 404
-    return send_from_directory(f'static/{folder}', filename)
+#@app.route('/static/<folder>/<path:filename>')
+#def serve_static_files(folder, filename):
+#    allowed_folders = ['assets', 'gallery', 'images']  # Define allowed folders
+#    if folder not in allowed_folders:
+#        return "Folder not found", 404
+#    return send_from_directory(f'static/{folder}', filename)
 
 def send_registration_email(to_email, ack_id, details):
     try:
