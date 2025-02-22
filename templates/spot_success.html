@@ -95,8 +95,105 @@
 <!-- Add bottom divider -->
 <div class="h-0.5 bg-gradient-to-r from-[#6D28D9] via-[#3B82F6] to-[#00FFFF]"></div>
 
-<!-- Keep existing print template and scripts -->
-<!-- ... existing PDF template ... -->
-<!-- ... existing scripts ... -->
+<!-- Add PDF Template -->
+<div id="pdf-template" style="display: none;">
+    <div style="padding: 20px; font-family: Arial, sans-serif; color: black;">
+        <div style="text-align: center; border-bottom: 2px solid black; padding-bottom: 10px; margin-bottom: 20px;">
+            <img src="{{ url_for('static', filename='images/logo.png') }}" alt="YUKTI 2025" style="width: 100px; margin-bottom: 10px; display: block; margin-left: auto; margin-right: auto;">
+            <h1 style="margin: 0;">YUKTI 2025</h1>
+            <h2 style="margin: 10px 0;">Spot Registration Confirmation</h2>
+            <p style="color: #666;">{{ details.registration_date|format_datetime }}</p>
+        </div>
+
+        <div style="margin-bottom: 20px;">
+            <h3 style="margin: 0 0 10px 0;">Acknowledgement ID: {{ ack_id }}</h3>
+            <p style="margin: 5px 0;"><strong>UTR Number:</strong> {{ details.utr_number }}</p>
+        </div>
+
+        <div style="margin-bottom: 20px;">
+            <h3 style="border-bottom: 2px solid black; padding-bottom: 5px;">Registration Details</h3>
+            <table style="width: 100%; border-collapse: collapse; margin-top: 10px;">
+                <tr>
+                    <td style="padding: 8px; border: 1px solid black;"><strong>Email:</strong></td>
+                    <td style="padding: 8px; border: 1px solid black;">{{ details.email }}</td>
+                </tr>
+                <tr>
+                    <td style="padding: 8px; border: 1px solid black;"><strong>Phone:</strong></td>
+                    <td style="padding: 8px; border: 1px solid black;">{{ details.phone }}</td>
+                </tr>
+                <tr>
+                    <td style="padding: 8px; border: 1px solid black;"><strong>College:</strong></td>
+                    <td style="padding: 8px; border: 1px solid black;">{{ details.college }}</td>
+                </tr>
+                <tr>
+                    <td style="padding: 8px; border: 1px solid black;"><strong>Total Cost:</strong></td>
+                    <td style="padding: 8px; border: 1px solid black;">₹{{ details.total_cost }}</td>
+                </tr>
+            </table>
+        </div>
+
+        <div style="margin-bottom: 20px;">
+            <h3 style="border-bottom: 2px solid black; padding-bottom: 5px;">Registered Events</h3>
+            {% for event in details.event_details %}
+            <div style="border: 1px solid black; margin-top: 10px; padding: 10px;">
+                <h4 style="margin: 0 0 10px 0; border-bottom: 1px solid black;">{{ event.event }}</h4>
+                <p style="margin: 5px 0;"><strong>Category:</strong> {{ event.category }}</p>
+                <p style="margin: 5px 0;"><strong>Type:</strong> {{ event.type|title }}</p>
+                <p style="margin: 5px 0;"><strong>Cost:</strong> ₹{{ event.cost }}</p>
+                {% if event.members %}
+                <p style="margin: 5px 0;"><strong>Team Members:</strong> {{ event.members|join(", ") }}</p>
+                {% endif %}
+                {% if event.participant %}
+                <p style="margin: 5px 0;"><strong>Participant:</strong> {{ event.participant }}</p>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+
+        <div style="margin-top: 20px; text-align: center;">
+            <div style="margin-top: 30px; border-top: 1px solid black; padding-top: 10px;">
+                <p style="font-size: 12px; color: #666;">Generated on: {{ details.registration_date|format_datetime }}</p>
+                <p style="font-size: 12px; color: #666;">YUKTI 2025 - Spot Registration ID: {{ ack_id }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Add html2pdf library and initialization script -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Wait for fonts to load
+    document.fonts.ready.then(function() {
+        const element = document.getElementById('pdf-template');
+        element.style.display = 'block';
+        
+        const opt = {
+            filename: `YUKTI2025_SpotRegistration_{{ ack_id }}.pdf`,
+            image: { type: 'jpeg', quality: 1 },
+            html2canvas: { 
+                scale: 2,
+                useCORS: true,
+                logging: true,
+                backgroundColor: '#FFFFFF'
+            },
+            jsPDF: { 
+                unit: 'mm',
+                format: 'a4',
+                orientation: 'portrait'
+            }
+        };
+
+        // Generate and download PDF automatically
+        html2pdf().set(opt).from(element).save().then(() => {
+            element.style.display = 'none';
+            console.log('PDF generated and downloaded successfully');
+        }).catch(err => {
+            console.error('PDF generation failed:', err);
+            element.style.display = 'none';
+        });
+    });
+});
+</script>
 
 {% endblock %}
