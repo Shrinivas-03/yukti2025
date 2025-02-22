@@ -1,914 +1,400 @@
 {% extends "base.html" %}
 
-{% block title %}Cultural Events - College Fest{% endblock %}
+{% block title %}Cultural Events - YUKTI 2025{% endblock %}
 
 {% block content %}
-    <section class="event-page mb-5">
-        <h1 class="text-center">Cultural Events</h1>
-        <p class="text-center">Celebrate art, music, dance, and creativity in our vibrant cultural showcase.</p>
-    </section>
-
-    <!-- Events Container -->
-    <div class="container py-5">
-        <!-- NINAAD -->
-        <div class="event-card-horizontal mb-5">
-            <div class="event-image">
-                <img src="{{ url_for('static', filename='assets/logos/NINAAD.webp') }}" alt="NINAAD">
-                <!-- Ensure that the file 'NINAAD.webp' exists in /d:/college yukti fest/yukti2025/static/assets -->
-            </div>
-            <div class="event-content">
-                <h3>NINAAD (Singing - Solo & Group)</h3>
-                <div class="event-description">
-                    <p>Unleash your vocal talent in this enchanting singing competition. Solo performances that celebrate both classical and contemporary music.</p>
-                    <div class="expanded-content">
-                        <strong>Solo Singing - Semiclassical/Retro 1970's - 1980's</strong>
-                        <p class="mb-3">TERMS AND CONDITIONS:</p>
-                        <ol>
-                            <li>Each performance has a 3-minute time limit.</li>
-                            <li>Participants will not be allowed to refer to lyrics while singing.</li>
-                            <li>The participant will be judged on the song selection, vocal clarity, rhythm, and audience appeal.</li>
-                            <li>Copy of lyrics should be sent to the coordinators well before the event.</li>
-                            <li>Karaoke and musical instruments are not allowed.</li>
-                            <li>The choice of song is open to the participants but the song should not have any slang or derogatory language.</li>
-                        </ol>
-                        <div>
-                            <br>
-                        </div>
-                        <strong>Pop or Rock (Rock out with your socks out)</strong>
-                        <p class="mb-3">TERMS AND CONDITIONS:</p>
-                        <ol>
-                            <li>A team should have a minimum of 4 maximum of 10 members.</li>
-                            <li>Time duration 15 mins (including set-up and clearance).</li>
-                            <li>The participant has to bring their musical gear.</li>
-                            <li>Instruments of all kinds are welcomed.</li>
-                        </ol>
-                        <div>
-                            <br>
-                        </div>
-                        <strong>Faculty Coordinators:</strong>
-                        <ul>
-                            <li>Dr. Swaroopa Shastri - Chairman</li>
-                            <li>Prof. Shilpa Joshi - Member</li>
-                            <li>Prof. Vijayalakshmi - Member</li>
-                        </ul>
-                        <div>
-                            <br>
-                        </div>
-                        <strong>Student Coordinators:</strong>
-                        <ul>
-                            <li>Mahalaxmi - 8747935698</li>
-                            <li>Bhagyashree S. K. - 6364077916</li>
-                            <li>Jyohi - 9148696704</li>
-                            <li>Sneha - 9108148184</li>
-                            <li>Bhagyashree - 8431180672</li>
-                        </ul>
-                    </div>
-                </div>
-                
-                <button class="btn-read-more" onclick="toggleDescription(this)">
-                    <span></span><span></span><span></span><span></span>
-                    Read More
-                </button>
-                
-                <ul class="event-details">
-                    <li><i class="bi bi-people-fill"></i> Solo or Group (4-10 members)</li>
-                    <li><i class="bi bi-cash"></i> Registration Fee: ₹200/solo, ₹600/group</li>
-                    <li><i class="bi bi-trophy-fill"></i> Prizes Worth: ₹10,000</li>
-                </ul>
-
-                <div class="button-container">
-                    <a href="{{ url_for('signin') }}" class="btn btn-register">
-                        <span></span><span></span><span></span><span></span>
-                        Register Now
-                    </a>
-                </div>
-            </div>
-        </div>
-
-        <!-- NRITYA SAADHANA -->
-        <div class="event-card-horizontal mb-5">
-            <div class="event-image">
-                <img src="{{ url_for('static', filename='assets/logos/Nritya.webp') }}" alt="Nritya Saadhana">
-                <!-- Verify image exists in the static/assets folder -->
-            </div>
-            <div class="event-content">
-                <h3>NRITYA SAADHANA (Dance - Solo & Group)</h3>
-                <div class="event-description">
-                    <p>Express yourself through dance in this dynamic performance competition showcasing both solo and group talents.</p>
-                    <div class="expanded-content">
-                        <strong>RULES & REGULATIONS:</strong>
-                        <ol>
-                            <li>The time limit is 4-10 mins for each performance.</li>
-                            <li>Solo/Group performances both are allowed.</li>
-                            <li>Group Dance can have 4-8 members.</li>
-                            <li>The participants are requested to bring a USB with uploaded Music/song. Each File must be clearly labeled.</li>
-                            <li>No props/costumes will be provided by the coordinator.</li>
-                            <li>A green room would be provided for changing purposes.</li>
-                            <li>Dance performance should not convey any indecent gesture.</li>
-                            <li>The judge's decision will be fair and final.</li>
-                            <li>The dance should not end with negative emotions.</li>
-                        </ol>
-                        <div>
-                            <br>
-                        </div>
-                        <strong>Faculty Coordinators:</strong>
-                        <ul>
-                            <li>Dr. Shailaja Kheni - Chairman</li>
-                            <li>Dr. Savita S. G. - Member</li>
-                            <li>Prof. Neha Deshmukh - Member</li>
-                            <li>Prof. Ashwini Sangam - Member</li>
-                        </ul>
-                        <div>
-                            <br>
-                        </div>
-                        <strong>Student Coordinators:</strong>
-                        <ul>
-                            <li>Bhavaneshwari - 8050512133</li>
-                            <li>Madhavi - 8971185007</li>
-                            <li>Pallavi - 9036028660</li>
-                            <li>Bharath - 9148392676</li>
-                        </ul>
-                    </div>
-                </div>
-                
-                <button class="btn-read-more" onclick="toggleDescription(this)">
-                    <span></span><span></span><span></span><span></span>
-                    Read More
-                </button>
-                
-                <ul class="event-details">
-                    <li><i class="bi bi-people-fill"></i> Solo or Group (4-8 members)</li>
-                    <li><i class="bi bi-cash"></i> Registration Fee: ₹200/solo, ₹500/group</li>
-                    <li><i class="bi bi-trophy-fill"></i> Prizes Worth: ₹15,000</li>
-                </ul>
-
-                <div class="button-container">
-                    <a href="{{ url_for('signin') }}" class="btn btn-register">
-                        <span></span><span></span><span></span><span></span>
-                        Register Now
-                    </a>
-                </div>
-            </div>
-        </div>
-
-      
-
-        <!-- Navyataa -->
-        <div class="event-card-horizontal mb-5">
-            <div class="event-image">
-                <img src="{{ url_for('static', filename='assets/logos/Ramp_Walk.webp') }}" alt="Navyataa">
-                <!-- Verify image file 'Ramp_Walk.webp' is present in /d:/college yukti fest/yukti2025/static/assets -->
-            </div>
-            <div class="event-content">
-                <h3>NAVYATAA (Ramp Walk)</h3>
-                <div class="event-description">
-                    <p>Showcase your style and confidence on the runway. A fashion event that celebrates creativity, elegance, and personality.</p>
-                    <div class="expanded-content">
-                        <strong>RULES AND REGULATIONS:</strong>
-                        <ol>
-                            <li>The theme for the event will be: Be Bold For Change.</li>
-                            <li>Single, Pair, and Group ramp walks are allowed.</li>
-                            <li>Vulgarity is strongly prohibited. Any form of obscenity will lead to debarring the team from the contest.</li>
-                            <li>Ramp walk will be judged on costumes, theme, walking stance, attitude, and tagline.</li>
-                            <li>Each group should have one tagline representing their group and the theme (Be Bold For Change).</li>
-                            <li>The decision of the judges will be final and binding.</li>
-                            <li>All costumes are permitted, which should maintain decency.</li>
-                            <li>Green Room will be provided for changing purposes.</li>
-                            <li>Participants should carry their costumes.</li>
-                        </ol>
-                        <div>
-                            <br>
-                        </div>
-                        <strong>Faculty Coordinators:</strong>
-                        <ul>
-                            <li>Dr. Rekha N. Patil - Chairman</li>
-                            <li>Prof. Neha Deshmukh - Member</li>
-                            <li>Prof. Unnati Ukanal - Member</li>
-                            <li>Prof. Pooja Marab - Member</li>
-                        </ul>
-                        <div>
-                            <br>
-                        </div>
-                        <strong>Student Coordinators:</strong>
-                        <ul>
-                            <li>Anjali S. - 6361073516</li>
-                            <li>Amar</li>
-                            <li>Bhavani - 9731511019</li>
-                            <li>Ankita - 9972551106</li>
-                            <li>Tayaba - 9019193765</li>
-                        </ul>
-                    </div>
-                </div>
-                
-                <button class="btn-read-more" onclick="toggleDescription(this)">
-                    <span></span><span></span><span></span><span></span>
-                    Read More
-                </button>
-                
-                <ul class="event-details">
-                    <li><i class="bi bi-people-fill"></i> Individual/Pair/Group</li>
-                    <li><i class="bi bi-cash"></i> Registration Fee: ₹300/participant</li>
-                    <li><i class="bi bi-trophy-fill"></i> Prizes Worth: ₹12,000</li>
-                </ul>
-
-                <div class="button-container">
-                    <a href="{{ url_for('signin') }}" class="btn btn-register">
-                        <span></span><span></span><span></span><span></span>
-                        Register Now
-                    </a>
-                </div>
-            </div>
-        </div>
-
-        <style>
-            /* Copy exact styles from cultural.html */
-            .event-page {
-                background: linear-gradient(135deg, #1C1C1C 0%, #2d1f1f 100%);
-                position: relative;
-                padding: 6rem 0 4rem;
-                overflow: hidden;
-            }
-
-            .event-page::before {
-                content: '';
-                position: absolute;
-                top: 0;
-                left: 0;
-                right: 0;
-                bottom: 0;
-                background: 
-                    linear-gradient(90deg, transparent 50%, rgba(255, 215, 0, 0.05) 100%),
-                    radial-gradient(circle at 50% 50%, rgba(255, 215, 0, 0.1) 0%, transparent 50%);
-                animation: shimmer 10s infinite linear;
-            }
-
-            .event-page h1 {
-                font-size: 4.5rem;
-                background: linear-gradient(45deg, #FFD700, #ff6b00, #FFD700);
-                -webkit-background-clip: text;
-                background-clip: text;
-                color: transparent;
-                margin-bottom: 1.5rem;
-                font-family: 'Orbitron', sans-serif;
-                text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
-            }
-
-            /* Card and container styles */
-            .event-card-horizontal {
-                display: flex;
-                flex-direction: column;
-                background: rgba(18, 18, 18, 0.95);
-                border: 2px solid #58f7f7;
-                border-radius: 15px;
-                overflow: hidden;
-                backdrop-filter: blur(10px);
-                box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-                transition: transform 0.3s ease, box-shadow 0.3s ease;
-                max-width: 800px; /* Reduced from 1000px for better readability */
-                margin: 2rem auto;
-            }
-
-            .event-card-horizontal .event-image {
-                width: 100%;
-                height: 25px; /* Reduced height */
-                position: relative;
-                overflow: hidden;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                background: #121212;
-            }
-
-            .event-card-horizontal .event-image img {
-                width: 25%;
-                height: 25%;
-                margin-top: 12px;
-                object-fit: cover; /* Maintain aspect ratio */
-                object-position: center; /* Center the image */
-                transition: transform 0.5s ease, filter 0.3s ease;
-            }
-
-            .event-card-horizontal:hover .event-image img {
-                transform: scale(1.05);
-                filter: brightness(1.1);
-            }
-
-            .event-card-horizontal .event-image::after {
-                content: '';
-                position: absolute;
-                bottom: 0;
-                left: 0;
-                width: 100%;
-                height: 50%;
-                background: linear-gradient(to bottom, 
-                                  rgba(18, 18, 18, 0) 0%,
-                                  rgba(18, 18, 18, 0.95) 100%);
-                pointer-events: none;
-            }
-
-            .event-card-horizontal .event-content {
-                padding: 1.5rem;
-                background: linear-gradient(180deg, rgba(18, 18, 18, 0.95) 0%, rgba(18, 18, 18, 1) 100%);
-            }
-
-            .event-card-horizontal h3 {
-                font-size: 2rem;
-                margin-bottom: 1rem;
-                background: linear-gradient(45deg, #ff4500, #ff8c00);
-                -webkit-background-clip: text;
-                background-clip: text;
-                color: transparent;
-                text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-            }
-
-            .event-card-horizontal .event-description p {
-                font-size: 1.1rem;
-                line-height: 1.6;
-                color: #e0e0e0;
-                margin-bottom: 1.5rem;
-            }
-
-            .event-details {
-                background: rgba(0, 0, 0, 0.2);
-                padding: 1.5rem;
-                border-radius: 10px;
-                margin: 1.5rem 0;
-            }
-
-            .event-details li {
-                margin-bottom: 0.8rem;
-                font-size: 1rem;
-                display: flex;
-                align-items: center;
-                gap: 10px;
-            }
-
-            .event-details li i {
-                color: #58f7f7;
-                font-size: 1.2rem;
-            }
-
-            /* Enhanced Button Container */
-            .button-container {
-                display: flex;
-                gap: 1rem;
-                margin-top: 2rem;
-                justify-content: center;
-            }
-
-            /* Responsive adjustments */
-            @media (max-width: 768px) {
-                .event-card-horizontal {
-                    margin: 1.5rem 1rem;
-                }
-
-                .event-card-horizontal .event-image {
-                    height: 180px; /* Even smaller on mobile */
-                }
-
-                .event-card-horizontal h3 {
-                    font-size: 1.5rem;
-                }
-
-                .event-card-horizontal .event-content {
-                    padding: 1.5rem;
-                }
-            }
-
-            @media (max-width: 480px) {
-                .event-card-horizontal .event-image {
-                    height: 160px; /* Smallest size for mobile */
-                }
-            }
-
-            .event-content {
-                padding: 1.5rem;
-            }
-
-            .event-details {
-                margin-top: 1rem;
-                font-size: 1rem;
-            }
-
-            /* Button styles */
-            .button-container {
-                display: flex;
-                gap: 1.5rem;
-                margin-top: 2rem;
-                justify-content: center;
-            }
-
-            .btn-read-more, .btn-register {
-                padding: 1rem 2.5rem;
-                font-size: 1rem;
-                font-weight: 600;
-                letter-spacing: 2px;
-                border-radius: 8px;
-                position: relative;
-                overflow: hidden;
-                z-index: 1;
-                transition: all 0.4s ease;
-            }
-
-            .btn-read-more {
-                background: transparent;
-                color: #ff4500;
-                border: 2px solid #03e9f4;
-                cursor: pointer;
-            }
-
-            .btn-register {
-                background: transparent;
-                color: #ff4500;
-                border: none;
-            }
-
-            .btn-read-more:hover, .btn-register:hover {
-                transform: translateY(-1px);
-                box-shadow: 0 5px 15px rgba(255, 215, 0, 0.3);
-            }
-
-            /* Expanded content styles */
-            .expanded-content {
-                display: none;
-                opacity: 0;
-                transition: opacity 0.3s ease;
-                padding: 50px;
-                background: rgba(45, 49, 56, 0.8);
-                border-radius: 8px;
-                margin-top: 1rem;
-            }
-
-            .expanded-content.active {
-                display: block;
-                opacity: 1;
-            }
-
-            /* Animations */
-            @keyframes shimmer {
-                0% { background-position: -1000px 0; }
-                100% { background-position: 1000px 0; }
-            }
-
-            /* Responsive styles */
-            @media (max-width: 768px) {
-                .event-page h1 { font-size: 2.5rem; }
-                .event-content h3 { font-size: 1.8rem; }
-                .button-container { flex-direction: column; }
-            }
-
-            /* Content Card Styles */
-            .content-card {
-                background: rgba(46, 46, 46, 0.8);
-                border: 2px solid #ff6600;  /* Orange border */
-                border-radius: 15px;
-                padding: 2rem;
-                margin: 1.5rem 0;
-                transition: all 0.3s ease;
-                box-shadow: 0 8px 15px rgba(0, 0, 0, 0.4);
-            }
-
-            .content-card:hover {
-                transform: translateY(-5px);
-                border-color: #03e9f4;  /* Blue border on hover */
-                box-shadow: 0 15px 30px rgba(3, 233, 244, 0.4);
-            }
-
-            .content-card h3 {
-                color: #ff6600;  /* Orange heading */
-                font-size: 1.5rem;
-                margin-bottom: 1rem;
-            }
-
-            .content-card p {
-                color: #e0e0e0;
-                line-height: 1.6;
-                margin-bottom: 1rem;
-            }
-
-            .content-card ul {
-                list-style: none;
-                padding: 0;
-            }
-
-            .content-card li {
-                color: #e0e0e0;
-                padding: 0.5rem 0;
-                border-bottom: 1px solid rgba(255, 102, 0, 0.2);
-            }
-
-            .content-card li:last-child {
-                border-bottom: none;
-            }
-
-            .content-card .highlight {
-                color: #03e9f4;  /* Blue highlight text */
-                font-weight: bold;
-            }
-
-            /* Rules Section */
-            .rules-section {
-                background: rgba(32, 34, 39, 0.95);
-                border: 2px solid #ff6600;
-                border-radius: 15px;
-                padding: 1.5rem;
-                margin-top: 1rem;
-                transition: all 0.3s ease;
-            }
-
-            .rules-section:hover {
-                border-color: #03e9f4;
-                box-shadow: 0 15px 30px rgba(3, 233, 244, 0.4);
-            }
-
-            .rules-section h4 {
-                color: #ff6600;
-                margin-bottom: 1rem;
-            }
-
-            /* Section Containers */
-            .section-container {
-                background: rgba(32, 34, 39, 0.95);
-                border: 2px solid #ff6600;  /* Orange border */
-                border-radius: 15px;
-                padding: 2rem;
-                margin: 1.5rem 0;
-                transition: all 0.3s ease;
-            }
-
-            .section-container:hover {
-                border-color: #03e9f4;  /* Blue border on hover */
-                box-shadow: 0 15px 30px rgba(3, 233, 244, 0.4);
-                transform: translateY(-5px);
-            }
-
-            /* Section Headers */
-            .section-header {
-                color: #ff6600;  /* Orange text */
-                font-size: 1.5rem;
-                font-weight: bold;
-                margin-bottom: 1rem;
-                padding-bottom: 0.5rem;
-                border-bottom: 2px solid #ff6600;
-            }
-
-            /* Lists within sections */
-            .section-list {
-                list-style: none;
-                padding: 0;
-                margin: 0;
-            }
-
-            .section-list li {
-                color: #e0e0e0;
-                padding: 0.8rem;
-                margin: 0.5rem 0;
-                background: rgba(46, 46, 46, 0.7);
-                border-radius: 8px;
-                border-left: 3px solid #ff6600;
-                transition: all 0.3s ease;
-            }
-
-            .section-list li:hover {
-                border-left-color: #03e9f4;
-                background: rgba(46, 46, 46, 0.9);
-                transform: translateX(5px);
-            }
-
-            /* Coordinator Sections */
-            .coordinators-grid {
-                display: grid;
-                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-                gap: 1rem;
-                margin-top: 1rem;
-            }
-
-            .coordinator-card {
-                background: rgba(46, 46, 46, 0.8);
-                padding: 1rem;
-                border-radius: 10px;
-                border: 1px solid #ff6600;
-                transition: all 0.3s ease;
-            }
-
-            .coordinator-card:hover {
-                border-color: #03e9f4;
-                transform: translateY(-3px);
-                box-shadow: 0 5px 15px rgba(3, 233, 244, 0.3);
-            }
-
-            .coordinator-name {
-                color: #ff6600;
-                font-weight: bold;
-                margin-bottom: 0.5rem;
-            }
-
-            .coordinator-role {
-                color: #03e9f4;
-                font-size: 0.9rem;
-            }
-
-            /* Contact info */
-            .contact-info {
-                color: #e0e0e0;
-                font-size: 0.9rem;
-                margin-top: 0.5rem;
-            }
-
-            /* Combined Card Container */
-            .mega-card {
-                background: rgba(32, 34, 39, 0.95);
-                border: 2px solid #ff6600;
-                border-radius: 15px;
-                padding: 2.5rem;
-                margin: 2rem auto;
-                max-width: 1200px;
-                transition: all 0.3s ease;
-            }
-
-            .mega-card:hover {
-                border-color: #03e9f4;
-                box-shadow: 0 15px 30px rgba(3, 233, 244, 0.4);
-                transform: translateY(-5px);
-            }
-
-            /* Section Divider */
-            .section-divider {
-                height: 1px;
-                background: linear-gradient(to right, transparent, #ff6600, transparent);
-                margin: 2rem 0;
-                opacity: 0.5;
-            }
-
-            /* Updated Content Layout */
-            .content-wrapper {
-                display: grid;
-                grid-gap: 2rem;
-            }
-
-            /* Existing section-container updates */
-            .section-container {
-                background: rgba(46, 46, 46, 0.8);
-                border: 2px solid #ff6600;
-                margin-bottom: 1.5rem;
-            }
-
-            /* Make coordinators grid more compact */
-            .coordinators-grid {
-                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-                gap: 1rem;
-            }
-
-            /* Responsive adjustments */
-            @media (max-width: 768px) {
-                .mega-card {
-                    padding: 1.5rem;
-                    margin: 1rem;
-                }
-            }
-
-            /* Event Details Container */
-            .event-details-container {
-                background: rgba(32, 34, 39, 0.95);
-                border: 2px solid #ff6600;
-                border-radius: 15px;
-                padding: 2.5rem;
-                margin: 1.5rem auto;
-                transition: all 0.3s ease;
-            }
-
-            .event-details-container:hover {
-                border-color: #03e9f4;
-                box-shadow: 0 15px 30px rgba(3, 233, 244, 0.4);
-                transform: translateY(-5px);
-            }
-
-            /* Content Divider */
-            .content-divider {
-                height: 1px;
-                background: linear-gradient(to right, transparent, #ff6600, transparent);
-                margin: 2rem 0;
-                opacity: 0.5;
-            }
-
-            /* Section Styles */
-            .details-section {
-                background: rgba(46, 46, 46, 0.8);
-                border-left: 3px solid #ff6600;
-                padding: 1.5rem;
-                margin-bottom: 1.5rem;
-                border-radius: 0 10px 10px 0;
-                transition: all 0.3s ease;
-            }
-
-            .details-section:hover {
-                border-left-color: #03e9f4;
-                background: rgba(46, 46, 46, 0.9);
-                transform: translateX(5px);
-            }
-
-            .section-title {
-                color: #ff6600;
-                font-size: 1.3rem;
-                margin-bottom: 1rem;
-                padding-bottom: 0.5rem;
-                border-bottom: 1px solid rgba(255, 102, 0, 0.3);
-            }
-
-            /* Device Compatibility Improvements */
+<!-- Event Page Header -->
+<div class="h-0.5 bg-[#CD7F32]"></div>
+<section class="relative py-24 bg-gradient-to-br from-[#1C1C1C] to-[#2d1f1f] overflow-hidden">
+    <!-- Background Overlay -->
+    <div class="absolute inset-0 bg-[linear-gradient(90deg,transparent_50%,rgba(255,215,0,0.05)_100%),radial-gradient(circle_at_50%_50%,rgba(255,215,0,0.1)_0%,transparent_50%)] animate-[shimmer_10s_infinite_linear]"></div>
     
-            /* Better touch interactions */
-            @media (hover: none) {
-                .btn-read-more {
-                    padding: 0.8rem 1.2rem; /* Larger touch target */
-                    min-height: 44px; /* iOS minimum touch target */
-                    font-size: 1rem;
-                    margin: 0.5rem 0;
-                }
+    <!-- Header Content -->
+    <h1 class="relative z-10 text-center mb-6 font-['Orbitron'] text-transparent bg-clip-text bg-gradient-to-r from-[#FFD700] via-[#ff6b00] to-[#FFD700] text-4xl sm:text-5xl md:text-[4.5rem] drop-shadow-[2px_2px_8px_rgba(0,0,0,0.5)]">
+        Cultural Events
+    </h1>
+</section>
 
-                .event-card-horizontal {
-                    touch-action: pan-y; /* Enable vertical scrolling */
-                }
-
-                .gallery-grid {
-                    touch-action: pan-x pan-y; /* Enable both direction scrolling */
-                }
-            }
-
-            /* Small mobile devices */
-            @media screen and (max-width: 320px) {
-                .btn-read-more {
-                    padding: 0.6rem 1rem;
-                    font-size: 0.9rem;
-                    width: 100%; /* Full width on very small screens */
-                }
-
-                .event-card-horizontal {
-                    margin: 1rem 0;
-                }
-
-                .event-description p {
-                    font-size: 0.9rem;
-                }
-            }
-
-            /* Medium mobile devices */
-            @media screen and (min-width: 321px) and (max-width: 480px) {
-                .btn-read-more {
-                    padding: 0.7rem 1.2rem;
-                    font-size: 0.95rem;
-                }
-            }
-
-            /* Tablets */
-            @media screen and (min-width: 481px) and (max-width: 768px) {
-                .btn-read-more {
-                    padding: 0.8rem 1.5rem;
-                    font-size: 1rem;
-                }
-            }
-
-            /* High DPI Screens */
-            @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
-                .event-card-horizontal {
-                    border-width: 0.5px; /* Thinner borders for retina displays */
-                }
-            }
-
-            /* Dark mode support */
-            @media (prefers-color-scheme: dark) {
-                .btn-read-more {
-                    background: rgba(255, 102, 0, 0.1);
-                }
-            }
-
-            /* Reduce motion */
-            @media (prefers-reduced-motion: reduce) {
-                .btn-read-more {
-                    transition: none;
-                }
-                
-                .btn-read-more:hover {
-                    transform: none;
-                }
-            }
-
-            /* Print optimization */
-            @media print {
-                .btn-read-more {
-                    display: none; /* Hide interactive elements when printing */
-                }
-            }
-
-            /* Landscape mode optimization */
-            @media screen and (orientation: landscape) and (max-height: 500px) {
-                .btn-read-more {
-                    padding: 0.5rem 1rem;
-                    margin: 0.3rem 0;
-                }
-            }
-
-            /* Ensure accessibility */
-            .btn-read-more:focus {
-                outline: 2px solid #ff6600;
-                outline-offset: 2px;
-            }
-
-            .btn-read-more:focus:not(:focus-visible) {
-                outline: none;
-            }
-        </style>
-
-        <script>
-            function toggleDescription(button) {
-                // Store the current scroll position
-                const currentScroll = window.scrollY;
-                
-                const eventCard = button.closest('.event-card-horizontal');
-                const expandedContent = eventCard.querySelector('.expanded-content');
-                
-                if (expandedContent.style.display === 'none' || !expandedContent.style.display) {
-                    // Save the scroll position before expanding
-                    expandedContent.dataset.scrollPos = currentScroll;
-                    
-                    expandedContent.style.display = 'block';
-                    setTimeout(() => {
-                        expandedContent.style.opacity = '1';
-                        button.innerHTML = `<span></span><span></span><span></span><span></span> Show Less`;
-                    }, 10);
-                } else {
-                    expandedContent.style.opacity = '0';
-                    setTimeout(() => {
-                        expandedContent.style.display = 'none';
-                        button.innerHTML = `<span></span><span></span><span></span><span></span> Read More`;
-                        
-                        // Restore the scroll position
-                        if (expandedContent.dataset.scrollPos) {
-                            window.scrollTo({
-                                top: expandedContent.dataset.scrollPos,
-                                behavior: 'auto'
-                            });
-                        }
-                    }, 300);
-                }
-                
-                // Prevent default button behavior
-                return false;
-            }
-
-            // Initialize all expanded content sections to be hidden on page load
-            document.addEventListener('DOMContentLoaded', function() {
-                document.querySelectorAll('.expanded-content').forEach(content => {
-                    content.style.display = 'none';
-                    content.style.opacity = '0';
-                });
-            });
-
-            // Improve touch response
-            document.addEventListener('touchstart', function() {}, {passive: true});
+<div class="container mx-auto py-12 px-4 text-center">
+    <!-- NRITYA - SAADHANA Card -->
+    <div class="max-w-3xl mx-auto mb-12 bg-[rgba(18,18,18,0.95)] border-2 border-[#58f7f7] rounded-xl overflow-hidden
+                backdrop-blur-md shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] 
+                transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_15px_30px_rgba(3,233,244,0.4)]">
         
-            // Handle button touches
-            const readMoreButtons = document.querySelectorAll('.btn-read-more');
-            readMoreButtons.forEach(button => {
-                button.addEventListener('touchend', function(e) {
-                    e.preventDefault();
-                    this.click();
-                }, {passive: false});
-            });
-        </script>
+        <!-- Event Image -->
+        <div class="relative h-32 bg-[#121212] flex justify-center items-center">
+            <img src="{{ url_for('static', filename='assets/logos/Nritya.webp') }}" 
+                 alt="Dance Event"
+                 class="w-32 h-32 object-contain transition-all duration-500 hover:scale-105 hover:brightness-110">
+            <div class="absolute bottom-0 left-0 w-full h-1/2 bg-gradient-to-b from-transparent to-[rgba(18,18,18,0.95)]"></div>
+        </div>
 
+        <!-- Event Content -->
+        <div class="p-6 bg-gradient-to-b from-[rgba(18,18,18,0.95)] to-[rgba(18,18,18,1)]">
+            <h3 class="text-2xl mb-4 text-transparent bg-clip-text bg-gradient-to-r from-[#ff4500] to-[#ff8c00] 
+                       drop-shadow-[2px_2px_4px_rgba(0,0,0,0.3)] text-center">
+                NRITYA - SAADHANA<br>
+                <span class="text-lg text-[#03e9f4]">(Dance- Solo & Group)</span>
+            </h3>
+            
+            <!-- Event Description -->
+            <div class="event-description text-center">
+                <p class="text-lg text-[#e0e0e0] leading-relaxed mb-6 mx-auto">
+                    Express yourself through dance and showcase your talent in solo or group performances.
+                </p>
+                
+                <!-- Expanded Content -->
+                <div class="hidden opacity-0 transition-opacity duration-300 p-8 bg-[rgba(45,49,56,0.8)] rounded-lg mt-4 text-left space-y-6">
+                    <!-- Rules and Regulations -->
+                    <div class="bg-[rgba(32,34,39,0.95)] p-4 rounded-lg border-l-4 border-[#ff6600] hover:border-[#03e9f4] transition-all duration-300">
+                        <h4 class="text-[#ff6600] text-lg font-bold mb-3">Rules & Regulations:</h4>
+                        <ol class="list-decimal list-inside text-[#e0e0e0] space-y-2 ml-4">
+                            <li>The time limit is 4-10 mins for each performance</li>
+                            <li>Solo/Group performances both are allowed</li>
+                            <li>Group Dance can have 4-8 members</li>
+                            <li>The participants are requested to bring a USB with uploaded Music/song. Each File must be clearly labeled</li>
+                            <li>No props/costumes will be provided by the coordinator</li>
+                            <li>A green room would be provided for changing purposes</li>
+                            <li>Dance performance should not convey any indecent gesture</li>
+                            <li>The judge's decision will be fair and final</li>
+                            <li>The dance should not end with negative emotions</li>
+                        </ol>
+                    </div>
+
+                    <!-- Coordinators -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="bg-[rgba(32,34,39,0.95)] p-4 rounded-lg border-l-4 border-[#03e9f4] hover:border-[#ff6600] transition-all duration-300">
+                            <h4 class="text-[#03e9f4] text-lg font-bold mb-3">Faculty Coordinators:</h4>
+                            <ul class="text-[#e0e0e0] space-y-2 ml-4">
+                                <li>Dr. Shailaja Kheni - Chairman</li>
+                                <li>Dr. Savita S. G. Member</li>
+                                <li>Prof. Neha Deshmukh - Member</li>
+                                <li>Prof. Ashwini Sangam - Member</li>
+                            </ul>
+                        </div>
+
+                        <div class="bg-[rgba(32,34,39,0.95)] p-4 rounded-lg border-l-4 border-[#03e9f4] hover:border-[#ff6600] transition-all duration-300">
+                            <h4 class="text-[#03e9f4] text-lg font-bold mb-3">Student Coordinators:</h4>
+                            <ul class="text-[#e0e0e0] space-y-2 ml-4">
+                                <li>Bhavaneshwari - 8050512133</li>
+                                <li>Madhavi - 8971185007</li>
+                                <li>Pallavi - 9036028660</li>
+                                <li>Bharath - 9148392676</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Buttons -->
+            <div class="flex flex-col items-center gap-4 mt-8">
+                <button onclick="toggleDescription(this)"
+                        class="px-10 py-3 text-base font-semibold tracking-wider rounded-lg bg-transparent text-[#ff4500] 
+                               border-2 border-[#03e9f4] transition-all duration-400 hover:-translate-y-1 
+                               hover:shadow-[0_5px_15px_rgba(255,215,0,0.3)] mx-auto">
+                    Read More
+                </button>
+                
+                <a href="{{ url_for('signin') }}" 
+                   class="px-10 py-3 bg-[#03e9f4] text-[#1C1C1C] rounded-lg font-bold uppercase
+                          transition-all duration-300 hover:bg-transparent hover:text-[#03e9f4] 
+                          hover:border-2 hover:border-[#03e9f4] mx-auto">
+                    Register Now
+                </a>
+            </div>
+
+            <!-- Event Details -->
+            <ul class="mt-6 p-6 bg-black/20 rounded-lg space-y-3 text-center">
+                <li class="flex items-center justify-center gap-3 text-base text-[#e0e0e0]">
+                    <i class="bi bi-people-fill text-[#58f7f7]"></i>
+                    Solo/Group Event (4-8 members)
+                </li>
+                <li class="flex items-center justify-center gap-3 text-base text-[#e0e0e0]">
+                    <i class="bi bi-cash text-[#58f7f7]"></i>
+                    Registration Fee: ₹300/Solo, ₹800/Group
+                </li>
+                <li class="flex items-center justify-center gap-3 text-base text-[#e0e0e0]">
+                    <i class="bi bi-trophy-fill text-[#58f7f7]"></i>
+                    Prizes Worth: ₹15,000
+                </li>
+            </ul>
+        </div>
     </div>
 
-   
+    <!-- NINAAD Card -->
+    <div class="max-w-3xl mx-auto mb-12 bg-[rgba(18,18,18,0.95)] border-2 border-[#58f7f7] rounded-xl overflow-hidden
+                backdrop-blur-md shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] 
+                transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_15px_30px_rgba(3,233,244,0.4)]">
+        
+        <!-- Event Image -->
+        <div class="relative h-32 bg-[#121212] flex justify-center items-center">
+            <img src="{{ url_for('static', filename='assets/logos/NiNAAD.webp') }}" 
+                 alt="Singing Event"
+                 class="w-32 h-32 object-contain transition-all duration-500 hover:scale-105 hover:brightness-110">
+            <div class="absolute bottom-0 left-0 w-full h-1/2 bg-gradient-to-b from-transparent to-[rgba(18,18,18,0.95)]"></div>
+        </div>
+
+        <!-- Event Content -->
+        <div class="p-6 bg-gradient-to-b from-[rgba(18,18,18,0.95)] to-[rgba(18,18,18,1)]">
+            <h3 class="text-2xl mb-4 text-transparent bg-clip-text bg-gradient-to-r from-[#ff4500] to-[#ff8c00] 
+                       drop-shadow-[2px_2px_4px_rgba(0,0,0,0.3)] text-center">
+                NINAAD<br>
+                <span class="text-lg text-[#03e9f4]">(Singing - Solo & Group)</span>
+            </h3>
+            
+            <!-- Event Description -->
+            <div class="event-description text-center">
+                <p class="text-lg text-[#e0e0e0] leading-relaxed mb-6 mx-auto">
+                    Find the voice within! Showcase your vocal talents in solo or group performances.
+                </p>
+                
+                <!-- Expanded Content -->
+                <div class="hidden opacity-0 transition-opacity duration-300 p-8 bg-[rgba(45,49,56,0.8)] rounded-lg mt-4 text-left space-y-6">
+                    <!-- Solo Singing Rules -->
+                    <div class="bg-[rgba(32,34,39,0.95)] p-4 rounded-lg border-l-4 border-[#ff6600] hover:border-[#03e9f4] transition-all duration-300">
+                        <h4 class="text-[#ff6600] text-lg font-bold mb-3">Solo Singing (Semiclassical/Retro 1970's - 1980's):</h4>
+                        <ol class="list-decimal list-inside text-[#e0e0e0] space-y-2 ml-4">
+                            <li>Each performance has a 3-minute time limit</li>
+                            <li>Participants will not be allowed to refer to lyrics while singing</li>
+                            <li>The participant will be judged on the song selection, vocal clarity, rhythm, and audience appeal</li>
+                            <li>Copy of lyrics should be sent to the coordinators well before the event</li>
+                            <li>Karaoke and musical instruments are not allowed</li>
+                            <li>The choice of song is open to the participants but the song should not have any slang or derogatory language</li>
+                        </ol>
+                    </div>
+
+                    <!-- Group Singing Rules -->
+                    <div class="bg-[rgba(32,34,39,0.95)] p-4 rounded-lg border-l-4 border-[#ff6600] hover:border-[#03e9f4] transition-all duration-300">
+                        <h4 class="text-[#ff6600] text-lg font-bold mb-3">Pop or Rock (Rock out with your socks out):</h4>
+                        <ol class="list-decimal list-inside text-[#e0e0e0] space-y-2 ml-4">
+                            <li>A team should have a minimum of 4 maximum of 10 members</li>
+                            <li>Time duration 15 mins (including set-up and clearance)</li>
+                            <li>The participant has to bring their musical gear</li>
+                            <li>Instruments of all kinds are welcomed</li>
+                        </ol>
+                    </div>
+
+                    <!-- Coordinators -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="bg-[rgba(32,34,39,0.95)] p-4 rounded-lg border-l-4 border-[#03e9f4] hover:border-[#ff6600] transition-all duration-300">
+                            <h4 class="text-[#03e9f4] text-lg font-bold mb-3">Faculty Coordinators:</h4>
+                            <ul class="text-[#e0e0e0] space-y-2 ml-4">
+                                <li>Dr. Swaroopa Shastri - Chairman</li>
+                                <li>Prof. Shilpa Joshi - Member</li>
+                                <li>Prof. Vijayalakshmi - Member</li>
+                            </ul>
+                        </div>
+
+                        <div class="bg-[rgba(32,34,39,0.95)] p-4 rounded-lg border-l-4 border-[#03e9f4] hover:border-[#ff6600] transition-all duration-300">
+                            <h4 class="text-[#03e9f4] text-lg font-bold mb-3">Student Coordinators:</h4>
+                            <ul class="text-[#e0e0e0] space-y-2 ml-4">
+                                <li>Mahalaxmi - 8747935698</li>
+                                <li>Bhagyashree S. K. - 6364077916</li>
+                                <li>Jyohi - 9148696704</li>
+                                <li>Sneha - 9108148184</li>
+                                <li>Bhagyashree - 8431180672</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Buttons -->
+            <div class="flex flex-col items-center gap-4 mt-8">
+                <button onclick="toggleDescription(this)"
+                        class="px-10 py-3 text-base font-semibold tracking-wider rounded-lg bg-transparent text-[#ff4500] 
+                               border-2 border-[#03e9f4] transition-all duration-400 hover:-translate-y-1 
+                               hover:shadow-[0_5px_15px_rgba(255,215,0,0.3)] mx-auto">
+                    Read More
+                </button>
+                
+                <a href="{{ url_for('signin') }}" 
+                   class="px-10 py-3 bg-[#03e9f4] text-[#1C1C1C] rounded-lg font-bold uppercase
+                          transition-all duration-300 hover:bg-transparent hover:text-[#03e9f4] 
+                          hover:border-2 hover:border-[#03e9f4] mx-auto">
+                    Register Now
+                </a>
+            </div>
+
+            <!-- Event Details -->
+            <ul class="mt-6 p-6 bg-black/20 rounded-lg space-y-3 text-center">
+                <li class="flex items-center justify-center gap-3 text-base text-[#e0e0e0]">
+                    <i class="bi bi-people-fill text-[#58f7f7]"></i>
+                    Solo & Group Event (4-10 members)
+                </li>
+                <li class="flex items-center justify-center gap-3 text-base text-[#e0e0e0]">
+                    <i class="bi bi-cash text-[#58f7f7]"></i>
+                    Registration Fee: ₹300/Solo, ₹1000/Group
+                </li>
+                <li class="flex items-center justify-center gap-3 text-base text-[#e0e0e0]">
+                    <i class="bi bi-trophy-fill text-[#58f7f7]"></i>
+                    Prizes Worth: ₹12,000
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- NAVYATAA Card -->
+    <div class="max-w-3xl mx-auto mb-12 bg-[rgba(18,18,18,0.95)] border-2 border-[#58f7f7] rounded-xl overflow-hidden
+                backdrop-blur-md shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] 
+                transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_15px_30px_rgba(3,233,244,0.4)]">
+        
+        <!-- Event Image -->
+        <div class="relative h-32 bg-[#121212] flex justify-center items-center">
+            <img src="{{ url_for('static', filename='assets/logos/Ramp_walk.webp') }}" 
+                 alt="Ramp Walk Event"
+                 class="w-32 h-32 object-contain transition-all duration-500 hover:scale-105 hover:brightness-110">
+            <div class="absolute bottom-0 left-0 w-full h-1/2 bg-gradient-to-b from-transparent to-[rgba(18,18,18,0.95)]"></div>
+        </div>
+
+        <!-- Event Content -->
+        <div class="p-6 bg-gradient-to-b from-[rgba(18,18,18,0.95)] to-[rgba(18,18,18,1)]">
+            <h3 class="text-2xl mb-4 text-transparent bg-clip-text bg-gradient-to-r from-[#ff4500] to-[#ff8c00] 
+                       drop-shadow-[2px_2px_4px_rgba(0,0,0,0.3)] text-center">
+                NAVYATAA<br>
+                <span class="text-lg text-[#03e9f4]">(Ramp Walk)</span>
+            </h3>
+            
+            <!-- Event Description -->
+            <div class="event-description text-center">
+                <p class="text-lg text-[#e0e0e0] leading-relaxed mb-6 mx-auto">
+                    Strut your style and showcase your confidence on the ramp under the theme "Be Bold For Change".
+                </p>
+                
+                <!-- Expanded Content -->
+                <div class="hidden opacity-0 transition-opacity duration-300 p-8 bg-[rgba(45,49,56,0.8)] rounded-lg mt-4 text-left space-y-6">
+                    <!-- Rules and Regulations -->
+                    <div class="bg-[rgba(32,34,39,0.95)] p-4 rounded-lg border-l-4 border-[#ff6600] hover:border-[#03e9f4] transition-all duration-300">
+                        <h4 class="text-[#ff6600] text-lg font-bold mb-3">Rules & Regulations:</h4>
+                        <ol class="list-decimal list-inside text-[#e0e0e0] space-y-2 ml-4">
+                            <li>The theme for the event will be: Be Bold For Change</li>
+                            <li>Single, Pair, and Group ramp walks are allowed</li>
+                            <li>Vulgarity is strongly prohibited. Any form of obscenity will lead to debarring the team from the contest</li>
+                            <li>Ramp walk will be judged on costumes, theme, walking stance, attitude, and tagline</li>
+                            <li>Each group should have one tagline representing their group and the theme (Be Bold For Change)</li>
+                            <li>The decision of the judges will be final and binding</li>
+                            <li>All costumes are permitted, which should maintain decency</li>
+                            <li>Green Room will be provided for changing purposes</li>
+                            <li>Participants should carry their costumes</li>
+                        </ol>
+                    </div>
+
+                    <!-- Coordinators -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="bg-[rgba(32,34,39,0.95)] p-4 rounded-lg border-l-4 border-[#03e9f4] hover:border-[#ff6600] transition-all duration-300">
+                            <h4 class="text-[#03e9f4] text-lg font-bold mb-3">Faculty Coordinators:</h4>
+                            <ul class="text-[#e0e0e0] space-y-2 ml-4">
+                                <li>Dr. Rekha N. Patil - Chairman</li>
+                                <li>Prof. Neha Deshmukh - Member</li>
+                                <li>Prof. Unnati Ukanal - Member</li>
+                                <li>Prof. Pooja Marab - Member</li>
+                            </ul>
+                        </div>
+
+                        <div class="bg-[rgba(32,34,39,0.95)] p-4 rounded-lg border-l-4 border-[#03e9f4] hover:border-[#ff6600] transition-all duration-300">
+                            <h4 class="text-[#03e9f4] text-lg font-bold mb-3">Student Coordinators:</h4>
+                            <ul class="text-[#e0e0e0] space-y-2 ml-4">
+                                <li>Anjali S. - 6361073516</li>
+                                <li>Amar</li>
+                                <li>Bhavani - 9731511019</li>
+                                <li>Ankita - 9972551106</li>
+                                <li>Tayaba - 9019193765</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Buttons -->
+            <div class="flex flex-col items-center gap-4 mt-8">
+                <button onclick="toggleDescription(this)"
+                        class="px-10 py-3 text-base font-semibold tracking-wider rounded-lg bg-transparent text-[#ff4500] 
+                               border-2 border-[#03e9f4] transition-all duration-400 hover:-translate-y-1 
+                               hover:shadow-[0_5px_15px_rgba(255,215,0,0.3)] mx-auto">
+                    Read More
+                </button>
+                
+                <a href="{{ url_for('signin') }}" 
+                   class="px-10 py-3 bg-[#03e9f4] text-[#1C1C1C] rounded-lg font-bold uppercase
+                          transition-all duration-300 hover:bg-transparent hover:text-[#03e9f4] 
+                          hover:border-2 hover:border-[#03e9f4] mx-auto">
+                    Register Now
+                </a>
+            </div>
+
+            <!-- Event Details -->
+            <ul class="mt-6 p-6 bg-black/20 rounded-lg space-y-3 text-center">
+                <li class="flex items-center justify-center gap-3 text-base text-[#e0e0e0]">
+                    <i class="bi bi-people-fill text-[#58f7f7]"></i>
+                    Solo/Duo/Group Event
+                </li>
+                <li class="flex items-center justify-center gap-3 text-base text-[#e0e0e0]">
+                    <i class="bi bi-cash text-[#58f7f7]"></i>
+                    Registration Fee: ₹300/Solo, ₹500/Duo, ₹800/Group
+                </li>
+                <li class="flex items-center justify-center gap-3 text-base text-[#e0e0e0]">
+                    <i class="bi bi-trophy-fill text-[#58f7f7]"></i>
+                    Prizes Worth: ₹10,000
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
 
 <script>
-    // Same toggle function from games page
+    // Toggle description functionality
     function toggleDescription(button) {
-        const eventCard = button.closest('.event-card-horizontal');
-        const expandedContent = eventCard.querySelector('.expanded-content');
+        const currentCard = button.closest('.max-w-3xl');
+        const expandedContent = currentCard.querySelector('.event-description > div');
         
-        if (expandedContent.style.display === 'none' || !expandedContent.style.display) {
+        // Get current scroll position relative to the card
+        const cardTop = currentCard.getBoundingClientRect().top;
+        const currentScrollPosition = window.scrollY;
+        
+        if (expandedContent.classList.contains('hidden')) {
+            // Save current position before expanding
+            expandedContent.dataset.scrollPos = cardTop;
+            
+            expandedContent.classList.remove('hidden');
             expandedContent.style.display = 'block';
-            setTimeout(() => {
+            requestAnimationFrame(() => {
                 expandedContent.style.opacity = '1';
-                button.innerHTML = `<span></span><span></span><span></span><span></span> Show Less`;
-            }, 10);
+                button.textContent = 'Show Less';
+                
+                // Maintain card position
+                const newCardTop = currentCard.getBoundingClientRect().top;
+                const scrollAdjustment = newCardTop - cardTop;
+                window.scrollBy(0, scrollAdjustment);
+            });
         } else {
             expandedContent.style.opacity = '0';
+            button.textContent = 'Read More';
+            
             setTimeout(() => {
                 expandedContent.style.display = 'none';
-                button.innerHTML = `<span></span><span></span><span></span><span></span> Read More`;
+                expandedContent.classList.add('hidden');
+                
+                // Restore to original card position
+                requestAnimationFrame(() => {
+                    const currentTop = currentCard.getBoundingClientRect().top;
+                    const targetTop = parseFloat(expandedContent.dataset.scrollPos);
+                    const adjustment = currentTop - targetTop;
+                    window.scrollBy(0, adjustment);
+                });
             }, 300);
         }
     }
 
-    // Initialize on page load
+    // Initialize cards on page load
     document.addEventListener('DOMContentLoaded', function() {
-        document.querySelectorAll('.expanded-content').forEach(content => {
-            content.style.display = 'none';
-            content.style.opacity = '0';
+        document.querySelectorAll('.max-w-3xl').forEach(card => {
+            const content = card.querySelector('.event-description > div');
+            if (content) {
+                content.style.display = 'none';
+                content.style.opacity = '0';
+                content.classList.add('hidden');
+            }
         });
     });
 </script>
-      
 {% endblock %}
