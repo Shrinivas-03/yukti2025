@@ -111,15 +111,33 @@
             <div class="personal-details-section mt-8 space-y-6">
                 <h3 class="text-2xl font-bold text-[#00FFFF] mb-6">Personal Details</h3>
                 <div class="space-y-4">
-                    <div>
-                        <label for="college" class="block text-white mb-2">College Name</label>
-                        <input type="text" 
-                               id="college" 
-                               placeholder="Enter your college name" 
-                               required
-                               class="w-full p-3 bg-[rgba(32,34,39,0.8)] border-2 border-[#00FFFF] rounded-lg text-white
-                                      placeholder:text-gray-400 outline-none transition-all duration-300
-                                      focus:border-[#FF00FF] focus:shadow-[0_0_8px_rgba(3,233,244,0.4)]">
+                    <div class="form-group">
+                        <label for="college" class="block text-[#00FFFF] mb-2">College Name <span class="text-red-500">*</span></label>
+                        <div class="relative">
+                            <select id="collegeSelect" 
+                                    class="w-full p-3 bg-[rgba(30,30,30,0.9)] border-2 border-[#00FFFF] rounded-lg 
+                                           text-gray-300 focus:outline-none focus:border-[#FF00FF] transition-colors"
+                                    onchange="handleCollegeSelection()">
+                                <option value="">Select your college</option>
+                                <option value="VTU CPGS, Kalaburagi">VTU CPGS, Kalaburagi</option>
+                                <option value="GNDEC Bidar">GNDEC Bidar</option>
+                                <option value="PDA College of Engineering">PDA College of Engineering</option>
+                                <option value="Godutai Engineering College for Women">Godutai Engineering College for Women</option>
+                                <option value="Appa Institute of Engineering & Technology">Appa Institute of Engineering & Technology</option>
+                                <option value="Sharnbasva University">Sharnbasva University</option>
+                                <option value="Khaja Banda Nawaz University">Khaja Banda Nawaz University</option>
+                                <option value="Central University of Karnataka">Central University of Karnataka</option>
+                                <option value="other">Other</option>
+                            </select>
+                            
+                            <!-- Other college input field (hidden by default) -->
+                            <input type="text" 
+                                   id="otherCollege" 
+                                   name="college" 
+                                   placeholder="Enter your college name"
+                                   class="w-full p-3 bg-[rgba(30,30,30,0.9)] border-2 border-[#00FFFF] rounded-lg 
+                                          text-gray-300 focus:outline-none focus:border-[#FF00FF] transition-colors mt-2 hidden">
+                        </div>
                     </div>
                     
                     <div>
@@ -1209,6 +1227,35 @@ input[type="radio"]:checked + label {
                 generateMemberInputs(selectedEvent.minTeam);
             }
             // ...existing radio change handler logic for individual events...
+        }
+    });
+
+    function handleCollegeSelection() {
+        const selectElement = document.getElementById('collegeSelect');
+        const otherInput = document.getElementById('otherCollege');
+        
+        if (selectElement.value === 'other') {
+            otherInput.classList.remove('hidden');
+            otherInput.required = true;
+            otherInput.value = ''; // Clear any previous value
+        } else {
+            otherInput.classList.add('hidden');
+            otherInput.required = false;
+            otherInput.value = selectElement.value; // Set the selected college value
+        }
+    }
+
+    // Add to your form submission logic
+    document.querySelector('form').addEventListener('submit', function(e) {
+        const selectElement = document.getElementById('collegeSelect');
+        const otherInput = document.getElementById('otherCollege');
+        
+        // Ensure the college value is properly set before submission
+        if (selectElement.value === 'other') {
+            if (!otherInput.value.trim()) {
+                e.preventDefault();
+                alert('Please enter your college name');
+            }
         }
     });
 </script>
