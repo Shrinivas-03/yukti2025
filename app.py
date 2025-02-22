@@ -14,7 +14,7 @@ from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from dotenv import load_dotenv
 import cryptography
-from flask_minify import Minify
+#from flask_minify import Minify
 
 
 load_dotenv() 
@@ -34,7 +34,7 @@ app = Flask(__name__,
     static_url_path='/static',
     static_folder='static'
 )
-Minify(app=app, html=True, js=True, cssless=True)
+#Minify(app=app, html=True, js=True, cssless=True)
 # Remove Compress(app) line
 
 # Apply configuration
@@ -53,19 +53,19 @@ app.config.update(
 
 # Function to set cache headers
 # Set Cache-Control headers for static responses
-@app.after_request
-def add_cache_headers(response):
-    if 'Cache-Control' not in response.headers:
-        response.headers['Cache-Control'] = 'public, max-age=31536000'  # Cache for 1 year
-    return response
+#@app.after_request
+#def add_cache_headers(response):
+#   if 'Cache-Control' not in response.headers:
+ #       response.headers['Cache-Control'] = 'public, max-age=31536000'  # Cache for 1 year
+  #  return response
 
 # Serve images from multiple static subdirectories
-@app.route('/static/<folder>/<path:filename>')
-def serve_static_files(folder, filename):
-    allowed_folders = ['assets', 'gallery', 'images']  # Define allowed folders
-    if folder not in allowed_folders:
-        return "Folder not found", 404
-    return send_from_directory(f'static/{folder}', filename)
+#@app.route('/static/<folder>/<path:filename>')
+#def serve_static_files(folder, filename):
+#    allowed_folders = ['assets', 'gallery', 'images']  # Define allowed folders
+#    if folder not in allowed_folders:
+#        return "Folder not found", 404
+#    return send_from_directory(f'static/{folder}', filename)
 
 def send_registration_email(to_email, ack_id, details):
     try:
@@ -332,7 +332,87 @@ def register_page():
 def register_submit():
     if 'user_id' not in session or session.get('page') != 'college':
         return jsonify({'success': False, 'message': 'Authentication required'}), 401
-    # ... rest of registration POST logic ...
+        
+    try:
+        data = request.get_json(silent=True)
+        if not data:
+            return jsonify({'success': False, 'message': 'No data received'})
+        
+        print("Received registration data:", data)
+        
+        ack_id = generate_ack_id()
+        
+        # Format event details
+        formatted_events = []
+        total_participants = 0
+        
+        for event in data['selectedEvents']:
+            formatted_event = {
+                'event': event['event'],
+                'type': event['type'],
+                'cost': event['cost'],
+                'category': event['category']
+            }
+            
+            if event['type'] == 'team' and event.get('members'):
+                formatted_event['members'] = event['members']
+                total_participants += len(event['members'])
+            elif event.get('participant'):
+                formatted_event['participant'] = event['participant']
+                total_participants += 1
+            
+            formatted_events.append(formatted_event)
+        
+        # Registration data for database
+        registration_data = {
+            'ack_id': ack_id,
+            'email': data['email'],
+            'phone': data['phone'],
+            'college': data['college'],
+            'total_participants': total_participants,
+            'total_cost': data['totalCost'],
+            'registration_date': datetime.now().isoformat(),
+            'event_details': formatted_events
+        }
+        
+        # Insert into Supabase
+        response = supabase.table('registrations').insert(registration_data).execute()
+        
+        if response.data:
+            # Format email details
+            event_details_html = []
+            for event in formatted_events:
+                event_html = f"""<div style="padding: 10px; border: 1px solid #ccc; margin: 5px 0;">
+                    <p><strong>Event:</strong> {event['event']}</p>
+                    <p><strong>Type:</strong> {event['type']}</p>
+                    <p><strong>Cost:</strong> ₹{event['cost']}</p>"""
+                
+                if 'members' in event:
+                    event_html += f"<p><strong>Team:</strong> {', '.join(event['members'])}</p>"
+                elif 'participant' in event:
+                    event_html += f"<p><strong>Participant:</strong> {event['participant']}</p>"
+                
+                event_html += "</div>"
+                event_details_html.append(event_html)
+
+            email_details = {
+                'email': data['email'],
+                'phone': data['phone'],
+                'college': data['college'],
+                'total_cost': data['totalCost'],
+                'event_details_html': ''.join(event_details_html)
+            }
+            
+            # Send confirmation email
+            send_registration_email(data['email'], ack_id, email_details)
+
+            return jsonify({'success': True, 'ack_id': ack_id})
+        
+        return jsonify({'success': False, 'message': 'Registration failed'})
+        
+    except Exception as e:
+        print(f"Registration Error: {str(e)}")
+        return jsonify({'success': False, 'message': str(e)})
 
 @app.route('/acknowledgement/<ack_id>')
 def show_ack(ack_id):
@@ -390,8 +470,7 @@ def show_ack(ack_id):
 
 @app.route('/spot-register', methods=['GET', 'POST'])
 def spot_register():
-    # Clear any existing session and redirect to signin
-    session.clear()
+    # Removed session.clear() to preserve authentication status for spot registration
     if request.method == 'GET':
         return redirect(url_for('signin'))
     

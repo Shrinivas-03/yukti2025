@@ -3,6 +3,55 @@
 {% block title %}YUKTI 2025 - VTU's Regional Level Techno-Cultural fest | March 10-11, 2025{% endblock %}
 
 {% block content %}
+<!-- Loading Screen with Animation -->
+<div id="loading-screen" class="fixed inset-0 z-[9999] flex items-center justify-center bg-dark">
+    <div class="text-center space-y-4">
+        <!-- Logo with pulse and glow -->
+        <div class="relative">
+            <div class="absolute inset-0 bg-[#00FFFF] opacity-50 blur-xl animate-pulse"></div>
+            <img src="{{ url_for('static', filename='images/logo.png') }}" 
+                 alt="YUKTI Logo" 
+                 class="w-32 h-32 mx-auto relative z-10 animate-bounce">
+        </div>
+        
+        <!-- Loading text with gradient animation -->
+        <div class="text-xl font-bold">
+            <span class="inline-block bg-gradient-to-r from-[#00FFFF] via-[#FF00FF] to-[#00FFFF] 
+                       bg-[length:200%_auto] bg-clip-text text-transparent 
+                       animate-[gradient-flow_2s_linear_infinite]">
+                Loading...
+            </span>
+        </div>
+        
+        <!-- Loading bar -->
+        <div class="w-48 h-1 bg-[rgba(255,255,255,0.1)] rounded-full overflow-hidden">
+            <div class="h-full w-full bg-gradient-to-r from-[#00FFFF] via-[#FF00FF] to-[#00FFFF] 
+                        rounded-full animate-loading-bar"></div>
+        </div>
+    </div>
+</div>
+
+<!-- Update Browser Alert content -->
+<div id="browser-alert" 
+     class="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-[9998] 
+            bg-[rgba(46,46,46,0.95)] backdrop-blur-md p-6 rounded-lg border-2 border-[#00FFFF]
+            shadow-[0_0_20px_rgba(0,255,255,0.3)] w-[90%] max-w-md
+            transform transition-all duration-500 opacity-0"
+     style="transform: translate(-50%, -30%) scale(0.8)">
+    <div class="text-center">
+        <h3 class="text-[#00FFFF] text-xl mb-4 font-['Orbitron']">Important Notice</h3>
+        <p class="text-white mb-4">For the best experience:</p>
+        <p class="text-[#00FFFF] mb-3">Please use Google Chrome, Microsoft Edge, or Mozilla Firefox</p>
+        <p class="text-[#FF00FF] mb-6">Please ensure you have a stable internet connection</p>
+        <button onclick="closeAlert()" 
+                class="bg-[#FF00FF] text-white px-6 py-3 rounded-md hover:bg-transparent 
+                       hover:text-[#FF00FF] border-2 border-transparent hover:border-[#FF00FF]
+                       transition-all duration-300 font-bold">
+            Got it!
+        </button>
+    </div>
+</div>
+
 <div class="h-0.5 bg-gradient-to-r from-[#6D28D9] via-[#3B82F6] to-[#00FFFF]"></div>
 
 <!-- Hero Section -->
@@ -350,6 +399,37 @@
             transform: translateY(0);
         }
     }
+
+    @keyframes loading-bar {
+        0% { transform: translateX(-100%); }
+        100% { transform: translateX(100%); }
+    }
+
+    @keyframes gradient-flow {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+    }
+
+    #loading-screen {
+        opacity: 1;
+        visibility: visible;
+        transition: all 0.5s ease-out;
+    }
+
+    #loading-screen.hidden {
+        opacity: 0;
+        visibility: hidden;
+    }
+
+    .animate-loading-bar {
+        animation: loading-bar 2s linear infinite;
+    }
+
+    /* Add these styles for alert transitions */
+    #browser-alert {
+        transition: transform 0.5s ease-out, opacity 0.5s ease-out;
+    }
 </style>
 
 <script>
@@ -406,6 +486,31 @@
         });
         observer.observe(element, { childList: true });
     });
+
+    // Add loading screen logic
+    window.addEventListener('load', function() {
+        const loadingScreen = document.getElementById('loading-screen');
+        const browserAlert = document.getElementById('browser-alert');
+        
+        setTimeout(() => {
+            loadingScreen.classList.add('hidden');
+            // Show browser alert in center
+            setTimeout(() => {
+                browserAlert.style.transform = 'translate(-50%, -50%) scale(1)';
+                browserAlert.style.opacity = '1';
+            }, 500);
+        }, 2000);
+    });
+
+    // Close alert function
+    function closeAlert() {
+        const browserAlert = document.getElementById('browser-alert');
+        browserAlert.style.opacity = '0';
+        browserAlert.style.transform = 'translate(-50%, -50%) scale(0.8)';
+        setTimeout(() => {
+            browserAlert.style.display = 'none';
+        }, 500);
+    }
 </script>
 
 {% endblock %}

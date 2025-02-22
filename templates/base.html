@@ -4,6 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Correct Favicon Section -->
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
+
+
     <title>{% block title %}YUKTI 2025 | College Fest{% endblock %}</title>
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Cinzel:wght@700&display=swap"
@@ -220,53 +225,8 @@
     </style>
 </head>
 
-<body class="m-0 font-['Poppins'] text-gray-100 bg-[#121212]">
-    <!-- Loading Screen -->
-    <div id="loading-screen" class="fixed inset-0 bg-[#121212] z-[9999] flex items-center justify-center">
-        <div class="loading-content text-center">
-            <div class="relative inline-block">
-                <!-- Add glowing border effect -->
-                <div class="absolute -inset-1 bg-gradient-to-r from-[#00FFFF] via-[#FF00FF] to-[#00FFFF] rounded-full blur-md animate-pulse"></div>
-                <!-- Increase image size and add border -->
-                <img src="{{ url_for('static', filename='assets/vtu-logo.webp') }}" 
-                     alt="VTU Logo"
-                     class="relative w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 rounded-full animate-pulse 
-                            border-4 border-[#00FFFF] shadow-[0_0_20px_#00FFFF,0_0_40px_#FF00FF] 
-                            transition-all duration-300 z-10">
-            </div>
-            <div class="loading-text font-['Orbitron'] text-2xl">
-                <span class="inline-block animate-gradient-text bg-gradient-to-r from-[#00FFFF] via-[#FF00FF] to-[#00FFFF] text-transparent bg-clip-text bg-[length:200%_auto]">
-                    Loading...
-                </span>
-            </div>
-            <div class="loading-bar mt-4 w-48 h-1 mx-auto bg-[rgba(255,255,255,0.1)] rounded-full overflow-hidden">
-                <div class="h-full w-full bg-gradient-to-r from-[#00FFFF] via-[#FF00FF] to-[#00FFFF] animate-loading-bar"></div>
-            </div>
-        </div>
-    </div>
-
-    <!-- After loading screen div, add this new alert div -->
-    <div id="browser-alert" class="fixed top-20 left-1/2 -translate-x-1/2 w-[90%] max-w-md z-[9998] bg-[rgba(32,34,39,0.95)] 
-            border-2 border-[#00FFFF] rounded-lg p-4 shadow-lg backdrop-blur-sm transform scale-0 transition-transform duration-300">
-        <div class="flex justify-between items-start">
-            <div class="flex items-start">
-                <div class="flex-shrink-0">
-                    <i class="fas fa-info-circle text-[#00FFFF] text-xl"></i>
-                </div>
-                <div class="ml-3">
-                    <p class="text-sm font-medium text-[#C0C0C0] font-['Rajdhani']">
-                        For the best experience, view this site using the latest version of Firefox or Chrome. For optimal performance on mobile, ensure a stable 4G or 5G connection.
-                    </p>
-                </div>
-            </div>
-            <button type="button" onclick="closeAlert()" 
-                    class="ml-4 flex-shrink-0 text-[#FF00FF] hover:text-[#00FFFF] transition-colors duration-300">
-                <i class="fas fa-times"></i>
-            </button>
-        </div>
-    </div>
-
-    <!-- Header Section -->
+<body class="bg-dark text-white">
+    <!-- Navbar -->
     <header class="fixed top-0 w-full z-[2001] bg-[rgba(30,30,30,0.9)] h-16 sm:h-18 md:h-20 shadow-lg backdrop-blur-md">
         <div class="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 h-full flex justify-between items-center">
             <!-- Enhanced Left Side with Overflow Fix -->
@@ -534,7 +494,7 @@
                             <span
                                 class="absolute -bottom-0.5 left-0 w-0 h-0.5 bg-[#FF00FF] transition-all duration-300 group-hover:w-full"></span>
                         </a></span> &
-                    <span><a href="#"
+                    <span><a href="https://narasareddy8296.github.io/profile/" target="_blank"
                             class="text-[#00FFFF] hover:text-[#FF00FF] transition-colors duration-300 relative group">
                             Narasareddy
                             <span
@@ -546,7 +506,7 @@
                             <span
                                 class="absolute -bottom-0.5 left-0 w-0 h-0.5 bg-[#FF00FF] transition-all duration-300 group-hover:w-full"></span>
                         </a></span> &
-                    <span><a href="#"
+                    <span><a href="https://www.syeddanish.xyz/" target="_blank"
                             class="text-[#00FFFF] hover:text-[#FF00FF] transition-colors duration-300 relative group">
                             Danish
                             <span
@@ -554,7 +514,7 @@
                         </a></span> (Backend),
                 </p>
                 <p>with support from
-                    <span><a href="https://www.linkedin.com/in/basavaraj-h-gurikar-95b739284"
+                    <span><a href="https://basug63.github.io/portfolio/" target="_blank"
                             class="text-[#00FFFF] hover:text-[#FF00FF] transition-colors duration-300 relative group">
                             Basavaraj
                             <span
@@ -666,99 +626,6 @@
             }
         }
     </style>
-
-    <style>
-        @keyframes gradientFlow {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        @keyframes loadingBar {
-            0% { transform: translateX(-100%); }
-            100% { transform: translateX(100%); }
-        }
-
-        .animate-gradient-text {
-            animation: gradientFlow 3s linear infinite;
-        }
-
-        .animate-loading-bar {
-            animation: loadingBar 1.5s ease-in-out infinite;
-        }
-
-        #loading-screen {
-            opacity: 1;
-            visibility: visible;
-            transition: opacity 0.5s ease-out, visibility 0.5s ease-out;
-        }
-
-        #loading-screen.hidden {
-            opacity: 0;
-            visibility: hidden;
-        }
-
-        .loading-content {
-            opacity: 1;
-            transform: translateY(0);
-            transition: all 0.5s ease-out;
-        }
-
-        #loading-screen.hidden .loading-content {
-            opacity: 0;
-            transform: translateY(-20px);
-        }
-
-        #browser-alert {
-            animation: glow 2s ease-in-out infinite;
-        }
-
-        @keyframes glow {
-            0%, 100% {
-                box-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
-            }
-            50% {
-                box-shadow: 0 0 20px rgba(255, 0, 255, 0.3);
-            }
-        }
-    </style>
-
-    <script>
-        // Add this to your existing script section
-        window.addEventListener('load', function() {
-            const loadingScreen = document.getElementById('loading-screen');
-            const browserAlert = document.getElementById('browser-alert');
-            
-            setTimeout(() => {
-                loadingScreen.classList.add('hidden');
-                // Show alert after loading screen fades
-                setTimeout(() => {
-                    browserAlert.style.transform = 'translate(-50%, 0) scale(1)';
-                }, 500);
-            }, 1500); // Adjust time as needed (1.5 seconds)
-        });
-
-        // Add close alert function
-        function closeAlert() {
-            const browserAlert = document.getElementById('browser-alert');
-            browserAlert.style.transform = 'translate(-50%, 0) scale(0)';
-            // Remove from DOM after animation
-            setTimeout(() => {
-                browserAlert.style.display = 'none';
-            }, 300);
-        }
-
-        // Optional: Show loading screen when navigating away
-        document.addEventListener('click', function(e) {
-            const link = e.target.closest('a');
-            if (link && !link.target && link.href && !link.href.includes('#') && !e.ctrlKey && !e.shiftKey && !e.metaKey) {
-                const loadingScreen = document.getElementById('loading-screen');
-                loadingScreen.classList.remove('hidden');
-            }
-        });
-
-        // ...existing scripts...
-    </script>
 </body>
 
 </html>
