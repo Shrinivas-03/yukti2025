@@ -470,8 +470,7 @@ def show_ack(ack_id):
 
 @app.route('/spot-register', methods=['GET', 'POST'])
 def spot_register():
-    # Clear any existing session and redirect to signin
-    session.clear()
+    # Removed session.clear() to preserve authentication status for spot registration
     if request.method == 'GET':
         return redirect(url_for('signin'))
     
