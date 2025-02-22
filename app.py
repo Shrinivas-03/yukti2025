@@ -500,76 +500,98 @@ def normalize_event_name(name):
     return re.sub(r'\W+', '', name).lower()
 
 def get_matching_registrations(table_name, norm_event, reg_type):
-    response = supabase.table(table_name).select('*').execute()
-    print(f"Found {len(response.data)} total registrations in {table_name}")
-    matches = []
-    for reg in response.data:
-        for event in reg['event_details']:
-            stored_event = event.get('event', '')
-            norm_stored = normalize_event_name(stored_event)
-            print(f"[{table_name}] Searching if '{norm_event}' is in '{norm_stored}'")
-            # Use universal substring matching
-            if norm_event in norm_stored:
-                reg_data = {
-                    'ack_id': reg['ack_id'],
-                    'college': reg['college'],
-                    'email': reg['email'],
-                    'phone': reg['phone'],
-                    'event_cost': event.get('cost', 0),
-                    'type': reg_type,
-                    'team_members': ''
-                }
-                if event.get('type') == 'team' and event.get('members'):
-                    reg_data['team_members'] = ', '.join(event['members'])
-                elif event.get('participant'):
-                    reg_data['team_members'] = event['participant']
-                if reg_type == 'spot':
-                    reg_data['utr_number'] = reg.get('utr_number', '')
-                matches.append(reg_data)
-                print(f"Added registration from {table_name}: {reg_data}")
-    return matches
+    try:
+        response = supabase.table(table_name).select('*').execute()
+        print(f"Found {len(response.data)} total registrations in {table_name}")
+        
+        matches = []
+        if not response.data:
+            return matches
+            
+        for reg in response.data:
+            if not reg.get('event_details'):
+                continue
+                
+            for event in reg['event_details']:
+                if not event or not isinstance(event, dict):
+                    continue
+                    
+                stored_event = event.get('event', '')
+                if not stored_event:
+                    continue
+                    
+                norm_stored = normalize_event_name(stored_event)
+                print(f"[{table_name}] Comparing '{norm_event}' with '{norm_stored}'")
+                
+                if norm_event in norm_stored:
+                    reg_data = {
+                        'ack_id': reg.get('ack_id', ''),
+                        'college': reg.get('college', ''),
+                        'email': reg.get('email', ''),
+                        'phone': reg.get('phone', ''),
+                        'total_participants': reg.get('total_participants', 0),
+                        'registration_date': reg.get('registration_date', ''),
+                        'total_cost': reg.get('total_cost', 0),
+                        'event_cost': event.get('cost', 0),
+                        'type': reg_type,
+                        'team_members': '',
+                        'event_details': reg.get('event_details', [])
+                    }
+                    
+                    # Handle team members
+                    if event.get('type') == 'team' and event.get('members'):
+                        reg_data['team_members'] = ', '.join(event['members'])
+                    elif event.get('participant'):
+                        reg_data['team_members'] = event['participant']
+                        
+                    # Add UTR number only for spot registrations
+                    if reg_type == 'spot':
+                        reg_data['utr_number'] = reg.get('utr_number', '')
+                        
+                    matches.append(reg_data)
+                    print(f"Added registration: {reg_data['ack_id']}")
+                    
+        return matches
+    except Exception as e:
+        print(f"Error in get_matching_registrations: {str(e)}")
+        return []
 
 @app.route('/api/get-event-registrations')
 @login_required(allowed_pages=['admin'])
 def get_event_registrations():
     try:
         event_name = request.args.get('event')
-        reg_type = request.args.get('type', 'regular')
+        reg_type = request.args.get('type', 'online')  # Default changed to 'online'
+        
+        if not event_name:
+            return jsonify({
+                'success': False,
+                'message': 'Event name is required'
+            })
+            
         norm_event = normalize_event_name(event_name)
         print(f"Searching for normalized event: '{norm_event}' with type: '{reg_type}'")
         
-        # Special handling for CHANAKSH (CODING EVENT)
-        if norm_event == normalize_event_name("CHANAKSH (CODING EVENT)"):
-            if reg_type == 'regular':
-                matches = []
-                matches += get_matching_registrations('registrations', norm_event, 'regular')
-                matches += get_matching_registrations('spot_registrations', norm_event, 'spot')
-            else:  # reg_type == 'spot'
-                matches = get_matching_registrations('spot_registrations', norm_event, 'spot')
-        else:
-            # Normal processing for other events using designated table
-            table_name = 'spot_registrations' if reg_type == 'spot' else 'registrations'
-            matches = get_matching_registrations(table_name, norm_event, reg_type)
+        table_name = 'spot_registrations' if reg_type == 'spot' else 'registrations'
+        matches = get_matching_registrations(table_name, norm_event, reg_type)
         
-        print(f"Returning {len(matches)} matching registrations")
         return jsonify({
             'success': True,
             'registrations': matches,
             'isSpot': reg_type == 'spot'
         })
-
     except Exception as e:
         print(f"Error in get_event_registrations: {str(e)}")
         return jsonify({
             'success': False,
-            'message': str(e)
+            'message': f"Error processing request: {str(e)}"
         })
 
 @app.route('/api/get-registrations')
 @login_required(allowed_pages=['admin'])
 def get_registrations():
     try:
-        reg_type = request.args.get('type', 'regular')
+        reg_type = request.args.get('type', 'online')  # Default changed to 'online'
         table_name = 'spot_registrations' if reg_type == 'spot' else 'registrations'
         
         response = supabase.table(table_name).select('*').execute()
@@ -605,16 +627,15 @@ def get_registrations():
 @login_required(allowed_pages=['admin'])
 def download_registrations():
     try:
-        reg_type = request.args.get('type', 'regular')
+        reg_type = request.args.get('type', 'online')  # Default changed to 'online'
         event_name = request.args.get('event')
         matches = []
 
         if event_name:
             norm_event = normalize_event_name(event_name)
-            # Special handling for CHANAKSH (CODING EVENT)
             if norm_event == normalize_event_name("CHANAKSH (CODING EVENT)"):
-                if reg_type == 'regular':
-                    matches += get_matching_registrations('registrations', norm_event, 'regular')
+                if reg_type == 'online':  # Changed from 'regular' to 'online'
+                    matches += get_matching_registrations('registrations', norm_event, 'online')
                     matches += get_matching_registrations('spot_registrations', norm_event, 'spot')
                 else:
                     matches = get_matching_registrations('spot_registrations', norm_event, 'spot')
