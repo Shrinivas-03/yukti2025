@@ -179,9 +179,9 @@
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     <!-- Gallery Items -->
-                    {% for i in range(10) %}
+                    {% for i in range(9) %}
                     <div class="gallery-item group relative overflow-hidden rounded-xl border-2 border-secondary hover:border-primary/50 transition-all duration-300 hover:-translate-y-2 hover:shadow-lg hover:shadow-primary/20">
-                        <img src="{{ url_for('static', filename='gallery/nt1' ~ loop.index ~ '.jpg') }}"
+                        <img src="{{ url_for('static', filename='gallery/nt' ~ loop.index ~ '.jpg') }}"
                              alt="Celebrity Night - Day 1 Image {{ loop.index }}"
                              class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110"
                              loading="lazy"
