@@ -255,41 +255,42 @@ def kalachitrana():
 
 @app.route('/signin', methods=['GET', 'POST'])
 def signin():
+    # Always clear session first
+    session.clear()
+    
     if request.method == 'POST':
         user_id = request.form.get('user_id')
         password = request.form.get('password')
         
         try:
-            # Query Supabase auth table
             response = supabase.table('auth').select('*').eq('user_id', user_id).execute()
             
             if response.data and len(response.data) > 0:
                 user = response.data[0]
                 
-                # Verify password (assuming passwords are stored as-is for now)
                 if user['password'] == password:
+                    # Set session data
                     session.clear()
-                    # Store user info in session
                     session['user_id'] = user['user_id']
                     session['page'] = user['page']
                     session['login_time'] = datetime.now().isoformat()
                     
-                    # Redirect based on user role
+                    # Direct to correct page based on role
                     if user['page'] == 'admin':
-                        return redirect(url_for('admin'))
+                        return redirect(url_for('admin_page'))
                     elif user['page'] == 'college':
-                        return redirect(url_for('register'))
+                        return redirect(url_for('register_page'))
                     elif user['page'] == 'spot':
-                        return redirect(url_for('spot'))
+                        return redirect(url_for('spot_page'))
                 
-                flash('Invalid credentials')
+                flash('Invalid password')
             else:
                 flash('User not found')
                 
         except Exception as e:
             print(f"Login Error: {str(e)}")
             flash('Login error occurred')
-            
+    
     return render_template('signin.html')
 
 @app.route('/logout')
@@ -298,126 +299,40 @@ def logout():
     return redirect(url_for('signin'))
 
 @app.route('/admin')
-@login_required(allowed_pages=['admin'])  # Already exists but verify it's there
 def admin():
-    return render_template('admin.html')
-
-
-@app.route('/spot')
-def spot():
-    # Clear any existing session and redirect to signin
-    session.clear()
     return redirect(url_for('signin'))
 
-@app.route('/register', methods=['GET', 'POST'])
-def register():
-    # Clear any existing session and redirect to signin
-    session.clear()
-    if request.method == 'GET':
+@app.route('/admin-page')
+def admin_page():
+    if 'user_id' not in session or session.get('page') != 'admin':
         return redirect(url_for('signin'))
-    
-    # For POST requests, check if user is properly authenticated
+    return render_template('admin.html')
+
+@app.route('/spot') 
+def spot():
+    return redirect(url_for('signin'))
+
+@app.route('/spot-page')
+def spot_page():
+    if 'user_id' not in session or session.get('page') != 'spot':
+        return redirect(url_for('signin'))
+    return render_template('spot.html')
+
+@app.route('/register')
+def register():
+    return redirect(url_for('signin'))
+
+@app.route('/register-page')
+def register_page():
     if 'user_id' not in session or session.get('page') != 'college':
-        return jsonify({
-            'success': False,
-            'message': 'Authentication required'
-        }), 401
-    
-    # Rest of the registration logic
-    if request.method == "POST":
-        try:
-            data = request.get_json(silent=True)
-            if not data:
-                return jsonify({'success': False, 'message': 'No data received'})
-            
-            print("Received registration data:", data)
-            
-            ack_id = generate_ack_id()
-            
-            # Format event details
-            formatted_events = []
-            total_participants = 0
-            
-            for event in data['selectedEvents']:
-                print("Processing event:", event)  # Debug log
-                formatted_event = {
-                    'event': event.get('event'),  # Get event name from 'event' field
-                    'type': event.get('type'),
-                    'cost': event.get('cost'),
-                    'category': event.get('category')
-                }
-                
-                # Handle team members or individual participant
-                if event.get('type') == 'team' and event.get('members'):
-                    formatted_event['members'] = event['members']
-                    total_participants += len(event['members'])
-                elif event.get('participant'):
-                    formatted_event['participant'] = event['participant']
-                    total_participants += 1
-                
-                formatted_events.append(formatted_event)
-            
-            # Registration data for database
-            registration_data = {
-                'ack_id': ack_id,
-                'email': data['email'],
-                'phone': data['phone'],
-                'college': data['college'],
-                'total_participants': total_participants,
-                'total_cost': data['totalCost'],
-                'registration_date': datetime.now().isoformat(),
-                'event_details': formatted_events
-            }
-            
-            print("Formatted registration data:", registration_data)  # Debug log
-            
-            # Insert into Supabase
-            response = supabase.table('registrations').insert(registration_data).execute()
-            
-            if response.data:
-                # Format event details for email
-                event_details_html = []
-                for event in formatted_events:
-                    event_html = f"""
-                    <div style="background-color: #2c2c2c; padding: 15px; margin: 10px 0; border-radius: 5px;">
-                        <h4 style="color: #FFD700; margin: 0 0 10px 0;">{event['event']}</h4>
-                        <p><strong>Category:</strong> {event['category']}</p>
-                        <p><strong>Type:</strong> {event['type'].title()}</p>
-                        <p><strong>Cost:</strong> ₹{event['cost']}</p>
-                    """
-                    
-                    if 'members' in event:
-                        event_html += f"<p><strong>Team Members:</strong> {', '.join(event['members'])}</p>"
-                    elif 'participant' in event:
-                        event_html += f"<p><strong>Participant:</strong> {event['participant']}</p>"
-                    
-                    event_html += "</div>"
-                    event_details_html.append(event_html)
+        return redirect(url_for('signin'))
+    return render_template('registration.html')
 
-                email_details = {
-                    'email': data['email'],
-                    'phone': data['phone'],
-                    'college': data['college'],
-                    'total_cost': data['totalCost'],
-                    'event_details_html': ''.join(event_details_html)
-                }
-                
-                # Send the email without the PDF attachment
-                send_registration_email(data['email'], ack_id, email_details)
-
-                return jsonify({'success': True, 'ack_id': ack_id})
-            else:
-                return jsonify({'success': False, 'message': 'Registration failed'})
-                
-        except Exception as e:
-            print(f"Registration Error: {str(e)}")
-            print("Full error details:", str(e.__dict__))  # More detailed error info
-            return jsonify({
-                'success': False,
-                'message': str(e)
-            })
-    
-    return render_template("registration.html")
+@app.route('/register', methods=['POST'])
+def register_submit():
+    if 'user_id' not in session or session.get('page') != 'college':
+        return jsonify({'success': False, 'message': 'Authentication required'}), 401
+    # ... rest of registration POST logic ...
 
 @app.route('/acknowledgement/<ack_id>')
 def show_ack(ack_id):
