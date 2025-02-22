@@ -47,7 +47,8 @@ supabase: Client = create_client(app.config['SUPABASE_URL'], app.config['SUPABAS
 app.config.update(
     SESSION_COOKIE_SECURE=True,   # Ensures cookies are sent only over HTTPS
     SESSION_COOKIE_HTTPONLY=True, # Prevents JavaScript from accessing cookies
-    SESSION_COOKIE_SAMESITE='Lax' # Helps prevent CSRF attacks
+    SESSION_COOKIE_SAMESITE='Lax', # Helps prevent CSRF attacks
+    PERMANENT_SESSION_LIFETIME=timedelta(minutes=5)  # Changed from 1 hour to 5 minutes
 )
 
 # Function to set cache headers
@@ -175,14 +176,25 @@ def login_required(allowed_pages=None):
     def decorator(f):
         @wraps(f)
         def decorated_function(*args, **kwargs):
-            if 'user_id' not in session:
-                flash('Please log in first')
+            # Check if user is logged in and session is valid
+            if 'user_id' not in session or 'login_time' not in session:
+                session.clear()
+                flash('Please log in to continue')
                 return redirect(url_for('signin'))
             
-            if allowed_pages and session.get('page') not in allowed_pages:
-                flash('Access denied')
+            # Check if session has expired (5 minutes)
+            login_time = datetime.fromisoformat(session['login_time'])
+            if datetime.now() - login_time > timedelta(minutes=5):  # Changed from hours=1 to minutes=5
+                session.clear()
+                flash('Your session has expired. Please log in again')
                 return redirect(url_for('signin'))
-                
+            
+            # Check if user has correct permissions
+            if allowed_pages and session.get('page') not in allowed_pages:
+                session.clear()
+                flash('Access denied. Insufficient permissions')
+                return redirect(url_for('signin'))
+            
             return f(*args, **kwargs)
         return decorated_function
     return decorator
@@ -256,9 +268,11 @@ def signin():
                 
                 # Verify password (assuming passwords are stored as-is for now)
                 if user['password'] == password:
+                    session.clear()
                     # Store user info in session
                     session['user_id'] = user['user_id']
                     session['page'] = user['page']
+                    session['login_time'] = datetime.now().isoformat()
                     
                     # Redirect based on user role
                     if user['page'] == 'admin':
@@ -284,18 +298,32 @@ def logout():
     return redirect(url_for('signin'))
 
 @app.route('/admin')
-@login_required(allowed_pages=['admin'])
+@login_required(allowed_pages=['admin'])  # Already exists but verify it's there
 def admin():
     return render_template('admin.html')
 
 
 @app.route('/spot')
-@login_required(allowed_pages=['spot'])
 def spot():
-    return render_template('spot.html')
+    # Clear any existing session and redirect to signin
+    session.clear()
+    return redirect(url_for('signin'))
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
+    # Clear any existing session and redirect to signin
+    session.clear()
+    if request.method == 'GET':
+        return redirect(url_for('signin'))
+    
+    # For POST requests, check if user is properly authenticated
+    if 'user_id' not in session or session.get('page') != 'college':
+        return jsonify({
+            'success': False,
+            'message': 'Authentication required'
+        }), 401
+    
+    # Rest of the registration logic
     if request.method == "POST":
         try:
             data = request.get_json(silent=True)
@@ -446,8 +474,20 @@ def show_ack(ack_id):
         return "Error fetching registration details", 500
 
 @app.route('/spot-register', methods=['GET', 'POST'])
-@login_required(allowed_pages=['spot'])
 def spot_register():
+    # Clear any existing session and redirect to signin
+    session.clear()
+    if request.method == 'GET':
+        return redirect(url_for('signin'))
+    
+    # For POST requests, check if user is properly authenticated
+    if 'user_id' not in session or session.get('page') != 'spot':
+        return jsonify({
+            'success': False,
+            'message': 'Authentication required'
+        }), 401
+    
+    # Rest of the spot registration logic
     if request.method == "POST":
         try:
             print("Received POST request at /spot-register")  # Debug log
@@ -825,6 +865,12 @@ def search_registration(ack_id):
             'success': False,
             'message': str(e)
         })
+
+# Add this new function to handle unauthorized access
+@app.errorhandler(401)
+def unauthorized(e):
+    flash('Please log in first')
+    return redirect(url_for('signin'))
 
 if __name__ == "__main__":
 
