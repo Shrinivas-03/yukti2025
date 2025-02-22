@@ -705,78 +705,65 @@ def get_registrations():
 @login_required(allowed_pages=['admin'])
 def download_registrations():
     try:
-        reg_type = request.args.get('type', 'online')  # Default changed to 'online'
+        reg_type = request.args.get('type', 'online')
         event_name = request.args.get('event')
-        matches = []
-
-        if event_name:
-            norm_event = normalize_event_name(event_name)
-            if norm_event == normalize_event_name("CHANAKSH (CODING EVENT)"):
-                if reg_type == 'online':  # Changed from 'regular' to 'online'
-                    matches += get_matching_registrations('registrations', norm_event, 'online')
-                    matches += get_matching_registrations('spot_registrations', norm_event, 'spot')
-                else:
-                    matches = get_matching_registrations('spot_registrations', norm_event, 'spot')
-        else:
-            # If no event filter, retrieve full table
-            table_name = 'spot_registrations' if reg_type == 'spot' else 'registrations'
-            response = supabase.table(table_name).select('*').execute()
-            for reg in response.data:
-                # Process event_details field as CSV string
-                events_joined = ", ".join([e.get('event', '') for e in reg.get('event_details', [])])
-                utr = reg.get('utr_number', '') if reg_type == 'spot' else ''
-                matches.append({
-                    'ack_id': reg.get('ack_id', ''),
-                    'college': reg.get('college', ''),
-                    'email': reg.get('email', ''),
-                    'phone': reg.get('phone', ''),
-                    'events': events_joined,
-                    'utr_number': utr
-                })
-
-        # Prepare CSV output from matches
-        output = io.StringIO(newline='')
         
-        # Write UTF-8-BOM to ensure Excel recognizes the encoding
-        output.write('\ufeff')
+        if not event_name:
+            return jsonify({
+                'success': False,
+                'message': 'Event name is required'
+            })
+
+        # Get registrations for the specific event
+        norm_event = normalize_event_name(event_name)
+        table_name = 'spot_registrations' if reg_type == 'spot' else 'registrations'
+        matches = get_matching_registrations(table_name, norm_event, reg_type)
+
+        if not matches:
+            return jsonify({
+                'success': False,
+                'message': 'No registrations found for this event'
+            })
+
+        # Prepare CSV output
+        output = io.StringIO(newline='')
+        output.write('\ufeff')  # UTF-8 BOM
         
         writer = csv.writer(output, dialect='excel', quoting=csv.QUOTE_ALL)
-        header = ['Ack ID', 'College', 'Email', 'Phone', 'Participant', 'UTR Number']
-        writer.writerow(header)
         
-        def clean_text(text):
-            if text is None:
-                return ''
-            # Convert to string and handle encoding
-            try:
-                # Try direct string conversion
-                return str(text).strip()
-            except UnicodeEncodeError:
-                # If that fails, try encoding/decoding with error handling
-                return text.encode('ascii', 'ignore').decode('ascii').strip()
+        # Define headers based on registration type
+        headers = ['Ack ID', 'College', 'Email', 'Phone', 'Participants', 'Total Cost', 'Registration Date']
+        if reg_type == 'spot':
+            headers.append('UTR Number')
+            
+        writer.writerow(headers)
 
+        # Write data rows
         for reg in matches:
-            # Clean and encode each field
             row = [
-                clean_text(reg.get('ack_id')),
-                clean_text(reg.get('college')),
-                clean_text(reg.get('email')),
-                clean_text(reg.get('phone')),
-                clean_text(reg.get('team_members', reg.get('events', ''))),
-                clean_text(reg.get('utr_number'))
+                reg.get('ack_id', ''),
+                reg.get('college', ''),
+                reg.get('email', ''),
+                reg.get('phone', ''),
+                reg.get('team_members', ''),
+                f"₹{reg.get('total_cost', 0)}",
+                reg.get('registration_date', '').split('T')[0]
             ]
+            
+            if reg_type == 'spot':
+                row.append(reg.get('utr_number', ''))
+                
             writer.writerow(row)
 
-        # Get the CSV content
+        # Get CSV content and create response
         csv_output = output.getvalue()
         output.close()
 
-        # Create response with proper headers
         response = Response(
             csv_output.encode('utf-8-sig'),
             mimetype='text/csv; charset=utf-8-sig',
             headers={
-                'Content-Disposition': f'attachment; filename=registrations_{reg_type}.csv',
+                'Content-Disposition': f'attachment; filename={norm_event}_{reg_type}_registrations.csv',
                 'Content-Type': 'text/csv; charset=utf-8-sig',
                 'Cache-Control': 'no-cache'
             }
@@ -786,8 +773,10 @@ def download_registrations():
 
     except Exception as e:
         print(f"Error in download_registrations: {str(e)}")
-        return jsonify({'success': False, 'message': str(e)})
-
+        return jsonify({
+            'success': False, 
+            'message': f"Error generating CSV: {str(e)}"
+        })
 
 @app.route('/api/search-registration/<ack_id>')
 @login_required(allowed_pages=['admin'])
