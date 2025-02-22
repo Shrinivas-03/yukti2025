@@ -114,7 +114,7 @@
         <div class="registration-types" id="registration-type-section" style="display: none;">
             <h2>Select Registration Type</h2>
             <div class="type-buttons">
-                <button onclick="showRegistrationData('regular')" class="type-btn">Regular Registrations</button>
+                <button onclick="showRegistrationData('online')" class="type-btn">Online Registrations</button>
                 <button onclick="showRegistrationData('spot')" class="type-btn">Spot Registrations</button>
             </div>
         </div>
@@ -526,7 +526,7 @@
     async function showRegistrations(type) {
         const displaySection = document.getElementById('registrations-display');
         displaySection.style.display = 'block';
-        displaySection.innerHTML = `<h3>${type === 'regular' ? 'Regular' : 'Spot'} Registrations</h3>
+        displaySection.innerHTML = `<h3>${type === 'online' ? 'Online' : 'Spot'} Registrations</h3>
             <div class="loading">Loading registrations...</div>`;
 
         try {
@@ -579,7 +579,7 @@
                 `;
 
                 displaySection.innerHTML = `
-                    <h3>${type === 'regular' ? 'Regular' : 'Spot'} Registrations</h3>
+                    <h3>${type === 'online' ? 'Online' : 'Spot'} Registrations</h3>
                     ${data.registrations.length ? tableHtml : '<p>No registrations found.</p>'}
                 `;
             } else {
@@ -699,8 +699,8 @@
         });
     });
 
-    // Global variable to track current registration type (default to 'regular')
-    let currentType = 'regular';
+    // Global variable to track current registration type (default to 'online')
+    let currentType = 'online';
 
     // Update global type when loading data
     async function showRegistrationData(type) {
@@ -718,24 +718,26 @@
         `;
 
         try {
-            console.log(`Fetching registrations for ${selectedEvent} (${type})`);  // Debug log
-            
+            console.log('Fetching registrations with:', {
+                event: selectedEvent,
+                type: type
+            });
+
             const response = await fetch(`/api/get-event-registrations?event=${encodeURIComponent(selectedEvent)}&type=${type}`);
             const data = await response.json();
-            
-            console.log('Response:', data);  // Debug log
+            console.log('API Response:', data);
 
             if (data.success) {
                 if (!data.registrations || data.registrations.length === 0) {
                     displaySection.innerHTML = `
-                        <h3>${type} Registrations for ${selectedEvent}</h3>
+                        <h3>${type === 'online' ? 'Online' : 'Spot'} Registrations for ${selectedEvent}</h3>
                         <p>No registrations found.</p>
                     `;
                     return;
                 }
 
                 let tableHtml = `
-                    <h3>${type} Registrations for ${selectedEvent}</h3>
+                    <h3>${type === 'online' ? 'Online' : 'Spot'} Registrations for ${selectedEvent}</h3>
                     <div class="registrations-table">
                         <table>
                             <thead>
@@ -744,8 +746,9 @@
                                     <th>College</th>
                                     <th>Email</th>
                                     <th>Phone</th>
-                                    <th>Participant/Team</th>
-                                    <th>Event Cost</th>
+                                    <th>Participants</th>
+                                    <th>Total Cost</th>
+                                    <th>Registration Date</th>
                                     ${type === 'spot' ? '<th>UTR Number</th>' : ''}
                                 </tr>
                             </thead>
@@ -753,14 +756,16 @@
                 `;
 
                 data.registrations.forEach(reg => {
+                    const regDate = reg.registration_date ? new Date(reg.registration_date).toLocaleDateString() : '-';
                     tableHtml += `
                         <tr>
-                            <td>${reg.ack_id}</td>
-                            <td>${reg.college}</td>
-                            <td>${reg.email}</td>
-                            <td>${reg.phone}</td>
+                            <td>${reg.ack_id || '-'}</td>
+                            <td>${reg.college || '-'}</td>
+                            <td>${reg.email || '-'}</td>
+                            <td>${reg.phone || '-'}</td>
                             <td>${reg.team_members || '-'}</td>
-                            <td>₹${reg.event_cost}</td>
+                            <td>₹${reg.total_cost || '0'}</td>
+                            <td>${regDate}</td>
                             ${type === 'spot' ? `<td>${reg.utr_number || '-'}</td>` : ''}
                         </tr>
                     `;
@@ -781,7 +786,10 @@
             }
         } catch (error) {
             console.error('Error:', error);
-            displaySection.innerHTML = '<p class="error">Error loading registrations</p>';
+            displaySection.innerHTML = `
+                <p class="error">Error loading registrations</p>
+                <p class="error">${error.message}</p>
+            `;
         }
     }
 

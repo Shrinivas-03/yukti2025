@@ -47,14 +47,28 @@
                     </div>
 
                     <!-- Group Size Container -->
-                    <div id="group-size-container" class="hidden">
-                        <label class="block text-[#00FFFF] mb-2 font-['Orbitron']" for="group-size">
-                            Number of Participants
-                        </label>
-                        <input type="number" id="group-size" min="1" max="4" value="1"
-                               class="w-full p-3 bg-[rgba(32,34,39,0.8)] border-2 border-[#00FFFF] rounded-lg text-white
-                                      outline-none transition-all duration-300 focus:border-[#FF00FF]
-                                      focus:shadow-[0_0_15px_rgba(255,0,255,0.3)]">
+                    <div id="group-size-container" class="hidden space-y-2">
+                        <label for="group-size" class="block text-xl font-bold text-[#00FFFF] mb-2">Number of Participants</label>
+                        <div class="flex items-center space-x-4">
+                            <button type="button" id="decrease-size" 
+                                    class="w-12 h-12 rounded-full bg-[rgba(32,34,39,0.8)] border-2 border-[#00FFFF] text-[#00FFFF] 
+                                           text-2xl font-bold flex items-center justify-center
+                                           transition-all duration-300 hover:bg-[#00FFFF] hover:text-black
+                                           disabled:opacity-50 disabled:cursor-not-allowed">
+                                -
+                            </button>
+                            <input type="number" id="group-size" min="1" max="10" value="1" readonly
+                                   class="w-20 p-3 bg-[rgba(32,34,39,0.8)] border-2 border-[#00FFFF] rounded-lg text-white
+                                          outline-none text-center text-xl font-bold">
+                            <button type="button" id="increase-size"
+                                    class="w-12 h-12 rounded-full bg-[rgba(32,34,39,0.8)] border-2 border-[#00FFFF] text-[#00FFFF]
+                                           text-2xl font-bold flex items-center justify-center
+                                           transition-all duration-300 hover:bg-[#00FFFF] hover:text-black
+                                           disabled:opacity-50 disabled:cursor-not-allowed">
+                                +
+                            </button>
+                        </div>
+                        <div id="group-size-error" class="text-red-500 text-sm hidden"></div>
                     </div>
 
                     <!-- Individual Participant Container -->
@@ -427,18 +441,50 @@
                     addEventBtn.disabled = false;
 
                     if (selectedEvent.type === "team") {
+                        // Show containers
                         groupSizeContainer.classList.remove("hidden");
                         teamMembersContainer.classList.remove("hidden");
                         individualParticipantContainer.classList.add("hidden");
                         
-                        // Update input attributes and value
+                        // Initialize size input
+                        groupSizeInput.value = selectedEvent.minTeam;
                         groupSizeInput.min = selectedEvent.minTeam;
                         groupSizeInput.max = selectedEvent.maxTeam;
-                        groupSizeInput.value = selectedEvent.minTeam;
+                        
+                        // Initialize buttons
+                        const decreaseBtn = document.getElementById("decrease-size");
+                        const increaseBtn = document.getElementById("increase-size");
+                        
+                        // Set initial button states
+                        decreaseBtn.disabled = true; // Initially disabled at min
+                        increaseBtn.disabled = selectedEvent.minTeam >= selectedEvent.maxTeam;
                         
                         // Update label
                         const sizeLabel = groupSizeContainer.querySelector('label');
                         sizeLabel.innerHTML = `<strong>Number of Participants (${selectedEvent.minTeam}-${selectedEvent.maxTeam})</strong>`;
+                        
+                        // Add click handlers
+                        decreaseBtn.onclick = () => {
+                            let value = parseInt(groupSizeInput.value);
+                            if (value > selectedEvent.minTeam) {
+                                value--;
+                                groupSizeInput.value = value;
+                                decreaseBtn.disabled = value <= selectedEvent.minTeam;
+                                increaseBtn.disabled = false;
+                                generateMemberInputs(value);
+                            }
+                        };
+                        
+                        increaseBtn.onclick = () => {
+                            let value = parseInt(groupSizeInput.value);
+                            if (value < selectedEvent.maxTeam) {
+                                value++;
+                                groupSizeInput.value = value;
+                                increaseBtn.disabled = value >= selectedEvent.maxTeam;
+                                decreaseBtn.disabled = false;
+                                generateMemberInputs(value);
+                            }
+                        };
                         
                         generateMemberInputs(selectedEvent.minTeam);
                     } else {
@@ -448,7 +494,6 @@
                         individualParticipantContainer.classList.remove("hidden");
                         individualParticipantInput.required = true;
                         individualParticipantInput.value = ""; // clear previous value
-                        groupSizeInput.value = 1;
                     }
                 }
             }
@@ -621,6 +666,52 @@
         }
     }
 
+    // Update group size input validation
+    groupSizeInput.addEventListener("input", function() {
+        if (!currentEventSelection || currentEventSelection.type !== "team") return;
+        
+        let value = parseInt(this.value);
+        const min = currentEventSelection.minTeam;
+        const max = currentEventSelection.maxTeam;
+        
+        // Don't auto-adjust the value, just validate
+        if (value >= min && value <= max) {
+            groupSizeError.textContent = "";
+            groupSizeError.classList.add("hidden");
+            addEventBtn.disabled = false;
+            generateMemberInputs(value);
+        } else {
+            groupSizeError.textContent = `Please enter a value between ${min} and ${max}`;
+            groupSizeError.classList.remove("hidden");
+            addEventBtn.disabled = true;
+        }
+    });
+
+    // Update member inputs generation function
+    function generateMemberInputs(count) {
+        if (!currentEventSelection || currentEventSelection.type !== "team") return;
+        
+        memberInputsContainer.innerHTML = '';
+        teamMembersContainer.classList.remove("hidden");
+        
+        // Use the actual count without clamping
+        for (let i = 1; i <= count; i++) {
+            const memberDiv = document.createElement("div");
+            memberDiv.className = "member-input";
+            
+            const memberInput = document.createElement("input");
+            memberInput.type = "text";
+            memberInput.id = `member-${i}`;
+            memberInput.name = `member-${i}`;
+            memberInput.placeholder = `Member ${i} Name`;
+            memberInput.className = "w-full p-3 bg-[rgba(32,34,39,0.8)] border-2 border-[#00FFFF] rounded-lg text-white \
+                                   placeholder:text-gray-400 outline-none transition-all duration-300 \
+                                   focus:border-[#FF00FF] focus:shadow-[0_0_8px_rgba(3,233,244,0.4)]";
+            
+            memberDiv.appendChild(memberInput);
+            memberInputsContainer.appendChild(memberDiv);
+        }
+    }
 </script>
 
 <!-- Add these enhanced styles for event options -->
@@ -877,6 +968,30 @@ input[type="radio"]:checked {
 ::-webkit-scrollbar-thumb:hover {
     background: #FF00FF;
     transition: background-color 0.3s ease;
+}
+
+/* ...existing styles... */
+
+#group-size {
+    -moz-appearance: textfield;
+    cursor: default;
+}
+
+#group-size::-webkit-outer-spin-button,
+#group-size::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+#decrease-size:not(:disabled):hover,
+#increase-size:not(:disabled):hover {
+    transform: scale(1.1);
+}
+
+#decrease-size:disabled,
+#increase-size:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
 }
 </style>
 

@@ -47,7 +47,8 @@ supabase: Client = create_client(app.config['SUPABASE_URL'], app.config['SUPABAS
 app.config.update(
     SESSION_COOKIE_SECURE=True,   # Ensures cookies are sent only over HTTPS
     SESSION_COOKIE_HTTPONLY=True, # Prevents JavaScript from accessing cookies
-    SESSION_COOKIE_SAMESITE='Lax' # Helps prevent CSRF attacks
+    SESSION_COOKIE_SAMESITE='Lax', # Helps prevent CSRF attacks
+    PERMANENT_SESSION_LIFETIME=timedelta(minutes=5)  # Changed from 1 hour to 5 minutes
 )
 
 # Function to set cache headers
@@ -175,14 +176,25 @@ def login_required(allowed_pages=None):
     def decorator(f):
         @wraps(f)
         def decorated_function(*args, **kwargs):
-            if 'user_id' not in session:
-                flash('Please log in first')
+            # Check if user is logged in and session is valid
+            if 'user_id' not in session or 'login_time' not in session:
+                session.clear()
+                flash('Please log in to continue')
                 return redirect(url_for('signin'))
             
-            if allowed_pages and session.get('page') not in allowed_pages:
-                flash('Access denied')
+            # Check if session has expired (5 minutes)
+            login_time = datetime.fromisoformat(session['login_time'])
+            if datetime.now() - login_time > timedelta(minutes=5):  # Changed from hours=1 to minutes=5
+                session.clear()
+                flash('Your session has expired. Please log in again')
                 return redirect(url_for('signin'))
-                
+            
+            # Check if user has correct permissions
+            if allowed_pages and session.get('page') not in allowed_pages:
+                session.clear()
+                flash('Access denied. Insufficient permissions')
+                return redirect(url_for('signin'))
+            
             return f(*args, **kwargs)
         return decorated_function
     return decorator
@@ -256,9 +268,11 @@ def signin():
                 
                 # Verify password (assuming passwords are stored as-is for now)
                 if user['password'] == password:
+                    session.clear()
                     # Store user info in session
                     session['user_id'] = user['user_id']
                     session['page'] = user['page']
+                    session['login_time'] = datetime.now().isoformat()
                     
                     # Redirect based on user role
                     if user['page'] == 'admin':
@@ -284,18 +298,32 @@ def logout():
     return redirect(url_for('signin'))
 
 @app.route('/admin')
-@login_required(allowed_pages=['admin'])
+@login_required(allowed_pages=['admin'])  # Already exists but verify it's there
 def admin():
     return render_template('admin.html')
 
 
 @app.route('/spot')
-@login_required(allowed_pages=['spot'])
 def spot():
-    return render_template('spot.html')
+    # Clear any existing session and redirect to signin
+    session.clear()
+    return redirect(url_for('signin'))
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
+    # Clear any existing session and redirect to signin
+    session.clear()
+    if request.method == 'GET':
+        return redirect(url_for('signin'))
+    
+    # For POST requests, check if user is properly authenticated
+    if 'user_id' not in session or session.get('page') != 'college':
+        return jsonify({
+            'success': False,
+            'message': 'Authentication required'
+        }), 401
+    
+    # Rest of the registration logic
     if request.method == "POST":
         try:
             data = request.get_json(silent=True)
@@ -446,8 +474,20 @@ def show_ack(ack_id):
         return "Error fetching registration details", 500
 
 @app.route('/spot-register', methods=['GET', 'POST'])
-@login_required(allowed_pages=['spot'])
 def spot_register():
+    # Clear any existing session and redirect to signin
+    session.clear()
+    if request.method == 'GET':
+        return redirect(url_for('signin'))
+    
+    # For POST requests, check if user is properly authenticated
+    if 'user_id' not in session or session.get('page') != 'spot':
+        return jsonify({
+            'success': False,
+            'message': 'Authentication required'
+        }), 401
+    
+    # Rest of the spot registration logic
     if request.method == "POST":
         try:
             print("Received POST request at /spot-register")  # Debug log
@@ -578,76 +618,98 @@ def normalize_event_name(name):
     return re.sub(r'\W+', '', name).lower()
 
 def get_matching_registrations(table_name, norm_event, reg_type):
-    response = supabase.table(table_name).select('*').execute()
-    print(f"Found {len(response.data)} total registrations in {table_name}")
-    matches = []
-    for reg in response.data:
-        for event in reg['event_details']:
-            stored_event = event.get('event', '')
-            norm_stored = normalize_event_name(stored_event)
-            print(f"[{table_name}] Searching if '{norm_event}' is in '{norm_stored}'")
-            # Use universal substring matching
-            if norm_event in norm_stored:
-                reg_data = {
-                    'ack_id': reg['ack_id'],
-                    'college': reg['college'],
-                    'email': reg['email'],
-                    'phone': reg['phone'],
-                    'event_cost': event.get('cost', 0),
-                    'type': reg_type,
-                    'team_members': ''
-                }
-                if event.get('type') == 'team' and event.get('members'):
-                    reg_data['team_members'] = ', '.join(event['members'])
-                elif event.get('participant'):
-                    reg_data['team_members'] = event['participant']
-                if reg_type == 'spot':
-                    reg_data['utr_number'] = reg.get('utr_number', '')
-                matches.append(reg_data)
-                print(f"Added registration from {table_name}: {reg_data}")
-    return matches
+    try:
+        response = supabase.table(table_name).select('*').execute()
+        print(f"Found {len(response.data)} total registrations in {table_name}")
+        
+        matches = []
+        if not response.data:
+            return matches
+            
+        for reg in response.data:
+            if not reg.get('event_details'):
+                continue
+                
+            for event in reg['event_details']:
+                if not event or not isinstance(event, dict):
+                    continue
+                    
+                stored_event = event.get('event', '')
+                if not stored_event:
+                    continue
+                    
+                norm_stored = normalize_event_name(stored_event)
+                print(f"[{table_name}] Comparing '{norm_event}' with '{norm_stored}'")
+                
+                if norm_event in norm_stored:
+                    reg_data = {
+                        'ack_id': reg.get('ack_id', ''),
+                        'college': reg.get('college', ''),
+                        'email': reg.get('email', ''),
+                        'phone': reg.get('phone', ''),
+                        'total_participants': reg.get('total_participants', 0),
+                        'registration_date': reg.get('registration_date', ''),
+                        'total_cost': reg.get('total_cost', 0),
+                        'event_cost': event.get('cost', 0),
+                        'type': reg_type,
+                        'team_members': '',
+                        'event_details': reg.get('event_details', [])
+                    }
+                    
+                    # Handle team members
+                    if event.get('type') == 'team' and event.get('members'):
+                        reg_data['team_members'] = ', '.join(event['members'])
+                    elif event.get('participant'):
+                        reg_data['team_members'] = event['participant']
+                        
+                    # Add UTR number only for spot registrations
+                    if reg_type == 'spot':
+                        reg_data['utr_number'] = reg.get('utr_number', '')
+                        
+                    matches.append(reg_data)
+                    print(f"Added registration: {reg_data['ack_id']}")
+                    
+        return matches
+    except Exception as e:
+        print(f"Error in get_matching_registrations: {str(e)}")
+        return []
 
 @app.route('/api/get-event-registrations')
 @login_required(allowed_pages=['admin'])
 def get_event_registrations():
     try:
         event_name = request.args.get('event')
-        reg_type = request.args.get('type', 'regular')
+        reg_type = request.args.get('type', 'online')  # Default changed to 'online'
+        
+        if not event_name:
+            return jsonify({
+                'success': False,
+                'message': 'Event name is required'
+            })
+            
         norm_event = normalize_event_name(event_name)
         print(f"Searching for normalized event: '{norm_event}' with type: '{reg_type}'")
         
-        # Special handling for CHANAKSH (CODING EVENT)
-        if norm_event == normalize_event_name("CHANAKSH (CODING EVENT)"):
-            if reg_type == 'regular':
-                matches = []
-                matches += get_matching_registrations('registrations', norm_event, 'regular')
-                matches += get_matching_registrations('spot_registrations', norm_event, 'spot')
-            else:  # reg_type == 'spot'
-                matches = get_matching_registrations('spot_registrations', norm_event, 'spot')
-        else:
-            # Normal processing for other events using designated table
-            table_name = 'spot_registrations' if reg_type == 'spot' else 'registrations'
-            matches = get_matching_registrations(table_name, norm_event, reg_type)
+        table_name = 'spot_registrations' if reg_type == 'spot' else 'registrations'
+        matches = get_matching_registrations(table_name, norm_event, reg_type)
         
-        print(f"Returning {len(matches)} matching registrations")
         return jsonify({
             'success': True,
             'registrations': matches,
             'isSpot': reg_type == 'spot'
         })
-
     except Exception as e:
         print(f"Error in get_event_registrations: {str(e)}")
         return jsonify({
             'success': False,
-            'message': str(e)
+            'message': f"Error processing request: {str(e)}"
         })
 
 @app.route('/api/get-registrations')
 @login_required(allowed_pages=['admin'])
 def get_registrations():
     try:
-        reg_type = request.args.get('type', 'regular')
+        reg_type = request.args.get('type', 'online')  # Default changed to 'online'
         table_name = 'spot_registrations' if reg_type == 'spot' else 'registrations'
         
         response = supabase.table(table_name).select('*').execute()
@@ -683,16 +745,15 @@ def get_registrations():
 @login_required(allowed_pages=['admin'])
 def download_registrations():
     try:
-        reg_type = request.args.get('type', 'regular')
+        reg_type = request.args.get('type', 'online')  # Default changed to 'online'
         event_name = request.args.get('event')
         matches = []
 
         if event_name:
             norm_event = normalize_event_name(event_name)
-            # Special handling for CHANAKSH (CODING EVENT)
             if norm_event == normalize_event_name("CHANAKSH (CODING EVENT)"):
-                if reg_type == 'regular':
-                    matches += get_matching_registrations('registrations', norm_event, 'regular')
+                if reg_type == 'online':  # Changed from 'regular' to 'online'
+                    matches += get_matching_registrations('registrations', norm_event, 'online')
                     matches += get_matching_registrations('spot_registrations', norm_event, 'spot')
                 else:
                     matches = get_matching_registrations('spot_registrations', norm_event, 'spot')
@@ -804,6 +865,12 @@ def search_registration(ack_id):
             'success': False,
             'message': str(e)
         })
+
+# Add this new function to handle unauthorized access
+@app.errorhandler(401)
+def unauthorized(e):
+    flash('Please log in first')
+    return redirect(url_for('signin'))
 
 if __name__ == "__main__":
 
