@@ -115,6 +115,54 @@ def send_registration_email(to_email, ack_id, details):
         print(f"Failed to send email: {str(e)}")
         return False
 
+def send_spot_registration_email(to_email, ack_id, details):
+    try:
+        msg = MIMEMultipart()
+        msg['From'] = app.config['GMAIL_USER']
+        msg['To'] = to_email
+        msg['Subject'] = f"YUKTI 2025 Spot Registration Confirmation - {ack_id}"
+
+        body = f"""
+        <html>
+        <body style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+            <div style="background-color: #1c1c1c; padding: 20px; color: #ffffff;">
+                <h2 style="color: #FFD700; text-align: center;">Spot Registration Successful!</h2>
+                <div style="margin-bottom: 20px;">
+                    <h3 style="color: #FFD700;">Registration Details</h3>
+                    <p><strong>Acknowledgement ID:</strong> {ack_id}</p>
+                    <p><strong>UTR Number:</strong> {details['utr_number']}</p>
+                    <p><strong>Email:</strong> {details['email']}</p>
+                    <p><strong>Phone:</strong> {details['phone']}</p>
+                    <p><strong>College:</strong> {details['college']}</p>
+                    <p><strong>Total Cost:</strong> ₹{details['total_cost']}</p>
+                </div>
+
+                <div style="margin-bottom: 20px;">
+                    <h3 style="color: #FFD700;">Event Details</h3>
+                    {details['event_details_html']}
+                </div>
+
+                <p style="background-color: #8B0000; padding: 10px; text-align: center; margin: 20px 0;">
+                    Please keep this acknowledgement for your records.
+                </p>
+            </div>
+        </body>
+        </html>
+        """
+
+        msg.attach(MIMEText(body, 'html'))
+
+        with smtplib.SMTP('smtp.gmail.com', 587) as server:
+            server.starttls()
+            server.login(app.config['GMAIL_USER'], app.config['GMAIL_PASSWORD'])
+            server.send_message(msg)
+        
+        print(f"Spot registration email sent to {to_email}")
+        return True
+    except Exception as e:
+        print(f"Failed to send spot registration email: {str(e)}")
+        return False
+
 
 def generate_ack_id():
     timestamp = datetime.now().strftime("%Y")
@@ -441,7 +489,37 @@ def spot_register():
             print("Supabase response:", response)  # Debug log
             
             if response.data:
-                print(f"Successfully created registration with ack_id: {ack_id}")  # Debug log
+                # Format event details for email
+                event_details_html = []
+                for event in data['selectedEvents']:
+                    event_html = f"""
+                    <div style="background-color: #2c2c2c; padding: 15px; margin: 10px 0; border-radius: 5px;">
+                        <h4 style="color: #FFD700; margin: 0 0 10px 0;">{event['event']}</h4>
+                        <p><strong>Category:</strong> {event['category']}</p>
+                        <p><strong>Type:</strong> {event['type'].title()}</p>
+                        <p><strong>Cost:</strong> ₹{event['cost']}</p>
+                    """
+                    
+                    if 'members' in event:
+                        event_html += f"<p><strong>Team Members:</strong> {', '.join(event['members'])}</p>"
+                    elif 'participant' in event:
+                        event_html += f"<p><strong>Participant:</strong> {event['participant']}</p>"
+                    
+                    event_html += "</div>"
+                    event_details_html.append(event_html)
+
+                email_details = {
+                    'email': data['email'],
+                    'phone': data['phone'],
+                    'college': data['college'],
+                    'total_cost': data['totalCost'],
+                    'utr_number': data['utrNumber'],
+                    'event_details_html': ''.join(event_details_html)
+                }
+                
+                # Send confirmation email
+                send_spot_registration_email(data['email'], ack_id, email_details)
+
                 return jsonify({
                     'success': True,
                     'ack_id': ack_id
