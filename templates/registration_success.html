@@ -53,7 +53,11 @@
                                     <strong>{% if event.type == 'team' %}Team Members{% else %}Participant{% endif %}:</strong>
                                     <ul>
                                         {% for participant in event.participants %}
-                                        <li>{{ participant }}</li>
+                                        {% if participant is mapping %}
+                                            <li>{{ participant.name }} ({{ participant.usn }})</li>
+                                        {% else %}
+                                            <li>{{ participant }}</li>
+                                        {% endif %}
                                         {% endfor %}
                                     </ul>
                                 </div>

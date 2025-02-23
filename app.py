@@ -135,6 +135,7 @@ def send_spot_registration_email(to_email, ack_id, details):
                 <div style="margin-bottom: 20px;">
                     <h3 style="color: #FFD700;">Registration Details</h3>
                     <p><strong>Acknowledgement ID:</strong> {ack_id}</p>
+                    <p><strong>USN/College ID:</strong> {details['usn']}</p>
                     <p><strong>UTR Number:</strong> {details['utr_number']}</p>
                     <p><strong>Email:</strong> {details['email']}</p>
                     <p><strong>Phone:</strong> {details['phone']}</p>
@@ -180,24 +181,27 @@ def login_required(allowed_pages=None):
     def decorator(f):
         @wraps(f)
         def decorated_function(*args, **kwargs):
-            # Check if user is logged in and session is valid
-            if 'user_id' not in session or 'login_time' not in session:
-                session.clear()
-                flash('Please log in to continue')
-                return redirect(url_for('signin'))
+            # For API endpoints, return 401 JSON response instead of redirect
+            if not session.get('user_id'):
+                return jsonify({
+                    'success': False,
+                    'message': 'Authentication required'
+                }), 401
             
-            # Check if session has expired (5 minutes)
-            login_time = datetime.fromisoformat(session['login_time'])
-            if datetime.now() - login_time > timedelta(minutes=5):  # Changed from hours=1 to minutes=5
-                session.clear()
-                flash('Your session has expired. Please log in again')
-                return redirect(url_for('signin'))
+            # Check if session has expired
+            login_time = datetime.fromisoformat(session.get('login_time', ''))
+            if datetime.now() - login_time > timedelta(minutes=5):
+                return jsonify({
+                    'success': False,
+                    'message': 'Session expired'
+                }), 401
             
-            # Check if user has correct permissions
+            # Check permissions
             if allowed_pages and session.get('page') not in allowed_pages:
-                session.clear()
-                flash('Access denied. Insufficient permissions')
-                return redirect(url_for('signin'))
+                return jsonify({
+                    'success': False,
+                    'message': 'Access denied'
+                }), 403
             
             return f(*args, **kwargs)
         return decorated_function
@@ -257,92 +261,27 @@ def games():
 def kalachitrana():
     return render_template('events/kalachitrana.html')
 
-@app.route('/signin', methods=['GET', 'POST'])
-def signin():
-    # Always clear session first
-    session.clear()
-    
-    if request.method == 'POST':
-        user_id = request.form.get('user_id')
-        password = request.form.get('password')
-        
-        try:
-            response = supabase.table('auth').select('*').eq('user_id', user_id).execute()
-            
-            if response.data and len(response.data) > 0:
-                user = response.data[0]
-                
-                if user['password'] == password:
-                    # Set session data
-                    session.clear()
-                    session['user_id'] = user['user_id']
-                    session['page'] = user['page']
-                    session['login_time'] = datetime.now().isoformat()
-                    
-                    # Direct to correct page based on role
-                    if user['page'] == 'admin':
-                        return redirect(url_for('admin_page'))
-                    elif user['page'] == 'college':
-                        return redirect(url_for('register_page'))
-                    elif user['page'] == 'spot':
-                        return redirect(url_for('spot_page'))
-                
-                flash('Invalid password')
-            else:
-                flash('User not found')
-                
-        except Exception as e:
-            print(f"Login Error: {str(e)}")
-            flash('Login error occurred')
-    
-    return render_template('signin.html')
-
-@app.route('/logout')
-def logout():
-    session.clear()
-    return redirect(url_for('signin'))
-
-@app.route('/admin')
-def admin():
-    return redirect(url_for('signin'))
-
 @app.route('/admin-page')
 def admin_page():
-    if 'user_id' not in session or session.get('page') != 'admin':
-        return redirect(url_for('signin'))
+    # Only protect the admin API endpoints, not the page itself
     return render_template('admin.html')
-
-@app.route('/spot') 
-def spot():
-    return redirect(url_for('signin'))
 
 @app.route('/spot-page')
 def spot_page():
-    if 'user_id' not in session or session.get('page') != 'spot':
-        return redirect(url_for('signin'))
     return render_template('spot.html')
-
-@app.route('/register')
-def register():
-    return redirect(url_for('signin'))
 
 @app.route('/register-page')
 def register_page():
-    if 'user_id' not in session or session.get('page') != 'college':
-        return redirect(url_for('signin'))
     return render_template('registration.html')
 
 @app.route('/register', methods=['POST'])
 def register_submit():
-    if 'user_id' not in session or session.get('page') != 'college':
-        return jsonify({'success': False, 'message': 'Authentication required'}), 401
-        
     try:
         data = request.get_json(silent=True)
         if not data:
             return jsonify({'success': False, 'message': 'No data received'})
         
-        print("Received registration data:", data)
+        print("Received registration data:", data)  # Debug log
         
         ack_id = generate_ack_id()
         
@@ -359,10 +298,34 @@ def register_submit():
             }
             
             if event['type'] == 'team' and event.get('members'):
-                formatted_event['members'] = event['members']
+                # Handle team members with USN
+                formatted_event['members'] = []
+                for member in event['members']:
+                    if isinstance(member, dict):
+                        formatted_event['members'].append({
+                            'name': member.get('name', ''),
+                            'usn': member.get('usn', '')
+                        })
+                    else:
+                        # Handle legacy format
+                        formatted_event['members'].append({
+                            'name': member,
+                            'usn': ''
+                        })
                 total_participants += len(event['members'])
             elif event.get('participant'):
-                formatted_event['participant'] = event['participant']
+                # Handle individual participant with USN
+                if isinstance(event['participant'], dict):
+                    formatted_event['participant'] = {
+                        'name': event['participant'].get('name', ''),
+                        'usn': event['participant'].get('usn', '')
+                    }
+                else:
+                    # Handle legacy format
+                    formatted_event['participant'] = {
+                        'name': event['participant'],
+                        'usn': ''
+                    }
                 total_participants += 1
             
             formatted_events.append(formatted_event)
@@ -379,11 +342,14 @@ def register_submit():
             'event_details': formatted_events
         }
         
+        print("Formatted registration data:", registration_data)  # Debug log
+        
         # Insert into Supabase
         response = supabase.table('registrations').insert(registration_data).execute()
+        print("Supabase response:", response)  # Debug log
         
         if response.data:
-            # Format email details
+            # Format email details with USN
             event_details_html = []
             for event in formatted_events:
                 event_html = f"""<div style="padding: 10px; border: 1px solid #ccc; margin: 5px 0;">
@@ -392,9 +358,11 @@ def register_submit():
                     <p><strong>Cost:</strong> ₹{event['cost']}</p>"""
                 
                 if 'members' in event:
-                    event_html += f"<p><strong>Team:</strong> {', '.join(event['members'])}</p>"
+                    members_list = [f"{m['name']} ({m['usn']})" for m in event['members'] if m.get('name')]
+                    event_html += f"<p><strong>Team Members:</strong> {', '.join(members_list)}</p>"
                 elif 'participant' in event:
-                    event_html += f"<p><strong>Participant:</strong> {event['participant']}</p>"
+                    participant = event['participant']
+                    event_html += f"<p><strong>Participant:</strong> {participant['name']} ({participant['usn']})</p>"
                 
                 event_html += "</div>"
                 event_details_html.append(event_html)
@@ -409,13 +377,12 @@ def register_submit():
             
             # Send confirmation email
             send_registration_email(data['email'], ack_id, email_details)
-
             return jsonify({'success': True, 'ack_id': ack_id})
         
         return jsonify({'success': False, 'message': 'Registration failed'})
         
     except Exception as e:
-        print(f"Registration Error: {str(e)}")
+        print(f"Registration Error: {str(e)}")  # Debug log
         return jsonify({'success': False, 'message': str(e)})
 
 @app.route('/acknowledgement/<ack_id>')
@@ -438,9 +405,15 @@ def show_ack(ack_id):
                 }
                 
                 if event['type'] == 'team' and 'members' in event:
-                    event_info['participants'] = event['members']
+                    event_info['participants'] = [
+                        {'name': member['name'], 'usn': member['usn']}
+                        for member in event['members']
+                    ]
                 elif 'participant' in event:
-                    event_info['participants'] = [event['participant']]
+                    event_info['participants'] = [
+                        {'name': event['participant']['name'], 
+                         'usn': event['participant']['usn']}
+                    ]
                 
                 formatted_events.append(event_info)
             
@@ -474,18 +447,9 @@ def show_ack(ack_id):
 
 @app.route('/spot-register', methods=['GET', 'POST'])
 def spot_register():
-    # Removed session.clear() to preserve authentication status for spot registration
     if request.method == 'GET':
-        return redirect(url_for('signin'))
+        return render_template('spot.html')
     
-    # For POST requests, check if user is properly authenticated
-    if 'user_id' not in session or session.get('page') != 'spot':
-        return jsonify({
-            'success': False,
-            'message': 'Authentication required'
-        }), 401
-    
-    # Rest of the spot registration logic
     if request.method == "POST":
         try:
             print("Received POST request at /spot-register")  # Debug log
@@ -513,11 +477,12 @@ def spot_register():
                 'email': data['email'],
                 'phone': data['phone'],
                 'college': data['college'],
-                'total_participants': total_participants,  # Use calculated value
+                'total_participants': total_participants,
                 'total_cost': data['totalCost'],
                 'event_details': data['selectedEvents'],
                 'registration_date': datetime.now().isoformat(),
-                'utr_number': data['utrNumber']
+                'utr_number': data['utrNumber'],
+                'usn': data['usn']  # Include USN in registration data
             }
             
             print("Attempting to insert data:", registration_data)  # Debug log
@@ -530,13 +495,11 @@ def spot_register():
                 # Format event details for email
                 event_details_html = []
                 for event in data['selectedEvents']:
-                    event_html = f"""
-                    <div style="background-color: #2c2c2c; padding: 15px; margin: 10px 0; border-radius: 5px;">
+                    event_html = f"""<div style="background-color: #2c2c2c; padding: 15px; margin: 10px 0; border-radius: 5px;">
                         <h4 style="color: #FFD700; margin: 0 0 10px 0;">{event['event']}</h4>
                         <p><strong>Category:</strong> {event['category']}</p>
                         <p><strong>Type:</strong> {event['type'].title()}</p>
-                        <p><strong>Cost:</strong> ₹{event['cost']}</p>
-                    """
+                        <p><strong>Cost:</strong> ₹{event['cost']}</p>"""
                     
                     if 'members' in event:
                         event_html += f"<p><strong>Team Members:</strong> {', '.join(event['members'])}</p>"
@@ -552,7 +515,8 @@ def spot_register():
                     'college': data['college'],
                     'total_cost': data['totalCost'],
                     'utr_number': data['utrNumber'],
-                    'event_details_html': ''.join(event_details_html)
+                    'event_details_html': ''.join(event_details_html),
+                    'usn': data['usn']  # Include USN in email details
                 }
                 
                 # Send confirmation email
@@ -562,13 +526,13 @@ def spot_register():
                     'success': True,
                     'ack_id': ack_id
                 })
-            else:
-                print("Registration failed - no data in response")  # Debug log
-                return jsonify({
-                    'success': False,
-                    'message': 'Registration failed'
-                })
-                
+            
+            print("Registration failed - no data in response")  # Debug log
+            return jsonify({
+                'success': False,
+                'message': 'Registration failed'
+            })
+            
         except Exception as e:
             print(f"Error in spot registration: {str(e)}")  # Debug log
             return jsonify({
@@ -579,8 +543,7 @@ def spot_register():
     return render_template("spot.html")
 
 @app.route('/spot-acknowledgement/<ack_id>')
-@login_required(allowed_pages=['spot', 'admin'])
-def show_spot_ack(ack_id):
+def show_spot_ack(ack_id):  # Remove login_required decorator
     try:
         # Query spot_registrations table instead of registrations
         response = supabase.table('spot_registrations').select('*').eq('ack_id', ack_id).execute()
@@ -595,7 +558,8 @@ def show_spot_ack(ack_id):
                 'total_cost': registration['total_cost'],
                 'event_details': registration['event_details'],
                 'registration_date': registration['registration_date'],
-                'utr_number': registration['utr_number']  # Include UTR number in details
+                'utr_number': registration['utr_number'],  # Include UTR number in details
+                'usn': registration['usn']  # Include USN in details
             }
             
             return render_template('spot_success.html', 
@@ -605,7 +569,7 @@ def show_spot_ack(ack_id):
             
         flash('Registration not found')
         return redirect(url_for('spot_register'))
-            
+        
     except Exception as e:
         print(f"Error fetching registration: {str(e)}")
         flash('Error fetching registration details')
@@ -623,19 +587,19 @@ def get_matching_registrations(table_name, norm_event, reg_type):
         matches = []
         if not response.data:
             return matches
-            
+        
         for reg in response.data:
             if not reg.get('event_details'):
                 continue
-                
+            
             for event in reg['event_details']:
                 if not event or not isinstance(event, dict):
                     continue
-                    
+                
                 stored_event = event.get('event', '')
                 if not stored_event:
                     continue
-                    
+                
                 norm_stored = normalize_event_name(stored_event)
                 print(f"[{table_name}] Comparing '{norm_event}' with '{norm_stored}'")
                 
@@ -646,8 +610,8 @@ def get_matching_registrations(table_name, norm_event, reg_type):
                         'email': reg.get('email', ''),
                         'phone': reg.get('phone', ''),
                         'total_participants': reg.get('total_participants', 0),
-                        'registration_date': reg.get('registration_date', ''),
                         'total_cost': reg.get('total_cost', 0),
+                        'registration_date': reg.get('registration_date', ''),
                         'event_cost': event.get('cost', 0),
                         'type': reg_type,
                         'team_members': '',
@@ -659,7 +623,7 @@ def get_matching_registrations(table_name, norm_event, reg_type):
                         reg_data['team_members'] = ', '.join(event['members'])
                     elif event.get('participant'):
                         reg_data['team_members'] = event['participant']
-                        
+                    
                     # Add UTR number only for spot registrations
                     if reg_type == 'spot':
                         reg_data['utr_number'] = reg.get('utr_number', '')
@@ -668,10 +632,12 @@ def get_matching_registrations(table_name, norm_event, reg_type):
                     print(f"Added registration: {reg_data['ack_id']}")
                     
         return matches
+        
     except Exception as e:
         print(f"Error in get_matching_registrations: {str(e)}")
         return []
 
+# Keep the API endpoints protected with login_required
 @app.route('/api/get-event-registrations')
 @login_required(allowed_pages=['admin'])
 def get_event_registrations():
@@ -696,6 +662,7 @@ def get_event_registrations():
             'registrations': matches,
             'isSpot': reg_type == 'spot'
         })
+        
     except Exception as e:
         print(f"Error in get_event_registrations: {str(e)}")
         return jsonify({
@@ -751,7 +718,7 @@ def download_registrations():
                 'success': False,
                 'message': 'Event name is required'
             })
-
+        
         # Get registrations for the specific event
         norm_event = normalize_event_name(event_name)
         table_name = 'spot_registrations' if reg_type == 'spot' else 'registrations'
@@ -762,11 +729,10 @@ def download_registrations():
                 'success': False,
                 'message': 'No registrations found for this event'
             })
-
+        
         # Prepare CSV output
         output = io.StringIO(newline='')
         output.write('\ufeff')  # UTF-8 BOM
-        
         writer = csv.writer(output, dialect='excel', quoting=csv.QUOTE_ALL)
         
         # Define headers based on registration type
@@ -792,11 +758,10 @@ def download_registrations():
                 row.append(reg.get('utr_number', ''))
                 
             writer.writerow(row)
-
+        
         # Get CSV content and create response
         csv_output = output.getvalue()
         output.close()
-
         response = Response(
             csv_output.encode('utf-8-sig'),
             mimetype='text/csv; charset=utf-8-sig',
@@ -808,7 +773,7 @@ def download_registrations():
         )
         
         return response
-
+        
     except Exception as e:
         print(f"Error in download_registrations: {str(e)}")
         return jsonify({
@@ -856,10 +821,10 @@ def search_registration(ack_id):
 # Add this new function to handle unauthorized access
 @app.errorhandler(401)
 def unauthorized(e):
-    flash('Please log in first')
-    return redirect(url_for('signin'))
+    return jsonify({
+        'success': False,
+        'message': 'Authentication required'
+    }), 401
 
 if __name__ == "__main__":
-
     app.run(debug=app.config['DEBUG'])
-

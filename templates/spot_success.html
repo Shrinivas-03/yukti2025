@@ -196,4 +196,24 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 
+<div class="registration-details">
+    <h3 class="text-[#00FFFF] mb-4">Event Details:</h3>
+    {% for event in details.event_details %}
+        <div class="event-card">
+            <h4>{{ event.event }}</h4>
+            <p>Type: {{ event.type | title }}</p>
+            {% if event.type == 'team' and event.members %}
+                <p>Team Members:</p>
+                <ul>
+                {% for member in event.members %}
+                    <li>{{ member.name }} ({{ member.usn }})</li>
+                {% endfor %}
+                </ul>
+            {% elif event.participant %}
+                <p>Participant: {{ event.participant.name }} ({{ event.participant.usn }})</p>
+            {% endif %}
+        </div>
+    {% endfor %}
+</div>
+
 {% endblock %}
