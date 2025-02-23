@@ -26,11 +26,7 @@
     </div>
 
     <div class="admin-panel">
-        <div class="user-info">
-            <p>Welcome, {{ session.user_id }}</p>
-            <a href="{{ url_for('logout') }}" class="logout-btn">Logout</a>
-        </div>
-
+        
         <!-- Event Categories Section First -->
         <div class="event-categories">
             <h2>Select Event Category and Event</h2>
@@ -143,28 +139,6 @@
         padding: 2rem;
         border-radius: 10px;
         box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
-    }
-
-    .user-info {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 2rem;
-        padding-bottom: 1rem;
-        border-bottom: 1px solid #FFD700;
-    }
-
-    .logout-btn {
-        padding: 0.5rem 1rem;
-        background: #8B0000;
-        color: white;
-        text-decoration: none;
-        border-radius: 4px;
-        transition: background 0.3s ease;
-    }
-
-    .logout-btn:hover {
-        background: #660000;
     }
 
     .dashboard-actions {
@@ -531,6 +505,7 @@
 
         try {
             const response = await fetch(`/api/get-registrations?type=${type}`);
+            if (!checkAuth(response)) return;
             const data = await response.json();
             
             if (data.success && data.registrations) {
@@ -600,7 +575,10 @@
         console.log(`Fetching registrations for ${eventName} in ${category}`);  // Debug log
 
         fetch(`/api/get-event-registrations?event=${encodeURIComponent(eventName)}&category=${encodeURIComponent(category)}`)
-            .then(response => response.json())
+            .then(response => {
+                if (!checkAuth(response)) return;
+                return response.json();
+            })
             .then(data => {
                 console.log('Response data:', data);  // Debug log
                 
@@ -724,6 +702,7 @@
             });
 
             const response = await fetch(`/api/get-event-registrations?event=${encodeURIComponent(selectedEvent)}&type=${type}`);
+            if (!checkAuth(response)) return;
             const data = await response.json();
             console.log('API Response:', data);
 
@@ -808,6 +787,7 @@
         const downloadUrl = `/api/download-registrations?event=${encodeURIComponent(selectedEvent)}&type=${currentType}`;
         fetch(downloadUrl)
             .then(response => {
+                if (!checkAuth(response)) return;
                 if (response.ok) {
                     response.blob().then(blob => {
                         const url = window.URL.createObjectURL(blob);
@@ -915,6 +895,7 @@
 
         try {
             const response = await fetch(`/api/search-registration/${ackId}`);
+            if (!checkAuth(response)) return;
             const data = await response.json();
             
             const resultsDiv = document.getElementById('searchResults');
@@ -992,6 +973,18 @@
             closeModal();
         }
     });
+
+    function checkAuth(response) {
+        if (response.status === 401) {
+            document.getElementById('admin-content').innerHTML = `
+                <div class="auth-error">
+                    <h2>Access Restricted</h2>
+                    <p>You need administrator access to view this content.</p>
+                </div>`;
+            return false;
+        }
+        return true;
+    }
 </script>
 
 <!-- Add modal div at the bottom of the body -->
@@ -999,5 +992,7 @@
     <span class="close-modal">&times;</span>
     <img id="modalImage" src="" alt="Enlarged payment proof">
 </div>
+
+<a href="{{ url_for('register_page') }}" class="btn">Register</a>
 
 {% endblock %}

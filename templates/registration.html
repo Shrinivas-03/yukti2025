@@ -191,13 +191,14 @@
                 </div>
 
                 <button type="button" 
-                        onclick="submitRegistration(this)"
+                        onclick="submitRegistration()"
                         class="w-full bg-[#FF00FF] text-white py-3 px-6 rounded-lg font-bold uppercase 
                                transition-all duration-300 hover:bg-transparent hover:text-[#FF00FF] 
-                               hover:border-2 hover:border-[#FF00FF]">
-                    <div class="button-content">
+                               hover:border-2 hover:border-[#FF00FF]"
+                        id="submitButton">
+                    <div class="button-content flex items-center justify-center">
                         <span>Register Now</span>
-                        <div class="spinner"></div>
+                        <div class="spinner hidden"></div>
                     </div>
                 </button>
             </div>
@@ -748,71 +749,65 @@ input[type="radio"]:checked + label {
             if (currentEventSelection) {
                 let hasError = false;
 
-                // Validate individual participant
-                if (currentEventSelection.type === "individual") {
-                    const participantName = individualParticipantInput.value.trim();
-                    const participantUSN = document.getElementById('individual-usn').value.trim();
-                    const errorDiv = document.getElementById('individual-error');
-                    
-                    if (!participantName || !participantUSN) {
-                        errorDiv.style.display = 'block';
-                        if (!participantName) individualParticipantInput.classList.add('error-border');
-                        if (!participantUSN) document.getElementById('individual-usn').classList.add('error-border');
-                        hasError = true;
-                    } else {
-                        errorDiv.style.display = 'none';
-                        individualParticipantInput.classList.remove('error-border');
-                        document.getElementById('individual-usn').classList.remove('error-border');
-                    }
-                }
-                
-                // Validate team members
+                // Validate inputs and create event details
+                const eventDetails = {
+                    category: categorySelect.value,
+                    event: currentEventSelection.name,
+                    type: currentEventSelection.type,
+                    cost: currentEventSelection.cost
+                };
+
                 if (currentEventSelection.type === "team") {
-                    const inputs = memberInputsContainer.querySelectorAll("input");
-                    let emptyFields = false;
+                    eventDetails.members = [];
+                    const memberDivs = memberInputsContainer.querySelectorAll(".member-input");
                     
-                    inputs.forEach(input => {
-                        if (!input.value.trim()) {
-                            input.classList.add('error-border');
-                            emptyFields = true;
+                    memberDivs.forEach(div => {
+                        const nameInput = div.querySelector('input[id^="member-"]');
+                        const usnInput = div.querySelector('input[id^="usn-"]');
+                        
+                        if (!nameInput || !usnInput || !nameInput.value.trim() || !usnInput.value.trim()) {
+                            hasError = true;
+                            if (nameInput) nameInput.classList.add('error-border');
+                            if (usnInput) usnInput.classList.add('error-border');
                         } else {
-                            input.classList.remove('error-border');
+                            if (nameInput) nameInput.classList.remove('error-border');
+                            if (usnInput) usnInput.classList.remove('error-border');
+                            eventDetails.members.push({
+                                name: nameInput.value.trim(),
+                                usn: usnInput.value.trim()
+                            });
                         }
                     });
-                    
-                    if (emptyFields) {
+
+                    if (hasError) {
                         document.getElementById('team-error').style.display = 'block';
-                        hasError = true;
-                    } else {
-                        document.getElementById('team-error').style.display = 'none';
+                        return;
                     }
+                    document.getElementById('team-error').style.display = 'none';
+                } else {
+                    // Handle individual participant
+                    const nameInput = document.getElementById('individual-participant');
+                    const usnInput = document.getElementById('individual-usn');
+                    
+                    if (!nameInput || !usnInput || !nameInput.value.trim() || !usnInput.value.trim()) {
+                        hasError = true;
+                        if (nameInput) nameInput.classList.add('error-border');
+                        if (usnInput) usnInput.classList.add('error-border');
+                        document.getElementById('individual-error').style.display = 'block';
+                        return;
+                    }
+                    
+                    nameInput.classList.remove('error-border');
+                    usnInput.classList.remove('error-border');
+                    document.getElementById('individual-error').style.display = 'none';
+                    
+                    eventDetails.participant = {
+                        name: nameInput.value.trim(),
+                        usn: usnInput.value.trim()
+                    };
                 }
 
-                // Only proceed if there are no errors
                 if (!hasError) {
-                    const eventDetails = {
-                        category: categorySelect.value,
-                        event: currentEventSelection.name,  // This is the event name from the events object
-                        type: currentEventSelection.type,
-                        cost: currentEventSelection.cost,
-                        minTeam: currentEventSelection.minTeam,
-                        maxTeam: currentEventSelection.maxTeam
-                    };
-
-                    if (currentEventSelection.type === "team") {
-                        eventDetails.members = [];
-                        const memberInputs = document.querySelectorAll("#member-inputs input");
-                        memberInputs.forEach(input => {
-                            if (input.value.trim()) {
-                                eventDetails.members.push(input.value.trim());
-                            }
-                        });
-                    } else {
-                        // For individual events, record the participant's name
-                        eventDetails.participant = individualParticipantInput.value.trim();
-                    }
-
-                    console.log("Adding event:", eventDetails); // Debug log
                     selectedEvents.push(eventDetails);
                     updateSelectedEventsList();
                     updateTotalCost();
@@ -834,9 +829,9 @@ input[type="radio"]:checked + label {
                 
                 let membersText = '';
                 if (event.members && event.members.length > 0) {
-                    membersText = `<br>Members: ${event.members.join(", ")}`;
+                    membersText = `<br>Members: ${event.members.map(member => `${member.name} (USN: ${member.usn})`).join(", ")}`;
                 } else if (event.participant) {
-                    membersText = `<br>Participant: ${event.participant}`;
+                    membersText = `<br>Participant: ${event.participant.name} (USN: ${event.participant.usn})`;
                 }
 
                 eventDiv.innerHTML = `
@@ -1028,8 +1023,11 @@ input[type="radio"]:checked + label {
             const min = currentEventSelection.minTeam || 1;
             const max = currentEventSelection.maxTeam || 1;
             
-            if (value < min) value = min;
-            if (value > max) value = max;
+            if (value < min) {
+                this.value = min;
+            } else if (value > max) {
+                this.value = max;
+            }
             
             this.value = value;
             generateMemberInputs(parseInt(this.value));
@@ -1124,13 +1122,15 @@ input[type="radio"]:checked + label {
         // The inline onclick handler calls submitRegistration(), which is defined below.
     });
 
-    async function submitRegistration(button) {
+    async function submitRegistration() {
+        const submitButton = document.getElementById('submitButton');
+        const spinner = submitButton.querySelector('.spinner');
+        const buttonText = submitButton.querySelector('span');
+
         try {
             // Show spinner and disable button
-            const spinner = button.querySelector('.spinner');
-            const buttonText = button.querySelector('span');
-            spinner.style.display = 'inline-block';
-            button.disabled = true;
+            spinner.classList.remove('hidden');
+            submitButton.disabled = true;
             buttonText.textContent = 'Registering...';
 
             if (selectedEvents.length === 0) {
@@ -1139,7 +1139,9 @@ input[type="radio"]:checked + label {
                 return;
             }
 
-            const college = document.getElementById('college').value;
+            const collegeSelect = document.getElementById('collegeSelect');
+            const otherCollege = document.getElementById('otherCollege');
+            const college = collegeSelect.value === 'other' ? otherCollege.value : collegeSelect.value;
             const email = document.getElementById('email').value;
             const phone = document.getElementById('phone').value;
 
@@ -1149,21 +1151,11 @@ input[type="radio"]:checked + label {
                 return;
             }
 
-            // Format the selected events with correct field names
-            const formattedEvents = selectedEvents.map(event => ({
-                event: event.event,           // Use 'event' instead of 'name'
-                type: event.type,             
-                cost: event.cost,             
-                category: event.category,      
-                members: event.members || [],  
-                participant: event.participant 
-            }));
-
             const registrationData = {
                 email: email,
                 phone: phone,
                 college: college,
-                selectedEvents: formattedEvents,
+                selectedEvents: selectedEvents,
                 totalCost: parseInt(document.querySelector('.total-cost').textContent)
             };
             
@@ -1176,10 +1168,6 @@ input[type="radio"]:checked + label {
                 },
                 body: JSON.stringify(registrationData)
             });
-
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
 
             const data = await response.json();
             console.log('Server response:', data);
@@ -1197,8 +1185,8 @@ input[type="radio"]:checked + label {
         }
 
         function resetButton() {
-            spinner.style.display = 'none';
-            button.disabled = false;
+            spinner.classList.add('hidden');
+            submitButton.disabled = false;
             buttonText.textContent = 'Register Now';
         }
     }

@@ -112,6 +112,15 @@
                 <!-- Personal Details Section -->
                 <div class="personal-details-section hidden space-y-6">
                     <!-- ... existing personal details fields with updated styles ... -->
+                    <div class="form-group mb-6">
+                        <label for="usn" class="block text-white mb-2">USN/College ID <span class="text-[#FF00FF]">*</span></label>
+                        <input type="text" 
+                               id="usn" 
+                               name="usn" 
+                               class="w-full px-4 py-2 bg-[#2E2E2E] border border-[#00FFFF] rounded-md text-white 
+                                      focus:outline-none focus:border-[#FF00FF] transition-colors"
+                               required>
+                    </div>
                     <div class="form-group">
                         <label class="block text-[#00FFFF] mb-2 font-['Orbitron']" for="college">College Name</label>
                         <input type="text" id="college" required 
@@ -271,20 +280,28 @@
 
             for (let i = 1; i <= count; i++) {
                 const memberDiv = document.createElement("div");
-                memberDiv.classList.add("member-input");
+                memberDiv.classList.add("member-input", "flex", "gap-2", "mb-2");
                 
-                const memberInput = document.createElement("input");
-                memberInput.type = "text";
-                memberInput.id = `member-${i}`;
-                memberInput.name = `member-${i}`;
-                memberInput.placeholder = `Member ${i} Name`;
-                // Removed required attribute to prevent invalid form control error
-                // memberInput.required = true;
+                // Name input
+                const nameInput = document.createElement("input");
+                nameInput.type = "text";
+                nameInput.id = `member-name-${i}`;
+                nameInput.name = `member-name-${i}`;
+                nameInput.placeholder = `Member ${i} Name`;
+                nameInput.className = "w-1/2 p-3 bg-[rgba(32,34,39,0.8)] border-2 border-[#00FFFF] rounded-lg text-white";
                 
-                memberDiv.appendChild(memberInput);
+                // USN input
+                const usnInput = document.createElement("input");
+                usnInput.type = "text";
+                usnInput.id = `member-usn-${i}`;
+                usnInput.name = `member-usn-${i}`;
+                usnInput.placeholder = `Member ${i} USN`;
+                usnInput.className = "w-1/2 p-3 bg-[rgba(32,34,39,0.8)] border-2 border-[#00FFFF] rounded-lg text-white";
+                
+                memberDiv.appendChild(nameInput);
+                memberDiv.appendChild(usnInput);
                 memberInputsContainer.appendChild(memberDiv);
             }
-            updateTotalParticipants();
         }
 
         addEventBtn.addEventListener("click", function() {
@@ -298,15 +315,27 @@
 
                 if (currentEventSelection.type === "team" || currentEventSelection.type === "group") {
                     eventDetails.members = [];
-                    const memberInputs = document.querySelectorAll("#member-inputs input");
-                    memberInputs.forEach(input => {
-                        if (input.value.trim()) {
-                            eventDetails.members.push(input.value.trim());
+                    const memberInputs = document.querySelectorAll("#member-inputs .member-input");
+                    memberInputs.forEach(div => {
+                        const nameInput = div.querySelector('[id^="member-name-"]');
+                        const usnInput = div.querySelector('[id^="member-usn-"]');
+                        if (nameInput.value.trim() && usnInput.value.trim()) {
+                            eventDetails.members.push({
+                                name: nameInput.value.trim(),
+                                usn: usnInput.value.trim()
+                            });
                         }
                     });
                 } else {
                     // For individual events, record the participant's name
-                    eventDetails.participant = individualParticipantInput.value.trim();
+                    const nameInput = document.getElementById('individual-participant');
+                    const usnInput = document.getElementById('usn');
+                    if (nameInput && usnInput) {
+                        eventDetails.participant = {
+                            name: nameInput.value.trim(),
+                            usn: usnInput.value.trim()
+                        };
+                    }
                 }
 
                 selectedEvents.push(eventDetails);
@@ -326,9 +355,9 @@
                 
                 let membersText = '';
                 if (event.members && event.members.length > 0) {
-                    membersText = `<br>Members: ${event.members.join(", ")}`;
+                    membersText = `<br>Members: ${event.members.map(member => `${member.name} (${member.usn})`).join(", ")}`;
                 } else if (event.participant) {
-                    membersText = `<br>Participant: ${event.participant}`;
+                    membersText = `<br>Participant: ${event.participant.name} (${event.participant.usn})`;
                 }
 
                 eventDiv.innerHTML = `
