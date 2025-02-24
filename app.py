@@ -80,30 +80,54 @@ def send_registration_email(to_email, ack_id, details):
 
         # Create email body with better formatting
         body = f"""
-        <html>
-        <body style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-            <div style="background-color: #1c1c1c; padding: 20px; color: #ffffff;">
-                <h2 style="color: #FFD700; text-align: center;">Registration Successful!</h2>
-                <div style="margin-bottom: 20px;">
-                    <h3 style="color: #FFD700;">Registration Details</h3>
-                    <p><strong>Acknowledgement ID:</strong> {ack_id}</p>
-                    <p><strong>Email:</strong> {details['email']}</p>
-                    <p><strong>Phone:</strong> {details['phone']}</p>
-                    <p><strong>College:</strong> {details['college']}</p>
-                    <p><strong>Total Cost:</strong> ₹{details['total_cost']}</p>
+       <html>
+<body style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+    <div style="background-color: #1c1c1c; padding: 20px; color: #ffffff;">
+        <!-- Header Section -->
+        <div style="position: relative; border-bottom: 2px solid #FFD700; padding-bottom: 20px; margin-bottom: 30px;">
+           
+            
+            <div style="text-align: center; margin: 0 auto;">
+                <h1 style="margin: 0 0 5px 0; font-size: 24px; color: #FFD700;">
+                    Visvesvaraya Technological University
+                </h1>
+                <h2 style="margin: 0 0 5px 0; font-size: 20px;">
+                    Center of PG Studies And Regional Office Kalaburagi
+                </h2>
+                <div style="font-size: 22px; font-weight: bold; letter-spacing: 2px; color: #FFD700;">
+                    Yukti-2025
                 </div>
-
-                <div style="margin-bottom: 20px;">
-                    <h3 style="color: #FFD700;">Event Details</h3>
-                    {details['event_details_html']}
-                </div>
-
-                <p style="background-color: #8B0000; padding: 10px; text-align: center; margin: 20px 0;">
-                    Please pay the registration fees at the registration desk on the event day.
-                </p>
             </div>
-        </body>
-        </html>
+        </div>
+
+        <!-- Existing Content -->
+        <h2 style="color: #FFD700; text-align: center; margin-top: 0;">Registration Successful!</h2>
+        <div style="margin-bottom: 20px;">
+            <h3 style="color: #FFD700;">Registration Details</h3>
+            <p><strong>Acknowledgement ID:</strong> {ack_id}</p>
+            <p><strong>Email:</strong> {details['email']}</p>
+            <p><strong>Phone:</strong> {details['phone']}</p>
+            <p><strong>College:</strong> {details['college']}</p>
+            <p><strong>Total Cost:</strong> ₹{details['total_cost']}</p>
+        </div>
+
+        <div style="margin-bottom: 20px;">
+            <h3 style="color: #FFD700;">Event Details</h3>
+            {details['event_details_html']}
+        </div>
+
+        <p style="background-color: #8B0000; padding: 10px; text-align: center; margin: 20px 0;">
+             Kindly ensure that the registration fees are paid at the registration desk on the event day <br> 10 March 2025, by 8:00 AM To 10:30 A.M.
+        </p>
+         <p style="background-color: #8B0000; padding: 10px; text-align: center; margin: 20px 0;">
+              Please bring valid college Id while coming to the event..
+        </p>
+         <p style="background-color: #8B0000; padding: 10px; text-align: center; margin: 20px 0;">
+              Please bring HardCopy Of Acknowledgement Pdf
+        </p>
+    </div>
+</body>
+</html>
         """
 
         msg.attach(MIMEText(body, 'html'))
@@ -120,61 +144,29 @@ def send_registration_email(to_email, ack_id, details):
         print(f"Failed to send email: {str(e)}")
         return False
 
-def send_spot_registration_email(to_email, ack_id, details):
+
+def get_last_ack_number():
     try:
-        msg = MIMEMultipart()
-        msg['From'] = app.config['GMAIL_USER']
-        msg['To'] = to_email
-        msg['Subject'] = f"YUKTI 2025 Spot Registration Confirmation - {ack_id}"
-
-        body = f"""
-        <html>
-        <body style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-            <div style="background-color: #1c1c1c; padding: 20px; color: #ffffff;">
-                <h2 style="color: #FFD700; text-align: center;">Spot Registration Successful!</h2>
-                <div style="margin-bottom: 20px;">
-                    <h3 style="color: #FFD700;">Registration Details</h3>
-                    <p><strong>Acknowledgement ID:</strong> {ack_id}</p>
-                    <p><strong>USN/College ID:</strong> {details['usn']}</p>
-                    <p><strong>UTR Number:</strong> {details['utr_number']}</p>
-                    <p><strong>Email:</strong> {details['email']}</p>
-                    <p><strong>Phone:</strong> {details['phone']}</p>
-                    <p><strong>College:</strong> {details['college']}</p>
-                    <p><strong>Total Cost:</strong> ₹{details['total_cost']}</p>
-                </div>
-
-                <div style="margin-bottom: 20px;">
-                    <h3 style="color: #FFD700;">Event Details</h3>
-                    {details['event_details_html']}
-                </div>
-
-                <p style="background-color: #8B0000; padding: 10px; text-align: center; margin: 20px 0;">
-                    Please keep this acknowledgement for your records.
-                </p>
-            </div>
-        </body>
-        </html>
-        """
-
-        msg.attach(MIMEText(body, 'html'))
-
-        with smtplib.SMTP('smtp.gmail.com', 587) as server:
-            server.starttls()
-            server.login(app.config['GMAIL_USER'], app.config['GMAIL_PASSWORD'])
-            server.send_message(msg)
+        # Get all registrations ordered by ack_id in descending order
+        response = supabase.table('registrations').select('ack_id').order('ack_id', desc=True).limit(1).execute()
         
-        print(f"Spot registration email sent to {to_email}")
-        return True
+        if response.data and len(response.data) > 0:
+            # Extract number from last ack_id (format: YUKTI-2025-00001)
+            last_ack = response.data[0]['ack_id']
+            last_number = int(last_ack.split('-')[-1])
+            return last_number
+        return 0
     except Exception as e:
-        print(f"Failed to send spot registration email: {str(e)}")
-        return False
-
+        print(f"Error getting last ack number: {str(e)}")
+        return 0
 
 def generate_ack_id():
-    timestamp = datetime.now().strftime("%Y")
-    # Use secrets instead of random for cryptographic operations
-    random_chars = ''.join(secrets.choice(string.ascii_uppercase + string.digits) for _ in range(5))
-    return f"YUKTI-{timestamp}-{random_chars}"
+    year = datetime.now().strftime("%Y")
+    last_number = get_last_ack_number()
+    new_number = last_number + 1
+    # Format number as 5 digits with leading zeros
+    formatted_number = f"{new_number:05d}"
+    return f"YUKTI-{year}-{formatted_number}"
 
 # Authentication decorator
 def login_required(allowed_pages=None):
@@ -265,10 +257,6 @@ def kalachitrana():
 def admin_page():
     # Only protect the admin API endpoints, not the page itself
     return render_template('admin.html')
-
-@app.route('/spot-page')
-def spot_page():
-    return render_template('spot.html')
 
 @app.route('/register-page')
 def register_page():
@@ -445,124 +433,13 @@ def show_ack(ack_id):
         print(f"Error fetching registration: {str(e)}")
         return "Error fetching registration details", 500
 
-@app.route('/spot-register', methods=['GET', 'POST'])
-def spot_register():
-    if request.method == 'GET':
-        return render_template('spot.html')
-    
-    if request.method == "POST":
-        try:
-            data = request.get_json(silent=True)
-            
-            if not data:
-                return jsonify({'success': False, 'message': 'No data received'})
-            
-            ack_id = generate_ack_id()
-            
-            # Calculate total participants from event details
-            total_participants = 0
-            event_details = data['selectedEvents']
-            
-            for event in event_details:
-                if event.get('type') == 'team' and event.get('members'):
-                    total_participants += len(event['members'])
-                elif event.get('participant'):
-                    total_participants += 1
-            
-            # Prepare registration data without separate USN field
-            registration_data = {
-                'ack_id': ack_id,
-                'email': data['email'],
-                'phone': data['phone'],
-                'college': data['college'],
-                'total_participants': total_participants,
-                'total_cost': data['totalCost'],
-                'event_details': event_details,  # USN is now included within event details
-                'registration_date': datetime.now().isoformat(),
-                'utr_number': data['utrNumber']
-            }
-            
-            # Insert into Supabase
-            response = supabase.table('spot_registrations').insert(registration_data).execute()
-            
-            if response.data:
-                # Format event details for email
-                event_details_html = []
-                for event in event_details:
-                    event_html = f"""<div style="padding: 10px; border: 1px solid #ccc; margin: 5px 0;">
-                        <p><strong>Event:</strong> {event['event']}</p>
-                        <p><strong>Type:</strong> {event['type']}</p>
-                        <p><strong>Cost:</strong> ₹{event['cost']}</p>"""
-                    
-                    if event.get('members'):
-                        members_list = [f"{m['name']} ({m['usn']})" for m in event['members']]
-                        event_html += f"<p><strong>Team Members:</strong> {', '.join(members_list)}</p>"
-                    elif event.get('participant'):
-                        participant = event['participant']
-                        event_html += f"<p><strong>Participant:</strong> {participant['name']} ({participant['usn']})</p>"
-                    
-                    event_html += "</div>"
-                    event_details_html.append(event_html)
-
-                email_details = {
-                    'email': data['email'],
-                    'phone': data['phone'],
-                    'college': data['college'],
-                    'total_cost': data['totalCost'],
-                    'utr_number': data['utrNumber'],
-                    'event_details_html': ''.join(event_details_html)
-                }
-                
-                send_spot_registration_email(data['email'], ack_id, email_details)
-                return jsonify({'success': True, 'ack_id': ack_id})
-            
-            return jsonify({'success': False, 'message': 'Registration failed'})
-            
-        except Exception as e:
-            print(f"Error in spot registration: {str(e)}")
-            return jsonify({'success': False, 'message': str(e)})
-    
-    return render_template("spot.html")
-
-# Update show_spot_ack to handle USN from event_details
-@app.route('/spot-acknowledgement/<ack_id>')
-def show_spot_ack(ack_id):
-    try:
-        response = supabase.table('spot_registrations').select('*').eq('ack_id', ack_id).execute()
-        
-        if response.data and len(response.data) > 0:
-            registration = response.data[0]
-            details = {
-                'email': registration['email'],
-                'phone': registration['phone'],
-                'college': registration['college'],
-                'total_participants': registration['total_participants'],
-                'total_cost': registration['total_cost'],
-                'event_details': registration['event_details'],
-                'registration_date': registration['registration_date'],
-                'utr_number': registration['utr_number']
-            }
-            
-            return render_template('spot_success.html', 
-                ack_id=ack_id,
-                details=details
-            )
-        
-        flash('Registration not found')
-        return redirect(url_for('spot_register'))
-        
-    except Exception as e:
-        print(f"Error fetching registration: {str(e)}")
-        flash('Error fetching registration details')
-        return redirect(url_for('spot_register'))
-
 def normalize_event_name(name):
     # Remove non-alphanumeric characters and lower the string
     return re.sub(r'\W+', '', name).lower()
 
 def get_matching_registrations(table_name, norm_event, reg_type):
     try:
-        response = supabase.table(table_name).select('*').execute()
+        response = supabase.table('registrations').select('*').execute()  # Only use registrations table
         print(f"Found {len(response.data)} total registrations in {table_name}")
         
         matches = []
@@ -594,21 +471,17 @@ def get_matching_registrations(table_name, norm_event, reg_type):
                         'total_cost': reg.get('total_cost', 0),
                         'registration_date': reg.get('registration_date', ''),
                         'event_cost': event.get('cost', 0),
-                        'type': reg_type,
+                        'type': 'online',  # Always use online type
                         'team_members': '',
                         'event_details': reg.get('event_details', [])
                     }
                     
                     # Handle team members
-                    if event.get('type') == 'team' and event.get('members'):
+                    if event.get('type') == 'team' and 'members' in event:
                         reg_data['team_members'] = ', '.join(event['members'])
-                    elif event.get('participant'):
+                    elif 'participant' in event:
                         reg_data['team_members'] = event['participant']
                     
-                    # Add UTR number only for spot registrations
-                    if reg_type == 'spot':
-                        reg_data['utr_number'] = reg.get('utr_number', '')
-                        
                     matches.append(reg_data)
                     print(f"Added registration: {reg_data['ack_id']}")
                     
@@ -624,8 +497,7 @@ def get_matching_registrations(table_name, norm_event, reg_type):
 def get_event_registrations():
     try:
         event_name = request.args.get('event')
-        reg_type = request.args.get('type', 'online')  # Default changed to 'online'
-        
+        # Remove reg_type parameter
         if not event_name:
             return jsonify({
                 'success': False,
@@ -633,15 +505,14 @@ def get_event_registrations():
             })
             
         norm_event = normalize_event_name(event_name)
-        print(f"Searching for normalized event: '{norm_event}' with type: '{reg_type}'")
+        print(f"Searching for normalized event: '{norm_event}'")
         
-        table_name = 'spot_registrations' if reg_type == 'spot' else 'registrations'
-        matches = get_matching_registrations(table_name, norm_event, reg_type)
+        matches = get_matching_registrations('registrations', norm_event, 'online')
         
         return jsonify({
             'success': True,
             'registrations': matches,
-            'isSpot': reg_type == 'spot'
+            'isSpot': False  # Always false since spot is removed
         })
         
     except Exception as e:
@@ -655,10 +526,7 @@ def get_event_registrations():
 @login_required(allowed_pages=['admin'])
 def get_registrations():
     try:
-        reg_type = request.args.get('type', 'online')  # Default changed to 'online'
-        table_name = 'spot_registrations' if reg_type == 'spot' else 'registrations'
-        
-        response = supabase.table(table_name).select('*').execute()
+        response = supabase.table('registrations').select('*').execute()
         
         if response.data:
             registrations = [{
@@ -666,8 +534,7 @@ def get_registrations():
                 'college': reg['college'],
                 'email': reg['email'],
                 'phone': reg['phone'],
-                'event_details': reg['event_details'],
-                'utr_number': reg.get('utr_number') if reg_type == 'spot' else None
+                'event_details': reg['event_details']
             } for reg in response.data]
             
             return jsonify({
@@ -691,7 +558,6 @@ def get_registrations():
 @login_required(allowed_pages=['admin'])
 def download_registrations():
     try:
-        reg_type = request.args.get('type', 'online')
         event_name = request.args.get('event')
         
         if not event_name:
@@ -702,8 +568,7 @@ def download_registrations():
         
         # Get registrations for the specific event
         norm_event = normalize_event_name(event_name)
-        table_name = 'spot_registrations' if reg_type == 'spot' else 'registrations'
-        matches = get_matching_registrations(table_name, norm_event, reg_type)
+        matches = get_matching_registrations('registrations', norm_event, 'online')
 
         if not matches:
             return jsonify({
@@ -718,8 +583,6 @@ def download_registrations():
         
         # Define headers based on registration type
         headers = ['Ack ID', 'College', 'Email', 'Phone', 'Participants', 'Total Cost', 'Registration Date']
-        if reg_type == 'spot':
-            headers.append('UTR Number')
             
         writer.writerow(headers)
 
@@ -735,9 +598,6 @@ def download_registrations():
                 reg.get('registration_date', '').split('T')[0]
             ]
             
-            if reg_type == 'spot':
-                row.append(reg.get('utr_number', ''))
-                
             writer.writerow(row)
         
         # Get CSV content and create response
@@ -747,7 +607,7 @@ def download_registrations():
             csv_output.encode('utf-8-sig'),
             mimetype='text/csv; charset=utf-8-sig',
             headers={
-                'Content-Disposition': f'attachment; filename={norm_event}_{reg_type}_registrations.csv',
+                'Content-Disposition': f'attachment; filename={norm_event}_online_registrations.csv',
                 'Content-Type': 'text/csv; charset=utf-8-sig',
                 'Cache-Control': 'no-cache'
             }
@@ -769,10 +629,6 @@ def search_registration(ack_id):
         # Search in registrations table
         response = supabase.table('registrations').select('*').eq('ack_id', ack_id).execute()
         
-        if not response.data:
-            # If not found in registrations, try spot_registrations
-            response = supabase.table('spot_registrations').select('*').eq('ack_id', ack_id).execute()
-        
         if response.data and len(response.data) > 0:
             registration = response.data[0]
             print(f"Found registration: {registration}")  # Debug log
@@ -782,8 +638,7 @@ def search_registration(ack_id):
                 'registration': {
                     'email': registration['email'],
                     'college': registration['college'],
-                    'phone': registration['phone'],
-                    'payment_method': registration.get('payment_method')
+                    'phone': registration['phone']
                 }
             })
         

@@ -31,11 +31,11 @@
                                 class="w-full p-3 bg-[rgba(32,34,39,0.8)] border-2 border-[#00FFFF] rounded-lg text-white
                                       outline-none transition-all duration-300 hover:border-[#FF00FF]">
                             <option value="" disabled selected>--Select--</option>
-                            <option value="tech">Manthana (Tech Events)</option>
+                            <option value="tech">Manthana (Technical Events)</option>
                             <option value="Cultural">Manoranjana (Cultural Events)</option>
                             <option value="management">Chintana (Management Events)</option>
-                            <option value="VisualArt">Kalachitrana (VisualArt)</option>
-                            <option value="games">Krida Ratna(Game Events)</option>
+                            <option value="VisualArt">Kalachitrana (Visual Art)</option>
+                            <option value="games">Krida Ratna (Game Events)</option>
                         </select>
                     </div>
 
@@ -50,7 +50,9 @@
 
                     <!-- Group Size Container -->
                     <div id="group-size-container" class="hidden space-y-2">
-                        <label for="group-size" class="block text-xl md:text-xl lg:text-2xl font-bold text-[#00FFFF] mb-2 text-base sm:text-lg">Number of Participants</label>
+                        <label for="group-size" class="block text-xl md:text-xl lg:text-2xl font-bold text-[#00FFFF] mb-2 text-base sm:text-lg">
+                            Number of Participants
+                        </label>
                         <div class="flex items-center space-x-4">
                             <button type="button" id="decrease-size" 
                                     class="w-12 h-12 rounded-full bg-[rgba(32,34,39,0.8)] border-2 border-[#00FFFF] text-[#00FFFF] 
@@ -59,7 +61,7 @@
                                            disabled:opacity-50 disabled:cursor-not-allowed">
                                 -
                             </button>
-                            <input type="number" id="group-size" min="1" max="10" value="1" readonly
+                            <input type="number" id="group-size" value="1" readonly
                                    class="w-16 sm:w-20 p-2 sm:p-3 bg-[rgba(32,34,39,0.8)] border-2 border-[#00FFFF] rounded-lg text-white
                                           outline-none text-center text-base sm:text-xl font-bold">
                             <button type="button" id="increase-size"
@@ -113,7 +115,7 @@
                                    transition-all duration-300 hover:bg-transparent hover:text-[#FF00FF] 
                                    hover:border-2 hover:border-[#FF00FF] disabled:opacity-50 
                                    disabled:cursor-not-allowed">
-                        + Add Event
+                        NEXT
                     </button>
                 </div>
             </form>
@@ -641,17 +643,17 @@ input[type="radio"]:checked + label {
         const events = {
             tech: [
                 { name: "Prakalpa Prastuthi (Live Project Expo)", type: "team", cost: 200, minTeam: 1, maxTeam: 3 },
-                { name: "CHANAKSH (CODING EVENT)", type: "individual", cost: 100 },
-                { name: "Robo Samara(Robo War)", type: "team", cost: 300, minTeam: 1, maxTeam: 4},
-                { name: "Robo Samara(Robo Race)", type: "team", cost: 300, minTeam: 1, maxTeam: 4},
-                { name: "Pragyan(Quiz)", type: "team", cost: 300, minTeam: 1, maxTeam: 4},
+                { name: "Chanaksh (Coding Event)", type: "individual", cost: 100 },
+                { name: "Robo Samara (Robo War)", type: "team", cost: 300, minTeam: 1, maxTeam: 4},
+                { name: "Robo Samara (Robo Race)", type: "team", cost: 300, minTeam: 1, maxTeam: 4},
+                { name: "Pragyan (Quiz)", type: "team", cost: 300, minTeam: 1, maxTeam: 4},
                 { name: "Vagmita (Elocution)", type: "individual", cost: 200 }
             ],
             VisualArt: [
                 
                 { name: "Sthala Chitrapatha (Spot Photography)", type: "individual", cost: 150 },
                 { name: "Chitragatha (Short Film)", type: "team", cost: 400, minTeam: 1, maxTeam: 4 },
-                { name: "RUPEKHA (Sketch Art)", type: "individual", cost: 200 },
+                { name: "Rupekha (Sketch Art)", type: "individual", cost: 200 },
                 { name: "Hastakala (Painting)", type: "individual", cost: 150 },
                 { name: "Swachitra (Selfie Point)", type: "individual", cost: 100 },
             ],
@@ -665,15 +667,15 @@ input[type="radio"]:checked + label {
             ],
             management: [
                
-                { name: "DAKSH (THE BEST MANAGER)", type: "individual", cost: 300 },
-                { name: "SHRESHTA VITTA (FINANCE) Final", type: "individual", cost: 200 },
-                { name: "MANAVA SANSADHAN (HR)", type: "team", cost: 300, minTeam: 1, maxTeam: 4 },
-                { name: "Sumedha(Start Up)", type: "individual", cost: 150 },
-                { name: "Vipanan(Marketing)", type: "team", cost: 150,minTeam:2 ,maxTeam:2 }
+                { name: "Daksh (The Best Manager)", type: "individual", cost: 300 },
+                { name: "Shreshta Vitta (Finance) Final", type: "individual", cost: 200 },
+                { name: "Manava Sansadhan (HR)", type: "team", cost: 300, minTeam: 1, maxTeam: 4 },
+                { name: "Sumedha (Start Up)", type: "individual", cost: 150 },
+                { name: "Vipanan (Marketing)", type: "team", cost: 150,minTeam:2 ,maxTeam:2 }
             ],
             games: [
                 { name: "BGMI", type: "team", cost: 400, minTeam: 1, maxTeam: 5 },
-                { name: "Talaash", type: "team", cost: 300, minTeam: 1, maxTeam: 5 }
+                { name: "Mission Talaash (Treasure Hunt)", type: "team", cost: 300, minTeam: 1, maxTeam: 5 }
             ]
         };
 
@@ -922,7 +924,12 @@ input[type="radio"]:checked + label {
 
                     let label = document.createElement("label");
                     label.htmlFor = input.id;
-                    label.textContent = `${event.name} ${event.type === 'team' ? `(${event.minTeam}-${event.maxTeam} members)` : ''}`;
+                    // Only show event name without team size or cost
+                    label.textContent = event.name;
+
+                    div.appendChild(input);
+                    div.appendChild(label);
+                    eventsContainer.appendChild(div);
 
                     input.addEventListener("change", function () {
                         currentEventSelection = event;
@@ -952,10 +959,6 @@ input[type="radio"]:checked + label {
                         
                         generateMemberInputs(parseInt(groupSizeInput.value));
                     });
-
-                    div.appendChild(input);
-                    div.appendChild(label);
-                    eventsContainer.appendChild(div);
                 });
             } else {
                 eventsContainer.innerHTML = '<p>Please select a category first.</p>';
@@ -985,61 +988,49 @@ input[type="radio"]:checked + label {
                     currentEventSelection = selectedEvent;
                     addEventBtn.disabled = false;
 
+                    // Show group size container for both team and individual
+                    groupSizeContainer.classList.remove("hidden");
+                    
                     if (selectedEvent.type === "team") {
-                        // Show containers
-                        groupSizeContainer.classList.remove("hidden");
                         teamMembersContainer.classList.remove("hidden");
                         individualParticipantContainer.classList.add("hidden");
                         
-                        // Initialize size input
+                        // Initialize size input for team
                         groupSizeInput.value = selectedEvent.minTeam;
                         groupSizeInput.min = selectedEvent.minTeam;
                         groupSizeInput.max = selectedEvent.maxTeam;
                         
-                        // Initialize buttons
                         const decreaseBtn = document.getElementById("decrease-size");
                         const increaseBtn = document.getElementById("increase-size");
                         
-                        // Set initial button states
-                        decreaseBtn.disabled = true; // Initially disabled at min
-                        increaseBtn.disabled = selectedEvent.minTeam >= selectedEvent.maxTeam;
+                        // Enable/disable buttons for team events
+                        decreaseBtn.disabled = true;
+                        increaseBtn.disabled = false;
                         
-                        // Update label
+                        // Update label for team size
                         const sizeLabel = groupSizeContainer.querySelector('label');
                         sizeLabel.innerHTML = `<strong>Number of Participants (${selectedEvent.minTeam}-${selectedEvent.maxTeam})</strong>`;
                         
-                        // Add click handlers
-                        decreaseBtn.onclick = () => {
-                            let value = parseInt(groupSizeInput.value);
-                            if (value > selectedEvent.minTeam) {
-                                value--;
-                                groupSizeInput.value = value;
-                                decreaseBtn.disabled = value <= selectedEvent.minTeam;
-                                increaseBtn.disabled = false;
-                                generateMemberInputs(value);
-                            }
-                        };
-                        
-                        increaseBtn.onclick = () => {
-                            let value = parseInt(groupSizeInput.value);
-                            if (value < selectedEvent.maxTeam) {
-                                value++;
-                                groupSizeInput.value = value;
-                                increaseBtn.disabled = value >= selectedEvent.maxTeam;
-                                decreaseBtn.disabled = false;
-                                generateMemberInputs(value);
-                            }
-                        };
-                        
-                        generateMemberInputs(selectedEvent.minTeam);
                     } else {
                         // For individual events
-                        groupSizeContainer.classList.add("hidden");
                         teamMembersContainer.classList.add("hidden");
                         individualParticipantContainer.classList.remove("hidden");
-                        individualParticipantInput.required = true;
-                        individualParticipantInput.value = "";
+                        
+                        // Set fixed value of 1 for individual
+                        groupSizeInput.value = 1;
+                        groupSizeInput.min = 1;
+                        groupSizeInput.max = 1;
+                        
+                        // Disable both buttons for individual
+                        document.getElementById("decrease-size").disabled = true;
+                        document.getElementById("increase-size").disabled = true;
+                        
+                        // Update label for individual
+                        const sizeLabel = groupSizeContainer.querySelector('label');
+                        sizeLabel.innerHTML = `<strong>Number of Participants (1)</strong>`;
                     }
+                    
+                    generateMemberInputs(parseInt(groupSizeInput.value));
                 }
             }
         });
@@ -1187,8 +1178,6 @@ input[type="radio"]:checked + label {
                 totalCost: parseInt(document.querySelector('.total-cost').textContent)
             };
             
-            console.log('Sending registration data:', registrationData);
-
             const response = await fetch('/register', {
                 method: 'POST',
                 headers: {
@@ -1198,7 +1187,6 @@ input[type="radio"]:checked + label {
             });
 
             const data = await response.json();
-            console.log('Server response:', data);
             
             if (data.success) {
                 window.location.href = `/acknowledgement/${data.ack_id}`;
@@ -1207,7 +1195,6 @@ input[type="radio"]:checked + label {
                 resetButton();
             }
         } catch (error) {
-            console.error('Error:', error);
             alert('An error occurred. Please try again.');
             resetButton();
         }
@@ -1401,7 +1388,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
                 const label = document.createElement("label");
                 label.htmlFor = input.id;
-                label.textContent = `${event.name} - ₹${event.cost} ${event.type === 'team' ? `(${event.minTeam}-${event.maxTeam} members)` : ''}`;
+                label.textContent = event.name;
 
                 div.appendChild(input);
                 div.appendChild(label);
