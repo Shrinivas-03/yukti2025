@@ -111,16 +111,7 @@
 
                 <!-- Personal Details Section -->
                 <div class="personal-details-section hidden space-y-6">
-                    <!-- ... existing personal details fields with updated styles ... -->
-                    <div class="form-group mb-6">
-                        <label for="usn" class="block text-white mb-2">USN/College ID <span class="text-[#FF00FF]">*</span></label>
-                        <input type="text" 
-                               id="usn" 
-                               name="usn" 
-                               class="w-full px-4 py-2 bg-[#2E2E2E] border border-[#00FFFF] rounded-md text-white 
-                                      focus:outline-none focus:border-[#FF00FF] transition-colors"
-                               required>
-                    </div>
+                  
                     <div class="form-group">
                         <label class="block text-[#00FFFF] mb-2 font-['Orbitron']" for="college">College Name</label>
                         <input type="text" id="college" required 
@@ -280,57 +271,44 @@
 
             for (let i = 1; i <= count; i++) {
                 const memberDiv = document.createElement("div");
-                memberDiv.classList.add("member-input", "flex", "gap-2", "mb-2");
+                memberDiv.classList.add("member-input", "flex", "gap-4", "mb-4");
                 
                 // Name input
+                const nameDiv = document.createElement("div");
+                nameDiv.className = "w-1/2";
                 const nameInput = document.createElement("input");
                 nameInput.type = "text";
                 nameInput.id = `member-name-${i}`;
                 nameInput.name = `member-name-${i}`;
                 nameInput.placeholder = `Member ${i} Name`;
-                nameInput.className = "w-1/2 p-3 bg-[rgba(32,34,39,0.8)] border-2 border-[#00FFFF] rounded-lg text-white";
-                // Remove required attribute, will validate manually
+                nameInput.className = "w-full p-3 bg-[rgba(32,34,39,0.8)] border-2 border-[#00FFFF] rounded-lg text-white \
+                                   placeholder:text-gray-400 outline-none transition-all duration-300 \
+                                   focus:border-[#FF00FF] focus:shadow-[0_0_8px_rgba(3,233,244,0.4)]";
+                nameDiv.appendChild(nameInput);
                 
-                // USN input with updated validation
+                // USN input
+                const usnDiv = document.createElement("div");
+                usnDiv.className = "w-1/2";
                 const usnInput = document.createElement("input");
                 usnInput.type = "text";
                 usnInput.id = `member-usn-${i}`;
                 usnInput.name = `member-usn-${i}`;
                 usnInput.placeholder = `Member ${i} USN/College ID`;
-                usnInput.className = "w-1/2 p-3 bg-[rgba(32,34,39,0.8)] border-2 border-[#00FFFF] rounded-lg text-white";
-                usnInput.minLength = "1";
-                usnInput.maxLength = "20";
-                // Remove required attribute, will validate manually
+                usnInput.className = "w-full p-3 bg-[rgba(32,34,39,0.8)] border-2 border-[#00FFFF] rounded-lg text-white \
+                                  placeholder:text-gray-400 outline-none transition-all duration-300 \
+                                  focus:border-[#FF00FF] focus:shadow-[0_0_8px_rgba(3,233,244,0.4)]";
+                usnDiv.appendChild(usnInput);
                 
-                memberDiv.appendChild(nameInput);
-                memberDiv.appendChild(usnInput);
+                memberDiv.appendChild(nameDiv);
+                memberDiv.appendChild(usnDiv);
                 memberInputsContainer.appendChild(memberDiv);
             }
 
-            // Add manual validation to form submission
-            const form = document.getElementById('registrationForm');
-            form.onsubmit = function(e) {
-                e.preventDefault();
-                
-                let isValid = true;
-                const inputs = memberInputsContainer.querySelectorAll('input');
-                
-                inputs.forEach(input => {
-                    if (!input.value.trim()) {
-                        input.classList.add('error-border');
-                        isValid = false;
-                    } else {
-                        input.classList.remove('error-border');
-                    }
-                });
-
-                if (!isValid) {
-                    alert('Please fill in all member details');
-                    return false;
-                }
-
-                submitRegistration();
-            };
+            // Add helper text
+            const helperText = document.createElement("p");
+            helperText.className = "text-sm text-gray-400 mt-2";
+            helperText.textContent = "Format: Name (USN/College ID) - Example: John Doe (1KS22CS001)";
+            memberInputsContainer.appendChild(helperText);
         }
 
         // Add this CSS if not already present
@@ -353,11 +331,12 @@
 
                 if (currentEventSelection.type === "team" || currentEventSelection.type === "group") {
                     eventDetails.members = [];
-                    const memberInputs = document.querySelectorAll("#member-inputs .member-input");
-                    memberInputs.forEach(div => {
+                    const memberDivs = memberInputsContainer.querySelectorAll(".member-input");
+                    memberDivs.forEach(div => {
                         const nameInput = div.querySelector('[id^="member-name-"]');
                         const usnInput = div.querySelector('[id^="member-usn-"]');
-                        if (nameInput.value.trim() && usnInput.value.trim()) {
+                        
+                        if (nameInput?.value.trim() && usnInput?.value.trim()) {
                             eventDetails.members.push({
                                 name: nameInput.value.trim(),
                                 usn: usnInput.value.trim()
@@ -367,13 +346,21 @@
                 } else {
                     // For individual events, record the participant's name
                     const nameInput = document.getElementById('individual-participant');
-                    const usnInput = document.getElementById('usn');
-                    if (nameInput && usnInput) {
-                        eventDetails.participant = {
-                            name: nameInput.value.trim(),
-                            usn: usnInput.value.trim()
-                        };
+                    const usnInput = document.getElementById('individual-usn');
+                    
+                    if (!nameInput?.value.trim() || !usnInput?.value.trim()) {
+                        if (nameInput) nameInput.classList.add('error-border');
+                        if (usnInput) usnInput.classList.add('error-border');
+                        return;
                     }
+                    
+                    nameInput.classList.remove('error-border');
+                    usnInput.classList.remove('error-border');
+                    
+                    eventDetails.participant = {
+                        name: nameInput.value.trim(),
+                        usn: usnInput.value.trim()
+                    };
                 }
 
                 selectedEvents.push(eventDetails);
@@ -467,9 +454,7 @@
                             groupSizeContainer.classList.add("hidden");
                             teamMembersContainer.classList.add("hidden");
                             individualParticipantContainer.classList.remove("hidden");
-                            individualParticipantInput.required = true;
-                            individualParticipantInput.value = ""; // clear previous value
-                            groupSizeInput.value = 1;
+                            updateIndividualParticipantContainer(); // Add this line
                         }
                         
                         generateMemberInputs(parseInt(groupSizeInput.value));
@@ -559,8 +544,7 @@
                         groupSizeContainer.classList.add("hidden");
                         teamMembersContainer.classList.add("hidden");
                         individualParticipantContainer.classList.remove("hidden");
-                        individualParticipantInput.required = true;
-                        individualParticipantInput.value = ""; // clear previous value
+                        updateIndividualParticipantContainer(); // Add this line
                     }
                 }
             }
@@ -778,6 +762,32 @@
             memberDiv.appendChild(memberInput);
             memberInputsContainer.appendChild(memberDiv);
         }
+    }
+
+    // Modify the individual participant container HTML section
+    function updateIndividualParticipantContainer() {
+        const individualParticipantContainer = document.getElementById('individual-participant-container');
+        individualParticipantContainer.innerHTML = `
+            <label class="block text-[#00FFFF] mb-2 font-['Orbitron']">Participant Details</label>
+            <div class="grid grid-cols-2 gap-4">
+                <div>
+                    <input type="text" 
+                           id="individual-participant" 
+                           class="w-full p-3 bg-[rgba(32,34,39,0.8)] border-2 border-[#00FFFF] rounded-lg text-white
+                                  placeholder:text-gray-400 outline-none transition-all duration-300
+                                  focus:border-[#FF00FF] focus:shadow-[0_0_8px_rgba(3,233,244,0.4)]"
+                           placeholder="Enter Name">
+                </div>
+                <div>
+                    <input type="text" 
+                           id="individual-usn" 
+                           class="w-full p-3 bg-[rgba(32,34,39,0.8)] border-2 border-[#00FFFF] rounded-lg text-white
+                                  placeholder:text-gray-400 outline-none transition-all duration-300
+                                  focus:border-[#FF00FF] focus:shadow-[0_0_8px_rgba(3,233,244,0.4)]"
+                           placeholder="Enter USN/College ID">
+                </div>
+            </div>
+        `;
     }
 </script>
 
