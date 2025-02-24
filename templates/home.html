@@ -90,49 +90,47 @@
 
     <!-- Hero Content -->
     <div class="relative flex flex-col items-center justify-center min-h-screen text-center px-4 sm:px-6 md:px-8 
-                z-30 w-full max-w-7xl mx-auto">
-        <div class="mb-4 sm:mb-6 md:mb-8">
+                z-30 w-full max-w-7xl mx-auto space-y-6 sm:space-y-8 md:space-y-10">
+
+        <!-- VTU Header -->
+        <div class="space-y-2 sm:space-y-3 md:space-y-4">
             <h1
-                class="text-[2.5rem] sm:text-[4rem] md:text-[5rem] lg:text-[6rem] text-[#00FFFF] mb-0 font-['Orbitron'] 
+                class="text-[2.5rem] sm:text-[4rem] md:text-[5rem] lg:text-[6rem] text-[#00FFFF] font-['Orbitron'] 
                        tracking-wider transform hover:scale-105 transition-all duration-300 text-shadow-lg leading-none">
                 VTU
             </h1>
-            <h2 class="text-[1rem] sm:text-[1.5rem] md:text-[2rem] lg:text-[2.5rem] text-[#00FFFF] font-['Rajdhani'] 
-                       mt-0 leading-tight">
+            <h2
+                class="text-[1rem] sm:text-[1.5rem] md:text-[2rem] lg:text-[2.5rem] text-[#00FFFF] font-['Rajdhani'] leading-tight">
                 KALABURAGI
             </h2>
-            <h3 class="text-base sm:text-lg md:text-xl lg:text-2xl mt-2 sm:mt-4 font-['Orbitron'] text-white">
+            <h3 class="text-base sm:text-lg md:text-xl lg:text-2xl font-['Orbitron'] text-white">
                 Presents
             </h3>
         </div>
 
-        <div class="hero-content w-full px-4">
-            <h1 class="text-[2.5rem] sm:text-[3.5rem] md:text-[4.5rem] lg:text-[6rem] font-bold text-[#00FFFF] mb-2 
+        <!-- Festival Title -->
+        <div class="space-y-4 sm:space-y-6 md:space-y-8 mt-6 sm:mt-8 md:mt-10">
+            <h1 class="text-[2.5rem] sm:text-[3.5rem] md:text-[4.5rem] lg:text-[6rem] font-bold text-[#00FFFF]
                        opacity-0 transform translate-y-8 animate-[fadeIn_0.8s_ease_forwards] leading-tight">
-                Yu<span class="inline-block text-[#FF00FF] animate-[pulse_2s_ease-in-out_infinite]">k</span>ti
+                Yu<span class="inline-block text-[#FF00FF] animate-[pulse_2s_ease-in-out_infinite]">k</span>ti -
                 2<span class="inline-block text-[#FF00FF] animate-[pulse_2s_ease-in-out_infinite]">0</span>25
             </h1>
-
-            <!-- Updated subtitle with larger text and enhanced styling -->
-            <h2 class="text-xl sm:text-2xl md:text-3xl lg:text-4xl text-[#00FFFF] mb-8 
-                       font-['Orbitron'] tracking-wider
-                       animate-[gradient-flow_3s_linear_infinite]
-                       bg-gradient-to-r from-[#00FFFF] via-[#FF00FF] to-[#00FFFF] 
-                       bg-clip-text text-transparent bg-[length:200%_auto]
-                       !opacity-100 !transform-none">
-                Techno Management Cultural Fest
-            </h2>
-
             <p class="text-lg sm:text-xl md:text-2xl lg:text-[3rem] text-[#C0C0C0] 
-                     animate-[fadeIn_1s_ease_forwards_0.5s] opacity-0">
+                      opacity-0 animate-[fadeIn_1s_ease_forwards_0.5s]">
                 "Re<span class="inline-block text-[#FF00FF] animate-[pulse_2s_ease-in-out_infinite]">im</span>agining
                 Tom<span class="inline-block text-[#FF00FF] animate-[pulse_2s_ease-in-out_infinite]">orr</span>ow"
             </p>
         </div>
+        <h2 class="text-xl sm:text-2xl md:text-3xl lg:text-4xl text-[#00FFFF]
+                       font-['Orbitron'] tracking-wider animate-[gradient-flow_3s_linear_infinite]
+                       bg-gradient-to-r from-[#00FFFF] via-[#FF00FF] to-[#00FFFF] 
+                       bg-clip-text text-transparent bg-[length:200%_auto]">
+            Techno - Management - Cultural Fest
+        </h2>
 
         <!-- Countdown Timer -->
         <div
-            class="flex flex-wrap justify-center gap-2 sm:gap-3 md:gap-4 lg:gap-5 my-6 sm:my-8 md:my-10 w-full px-2 sm:px-4">
+            class="flex flex-wrap justify-center gap-3 sm:gap-4 md:gap-6 mt-8 sm:mt-10 md:mt-12 w-full max-w-3xl mx-auto">
             <div class="min-w-[70px] sm:min-w-[90px] md:min-w-[100px] p-2 sm:p-3 md:p-4 bg-black/30 backdrop-blur 
                         rounded-lg border border-[#00FFFF]">
                 <span class="block text-xs sm:text-sm text-[#00FFFF] mb-1 sm:mb-2">Days</span>
@@ -155,13 +153,18 @@
             </div>
         </div>
 
-        <div class="mt-4 sm:mt-6 md:mt-8">
-            <a href="{{ url_for('register_page') }}" class="register-btn bg-gradient-to-r from-[#FF00FF] to-[#00FFFF] text-white font-bold py-3 px-8 rounded-lg
-                      hover:from-[#00FFFF] hover:to-[#FF00FF] transition-all duration-300">
+        <!-- Register Button -->
+        <div class="mt-8 sm:mt-10 md:mt-12">
+            <a href="{{ url_for('register_page') }}" class="register-btn bg-gradient-to-r from-[#FF00FF] to-[#00FFFF] text-white 
+                      font-bold py-3 px-8 rounded-lg text-lg sm:text-xl
+                      hover:from-[#00FFFF] hover:to-[#FF00FF] 
+                      transition-all duration-300 transform hover:scale-105">
                 Register Now
             </a>
         </div>
+        <div></div>
     </div>
+
 </section>
 <div class="h-0.5 bg-gradient-to-r from-[#6D28D9] via-[#3B82F6] to-[#00FFFF]"></div>
 
@@ -242,92 +245,202 @@
 </section>
 <div class="h-0.5 bg-gradient-to-r from-[#6D28D9] via-[#3B82F6] to-[#00FFFF]"></div>
 
-<!-- Artist Announcement -->
-<div class="py-8 sm:py-12 bg-gradient-to-br from-[#1C1C1C] to-[#0A0A0A] relative overflow-hidden px-4 sm:px-6">
-    <h2
-        class="text-2xl sm:text-3xl md:text-4xl text-[#00FFFF] text-center mb-6 sm:mb-8 font-bold uppercase font-['Orbitron']">
-        Artist Announcement
-    </h2>
-    <div class="bg-[rgba(46,46,46,0.8)] backdrop-blur-md rounded-xl p-4 sm:p-6 md:p-8 border-2 border-[#00FFFF] shadow-xl 
-                transform transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_15px_30px_rgba(0,255,255,0.4)] 
-                hover:border-[#FF00FF] max-w-4xl mx-auto w-full">
-        <div class="text-center">
-            <h3 class="text-xl sm:text-2xl text-[#00FFFF] mb-3 sm:mb-4">Coming Soon</h3>
-            <p class="text-sm sm:text-base text-[#C0C0C0] mb-4 sm:mb-6 max-w-2xl mx-auto">
-                Get ready to witness an amazing performance! The artist reveal is just around the corner. Stay tuned for
-                more details!
-            </p>
-            <a href="https://www.instagram.com/vtu_kalaburagi_yukti_2025" target="_blank" class="inline-block bg-[#FF00FF] text-[#1C1C1C] px-4 sm:px-6 py-2 sm:py-3 rounded-md text-sm sm:text-base 
-                      font-bold uppercase transform transition-all duration-300 hover:bg-transparent 
-                      hover:text-[#FF00FF] hover:border-2 hover:border-[#FF00FF] whitespace-nowrap">
-                Stay Notified <span class="hidden sm:inline">→</span>
-            </a>
+<!-- Artist Announcement Section -->
+<div class="relative py-16 sm:py-20 overflow-hidden">
+    <!-- Enhanced layered background with multiple gradients -->
+    <div class="absolute inset-0 bg-[linear-gradient(45deg,#0A0A0A_0%,#1C1C1C_100%)]"></div>
+    
+    <!-- Animated gradient overlays -->
+    <div class="absolute inset-0 bg-[linear-gradient(45deg,rgba(0,255,255,0.1),rgba(255,0,255,0.1))] opacity-30 
+                animate-[gradient-flow_15s_ease-in-out_infinite]"></div>
+    
+    <!-- Radial glow effects -->
+    <div class="absolute inset-0">
+        <div class="absolute top-0 left-0 w-full h-full 
+                    bg-[radial-gradient(circle_at_20%_20%,rgba(0,255,255,0.15)_0%,transparent_40%)]"></div>
+        <div class="absolute top-0 left-0 w-full h-full 
+                    bg-[radial-gradient(circle_at_80%_80%,rgba(255,0,255,0.15)_0%,transparent_40%)]"></div>
+    </div>
+
+    <!-- Content Container -->
+    <div class="relative z-10 max-w-4xl mx-auto px-4 sm:px-6">
+        <h2 class="text-2xl sm:text-3xl md:text-4xl font-['Orbitron'] mb-8 sm:mb-12
+                   bg-gradient-to-r from-[#00FFFF] via-[#FF00FF] to-[#00FFFF] 
+                   bg-clip-text text-transparent animate-[gradient-flow_3s_ease-in-out_infinite]
+                   text-center font-bold uppercase">
+            Artist Announcement
+        </h2>
+
+        <!-- Enhanced Card -->
+        <div class="group bg-[rgba(46,46,46,0.7)] backdrop-blur-md rounded-xl p-8 
+                    border-2 border-[#00FFFF] shadow-[0_0_30px_rgba(0,255,255,0.1)] 
+                    transform transition-all duration-500 hover:-translate-y-2 
+                    hover:shadow-[0_15px_30px_rgba(0,255,255,0.4)] hover:border-[#FF00FF]
+                    relative overflow-hidden">
+            
+            <!-- Animated shine effect -->
+            <div class="absolute inset-0 opacity-0 group-hover:opacity-100 
+                        bg-gradient-to-r from-transparent via-[rgba(255,255,255,0.1)] to-transparent
+                        -translate-x-full group-hover:translate-x-full transition-all duration-1000"></div>
+            
+            <!-- Content -->
+            <div class="text-center space-y-6">
+                <h3 class="text-2xl sm:text-3xl text-[#00FFFF] font-['Orbitron'] 
+                           animate-pulse">Coming Soon</h3>
+                <p class="text-lg sm:text-xl text-[#C0C0C0] max-w-2xl mx-auto font-['Rajdhani']">
+                    Get ready to witness an amazing performance! The artist reveal is just around the corner. 
+                    Stay tuned for more details!
+                </p>
+                
+                <!-- Enhanced Button -->
+                <a href="https://www.instagram.com/vtu_kalaburagi_yukti_2025" 
+                   target="_blank" 
+                   class="inline-block relative overflow-hidden group px-8 py-4 
+                          bg-gradient-to-r from-[#FF00FF] to-[#00FFFF] rounded-lg
+                          font-bold uppercase transform transition-all duration-300 
+                          hover:scale-105">
+                    <span class="relative z-10 text-white group-hover:text-[#1C1C1C] transition-colors duration-300">
+                        Stay Notified <span class="hidden sm:inline">→</span>
+                    </span>
+                    <div class="absolute inset-0 bg-white opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                </a>
+            </div>
         </div>
     </div>
 </div>
+
 <div class="h-0.5 bg-gradient-to-r from-[#6D28D9] via-[#3B82F6] to-[#00FFFF]"></div>
 
 <!-- Events Section -->
-<section class="py-12 md:py-16 lg:py-20 bg-gradient-to-br from-[#1C1C1C] to-[#0A0A0A] text-center">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6">
-        <h2 class="text-3xl sm:text-4xl text-[#00FFFF] text-center mb-8 md:mb-12 font-bold uppercase font-['Orbitron']">
-            Event Highlights</h2>
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
-            <div
-                class="bg-[#2E2E2E] border-2 border-[#00FFFF] text-[#C0C0C0] rounded-lg p-6 transition-transform duration-300 hover:scale-105 hover:border-[#FF00FF]">
-                <h3 class="text-2xl text-[#00FFFF] mb-4">Manthana Events(Tech)</h3>
-                <p>Experience groundbreaking technology from the brightest minds. From AI to robotics, this event is
-                    where innovation meets reality.</p>
-                <a href="{{ url_for('tech') }}"
-                    class="inline-block bg-[#FF00FF] text-[#1C1C1C] px-6 py-3 rounded-md font-bold uppercase 
-                      transition-all duration-300 hover:bg-transparent hover:text-[#FF00FF] hover:border-2 hover:border-[#FF00FF] mt-4">
+<section class="relative py-16 sm:py-20 overflow-hidden">
+    <!-- Enhanced layered background with multiple gradients -->
+    <div class="absolute inset-0 bg-[linear-gradient(45deg,#0A0A0A_0%,#1C1C1C_100%)]"></div>
+    
+    <!-- Animated gradient overlays -->
+    <div class="absolute inset-0 bg-[linear-gradient(45deg,rgba(0,255,255,0.1),rgba(255,0,255,0.1))] opacity-30 
+                animate-[gradient-flow_15s_ease-in-out_infinite]"></div>
+    
+    <!-- Radial glow effects -->
+    <div class="absolute inset-0">
+        <div class="absolute top-0 left-0 w-full h-full 
+                    bg-[radial-gradient(circle_at_30%_30%,rgba(0,255,255,0.15)_0%,transparent_40%)]"></div>
+        <div class="absolute bottom-0 right-0 w-full h-full 
+                    bg-[radial-gradient(circle_at_70%_70%,rgba(255,0,255,0.15)_0%,transparent_40%)]"></div>
+    </div>
+
+    <!-- Content Container -->
+    <div class="relative z-10 max-w-6xl mx-auto px-4 sm:px-6">
+        <h2 class="text-3xl sm:text-4xl md:text-5xl font-['Orbitron'] mb-12 sm:mb-16
+                   bg-gradient-to-r from-[#00FFFF] via-[#FF00FF] to-[#00FFFF] 
+                   bg-clip-text text-transparent animate-[gradient-flow_3s_ease-in-out_infinite]
+                   text-center font-bold uppercase">
+            Event Highlights
+        </h2>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 lg:gap-10">
+            <!-- Manthana Card -->
+            <div class="group bg-[rgba(32,34,39,0.95)] backdrop-blur-md rounded-xl p-6
+                        border-2 border-[#00FFFF] shadow-[0_0_30px_rgba(0,255,255,0.1)]
+                        transform transition-all duration-500 hover:-translate-y-2 
+                        hover:shadow-[0_15px_30px_rgba(0,255,255,0.4)] hover:border-[#FF00FF]">
+                <div class="mb-6 text-center">
+                    <i class="fas fa-microchip text-4xl sm:text-5xl text-[#00FFFF] mb-4 
+                             transition-all duration-300 group-hover:text-[#FF00FF] group-hover:scale-110"></i>
+                    <h3 class="text-xl sm:text-2xl text-[#00FFFF] font-['Orbitron'] mb-3">Manthana <br> (Technical Events)</h3>
+                    <p class="text-[#C0C0C0] text-sm sm:text-base">Experience groundbreaking technology challenges and innovation.</p>
+                </div>
+                <a href="{{ url_for('tech') }}" 
+                   class="inline-block w-full py-3 text-center bg-gradient-to-r from-[#FF00FF] to-[#00FFFF] 
+                          rounded-lg font-bold uppercase tracking-wider text-white
+                          transform transition-all duration-300 hover:scale-[1.02]
+                          hover:shadow-[0_5px_15px_rgba(255,0,255,0.4)]">
                     Explore →
                 </a>
             </div>
-            <div
-                class="bg-[#2E2E2E] border-2 border-[#00FFFF] text-[#C0C0C0] rounded-lg p-6 transition-transform duration-300 hover:scale-105 hover:border-[#FF00FF]">
-                <h3 class="text-2xl text-[#00FFFF] mb-4">Manoranjana Events(Cultural)</h3>
-                <p>Dive into a celebration of dance, music, and art that transcends boundaries. A night of unforgettable
-                    performances awaits!</p>
-                <a href="{{ url_for('cultural') }}"
-                    class="inline-block bg-[#FF00FF] text-[#1C1C1C] px-6 py-3 rounded-md font-bold uppercase 
-                      transition-all duration-300 hover:bg-transparent hover:text-[#FF00FF] hover:border-2 hover:border-[#FF00FF] mt-4">
+
+            <!-- Manoranjana Card -->
+            <div class="group bg-[rgba(32,34,39,0.95)] backdrop-blur-md rounded-xl p-6
+                        border-2 border-[#00FFFF] shadow-[0_0_30px_rgba(0,255,255,0.1)]
+                        transform transition-all duration-500 hover:-translate-y-2 
+                        hover:shadow-[0_15px_30px_rgba(0,255,255,0.4)] hover:border-[#FF00FF]">
+                <div class="mb-6 text-center">
+                    <i class="fas fa-music text-4xl sm:text-5xl text-[#00FFFF] mb-4 
+                             transition-all duration-300 group-hover:text-[#FF00FF] group-hover:scale-110"></i>
+                    <h3 class="text-xl sm:text-2xl text-[#00FFFF] font-['Orbitron'] mb-3">Manoranjana <br> (Cultural Events)</h3>
+                    <p class="text-[#C0C0C0] text-sm sm:text-base">Celebrate culture through dance, music, and performances.</p>
+                </div>
+                <a href="{{ url_for('cultural') }}" 
+                   class="inline-block w-full py-3 text-center bg-gradient-to-r from-[#FF00FF] to-[#00FFFF] 
+                          rounded-lg font-bold uppercase tracking-wider text-white
+                          transform transition-all duration-300 hover:scale-[1.02]
+                          hover:shadow-[0_5px_15px_rgba(255,0,255,0.4)]">
                     Explore →
                 </a>
             </div>
-            <div
-                class="bg-[#2E2E2E] border-2 border-[#00FFFF] text-[#C0C0C0] rounded-lg p-6 transition-transform duration-300 hover:scale-105 hover:border-[#FF00FF]">
-                <h3 class="text-2xl text-[#00FFFF] mb-4">Chinthana Events(Management)</h3>
-                <p>Pitch your ideas and connect with mentors and investors. Where big dreams are born and realized!</p>
-                <a href="{{ url_for('management') }}"
-                    class="inline-block bg-[#FF00FF] text-[#1C1C1C] px-6 py-3 rounded-md font-bold uppercase 
-                      transition-all duration-300 hover:bg-transparent hover:text-[#FF00FF] hover:border-2 hover:border-[#FF00FF] mt-4">
+
+            <!-- Chinthana Card -->
+            <div class="group bg-[rgba(32,34,39,0.95)] backdrop-blur-md rounded-xl p-6
+                        border-2 border-[#00FFFF] shadow-[0_0_30px_rgba(0,255,255,0.1)]
+                        transform transition-all duration-500 hover:-translate-y-2 
+                        hover:shadow-[0_15px_30px_rgba(0,255,255,0.4)] hover:border-[#FF00FF]">
+                <div class="mb-6 text-center">
+                    <i class="fas fa-lightbulb text-4xl sm:text-5xl text-[#00FFFF] mb-4 
+                             transition-all duration-300 group-hover:text-[#FF00FF] group-hover:scale-110"></i>
+                    <h3 class="text-xl sm:text-2xl text-[#00FFFF] font-['Orbitron'] mb-3">Chinthana <br> (Management Events)</h3>
+                    <p class="text-[#C0C0C0] text-sm sm:text-base">Showcase your management and entrepreneurial skills.</p>
+                </div>
+                <a href="{{ url_for('management') }}" 
+                   class="inline-block w-full py-3 text-center bg-gradient-to-r from-[#FF00FF] to-[#00FFFF] 
+                          rounded-lg font-bold uppercase tracking-wider text-white
+                          transform transition-all duration-300 hover:scale-[1.02]
+                          hover:shadow-[0_5px_15px_rgba(255,0,255,0.4)]">
                     Explore →
                 </a>
             </div>
-            <div
-                class="bg-[#2E2E2E] border-2 border-[#00FFFF] text-[#C0C0C0] rounded-lg p-6 transition-transform duration-300 hover:scale-105 hover:border-[#FF00FF]">
-                <h3 class="text-2xl text-[#00FFFF] mb-4">Krida Ratna(Gaming)</h3>
-                <p>Battle it out in a high-energy gaming arena! Prizes and glory await the ultimate champions.</p>
-                <a href="{{ url_for('games') }}"
-                    class="inline-block bg-[#FF00FF] text-[#1C1C1C] px-6 py-3 rounded-md font-bold uppercase 
-                      transition-all duration-300 hover:bg-transparent hover:text-[#FF00FF] hover:border-2 hover:border-[#FF00FF] mt-4">
+
+            <!-- Krida Ratna Card -->
+            <div class="group bg-[rgba(32,34,39,0.95)] backdrop-blur-md rounded-xl p-6
+                        border-2 border-[#00FFFF] shadow-[0_0_30px_rgba(0,255,255,0.1)]
+                        transform transition-all duration-500 hover:-translate-y-2 
+                        hover:shadow-[0_15px_30px_rgba(0,255,255,0.4)] hover:border-[#FF00FF]">
+                <div class="mb-6 text-center">
+                    <i class="fas fa-gamepad text-4xl sm:text-5xl text-[#00FFFF] mb-4 
+                             transition-all duration-300 group-hover:text-[#FF00FF] group-hover:scale-110"></i>
+                    <h3 class="text-xl sm:text-2xl text-[#00FFFF] font-['Orbitron'] mb-3">Krida Ratna <br> (Game Zone)</h3>
+                    <p class="text-[#C0C0C0] text-sm sm:text-base">Compete in exciting gaming tournaments and challenges.</p>
+                </div>
+                <a href="{{ url_for('games') }}" 
+                   class="inline-block w-full py-3 text-center bg-gradient-to-r from-[#FF00FF] to-[#00FFFF] 
+                          rounded-lg font-bold uppercase tracking-wider text-white
+                          transform transition-all duration-300 hover:scale-[1.02]
+                          hover:shadow-[0_5px_15px_rgba(255,0,255,0.4)]">
                     Explore →
                 </a>
             </div>
-            <div
-                class="bg-[#2E2E2E] border-2 border-[#00FFFF] text-[#C0C0C0] rounded-lg p-6 transition-transform duration-300 hover:scale-105 hover:border-[#FF00FF]">
-                <h3 class="text-2xl text-[#00FFFF] mb-4">Kalachitrana<br>(Visual Arts)</h3>
-                <p>Battle it out in a high-energy gaming arena! Prizes and glory await the ultimate champions.</p>
-                <a href="{{ url_for('kalachitrana') }}"
-                    class="inline-block bg-[#FF00FF] text-[#1C1C1C] px-6 py-3 rounded-md font-bold uppercase 
-                      transition-all duration-300 hover:bg-transparent hover:text-[#FF00FF] hover:border-2 hover:border-[#FF00FF] mt-4">
+
+            <!-- Kalachitrana Card -->
+            <div class="group bg-[rgba(32,34,39,0.95)] backdrop-blur-md rounded-xl p-6
+                        border-2 border-[#00FFFF] shadow-[0_0_30px_rgba(0,255,255,0.1)]
+                        transform transition-all duration-500 hover:-translate-y-2 
+                        hover:shadow-[0_15px_30px_rgba(0,255,255,0.4)] hover:border-[#FF00FF]">
+                <div class="mb-6 text-center">
+                    <i class="fas fa-camera text-4xl sm:text-5xl text-[#00FFFF] mb-4 
+                             transition-all duration-300 group-hover:text-[#FF00FF] group-hover:scale-110"></i>
+                    <h3 class="text-xl sm:text-2xl text-[#00FFFF] font-['Orbitron'] mb-3">Kalachitrana <br>(Visual Art)</h3>
+                    <p class="text-[#C0C0C0] text-sm sm:text-base">Express your creativity through visual arts and photography.</p>
+                </div>
+                <a href="{{ url_for('kalachitrana') }}" 
+                   class="inline-block w-full py-3 text-center bg-gradient-to-r from-[#FF00FF] to-[#00FFFF] 
+                          rounded-lg font-bold uppercase tracking-wider text-white
+                          transform transition-all duration-300 hover:scale-[1.02]
+                          hover:shadow-[0_5px_15px_rgba(255,0,255,0.4)]">
                     Explore →
                 </a>
             </div>
         </div>
     </div>
 </section>
+
 <div class="h-0.5 bg-gradient-to-r from-[#6D28D9] via-[#3B82F6] to-[#00FFFF]"></div>
 
 <!-- Brochure Section -->
@@ -356,29 +469,95 @@
 </div>
 <div class="h-0.5 bg-gradient-to-r from-[#6D28D9] via-[#3B82F6] to-[#00FFFF]"></div>
 
-<!-- Replace the entire Sponsors Section with this simplified version -->
-<section class="py-12 sm:py-16 md:py-20 bg-gradient-to-br from-[#1C1C1C] to-[#0A0A0A] text-center relative">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6">
-        <h2
-            class="text-2xl sm:text-3xl md:text-4xl text-[#00FFFF] mb-6 sm:mb-8 md:mb-12 font-bold uppercase font-['Orbitron']">
-            Our Sponsors
-        </h2>
+<!-- Sponsors Section -->
+<section class="relative py-16 sm:py-20 overflow-hidden">
+    <!-- Multi-layered gradient background -->
+    <div class="absolute inset-0">
+        <!-- Base gradient -->
+        <div class="absolute inset-0 bg-[linear-gradient(135deg,#0A0A0A_0%,#1C1C1C_100%)]"></div>
+        
+        <!-- Animated color waves -->
+        <div class="absolute inset-0 opacity-30">
+            <div class="absolute inset-0 bg-[linear-gradient(45deg,rgba(0,255,255,0.15),transparent,rgba(255,0,255,0.15))]
+                        animate-[gradient-flow_15s_ease-in-out_infinite]"></div>
+            <div class="absolute inset-0 bg-[linear-gradient(-45deg,rgba(255,0,255,0.15),transparent,rgba(0,255,255,0.15))]
+                        animate-[gradient-flow_15s_ease-in-out_infinite] delay-75"></div>
+        </div>
+        
+        <!-- Radial glows -->
+        <div class="absolute inset-0">
+            <div class="absolute top-0 left-0 w-full h-full 
+                        bg-[radial-gradient(circle_at_25%_25%,rgba(0,255,255,0.15)_0%,transparent_50%)]"></div>
+            <div class="absolute bottom-0 right-0 w-full h-full 
+                        bg-[radial-gradient(circle_at_75%_75%,rgba(255,0,255,0.15)_0%,transparent_50%)]"></div>
+        </div>
+        
+        <!-- Animated particles effect -->
+        <div class="absolute inset-0 opacity-20"
+             style="background-image: url('data:image/svg+xml,...'); animation: float 20s linear infinite;">
+        </div>
+    </div>
 
-        <div class="bg-[rgba(32,34,39,0.95)] p-8 rounded-xl border-2 border-[#00FFFF] 
-                    transform transition-all duration-300 hover:-translate-y-2 
+    <!-- Content wrapper -->
+    <div class="relative z-10 max-w-6xl mx-auto px-4 sm:px-6">
+        <!-- Enhanced section title -->
+        <div class="relative mb-12 sm:mb-16">
+            <h2 class="text-3xl sm:text-4xl md:text-5xl font-['Orbitron'] 
+                       bg-gradient-to-r from-[#00FFFF] via-[#FF00FF] to-[#00FFFF] 
+                       bg-clip-text text-transparent animate-[gradient-flow_3s_ease-in-out_infinite]
+                       text-center font-bold uppercase tracking-wider">
+                Our Sponsors
+            </h2>
+            <div class="absolute -bottom-4 left-1/2 transform -translate-x-1/2 w-24 h-1 
+                        bg-gradient-to-r from-[#00FFFF] to-[#FF00FF]"></div>
+        </div>
+
+        <!-- Enhanced sponsor card -->
+        <div class="group bg-[rgba(20,20,20,0.95)] backdrop-blur-xl rounded-2xl p-8 sm:p-10 
+                    border-2 border-[#00FFFF] shadow-[0_0_30px_rgba(0,255,255,0.1)]
+                    transform transition-all duration-500 hover:-translate-y-2 
                     hover:shadow-[0_15px_30px_rgba(0,255,255,0.4)] hover:border-[#FF00FF]
-                    max-w-2xl mx-auto">
-            <h3 class="text-2xl text-[#FF00FF] mb-4 font-['Orbitron']">Coming Soon</h3>
-            <p class="text-[#C0C0C0] mb-6">Sponsor announcements will be made shortly. Stay tuned!</p>
-
-            <a href="mailto:vtuyukti.klb@gmail.com" class="inline-block bg-[#FF00FF] text-white px-8 py-4 rounded-lg font-bold 
-                      transition-all duration-300 hover:bg-transparent hover:text-[#FF00FF] 
-                      hover:border-2 hover:border-[#FF00FF] font-['Orbitron']">
-                Become a Sponsor
-            </a>
+                    relative overflow-hidden max-w-2xl mx-auto">
+            
+            <!-- Animated corner accents -->
+            <div class="absolute top-0 left-0 w-16 h-16 border-t-2 border-l-2 border-[#00FFFF] 
+                        opacity-50 group-hover:border-[#FF00FF] transition-colors duration-300"></div>
+            <div class="absolute bottom-0 right-0 w-16 h-16 border-b-2 border-r-2 border-[#00FFFF] 
+                        opacity-50 group-hover:border-[#FF00FF] transition-colors duration-300"></div>
+            
+            <!-- Content -->
+            <div class="space-y-6 relative z-10">
+                <h3 class="text-2xl sm:text-3xl text-[#00FFFF] font-['Orbitron'] 
+                           animate-[pulse_2s_ease-in-out_infinite]">
+                    Coming Soon
+                </h3>
+                <p class="text-lg sm:text-xl text-[#C0C0C0] max-w-2xl mx-auto font-['Rajdhani']">
+                    Sponsor announcements will be made shortly. Stay tuned for exciting partnerships!
+                </p>
+                
+                <!-- Enhanced CTA button -->
+                <div class="pt-4">
+                    <a href="mailto:vtuyukti.klb@gmail.com" 
+                       class="inline-block relative overflow-hidden group/btn px-8 py-4 
+                              bg-gradient-to-r from-[#FF00FF] to-[#00FFFF] rounded-lg
+                              font-bold uppercase tracking-wider text-white
+                              transform transition-all duration-300 hover:scale-105">
+                        <span class="relative z-10 group-hover/btn:text-black transition-colors duration-300 font-['Orbitron']">
+                            Become a Sponsor
+                        </span>
+                        <div class="absolute inset-0 bg-white opacity-0 group-hover/btn:opacity-100 transition-opacity duration-300"></div>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Animated shine effect -->
+            <div class="absolute inset-0 opacity-0 group-hover:opacity-100 
+                        bg-gradient-to-r from-transparent via-[rgba(255,255,255,0.1)] to-transparent
+                        -translate-x-full group-hover:translate-x-full transition-all duration-1000"></div>
         </div>
     </div>
 </section>
+
 <div class="h-0.5 bg-gradient-to-r from-[#6D28D9] via-[#3B82F6] to-[#00FFFF]"></div>
 
 <style>
@@ -591,6 +770,20 @@
     #imageCarousel img {
         opacity: 0;
         transition: opacity 1s ease-in-out;
+    }
+
+    @media (max-height: 800px) {
+        .hero-content {
+            padding-top: 4rem;
+            padding-bottom: 4rem;
+        }
+    }
+
+    @media (max-width: 640px) {
+        .hero-content {
+            padding-top: 2rem;
+            padding-bottom: 2rem;
+        }
     }
 </style>
 
