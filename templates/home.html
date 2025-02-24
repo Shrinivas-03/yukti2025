@@ -31,27 +31,6 @@
     </div>
 </div>
 
-<!-- Update Browser Alert content -->
-<div id="browser-alert" 
-     class="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-[9998] 
-            bg-[rgba(46,46,46,0.95)] backdrop-blur-md p-6 rounded-lg border-2 border-[#00FFFF]
-            shadow-[0_0_20px_rgba(0,255,255,0.3)] w-[90%] max-w-md
-            transform transition-all duration-500 opacity-0"
-     style="transform: translate(-50%, -30%) scale(0.8)">
-    <div class="text-center">
-        <h3 class="text-[#00FFFF] text-xl mb-4 font-['Orbitron']">Important Notice</h3>
-        <p class="text-white mb-4">For the best experience:</p>
-        <p class="text-[#00FFFF] mb-3">Please use Google Chrome, Microsoft Edge, or Mozilla Firefox</p>
-        <p class="text-[#FF00FF] mb-6">Please ensure you have a stable internet connection</p>
-        <button onclick="closeAlert()" 
-                class="bg-[#FF00FF] text-white px-6 py-3 rounded-md hover:bg-transparent 
-                       hover:text-[#FF00FF] border-2 border-transparent hover:border-[#FF00FF]
-                       transition-all duration-300 font-bold">
-            Got it!
-        </button>
-    </div>
-</div>
-
 <div class="h-0.5 bg-gradient-to-r from-[#6D28D9] via-[#3B82F6] to-[#00FFFF]"></div>
 
 <!-- Hero Section -->
@@ -262,7 +241,7 @@
         </h2>
         <p class="text-[#C0C0C0] mb-6 sm:mb-8 text-sm sm:text-base max-w-2xl mx-auto">
             Download our comprehensive event brochure cum rulebook to explore all the exciting events, schedules, and
-            opportunities waiting for you at Yukti 2k25.
+            opportunities waiting for you at Yukti 2025.
         </p>
         <div class="inline-block">
             <a href="#" 
@@ -278,6 +257,31 @@
         </div>
     </div>
 </div>
+<div class="h-0.5 bg-gradient-to-r from-[#6D28D9] via-[#3B82F6] to-[#00FFFF]"></div>
+
+<!-- Replace the entire Sponsors Section with this simplified version -->
+<section class="py-12 sm:py-16 md:py-20 bg-gradient-to-br from-[#1C1C1C] to-[#0A0A0A] text-center relative">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+        <h2 class="text-2xl sm:text-3xl md:text-4xl text-[#00FFFF] mb-6 sm:mb-8 md:mb-12 font-bold uppercase font-['Orbitron']">
+            Our Sponsors
+        </h2>
+        
+        <div class="bg-[rgba(32,34,39,0.95)] p-8 rounded-xl border-2 border-[#00FFFF] 
+                    transform transition-all duration-300 hover:-translate-y-2 
+                    hover:shadow-[0_15px_30px_rgba(0,255,255,0.4)] hover:border-[#FF00FF]
+                    max-w-2xl mx-auto">
+            <h3 class="text-2xl text-[#FF00FF] mb-4 font-['Orbitron']">Coming Soon</h3>
+            <p class="text-[#C0C0C0] mb-6">Sponsor announcements will be made shortly. Stay tuned!</p>
+            
+            <a href="mailto:vtuyukti.klb@gmail.com" 
+               class="inline-block bg-[#FF00FF] text-white px-8 py-4 rounded-lg font-bold 
+                      transition-all duration-300 hover:bg-transparent hover:text-[#FF00FF] 
+                      hover:border-2 hover:border-[#FF00FF] font-['Orbitron']">
+                Become a Sponsor
+            </a>
+        </div>
+    </div>
+</section>
 <div class="h-0.5 bg-gradient-to-r from-[#6D28D9] via-[#3B82F6] to-[#00FFFF]"></div>
 
 <style>
@@ -424,11 +428,6 @@
     .animate-loading-bar {
         animation: loading-bar 2s linear infinite;
     }
-
-    /* Add these styles for alert transitions */
-    #browser-alert {
-        transition: transform 0.5s ease-out, opacity 0.5s ease-out;
-    }
 </style>
 
 <script>
@@ -489,27 +488,10 @@
     // Add loading screen logic
     window.addEventListener('load', function() {
         const loadingScreen = document.getElementById('loading-screen');
-        const browserAlert = document.getElementById('browser-alert');
-        
         setTimeout(() => {
             loadingScreen.classList.add('hidden');
-            // Show browser alert in center
-            setTimeout(() => {
-                browserAlert.style.transform = 'translate(-50%, -50%) scale(1)';
-                browserAlert.style.opacity = '1';
-            }, 500);
         }, 2000);
     });
-
-    // Close alert function
-    function closeAlert() {
-        const browserAlert = document.getElementById('browser-alert');
-        browserAlert.style.opacity = '0';
-        browserAlert.style.transform = 'translate(-50%, -50%) scale(0.8)';
-        setTimeout(() => {
-            browserAlert.style.display = 'none';
-        }, 500);
-    }
 </script>
 
 {% endblock %}
