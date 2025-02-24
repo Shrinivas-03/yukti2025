@@ -6,153 +6,196 @@
 <!-- Update the divider -->
 <div class="h-0.5 bg-gradient-to-r from-[#6D28D9] via-[#3B82F6] to-[#00FFFF]"></div>
 
-<!-- Update background and theme colors -->
-<section class="py-12 bg-gradient-to-br from-[#1C1C1C] to-[#0A0A0A]">
-    <div class="text-center">
-        <h1 class="text-4xl text-[#00FFFF] uppercase mb-6 mx-auto font-['Orbitron']">Explore Our Events</h1>
-        <p class="text-xl text-[#C0C0C0] mb-8 mx-auto">Choose from a diverse range of challenges and showcases.</p>
+<!-- Update the events section with enhanced background -->
+<section class="relative py-12 overflow-hidden">
+    <!-- Layered background gradients -->
+    <div class="absolute inset-0">
+        <!-- Base gradient -->
+        <div class="absolute inset-0 bg-gradient-to-br from-[#1C1C1C] via-[#141414] to-[#0A0A0A]"></div>
+        
+        <!-- Animated gradient overlays -->
+        <div class="absolute inset-0">
+            <div class="absolute inset-0 bg-[linear-gradient(45deg,rgba(0,255,255,0.1),rgba(255,0,255,0.1))] opacity-30 
+                        animate-[gradient-flow_15s_ease-in-out_infinite]"></div>
+            <div class="absolute inset-0 bg-[linear-gradient(-45deg,rgba(255,0,255,0.1),rgba(0,255,255,0.1))] opacity-30 
+                        animate-[gradient-flow_15s_ease-in-out_infinite_reverse]"></div>
+        </div>
+        
+        <!-- Radial glow effects -->
+        <div class="absolute inset-0">
+            <div class="absolute top-0 left-0 w-full h-full 
+                        bg-[radial-gradient(circle_at_25%_25%,rgba(0,255,255,0.15)_0%,transparent_50%)]"></div>
+            <div class="absolute bottom-0 right-0 w-full h-full 
+                        bg-[radial-gradient(circle_at_75%_75%,rgba(255,0,255,0.15)_0%,transparent_50%)]"></div>
+        </div>
     </div>
-    
-    <!-- Update card styles -->
-    <div class="container mx-auto max-w-[1400px] px-4">
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 py-5">
-            <!-- Tech Events Card -->
-            <div class="bg-[rgba(46,46,46,0.8)] backdrop-blur-md rounded-xl border-2 border-[#00FFFF] 
-                        transform transition-all duration-300 hover:-translate-y-2 
-                        hover:shadow-[0_15px_30px_rgba(0,255,255,0.4)] hover:border-[#FF00FF]">
-                <img class="w-full h-40 object-cover rounded-t-xl" src="{{ url_for('static', filename='assets/tech.png') }}" alt="Tech Events">
-                <div class="p-4">
-                    <h5 class="text-xl text-[#00FFFF] uppercase mb-2 font-['Orbitron']">Manthana Events</h5>
-                    <p class="text-[#C0C0C0] text-sm mb-4">Innovative challenges and coding competitions await.</p>
-                    <details class="border-2 border-[#00FFFF] rounded-md p-4 bg-[rgba(32,34,39,0.95)] 
-                                 transition-all duration-300 hover:border-[#FF00FF]">
-                        <summary class="cursor-pointer font-bold outline-none mb-3 text-[#00FFFF]">View Tech Events</summary>
-                        <ul class="space-y-2">
-                            <li class="bg-[rgba(32,34,39,0.95)] p-2 rounded text-[#C0C0C0]">Prakalpa Prastuthi</li>
-                            <li class="bg-[rgba(32,34,39,0.95)] p-2 rounded text-[#C0C0C0]">CHANAKSH CODING EVENT</li>
-                            <li class="bg-[rgba(32,34,39,0.95)] p-2 rounded text-[#C0C0C0]">Robo Samara</li>
-                            <li class="bg-[rgba(32,34,39,0.95)] p-2 rounded text-[#C0C0C0]">Pragyaan Quiz</li>
-                            <li class="bg-[rgba(32,34,39,0.95)] p-2 rounded text-[#C0C0C0]">Vagmita (Elocution)</li>
-                        </ul>
-                        <a href="{{ url_for('tech') }}" 
-                           class="inline-block mt-4 bg-[#FF00FF] text-[#1C1C1C] px-4 py-2 rounded 
-                                         transition-all duration-300 hover:bg-transparent hover:text-[#FF00FF] 
-                                         hover:border-2 hover:border-[#FF00FF]">
-                            View More
-                        </a>
-                    </details>
-                </div>
-            </div>
 
-            <!-- Cultural Events Card -->
-            <div class="bg-[rgba(46,46,46,0.8)] backdrop-blur-md rounded-xl border-2 border-[#00FFFF] 
-                        transform transition-all duration-300 hover:-translate-y-2 
-                        hover:shadow-[0_15px_30px_rgba(0,255,255,0.4)] hover:border-[#FF00FF]">
-                <img class="w-full h-40 object-cover rounded-t-xl" src="{{ url_for('static', filename='assets/cultural.jpg') }}" alt="Cultural Events">
-                <div class="p-4">
-                    <h5 class="text-xl text-[#00FFFF] uppercase mb-2 font-['Orbitron']">Manoranjana Events</h5>
-                    <p class="text-[#C0C0C0] text-sm mb-4">Experience art, dance, and soul-stirring performances.</p>
-                    <details class="border-2 border-[#00FFFF] rounded-md p-4 bg-[rgba(32,34,39,0.95)] 
-                                 transition-all duration-300 hover:border-[#FF00FF]">
-                        <summary class="cursor-pointer font-bold outline-none mb-3 text-[#00FFFF]">View Cultural Events</summary>
-                        <ul class="space-y-2">
-                            <li class="bg-[rgba(32,34,39,0.95)] p-2 rounded text-[#C0C0C0]">NINAAD - Find The Voice Within!</li>
-                            <li class="bg-[rgba(32,34,39,0.95)] p-2 rounded text-[#C0C0C0]">Nritya Saadhana</li>
-                            <li class="bg-[rgba(32,34,39,0.95)] p-2 rounded text-[#C0C0C0]">NATYA Mayuri</li>
-                            <li class="bg-[rgba(32,34,39,0.95)] p-2 rounded text-[#C0C0C0]">Navyataa (Ramp Walk)</li>
-                        </ul>
-                        <a href="{{ url_for('cultural') }}" 
-                           class="inline-block mt-4 bg-[#FF00FF] text-[#1C1C1C] px-4 py-2 rounded 
-                                         transition-all duration-300 hover:bg-transparent hover:text-[#FF00FF] 
-                                         hover:border-2 hover:border-[#FF00FF]">
-                            View More
-                        </a>
-                    </details>
-                </div>
-            </div>
+    <!-- Content with enhanced header -->
+    <div class="relative z-10">
+        <div class="text-center mb-12">
+            <h1 class="text-4xl sm:text-5xl md:text-6xl font-['Orbitron'] 
+                       bg-gradient-to-r from-[#00FFFF] via-[#FF00FF] to-[#00FFFF] 
+                       bg-clip-text text-transparent animate-[gradient-flow_3s_ease-in-out_infinite]
+                       mb-4 tracking-wider">
+                Explore Our Events
+            </h1>
+            <p class="text-xl text-[#C0C0C0] max-w-2xl mx-auto px-4">
+                Choose from a diverse range of challenges and showcases
+            </p>
+            
+            <!-- Decorative underline -->
+            <div class="w-24 h-1 mx-auto mt-6 bg-gradient-to-r from-[#00FFFF] to-[#FF00FF] rounded-full
+                        transform transition-all duration-300 hover:scale-x-150 hover:from-[#FF00FF] hover:to-[#00FFFF]"></div>
+        </div>
 
-            <!-- Kalachitrana event Card -->
-            <div class="bg-[rgba(46,46,46,0.8)] backdrop-blur-md rounded-xl border-2 border-[#00FFFF] 
-                        transform transition-all duration-300 hover:-translate-y-2 
-                        hover:shadow-[0_15px_30px_rgba(0,255,255,0.4)] hover:border-[#FF00FF]">
-                <img class="w-full h-40 object-cover rounded-t-xl" src="{{ url_for('static', filename='assets/photography.jpg') }}" alt="Tech Events">
-                <div class="p-4">
-                    <h5 class="text-xl text-[#00FFFF] uppercase mb-2 font-['Orbitron']">Kalachitrana Events</h5>
-                    <p class="text-[#C0C0C0] text-sm mb-4">Show the world through your lens</p>
-                    <details class="border-2 border-[#00FFFF] rounded-md p-4 bg-[rgba(32,34,39,0.95)] 
-                                 transition-all duration-300 hover:border-[#FF00FF]">
-                        <summary class="cursor-pointer font-bold outline-none mb-3 text-[#00FFFF]">View Kalachitrana Events</summary>
-                        <ul class="space-y-2">
-                            <li class="bg-[rgba(32,34,39,0.95)] p-2 rounded text-[#C0C0C0]">STHALA CHITRAPATHA (Spot Photography)</li>
-                            <li class="bg-[rgba(32,34,39,0.95)] p-2 rounded text-[#C0C0C0]">CHITRAGATHA (Short Film)</li>
-                            <li class="bg-[rgba(32,34,39,0.95)] p-2 rounded text-[#C0C0C0]">RUPEKHA (Sketch Art)</li>
-                            <li class="bg-[rgba(32,34,39,0.95)] p-2 rounded text-[#C0C0C0]">HASTAKALA (Painting)</li>
-                            <li class="bg-[rgba(32,34,39,0.95)] p-2 rounded text-[#C0C0C0]">SWACHITRA (Selfie Point)</li>
-                        </ul>
-                        <a href="{{ url_for('kalachitrana') }}" 
-                           class="inline-block mt-4 bg-[#FF00FF] text-[#1C1C1C] px-4 py-2 rounded 
-                                         transition-all duration-300 hover:bg-transparent hover:text-[#FF00FF] 
-                                         hover:border-2 hover:border-[#FF00FF]">
-                            View More
-                        </a>
-                    </details>
+        <!-- Existing grid container -->
+        <div class="container mx-auto max-w-[1400px] px-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 py-5">
+                <!-- Tech Events Card -->
+                <div class="bg-[rgba(46,46,46,0.8)] backdrop-blur-md rounded-xl border-2 border-[#00FFFF] 
+                            transform transition-all duration-300 hover:-translate-y-2 
+                            hover:shadow-[0_15px_30px_rgba(0,255,255,0.4)] hover:border-[#FF00FF]">
+                    <img class="w-full h-40 object-cover rounded-t-xl" src="{{ url_for('static', filename='assets/tech.png') }}" alt="Tech Events">
+                    <div class="p-4">
+                        <h5 class="text-xl text-[#00FFFF] uppercase mb-2 font-['Orbitron']">Manthana Events</h5>
+                        <p class="text-[#C0C0C0] text-sm mb-4">Innovative challenges and coding competitions await.</p>
+                        <details class="border-2 border-[#00FFFF] rounded-md p-4 bg-[rgba(32,34,39,0.95)] 
+                                     transition-all duration-300 hover:border-[#FF00FF]">
+                            <summary class="cursor-pointer font-bold outline-none mb-3 text-[#00FFFF]">View Tech Events</summary>
+                            <ul class="space-y-2">
+                                <li class="bg-[rgba(32,34,39,0.95)] p-2 rounded text-[#C0C0C0]">Prakalpa Prastuthi</li>
+                                <li class="bg-[rgba(32,34,39,0.95)] p-2 rounded text-[#C0C0C0]">CHANAKSH CODING EVENT</li>
+                                <li class="bg-[rgba(32,34,39,0.95)] p-2 rounded text-[#C0C0C0]">Robo Samara</li>
+                                <li class="bg-[rgba(32,34,39,0.95)] p-2 rounded text-[#C0C0C0]">Pragyaan Quiz</li>
+                                <li class="bg-[rgba(32,34,39,0.95)] p-2 rounded text-[#C0C0C0]">Vagmita (Elocution)</li>
+                            </ul>
+                            <a href="{{ url_for('tech') }}" 
+                               class="inline-block mt-4 bg-[#FF00FF] text-[#1C1C1C] px-4 py-2 rounded 
+                                             transition-all duration-300 hover:bg-transparent hover:text-[#FF00FF] 
+                                             hover:border-2 hover:border-[#FF00FF]">
+                                View More
+                            </a>
+                        </details>
+                    </div>
                 </div>
-            </div>
 
-            <!-- Management Events Card -->
-            <div class="bg-[rgba(46,46,46,0.8)] backdrop-blur-md rounded-xl border-2 border-[#00FFFF] 
-                        transform transition-all duration-300 hover:-translate-y-2 
-                        hover:shadow-[0_15px_30px_rgba(0,255,255,0.4)] hover:border-[#FF00FF]">
-                <img class="w-full h-40 object-cover rounded-t-xl" src="{{ url_for('static', filename='assets/management.jpg') }}" alt="Management Events">
-                <div class="p-4">
-                    <h5 class="text-xl text-[#00FFFF] uppercase mb-2 font-['Orbitron']">Chinthana Events</h5>
-                    <p class="text-[#C0C0C0] text-sm mb-4">Engage in business challenges and entrepreneurial summits.</p>
-                    <details class="border-2 border-[#00FFFF] rounded-md p-4 bg-[rgba(32,34,39,0.95)] 
-                                 transition-all duration-300 hover:border-[#FF00FF]">
-                        <summary class="cursor-pointer font-bold outline-none mb-3 text-[#00FFFF]">View Management Events</summary>
-                        <ul class="space-y-2">
-                            <li class="bg-[rgba(32,34,39,0.95)] p-2 rounded text-[#C0C0C0]">DAKSH (The Best Manager)</li>
-                            <li class="bg-[rgba(32,34,39,0.95)] p-2 rounded text-[#C0C0C0]">SHRESHTA VITTA (Finance) Final</li>
-                            <li class="bg-[rgba(32,34,39,0.95)] p-2 rounded text-[#C0C0C0]">MANAVA SANSADHAN (HR)</li>
-                            <li class="bg-[rgba(32,34,39,0.95)] p-2 rounded text-[#C0C0C0]">Startup Logo Design</li>
-                            <li class="bg-[rgba(32,34,39,0.95)] p-2 rounded text-[#C0C0C0]">Business Plan</li>
-                            <li class="bg-[rgba(32,34,39,0.95)] p-2 rounded text-[#C0C0C0]">Marketing Strategy</li>
-                        </ul>
-                        <a href="{{ url_for('management') }}" 
-                           class="inline-block mt-4 bg-[#FF00FF] text-[#1C1C1C] px-4 py-2 rounded 
-                                         transition-all duration-300 hover:bg-transparent hover:text-[#FF00FF] 
-                                         hover:border-2 hover:border-[#FF00FF]">
-                            View More
-                        </a>
-                    </details>
+                <!-- Cultural Events Card -->
+                <div class="bg-[rgba(46,46,46,0.8)] backdrop-blur-md rounded-xl border-2 border-[#00FFFF] 
+                            transform transition-all duration-300 hover:-translate-y-2 
+                            hover:shadow-[0_15px_30px_rgba(0,255,255,0.4)] hover:border-[#FF00FF]">
+                    <img class="w-full h-40 object-cover rounded-t-xl" src="{{ url_for('static', filename='assets/cultural.jpg') }}" alt="Cultural Events">
+                    <div class="p-4">
+                        <h5 class="text-xl text-[#00FFFF] uppercase mb-2 font-['Orbitron']">Manoranjana Events</h5>
+                        <p class="text-[#C0C0C0] text-sm mb-4">Experience art, dance, and soul-stirring performances.</p>
+                        <details class="border-2 border-[#00FFFF] rounded-md p-4 bg-[rgba(32,34,39,0.95)] 
+                                     transition-all duration-300 hover:border-[#FF00FF]">
+                            <summary class="cursor-pointer font-bold outline-none mb-3 text-[#00FFFF]">View Cultural Events</summary>
+                            <ul class="space-y-2">
+                                <li class="bg-[rgba(32,34,39,0.95)] p-2 rounded text-[#C0C0C0]">NINAAD - Find The Voice Within!</li>
+                                <li class="bg-[rgba(32,34,39,0.95)] p-2 rounded text-[#C0C0C0]">Nritya Saadhana</li>
+                                <li class="bg-[rgba(32,34,39,0.95)] p-2 rounded text-[#C0C0C0]">NATYA Mayuri</li>
+                                <li class="bg-[rgba(32,34,39,0.95)] p-2 rounded text-[#C0C0C0]">Navyataa (Ramp Walk)</li>
+                            </ul>
+                            <a href="{{ url_for('cultural') }}" 
+                               class="inline-block mt-4 bg-[#FF00FF] text-[#1C1C1C] px-4 py-2 rounded 
+                                             transition-all duration-300 hover:bg-transparent hover:text-[#FF00FF] 
+                                             hover:border-2 hover:border-[#FF00FF]">
+                                View More
+                            </a>
+                        </details>
+                    </div>
                 </div>
-            </div>
 
-            <!-- Gaming Events Card -->
-            <div class="bg-[rgba(46,46,46,0.8)] backdrop-blur-md rounded-xl border-2 border-[#00FFFF] 
-                        transform transition-all duration-300 hover:-translate-y-2 
-                        hover:shadow-[0_15px_30px_rgba(0,255,255,0.4)] hover:border-[#FF00FF]">
-                <img class="w-full h-40 object-cover rounded-t-xl" src="{{ url_for('static', filename='assets/gaming.jpg') }}" alt="Gaming Events">
-                <div class="p-4">
-                    <h5 class="text-xl text-[#00FFFF] uppercase mb-2 font-['Orbitron']">Krida Ratna Events</h5>
-                    <p class="text-[#C0C0C0] text-sm mb-4">Join high-octane tournaments and e-sport battles.</p>
-                    <details class="border-2 border-[#00FFFF] rounded-md p-4 bg-[rgba(32,34,39,0.95)] 
-                                 transition-all duration-300 hover:border-[#FF00FF]">
-                        <summary class="cursor-pointer font-bold outline-none mb-3 text-[#00FFFF]">View Gaming Events</summary>
-                        <ul class="space-y-2">
-                            <li class="bg-[rgba(32,34,39,0.95)] p-2 rounded text-[#C0C0C0]">BGMI</li>
-                            <li class="bg-[rgba(32,34,39,0.95)] p-2 rounded text-[#C0C0C0]">Talaash</li>
-                        </ul>
-                        <a href="{{ url_for('games') }}" 
-                           class="inline-block mt-4 bg-[#FF00FF] text-[#1C1C1C] px-4 py-2 rounded 
-                                         transition-all duration-300 hover:bg-transparent hover:text-[#FF00FF] 
-                                         hover:border-2 hover:border-[#FF00FF]">
-                            View More
-                        </a>
-                    </details>
+                <!-- Kalachitrana event Card -->
+                <div class="bg-[rgba(46,46,46,0.8)] backdrop-blur-md rounded-xl border-2 border-[#00FFFF] 
+                            transform transition-all duration-300 hover:-translate-y-2 
+                            hover:shadow-[0_15px_30px_rgba(0,255,255,0.4)] hover:border-[#FF00FF]">
+                    <img class="w-full h-40 object-cover rounded-t-xl" src="{{ url_for('static', filename='assets/photography.jpg') }}" alt="Tech Events">
+                    <div class="p-4">
+                        <h5 class="text-xl text-[#00FFFF] uppercase mb-2 font-['Orbitron']">Kalachitrana Events</h5>
+                        <p class="text-[#C0C0C0] text-sm mb-4">Show the world through your lens</p>
+                        <details class="border-2 border-[#00FFFF] rounded-md p-4 bg-[rgba(32,34,39,0.95)] 
+                                     transition-all duration-300 hover:border-[#FF00FF]">
+                            <summary class="cursor-pointer font-bold outline-none mb-3 text-[#00FFFF]">View Kalachitrana Events</summary>
+                            <ul class="space-y-2">
+                                <li class="bg-[rgba(32,34,39,0.95)] p-2 rounded text-[#C0C0C0]">STHALA CHITRAPATHA (Spot Photography)</li>
+                                <li class="bg-[rgba(32,34,39,0.95)] p-2 rounded text-[#C0C0C0]">CHITRAGATHA (Short Film)</li>
+                                <li class="bg-[rgba(32,34,39,0.95)] p-2 rounded text-[#C0C0C0]">RUPEKHA (Sketch Art)</li>
+                                <li class="bg-[rgba(32,34,39,0.95)] p-2 rounded text-[#C0C0C0]">HASTAKALA (Painting)</li>
+                                <li class="bg-[rgba(32,34,39,0.95)] p-2 rounded text-[#C0C0C0]">SWACHITRA (Selfie Point)</li>
+                            </ul>
+                            <a href="{{ url_for('kalachitrana') }}" 
+                               class="inline-block mt-4 bg-[#FF00FF] text-[#1C1C1C] px-4 py-2 rounded 
+                                             transition-all duration-300 hover:bg-transparent hover:text-[#FF00FF] 
+                                             hover:border-2 hover:border-[#FF00FF]">
+                                View More
+                            </a>
+                        </details>
+                    </div>
+                </div>
+
+                <!-- Management Events Card -->
+                <div class="bg-[rgba(46,46,46,0.8)] backdrop-blur-md rounded-xl border-2 border-[#00FFFF] 
+                            transform transition-all duration-300 hover:-translate-y-2 
+                            hover:shadow-[0_15px_30px_rgba(0,255,255,0.4)] hover:border-[#FF00FF]">
+                    <img class="w-full h-40 object-cover rounded-t-xl" src="{{ url_for('static', filename='assets/management.jpg') }}" alt="Management Events">
+                    <div class="p-4">
+                        <h5 class="text-xl text-[#00FFFF] uppercase mb-2 font-['Orbitron']">Chinthana Events</h5>
+                        <p class="text-[#C0C0C0] text-sm mb-4">Engage in business challenges and entrepreneurial summits.</p>
+                        <details class="border-2 border-[#00FFFF] rounded-md p-4 bg-[rgba(32,34,39,0.95)] 
+                                     transition-all duration-300 hover:border-[#FF00FF]">
+                            <summary class="cursor-pointer font-bold outline-none mb-3 text-[#00FFFF]">View Management Events</summary>
+                            <ul class="space-y-2">
+                                <li class="bg-[rgba(32,34,39,0.95)] p-2 rounded text-[#C0C0C0]">DAKSH (The Best Manager)</li>
+                                <li class="bg-[rgba(32,34,39,0.95)] p-2 rounded text-[#C0C0C0]">SHRESHTA VITTA (Finance) Final</li>
+                                <li class="bg-[rgba(32,34,39,0.95)] p-2 rounded text-[#C0C0C0]">MANAVA SANSADHAN (HR)</li>
+                                <li class="bg-[rgba(32,34,39,0.95)] p-2 rounded text-[#C0C0C0]">Startup Logo Design</li>
+                                <li class="bg-[rgba(32,34,39,0.95)] p-2 rounded text-[#C0C0C0]">Business Plan</li>
+                                <li class="bg-[rgba(32,34,39,0.95)] p-2 rounded text-[#C0C0C0]">Marketing Strategy</li>
+                            </ul>
+                            <a href="{{ url_for('management') }}" 
+                               class="inline-block mt-4 bg-[#FF00FF] text-[#1C1C1C] px-4 py-2 rounded 
+                                             transition-all duration-300 hover:bg-transparent hover:text-[#FF00FF] 
+                                             hover:border-2 hover:border-[#FF00FF]">
+                                View More
+                            </a>
+                        </details>
+                    </div>
+                </div>
+
+                <!-- Gaming Events Card -->
+                <div class="bg-[rgba(46,46,46,0.8)] backdrop-blur-md rounded-xl border-2 border-[#00FFFF] 
+                            transform transition-all duration-300 hover:-translate-y-2 
+                            hover:shadow-[0_15px_30px_rgba(0,255,255,0.4)] hover:border-[#FF00FF]">
+                    <img class="w-full h-40 object-cover rounded-t-xl" src="{{ url_for('static', filename='assets/gaming.jpg') }}" alt="Gaming Events">
+                    <div class="p-4">
+                        <h5 class="text-xl text-[#00FFFF] uppercase mb-2 font-['Orbitron']">Krida Ratna Events</h5>
+                        <p class="text-[#C0C0C0] text-sm mb-4">Join high-octane tournaments and e-sport battles.</p>
+                        <details class="border-2 border-[#00FFFF] rounded-md p-4 bg-[rgba(32,34,39,0.95)] 
+                                     transition-all duration-300 hover:border-[#FF00FF]">
+                            <summary class="cursor-pointer font-bold outline-none mb-3 text-[#00FFFF]">View Gaming Events</summary>
+                            <ul class="space-y-2">
+                                <li class="bg-[rgba(32,34,39,0.95)] p-2 rounded text-[#C0C0C0]">BGMI</li>
+                                <li class="bg-[rgba(32,34,39,0.95)] p-2 rounded text-[#C0C0C0]">Talaash</li>
+                            </ul>
+                            <a href="{{ url_for('games') }}" 
+                               class="inline-block mt-4 bg-[#FF00FF] text-[#1C1C1C] px-4 py-2 rounded 
+                                             transition-all duration-300 hover:bg-transparent hover:text-[#FF00FF] 
+                                             hover:border-2 hover:border-[#FF00FF]">
+                                View More
+                            </a>
+                        </details>
+                    </div>
                 </div>
             </div>
         </div>
+    </div>
+
+    <!-- Add floating particles effect -->
+    <div class="absolute inset-0 pointer-events-none">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
     </div>
 </section>
 
@@ -168,6 +211,45 @@
     @keyframes sweep {
         0%    { opacity: 0; transform: translateY(-10px); }
         100%  { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes gradient-flow {
+        0%, 100% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+    }
+
+    @keyframes float {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-20px); }
+    }
+
+    .particle {
+        position: absolute;
+        width: 4px;
+        height: 4px;
+        background: rgba(0, 255, 255, 0.5);
+        border-radius: 50%;
+        animation: float 15s infinite;
+    }
+
+    .particle:nth-child(1) {
+        top: 20%;
+        left: 20%;
+        animation-delay: 0s;
+    }
+
+    .particle:nth-child(2) {
+        top: 60%;
+        left: 50%;
+        animation-delay: -5s;
+        background: rgba(255, 0, 255, 0.5);
+    }
+
+    .particle:nth-child(3) {
+        top: 40%;
+        left: 80%;
+        animation-delay: -10s;
+        background: rgba(109, 40, 217, 0.5);
     }
 </style>
 
