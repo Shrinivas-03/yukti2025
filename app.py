@@ -5,7 +5,7 @@ import secrets
 import os
 from supabase import create_client, Client
 from functools import wraps
-from werkzeug.security import check_password_hash
+from werkzeug.security import check_password_hash, generate_password_hash  # Add generate_password_hash
 import re
 import io
 import csv
@@ -51,7 +51,7 @@ app.config.update(
     SESSION_COOKIE_SECURE=True,   # Ensures cookies are sent only over HTTPS
     SESSION_COOKIE_HTTPONLY=True, # Prevents JavaScript from accessing cookies
     SESSION_COOKIE_SAMESITE='Lax', # Helps prevent CSRF attacks
-    PERMANENT_SESSION_LIFETIME=timedelta(minutes=5)  # Changed from 1 hour to 5 minutes
+    PERMANENT_SESSION_LIFETIME=timedelta(minutes=30)  # Increased from 5 to 30 minutes
 )
 
 
@@ -197,27 +197,14 @@ def login_required(allowed_pages=None):
     def decorator(f):
         @wraps(f)
         def decorated_function(*args, **kwargs):
-            # For API endpoints, return 401 JSON response instead of redirect
             if not session.get('user_id'):
                 return jsonify({
                     'success': False,
                     'message': 'Authentication required'
                 }), 401
             
-            # Check if session has expired
-            login_time = datetime.fromisoformat(session.get('login_time', ''))
-            if datetime.now() - login_time > timedelta(minutes=5):
-                return jsonify({
-                    'success': False,
-                    'message': 'Session expired'
-                }), 401
-            
-            # Check permissions
-            if allowed_pages and session.get('page') not in allowed_pages:
-                return jsonify({
-                    'success': False,
-                    'message': 'Access denied'
-                }), 403
+            # Refresh the session timestamp on each request
+            session['login_time'] = datetime.now().isoformat()
             
             return f(*args, **kwargs)
         return decorated_function
@@ -517,8 +504,8 @@ def get_matching_registrations(table_name, norm_event, reg_type):
 
 # Keep the API endpoints protected with login_required
 @app.route('/api/get-event-registrations')
-@login_required(allowed_pages=['admin'])
-def get_event_registrations():
+@login_required()  # Remove the allowed_pages parameter
+def get_event_registrations_list():  # Changed function name
     try:
         event_name = request.args.get('event')
         # Remove reg_type parameter
@@ -547,7 +534,7 @@ def get_event_registrations():
         })
 
 @app.route('/api/get-registrations')
-@login_required(allowed_pages=['admin'])
+@login_required()  # Remove the allowed_pages parameter
 def get_registrations():
     try:
         response = supabase.table('registrations').select('*').execute()
@@ -579,7 +566,7 @@ def get_registrations():
         })
 
 @app.route('/api/download-registrations')
-@login_required(allowed_pages=['admin'])
+@login_required()  # Remove the allowed_pages parameter
 def download_registrations():
     try:
         event_name = request.args.get('event')
@@ -647,7 +634,7 @@ def download_registrations():
         })
 
 @app.route('/api/search-registration/<ack_id>')
-@login_required(allowed_pages=['admin'])
+@login_required()  # Remove the allowed_pages parameter
 def search_registration(ack_id):
     try:
         # Search in registrations table
@@ -784,6 +771,453 @@ def update_payment():
             'success': False,
             'message': str(e)
         })
+
+# Add these new routes and functions after your existing routes
+
+@app.route('/admin')
+def admin():
+    if 'user_id' in session:
+        return redirect(url_for('admin_dashboard'))
+    return render_template('admin_login.html')
+
+@app.route('/admin/dashboard')
+def admin_dashboard():
+    if 'user_id' not in session:
+        flash('Please login first', 'error')
+        return redirect(url_for('admin'))
+        
+    # Updated categories with normalized event IDs
+    categories = [
+        {
+            'id': 'technical',
+            'name': 'Manthana (Technical Events)',
+            'events': [
+                {'id': 'prakalpa_prastuthi', 'name': 'Prakalpa Prastuthi (Live Project Expo)'},
+                {'id': 'chanaksh', 'name': 'Chanaksh (Coding Event)'},
+                {'id': 'robo_samara_war', 'name': 'Robo Samara (Robo War)'},
+                {'id': 'robo_samara_race', 'name': 'Robo Samara (Robo Race)'},
+                {'id': 'pragyan', 'name': 'Pragyan (Quiz)'},
+                {'id': 'vagmita', 'name': 'Vagmita (Elocution)'}
+            ]
+        },
+        {
+            'id': 'cultural',
+            'name': 'Manoranjana (Cultural Events)',
+            'events': [
+                {'id': 'ninaad_solo', 'name': 'NINAAD (Singing Solo)'},
+                {'id': 'ninaad_group', 'name': 'NINAAD (Singing Group)'},
+                {'id': 'nritya_solo', 'name': 'Nritya Saadhana (Dance Solo)'},
+                {'id': 'nritya_group', 'name': 'Nritya Saadhana (Dance Group)'},
+                {'id': 'navyataa', 'name': 'Navyataa (Ramp Walk)'}
+            ]
+        },
+        {
+            'id': 'management',
+            'name': 'Chintana (Management Events)',
+            'events': [
+                {'id': 'daksh', 'name': 'Daksh (The Best Manager)'},
+                {'id': 'shreshta_vitta', 'name': 'Shreshta Vitta (Finance) Final'},
+                {'id': 'manava_sansadhan', 'name': 'Manava Sansadhan (HR)'},
+                {'id': 'sumedha', 'name': 'Sumedha (Start Up)'},
+                {'id': 'vipanan', 'name': 'Vipanan (Marketing)'}
+            ]
+        },
+        {
+            'id': 'visual_art',
+            'name': 'Kalachitrana (Visual Art)',
+            'events': [
+                {'id': 'sthala_chitrapatha', 'name': 'Sthala Chitrapatha (Spot Photography)'},
+                {'id': 'chitragatha', 'name': 'Chitragatha (Short Film)'},
+                {'id': 'rupekha', 'name': 'Rupekha (Sketch Art)'},
+                {'id': 'hastakala', 'name': 'Hastakala (Painting)'},
+                {'id': 'swachitra', 'name': 'Swachitra (Selfie Point)'}
+            ]
+        },
+        {
+            'id': 'games',
+            'name': 'Krida Ratna (Game Events)',
+            'events': [
+                {'id': 'bgmi', 'name': 'BGMI'},
+                {'id': 'mission_talaash', 'name': 'Mission Talaash (Treasure Hunt)'}
+            ]
+        }
+    ]
+
+    # Updated event name mappings
+    event_names = {
+        'prakalpa_prastuthi': 'Prakalpa Prastuthi (Live Project Expo)',
+        'chanaksh': 'Chanaksh (Coding Event)',
+        'robo_samara_war': 'Robo Samara (Robo War)',
+        'robo_samara_race': 'Robo Samara (Robo Race)',
+        'pragyan': 'Pragyan (Quiz)',
+        'vagmita': 'Vagmita (Elocution)',
+        'ninaad_solo': 'NINAAD (Singing Solo)',
+        'ninaad_group': 'NINAAD (Singing Group)',
+        'nritya_solo': 'Nritya Saadhana (Dance Solo)',
+        'nritya_group': 'Nritya Saadhana (Dance Group)',
+        'navyataa': 'Navyataa (Ramp Walk)',
+        'daksh': 'Daksh (The Best Manager)',
+        'shreshta_vitta': 'Shreshta Vitta (Finance) Final',
+        'manava_sansadhan': 'Manava Sansadhan (HR)',
+        'sumedha': 'Sumedha (Start Up)',
+        'vipanan': 'Vipanan (Marketing)',
+        'sthala_chitrapatha': 'Sthala Chitrapatha (Spot Photography)',
+        'chitragatha': 'Chitragatha (Short Film)',
+        'rupekha': 'Rupekha (Sketch Art)',
+        'hastakala': 'Hastakala (Painting)',
+        'swachitra': 'Swachitra (Selfie Point)',
+        'bgmi': 'BGMI',
+        'mission_talaash': 'Mission Talaash (Treasure Hunt)'
+    }
+    
+    session['login_time'] = datetime.now().isoformat()
+    return render_template('admin_dashboard.html', categories=categories, event_details=event_names)
+
+# ...rest of existing code...
+
+def get_event_name(event_id):
+    # Simple event name mapping
+    event_names = {
+        'project_expo': 'Prakalpa Prastuthi (Live Project Expo)',
+        'coding': 'Chanaksh (Coding Event)',
+        'robo_war': 'Robo Samara (Robo War)',
+        'robo_race': 'Robo Samara (Robo Race)',
+        'quiz': 'Pragyan (Quiz)',
+        'elocution': 'Vagmita (Elocution)',
+        'singing_solo': 'NINAAD (Singing Solo)',
+        'singing_group': 'NINAAD (Singing Group)',
+        'dance_solo': 'Nritya Saadhana (Dance Solo)',
+        'dance_group': 'Nritya Saadhana (Dance Group)',
+        'ramp_walk': 'Navyataa (Ramp Walk)',
+        'best_manager': 'Daksh (The Best Manager)',
+        'finance': 'Shreshta Vitta (Finance) Final',
+        'hr': 'Manava Sansadhan (HR)',
+        'startup': 'Sumedha (Start Up)',
+        'marketing': 'Vipanan (Marketing)',
+        'photography': 'Sthala Chitrapatha (Spot Photography)',
+        'short_film': 'Chitragatha (Short Film)',
+        'sketch': 'Rupekha (Sketch Art)',
+        'painting': 'Hastakala (Painting)',
+        'selfie': 'Swachitra (Selfie Point)',
+        'bgmi': 'BGMI',
+        'treasure_hunt': 'Mission Talaash (Treasure Hunt)'
+    }
+    return event_names.get(event_id, 'Unknown Event')
+
+# ...rest of existing code...
+
+@app.route('/api/admin/login', methods=['POST'])
+def admin_login_api():
+    try:
+        data = request.get_json()
+        user_id = data.get('user_id')
+        password = data.get('password')
+
+        if not user_id or not password:
+            return jsonify({
+                'success': False,
+                'message': 'Missing credentials'
+            }), 400
+
+        # Query admin_users table directly
+        response = supabase.table('admin_users').select('*').eq('user_id', user_id).execute()
+        
+        if response.data and len(response.data) > 0:
+            admin = response.data[0]
+            if password == admin['password']:
+                session.permanent = True  # Make session permanent
+                session.clear()
+                session['user_id'] = user_id
+                session['login_time'] = datetime.now().isoformat()
+                session['is_admin'] = True
+                
+                return jsonify({'success': True})
+
+        return jsonify({
+            'success': False,
+            'message': 'Invalid credentials'
+        }), 401
+
+    except Exception as e:
+        print(f"Login error: {str(e)}")
+        return jsonify({
+            'success': False,
+            'message': 'An error occurred'
+        }), 500
+
+# Helper function to create admin user (you can use this in development)
+@app.route('/api/admin/create', methods=['POST'])
+def create_admin():
+    try:
+        data = request.get_json()
+        user_id = data.get('user_id')
+        password = data.get('password')
+
+        if not user_id or not password:
+            return jsonify({
+                'success': False,
+                'message': 'Missing credentials'
+            }), 400
+
+        # Insert new admin user with plain password
+        response = supabase.table('admin_users').insert({
+            'user_id': user_id,
+            'password': password,
+            'created_at': datetime.now().isoformat()
+        }).execute()
+
+        if response.data:
+            return jsonify({
+                'success': True,
+                'message': 'Admin user created successfully'
+            })
+
+        return jsonify({
+            'success': False,
+            'message': 'Failed to create admin user'
+        })
+
+    except Exception as e:
+        print(f"Admin creation error: {str(e)}")
+        return jsonify({
+            'success': False,
+            'message': 'An error occurred'
+        }), 500
+
+@app.route('/api/admin/logout', methods=['POST'])
+def admin_logout():
+    try:
+        session.clear()
+        return jsonify({
+            'success': True,
+            'redirect': '/admin'
+        })
+    except Exception as e:
+        print(f"Logout error: {str(e)}")
+        return jsonify({
+            'success': False,
+            'message': 'Error during logout'
+        }), 500
+
+@app.route('/api/admin/search/<ack_id>')
+@login_required()  # Remove the allowed_pages parameter
+def admin_search(ack_id):
+    try:
+        response = supabase.table('registrations').select('*').eq('ack_id', ack_id).execute()
+        
+        if response.data and len(response.data) > 0:
+            registration = response.data[0]
+            # Mask sensitive data in logs
+            safe_log_data = mask_sensitive_data(registration)
+            print(f"Found registration: {safe_log_data}")
+            
+            return jsonify({
+                'success': True,
+                'registration': registration
+            })
+        
+        return jsonify({
+            'success': False,
+            'message': 'Registration not found'
+        })
+    except Exception as e:
+        print(f"Search error: {str(e)}")
+        return jsonify({
+            'success': False,
+            'message': 'An error occurred'
+        })
+
+@app.route('/api/admin/dashboard-stats')
+@login_required()
+def get_dashboard_stats():
+    try:
+        # Get all registrations
+        response = supabase.table('registrations').select('payment_status').execute()
+        
+        if response.data:
+            total_registrations = len(response.data)
+            total_paid = sum(1 for reg in response.data if reg.get('payment_status') == 'paid')
+            total_pending = total_registrations - total_paid
+
+            return jsonify({
+                'success': True,
+                'total_registrations': total_registrations,
+                'total_paid': total_paid,
+                'total_pending': total_pending
+            })
+
+        return jsonify({
+            'success': True,
+            'total_registrations': 0,
+            'total_paid': 0,
+            'total_pending': 0
+        })
+
+    except Exception as e:
+        print(f"Error fetching dashboard stats: {str(e)}")
+        return jsonify({
+            'success': False,
+            'message': 'Error fetching statistics'
+        })
+
+@app.route('/api/admin/check-session')
+def check_session():
+    if 'user_id' in session:
+        # Refresh session
+        session['login_time'] = datetime.now().isoformat()
+        return jsonify({'valid': True})
+    return jsonify({'valid': False}), 401
+
+@app.route('/event-dashboard')
+@login_required()
+def event_dashboard():
+    # Define categories and their events
+    categories = [
+        {
+            'id': 'technical',
+            'name': 'Manthana (Technical Events)',
+            'events': [
+                {'id': 'project_expo', 'name': 'Prakalpa Prastuthi (Live Project Expo)'},
+                {'id': 'coding', 'name': 'Chanaksh (Coding Event)'},
+                {'id': 'robo_war', 'name': 'Robo Samara (Robo War)'},
+                {'id': 'robo_race', 'name': 'Robo Samara (Robo Race)'},
+                {'id': 'quiz', 'name': 'Pragyan (Quiz)'},
+                {'id': 'elocution', 'name': 'Vagmita (Elocution)'}
+            ]
+        },
+        {
+            'id': 'visual_art',
+            'name': 'Kalachitrana (Visual Art)',
+            'events': [
+                {'id': 'photography', 'name': 'Sthala Chitrapatha (Spot Photography)'},
+                {'id': 'short_film', 'name': 'Chitragatha (Short Film)'},
+                {'id': 'sketch', 'name': 'Rupekha (Sketch Art)'},
+                {'id': 'painting', 'name': 'Hastakala (Painting)'},
+                {'id': 'selfie', 'name': 'Swachitra (Selfie Point)'}
+            ]
+        },
+        # Add other categories similarly...
+    ]
+    return render_template('event_dashboard.html', categories=categories)
+
+@app.route('/api/admin/event-registrations/<event_id>')
+@login_required()
+def get_event_registrations_by_id(event_id):  # Changed function name
+    try:
+        print(f"Looking up registrations for event ID: {event_id}")  # Debug log
+        response = supabase.table('registrations').select('*').execute()
+        
+        if not response.data:
+            return jsonify({
+                'success': True,
+                'eventName': get_event_name(event_id),
+                'registrations': []
+            })
+
+        # Create event name mapping (database name to ID)
+        event_name_to_id = {
+            'Prakalpa Prastuthi (Live Project Expo)': 'prakalpa_prastuthi',
+            'Chanaksh (Coding Event)': 'chanaksh',
+            'Robo Samara (Robo War)': 'robo_samara_war',
+            'Robo Samara (Robo Race)': 'robo_samara_race',
+            'Pragyan (Quiz)': 'pragyan',
+            'Vagmita (Elocution)': 'vagmita',
+            'NINAAD (Singing Solo)': 'ninaad_solo',
+            'NINAAD (Singing Group)': 'ninaad_group',
+            'Nritya Saadhana (Dance Solo)': 'nritya_solo',
+            'Nritya Saadhana (Dance Group)': 'nritya_group',
+            'Navyataa (Ramp Walk)': 'navyataa',
+            'Daksh (The Best Manager)': 'daksh',
+            'Shreshta Vitta (Finance) Final': 'shreshta_vitta',
+            'Manava Sansadhan (HR)': 'manava_sansadhan',
+            'Sumedha (Start Up)': 'sumedha',
+            'Vipanan (Marketing)': 'vipanan',
+            'Sthala Chitrapatha (Spot Photography)': 'sthala_chitrapatha',
+            'Chitragatha (Short Film)': 'chitragatha',
+            'Rupekha (Sketch Art)': 'rupekha',
+            'Hastakala (Painting)': 'hastakala',
+            'Swachitra (Selfie Point)': 'swachitra',
+            'BGMI': 'bgmi',
+            'Mission Talaash (Treasure Hunt)': 'mission_talaash'
+        }
+
+        # Create reverse mapping (ID to name)
+        id_to_name = {v: k for k, v in event_name_to_id.items()}
+        event_name = id_to_name.get(event_id, 'Unknown Event')
+
+        event_registrations = []
+        for reg in response.data:
+            for event in reg.get('event_details', []):
+                stored_event_name = event.get('event', '')
+                stored_event_id = event_name_to_id.get(stored_event_name)
+                
+                print(f"Comparing {stored_event_id} with {event_id}")  # Debug log
+                
+                if stored_event_id == event_id:
+                    registration = {
+                        'ack_id': reg['ack_id'],
+                        'college': reg['college'],
+                        'phone': reg['phone'],
+                        'payment_status': reg.get('payment_status', 'pending'),
+                        'payment_type': reg.get('payment_type'),
+                        'utr_number': reg.get('utr_number'),
+                        'dd_number': reg.get('dd_number'),
+                    }
+                    
+                    # Format participants information
+                    if event['type'] == 'team' and 'members' in event:
+                        participants = [f"{m['name']} ({m['usn']})" for m in event['members']]
+                        registration['participants'] = participants
+                    elif 'participant' in event:
+                        participant = event['participant']
+                        registration['participants'] = [f"{participant['name']} ({participant['usn']})"]
+                    
+                    event_registrations.append(registration)
+
+        if not event_registrations:
+            print(f"No registrations found for event: {event_id}")  # Debug log
+
+        return jsonify({
+            'success': True,
+            'eventName': event_name,
+            'registrations': event_registrations
+        })
+
+    except Exception as e:
+        print(f"Error fetching event registrations: {str(e)}")  # Debug log
+        return jsonify({
+            'success': False,
+            'message': 'Error fetching registrations'
+        })
+
+# Update get_event_name function
+def get_event_name(event_id):
+    event_names = {
+        'prakalpa_prastuthi': 'Prakalpa Prastuthi (Live Project Expo)',
+        'chanaksh': 'Chanaksh (Coding Event)',
+        'robo_samara_war': 'Robo Samara (Robo War)',
+        'robo_samara_race': 'Robo Samara (Robo Race)',
+        'pragyan': 'Pragyan (Quiz)',
+        'vagmita': 'Vagmita (Elocution)',
+        'ninaad_solo': 'NINAAD (Singing Solo)',
+        'ninaad_group': 'NINAAD (Singing Group)',
+        'nritya_solo': 'Nritya Saadhana (Dance Solo)',
+        'nritya_group': 'Nritya Saadhana (Dance Group)',
+        'navyataa': 'Navyataa (Ramp Walk)',
+        'daksh': 'Daksh (The Best Manager)',
+        'shreshta_vitta': 'Shreshta Vitta (Finance) Final',
+        'manava_sansadhan': 'Manava Sansadhan (HR)',
+        'sumedha': 'Sumedha (Start Up)',
+        'vipanan': 'Vipanan (Marketing)',
+        'sthala_chitrapatha': 'Sthala Chitrapatha (Spot Photography)',
+        'chitragatha': 'Chitragatha (Short Film)',
+        'rupekha': 'Rupekha (Sketch Art)',
+        'hastakala': 'Hastakala (Painting)',
+        'swachitra': 'Swachitra (Selfie Point)',
+        'bgmi': 'BGMI',
+        'mission_talaash': 'Mission Talaash (Treasure Hunt)'
+    }
+    return event_names.get(event_id, 'Unknown Event')
 
 if __name__ == "__main__":
     app.run(debug=app.config['DEBUG'])

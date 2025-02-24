@@ -1,0 +1,439 @@
+{% extends "base.html" %}
+
+{% block title %}Admin Dashboard - YUKTI 2025{% endblock %}
+
+{% block content %}
+<div class="h-0.5 bg-gradient-to-r from-[#6D28D9] via-[#3B82F6] to-[#00FFFF]"></div>
+
+<div class="min-h-screen bg-gradient-to-br from-[#1C1C1C] to-[#0A0A0A] py-12 px-4">
+    <div class="max-w-6xl mx-auto">
+        <!-- Add Stats Section before the search section -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+            <!-- Total Registrations Card -->
+            <div class="bg-[rgba(46,46,46,0.8)] backdrop-blur-md p-6 rounded-xl border-2 border-[#00FFFF]">
+                <h3 class="text-xl text-[#00FFFF] font-['Orbitron'] mb-4">Total Registrations</h3>
+                <div class="flex items-baseline">
+                    <span class="text-4xl font-bold text-white" id="totalRegistrations">0</span>
+                    <span class="ml-2 text-gray-400">registrations</span>
+                </div>
+            </div>
+
+            <!-- Payment Status Card -->
+            <div class="bg-[rgba(46,46,46,0.8)] backdrop-blur-md p-6 rounded-xl border-2 border-[#FF00FF]">
+                <h3 class="text-xl text-[#FF00FF] font-['Orbitron'] mb-4">Payment Status</h3>
+                <div class="flex justify-between items-baseline">
+                    <div>
+                        <span class="text-4xl font-bold text-white" id="totalPaid">0</span>
+                        <span class="ml-2 text-gray-400">paid</span>
+                    </div>
+                    <div>
+                        <span class="text-4xl font-bold text-white" id="totalPending">0</span>
+                        <span class="ml-2 text-gray-400">pending</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="flex justify-between items-center mb-8">
+            <h1 class="text-3xl font-bold text-[#00FFFF] font-['Orbitron']">Admin Dashboard</h1>
+            <div class="space-x-4">
+                <button onclick="toggleSection('searchSection')"
+                        class="px-6 py-3 bg-[#00FFFF] text-white rounded-lg font-bold
+                               transition-all duration-300 hover:bg-transparent hover:text-[#00FFFF] 
+                               hover:border-2 hover:border-[#00FFFF]">
+                    Search Registrations
+                </button>
+                <button onclick="toggleSection('eventSection')"
+                        class="px-6 py-3 bg-[#FF00FF] text-white rounded-lg font-bold
+                               transition-all duration-300 hover:bg-transparent hover:text-[#FF00FF] 
+                               hover:border-2 hover:border-[#FF00FF]">
+                    Event Reports
+                </button>
+                <a href="/utr-management" 
+                   class="inline-block px-6 py-3 bg-[#6D28D9] text-white rounded-lg font-bold
+                          transition-all duration-300 hover:bg-transparent hover:text-[#6D28D9] 
+                          hover:border-2 hover:border-[#6D28D9]">
+                    Payment Management
+                </a>
+                <button onclick="logout()" 
+                        class="px-6 py-3 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors">
+                    Logout
+                </button>
+            </div>
+        </div>
+
+        <!-- Search Section -->
+        <div id="searchSection" class="section-content">
+            <div class="bg-[rgba(46,46,46,0.8)] backdrop-blur-md p-6 rounded-xl border-2 border-[#00FFFF] mb-8">
+                <div class="flex gap-4">
+                    <div class="flex-1">
+                        <label class="block text-[#00FFFF] mb-2">Registration ID</label>
+                        <div class="flex gap-2">
+                            <span class="bg-[rgba(32,34,39,0.8)] text-white p-3 border-2 border-[#00FFFF] rounded-lg">
+                                YUKTI-2025-
+                            </span>
+                            <input type="text" 
+                                   id="searchId" 
+                                   placeholder="00001" 
+                                   maxlength="5"
+                                   pattern="[0-9]{5}"
+                                   class="flex-1 p-3 bg-[rgba(32,34,39,0.8)] border-2 border-[#00FFFF] rounded-lg text-white
+                                          placeholder:text-gray-400 outline-none">
+                        </div>
+                    </div>
+                    <button onclick="searchRegistration()"
+                            class="self-end px-6 py-3 bg-[#FF00FF] text-white rounded-lg font-bold
+                                   transition-all duration-300 hover:bg-transparent hover:text-[#FF00FF] 
+                                   hover:border-2 hover:border-[#FF00FF]">
+                        Search
+                    </button>
+                </div>
+            </div>
+
+            <!-- Results Section -->
+            <div id="searchResults" class="hidden space-y-6">
+                <!-- Registration Details -->
+                <div class="bg-[rgba(46,46,46,0.8)] p-6 rounded-lg border border-[#00FFFF]">
+                    <h3 class="text-xl text-[#00FFFF] font-['Orbitron'] mb-4">Registration Details</h3>
+                    <div class="grid grid-cols-2 gap-4 text-[#C0C0C0]">
+                        <p><strong>Email:</strong> <span id="emailText"></span></p>
+                        <p><strong>Phone:</strong> <span id="phoneText"></span></p>
+                        <p><strong>College:</strong> <span id="collegeText"></span></p>
+                        <p><strong>Total Amount:</strong> ₹<span id="amountText"></span></p>
+                        <p><strong>Payment Status:</strong> <span id="statusText"></span></p>
+                        <p><strong>Payment Type:</strong> <span id="paymentTypeText"></span></p>
+                        <p><strong>Reference Number:</strong> <span id="referenceNumberText"></span></p>
+                    </div>
+                </div>
+
+                <!-- Events List -->
+                <div class="bg-[rgba(46,46,46,0.8)] p-6 rounded-lg border border-[#00FFFF]">
+                    <h3 class="text-xl text-[#00FFFF] font-['Orbitron'] mb-4">Registered Events</h3>
+                    <div id="eventsList" class="space-y-4">
+                        <!-- Events will be populated dynamically -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- No Results Message -->
+            <div id="noResults" class="hidden text-center text-red-500 mt-4">
+                No registration found with this ID
+            </div>
+        </div>
+
+        <!-- Event Reports Section -->
+        <div id="eventSection" class="section-content hidden">
+            <!-- Event Categories -->
+            <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4 mb-8">
+                {% for category in categories %}
+                <button onclick="showEvents('{{ category.id }}')"
+                        class="p-4 bg-[rgba(46,46,46,0.8)] backdrop-blur-md rounded-xl border-2 border-[#00FFFF]
+                               hover:border-[#FF00FF] transition-all duration-300 text-[#00FFFF] font-bold">
+                    {{ category.name }}
+                </button>
+                {% endfor %}
+            </div>
+
+            <!-- Events Container -->
+            {% for category in categories %}
+            <div id="{{ category.id }}-events" class="hidden event-container mb-8">
+                <h2 class="text-2xl text-[#00FFFF] mb-4 font-['Orbitron']">{{ category.name }}</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    {% for event in category.events %}
+                    <button onclick="showRegistrations('{{ event.id }}')"
+                            class="p-4 bg-[rgba(32,34,39,0.8)] rounded-lg border border-[#00FFFF]
+                                   hover:border-[#FF00FF] transition-all duration-300 text-white text-left">
+                        {{ event.name }}
+                    </button>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endfor %}
+
+            <!-- Registrations Table -->
+            <div id="registrationsContainer" class="hidden bg-[rgba(46,46,46,0.8)] p-6 rounded-xl border-2 border-[#00FFFF]">
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="text-2xl text-[#00FFFF] font-['Orbitron']">
+                        <span id="currentEventName"></span> Registrations
+                    </h2>
+                    <button onclick="downloadRegistrations()"
+                            class="px-4 py-2 bg-[#FF00FF] text-white rounded-lg hover:bg-transparent 
+                                   hover:text-[#FF00FF] hover:border-2 hover:border-[#FF00FF] transition-all duration-300">
+                        Download CSV
+                    </button>
+                </div>
+
+                <div class="overflow-x-auto">
+                    <table class="w-full border-collapse">
+                        <thead>
+                            <tr class="bg-[rgba(32,34,39,0.8)] text-[#00FFFF]">
+                                <th class="p-3 text-left">Ack ID</th>
+                                <th class="p-3 text-left">College</th>
+                                <th class="p-3 text-left">Phone</th>
+                                <th class="p-3 text-left">Event Name</th>
+                                <th class="p-3 text-left">Payment Status</th>
+                                <th class="p-3 text-left">Payment Details</th>
+                            </tr>
+                        </thead>
+                        <tbody id="registrationsTableBody">
+                            <!-- Data will be populated dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="h-0.5 bg-gradient-to-r from-[#6D28D9] via-[#3B82F6] to-[#00FFFF]"></div>
+
+<script>
+async function searchRegistration() {
+    const searchId = document.getElementById('searchId').value;
+    if (!searchId || searchId.length !== 5) {
+        alert('Please enter a valid 5-digit number');
+        return;
+    }
+
+    const ackId = `YUKTI-2025-${searchId.padStart(5, '0')}`;
+    
+    try {
+        const response = await fetch(`/api/admin/search/${ackId}`);
+        const data = await response.json();
+
+        if (data.success) {
+            document.getElementById('searchResults').classList.remove('hidden');
+            document.getElementById('noResults').classList.add('hidden');
+            
+            // Update registration details (removed nameText line)
+            document.getElementById('emailText').textContent = data.registration.email;
+            document.getElementById('phoneText').textContent = data.registration.phone;
+            document.getElementById('collegeText').textContent = data.registration.college;
+            document.getElementById('amountText').textContent = data.registration.total_cost;
+            document.getElementById('statusText').textContent = data.registration.payment_status || 'Pending';
+            document.getElementById('paymentTypeText').textContent = data.registration.payment_type || 'N/A';
+            document.getElementById('referenceNumberText').textContent = 
+                data.registration.utr_number || data.registration.dd_number || 'N/A';
+            
+            // Update events list
+            const eventsList = document.getElementById('eventsList');
+            eventsList.innerHTML = '';
+            
+            data.registration.event_details.forEach(event => {
+                const eventDiv = document.createElement('div');
+                eventDiv.className = 'bg-[rgba(32,34,39,0.8)] p-4 rounded-lg border border-[#00FFFF]';
+                
+                let participantsHtml = '';
+                if (event.type === 'team' && event.members) {
+                    participantsHtml = `
+                        <div class="mt-2 text-gray-300">
+                            <strong>Team Members:</strong>
+                            <ul class="list-disc list-inside">
+                                ${event.members.map(member => 
+                                    `<li>${member.name} (${member.usn})</li>`
+                                ).join('')}
+                            </ul>
+                        </div>`;
+                } else if (event.participant) {
+                    participantsHtml = `
+                        <div class="mt-2 text-gray-300">
+                            <strong>Participant:</strong> ${event.participant.name} (${event.participant.usn})
+                        </div>`;
+                }
+
+                eventDiv.innerHTML = `
+                    <div class="text-[#00FFFF] font-semibold">${event.event}</div>
+                    <div class="text-gray-300 text-sm mt-1">
+                        <span>Category: ${event.category}</span>
+                        <span class="mx-2">|</span>
+                        <span>Type: ${event.type}</span>
+                        <span class="mx-2">|</span>
+                        <span>Cost: ₹${event.cost}</span>
+                    </div>
+                    ${participantsHtml}
+                `;
+                
+                eventsList.appendChild(eventDiv);
+            });
+        } else {
+            document.getElementById('searchResults').classList.add('hidden');
+            document.getElementById('noResults').classList.remove('hidden');
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        alert('An error occurred while searching');
+    }
+}
+
+// Update logout function
+function logout() {
+    fetch('/api/admin/logout', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Logout failed');
+        }
+        return response.json();
+    })
+    .then(data => {
+        if (data.success && data.redirect) {
+            window.location.href = data.redirect;
+        }
+    })
+    .catch(error => {
+        console.error('Logout error:', error);
+        alert('Error during logout. Please try again.');
+    });
+}
+
+// Add event listener for Enter key in search input
+document.getElementById('searchId').addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') {
+        searchRegistration();
+    }
+});
+
+// Add this function to fetch and update stats
+async function fetchDashboardStats() {
+    try {
+        const response = await fetch('/api/admin/dashboard-stats');
+        const data = await response.json();
+
+        if (data.success) {
+            document.getElementById('totalRegistrations').textContent = data.total_registrations;
+            document.getElementById('totalPaid').textContent = data.total_paid;
+            document.getElementById('totalPending').textContent = data.total_pending;
+        }
+    } catch (error) {
+        console.error('Error fetching dashboard stats:', error);
+    }
+}
+
+// Add periodic session check
+function checkSession() {
+    fetch('/api/admin/check-session')
+        .then(response => {
+            if (!response.ok) {
+                window.location.href = '/admin';
+            }
+            return response.json();
+        })
+        .catch(() => {
+            window.location.href = '/admin';
+        });
+}
+
+// Check session every minute
+setInterval(checkSession, 60000);
+
+// Initial session check and stats fetch
+document.addEventListener('DOMContentLoaded', function() {
+    checkSession();
+    fetchDashboardStats();
+    toggleSection('searchSection');
+});
+
+// Add section toggle functionality
+function toggleSection(sectionId) {
+    // Hide all sections
+    document.querySelectorAll('.section-content').forEach(section => {
+        section.classList.add('hidden');
+    });
+    
+    // Show selected section
+    document.getElementById(sectionId).classList.remove('hidden');
+    
+    // If showing event section, hide the registrations container
+    if (sectionId === 'eventSection') {
+        document.getElementById('registrationsContainer').classList.add('hidden');
+    }
+}
+
+// Add these debug logs
+function showEvents(categoryId) {
+    console.log('Showing events for category:', categoryId);
+    
+    // Hide all event containers
+    document.querySelectorAll('.event-container').forEach(container => {
+        container.classList.add('hidden');
+    });
+    
+    // Show selected category's events
+    const eventContainer = document.getElementById(`${categoryId}-events`);
+    if (eventContainer) {
+        console.log('Found event container:', categoryId);
+        eventContainer.classList.remove('hidden');
+    } else {
+        console.error('Event container not found for:', categoryId);
+    }
+    
+    // Hide registrations container
+    document.getElementById('registrationsContainer').classList.add('hidden');
+}
+
+async function showRegistrations(eventId) {
+    console.log('Fetching registrations for event:', eventId);
+    currentEvent = eventId;
+    
+    try {
+        const response = await fetch(`/api/admin/event-registrations/${eventId}`);
+        const data = await response.json();
+
+        if (data.success) {
+            console.log('Received registrations:', data);
+            const container = document.getElementById('registrationsContainer');
+            const tbody = document.getElementById('registrationsTableBody');
+            const eventName = document.getElementById('currentEventName');
+            
+            container.classList.remove('hidden');
+            eventName.textContent = data.eventName || 'Event';
+            tbody.innerHTML = '';
+
+            data.registrations.forEach(reg => {
+                const tr = document.createElement('tr');
+                tr.className = 'border-b border-gray-700 hover:bg-[rgba(46,46,46,0.5)]';
+                
+                const paymentStatus = reg.payment_status || 'Pending';
+                const paymentDetails = reg.payment_type ? 
+                    `${reg.payment_type.toUpperCase()}: ${reg.utr_number || reg.dd_number}` : 
+                    'Not Available';
+
+                tr.innerHTML = `
+                    <td class="p-3 text-white">${reg.ack_id}</td>
+                    <td class="p-3 text-white">${reg.college}</td>
+                    <td class="p-3 text-white">${reg.phone}</td>
+                    <td class="p-3 text-white">${data.eventName}</td>
+                    <td class="p-3 ${paymentStatus.toLowerCase() === 'paid' ? 'text-green-500' : 'text-yellow-500'} font-bold">
+                        ${paymentStatus.charAt(0).toUpperCase() + paymentStatus.slice(1)}
+                    </td>
+                    <td class="p-3 text-white">${paymentDetails}</td>
+                `;
+                
+                tbody.appendChild(tr);
+            });
+        } else {
+            console.error('Failed to fetch registrations:', data.message);
+            alert('Failed to fetch registrations');
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        alert('Failed to fetch registrations');
+    }
+}
+
+async function downloadRegistrations() {
+    if (!currentEvent) return;
+    
+    try {
+        window.location.href = `/api/download-registrations?event=${currentEvent}`;
+    } catch (error) {
+        console.error('Error:', error);
+        alert('Failed to download registrations');
+    }
+}
+</script>
+{% endblock %}

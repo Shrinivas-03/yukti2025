@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+
+{% block title %}Admin Login - YUKTI 2025{% endblock %}
+
+{% block content %}
+<div class="h-0.5 bg-gradient-to-r from-[#6D28D9] via-[#3B82F6] to-[#00FFFF]"></div>
+
+<div class="min-h-screen bg-gradient-to-br from-[#1C1C1C] to-[#0A0A0A] py-12 px-4">
+    <div class="max-w-md mx-auto">
+        <div class="bg-[rgba(46,46,46,0.8)] backdrop-blur-md p-8 rounded-xl border-2 border-[#00FFFF] 
+                    shadow-[0_0_15px_rgba(0,255,255,0.3)]">
+            <h1 class="text-3xl font-bold text-[#00FFFF] text-center mb-8 font-['Orbitron']">Admin Login</h1>
+            
+            <form id="loginForm" class="space-y-6" onsubmit="handleLogin(event)">
+                <div>
+                    <label class="block text-[#00FFFF] mb-2">User ID</label>
+                    <input type="text" 
+                           id="userId" 
+                           required
+                           class="w-full p-3 bg-[rgba(32,34,39,0.8)] border-2 border-[#00FFFF] rounded-lg text-white
+                                  placeholder:text-gray-400 outline-none">
+                </div>
+                
+                <div>
+                    <label class="block text-[#00FFFF] mb-2">Password</label>
+                    <input type="password" 
+                           id="password" 
+                           required
+                           class="w-full p-3 bg-[rgba(32,34,39,0.8)] border-2 border-[#00FFFF] rounded-lg text-white
+                                  placeholder:text-gray-400 outline-none">
+                </div>
+
+                <div id="errorMessage" class="hidden text-red-500 text-center"></div>
+                
+                <button type="submit"
+                        class="w-full bg-[#FF00FF] text-white py-3 px-6 rounded-lg font-bold uppercase 
+                               transition-all duration-300 hover:bg-transparent hover:text-[#FF00FF] 
+                               hover:border-2 hover:border-[#FF00FF]">
+                    Login
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="h-0.5 bg-gradient-to-r from-[#6D28D9] via-[#3B82F6] to-[#00FFFF]"></div>
+
+<script>
+async function handleLogin(event) {
+    event.preventDefault();
+    
+    const userId = document.getElementById('userId').value;
+    const password = document.getElementById('password').value;
+    const errorMessage = document.getElementById('errorMessage');
+    
+    try {
+        const response = await fetch('/api/admin/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ user_id: userId, password: password })
+        });
+        
+        const data = await response.json();
+        
+        if (data.success) {
+            window.location.href = '/admin/dashboard'; // Keep this as is
+        } else {
+            errorMessage.textContent = data.message || 'Invalid credentials';
+            errorMessage.classList.remove('hidden');
+        }
+    } catch (error) {
+        errorMessage.textContent = 'An error occurred. Please try again.';
+        errorMessage.classList.remove('hidden');
+    }
+}
+</script>
+{% endblock %}

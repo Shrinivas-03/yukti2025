@@ -1,0 +1,185 @@
+{% extends "base.html" %}
+
+{% block title %}Event Dashboard - YUKTI 2025{% endblock %}
+
+{% block content %}
+<div class="h-0.5 bg-gradient-to-r from-[#6D28D9] via-[#3B82F6] to-[#00FFFF]"></div>
+
+<div class="min-h-screen bg-gradient-to-br from-[#1C1C1C] to-[#0A0A0A] py-12 px-4">
+    <div class="max-w-7xl mx-auto">
+        <!-- Header with Logout -->
+        <div class="flex justify-between items-center mb-8">
+            <h1 class="text-3xl font-bold text-[#00FFFF] font-['Orbitron']">Event Dashboard</h1>
+            <button onclick="logout()" 
+                    class="px-6 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors">
+                Logout
+            </button>
+        </div>
+
+        <!-- Event Categories -->
+        <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4 mb-8">
+            {% for category in categories %}
+            <button onclick="showEvents('{{ category.id }}')"
+                    class="p-4 bg-[rgba(46,46,46,0.8)] backdrop-blur-md rounded-xl border-2 border-[#00FFFF]
+                           hover:border-[#FF00FF] transition-all duration-300 text-[#00FFFF] font-bold">
+                {{ category.name }}
+            </button>
+            {% endfor %}
+        </div>
+
+        <!-- Events Container -->
+        {% for category in categories %}
+        <div id="{{ category.id }}-events" class="hidden event-container mb-8">
+            <h2 class="text-2xl text-[#00FFFF] mb-4 font-['Orbitron']">{{ category.name }}</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                {% for event in category.events %}
+                <button onclick="showRegistrations('{{ event.id }}')"
+                        class="p-4 bg-[rgba(32,34,39,0.8)] rounded-lg border border-[#00FFFF]
+                               hover:border-[#FF00FF] transition-all duration-300 text-white text-left">
+                    {{ event.name }}
+                </button>
+                {% endfor %}
+            </div>
+        </div>
+        {% endfor %}
+
+        <!-- Registrations Table -->
+        <div id="registrationsContainer" class="hidden">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-2xl text-[#00FFFF] font-['Orbitron']">
+                    <span id="currentEventName"></span> Registrations
+                </h2>
+                <button onclick="downloadCSV()"
+                        class="px-4 py-2 bg-[#FF00FF] text-white rounded-lg hover:bg-transparent 
+                               hover:text-[#FF00FF] hover:border-2 hover:border-[#FF00FF] transition-all duration-300">
+                    Download CSV
+                </button>
+            </div>
+
+            <div class="overflow-x-auto">
+                <table class="w-full border-collapse">
+                    <thead>
+                        <tr class="bg-[rgba(46,46,46,0.8)] text-[#00FFFF]">
+                            <th class="p-3 text-left">Ack ID</th>
+                            <th class="p-3 text-left">College</th>
+                            <th class="p-3 text-left">Phone</th>
+                            <th class="p-3 text-left">Payment Status</th>
+                            <th class="p-3 text-left">Payment Details</th>
+                            <th class="p-3 text-left">Participants</th>
+                        </tr>
+                    </thead>
+                    <tbody id="registrationsTableBody">
+                        <!-- Data will be populated dynamically -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+let currentEvent = '';
+
+function showEvents(categoryId) {
+    // Hide all event containers
+    document.querySelectorAll('.event-container').forEach(container => {
+        container.classList.add('hidden');
+    });
+    
+    // Show selected category's events
+    document.getElementById(`${categoryId}-events`).classList.remove('hidden');
+    
+    // Hide registrations container
+    document.getElementById('registrationsContainer').classList.add('hidden');
+}
+
+async function showRegistrations(eventId) {
+    currentEvent = eventId;
+    try {
+        const response = await fetch(`/api/admin/event-registrations/${eventId}`);
+        const data = await response.json();
+
+        if (data.success) {
+            const container = document.getElementById('registrationsContainer');
+            const tbody = document.getElementById('registrationsTableBody');
+            const eventName = document.getElementById('currentEventName');
+            
+            container.classList.remove('hidden');
+            eventName.textContent = data.eventName;
+            tbody.innerHTML = '';
+
+            data.registrations.forEach(reg => {
+                const tr = document.createElement('tr');
+                tr.className = 'border-b border-gray-700 hover:bg-[rgba(46,46,46,0.5)]';
+                
+                const paymentStatus = reg.payment_status || 'Pending';
+                const paymentDetails = reg.payment_type ? 
+                    `${reg.payment_type.toUpperCase()}: ${reg.utr_number || reg.dd_number}` : 
+                    'Not Available';
+
+                tr.innerHTML = `
+                    <td class="p-3 text-white">${reg.ack_id}</td>
+                    <td class="p-3 text-white">${reg.college}</td>
+                    <td class="p-3 text-white">${reg.phone}</td>
+                    <td class="p-3 ${paymentStatus === 'paid' ? 'text-green-500' : 'text-yellow-500'}">
+                        ${paymentStatus}
+                    </td>
+                    <td class="p-3 text-white">${paymentDetails}</td>
+                    <td class="p-3 text-white">${formatParticipants(reg.participants)}</td>
+                `;
+                
+                tbody.appendChild(tr);
+            });
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        alert('Failed to fetch registrations');
+    }
+}
+
+function formatParticipants(participants) {
+    if (!participants) return 'N/A';
+    if (Array.isArray(participants)) {
+        return participants.map(p => `${p.name} (${p.usn})`).join(', ');
+    }
+    return participants;
+}
+
+async function downloadCSV() {
+    if (!currentEvent) return;
+    
+    try {
+        window.location.href = `/api/admin/download-event-registrations/${currentEvent}`;
+    } catch (error) {
+        console.error('Error:', error);
+        alert('Failed to download CSV');
+    }
+}
+
+function logout() {
+    fetch('/api/admin/logout', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' }
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success && data.redirect) {
+            window.location.href = data.redirect;
+        }
+    })
+    .catch(error => {
+        console.error('Logout error:', error);
+        alert('Error during logout');
+    });
+}
+
+// Check session periodically
+setInterval(() => {
+    fetch('/api/admin/check-session')
+        .then(response => {
+            if (!response.ok) window.location.href = '/admin';
+        })
+        .catch(() => window.location.href = '/admin');
+}, 60000);
+</script>
+{% endblock %}
