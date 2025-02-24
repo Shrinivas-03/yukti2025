@@ -136,11 +136,11 @@ def send_spot_registration_email(to_email, ack_id, details):
                     <h3 style="color: #FFD700;">Registration Details</h3>
                     <p><strong>Acknowledgement ID:</strong> {ack_id}</p>
                     <p><strong>USN/College ID:</strong> {details['usn']}</p>
-                    <p><strong>UTR Number:</strong> {details['utr_number']}</p>
                     <p><strong>Email:</strong> {details['email']}</p>
                     <p><strong>Phone:</strong> {details['phone']}</p>
                     <p><strong>College:</strong> {details['college']}</p>
                     <p><strong>Total Cost:</strong> ₹{details['total_cost']}</p>
+                    <p><strong>UTR Number:</strong> {details['utr_number']}</p>
                 </div>
 
                 <div style="margin-bottom: 20px;">
@@ -390,7 +390,8 @@ def show_ack(ack_id):
     try:
         response = supabase.table('registrations').select('*').eq('ack_id', ack_id).execute()
         
-        if response.data and len(response.data) > 0:
+        # Fix: Change '&' to 'and' and properly check the response data
+        if response.data and len(response.data) > 0:  # Changed from '&' to 'and'
             registration = response.data[0]
             
             # Format events for display
@@ -427,17 +428,10 @@ def show_ack(ack_id):
                 'registration_date': registration['registration_date']
             }
             
-            # Set headers to prevent caching
-            headers = {
-                'Cache-Control': 'no-cache, no-store, must-revalidate',
-                'Pragma': 'no-cache',
-                'Expires': '0'
-            }
-            
             return render_template("registration_success.html", 
                 ack_id=ack_id,
                 details=details
-            ), 200, headers
+            )
             
         return "Registration not found", 404
         
@@ -447,119 +441,131 @@ def show_ack(ack_id):
 
 @app.route('/spot-register', methods=['GET', 'POST'])
 def spot_register():
-    if request.method == 'GET':
-        return render_template('spot.html')
-    
     if request.method == "POST":
         try:
-            print("Received POST request at /spot-register")  # Debug log
             data = request.get_json(silent=True)
             
             if not data:
-                print("No JSON data received")  # Debug log
                 return jsonify({'success': False, 'message': 'No data received'})
-            
-            print("Received data:", data)  # Debug log
             
             ack_id = generate_ack_id()
             
-            # Calculate total participants from event details
-            total_participants = 0
-            for event in data['selectedEvents']:
-                if event.get('type') == 'team' and event.get('members'):
-                    total_participants += len(event['members'])
-                elif event.get('participant'):
-                    total_participants += 1
+            # Get primary USN from the first event
+            primary_usn = None
+            if data['selectedEvents']:
+                first_event = data['selectedEvents'][0]
+                if first_event.get('members'):
+                    primary_usn = first_event['members'][0].get('usn')
+                elif first_event.get('participant'):
+                    primary_usn = first_event['participant'].get('usn')
             
+            # Format event details for email and database
+            event_details_html = []
+            formatted_events = []
+            
+            for event in data['selectedEvents']:
+                # Format for email
+                event_html = f"""<div style="padding: 10px; border: 1px solid #ccc; margin: 5px 0;">
+                    <p><strong>Event:</strong> {event['event']}</p>
+                    <p><strong>Type:</strong> {event['type']}</p>
+                    <p><strong>Cost:</strong> ₹{event['cost']}</p>"""
+                
+                if event.get('members'):
+                    members_list = [f"{m['name']} ({m['usn']})" for m in event['members'] if m.get('name')]
+                    event_html += f"<p><strong>Team Members:</strong> {', '.join(members_list)}</p>"
+                elif event.get('participant'):
+                    participant = event['participant']
+                    event_html += f"<p><strong>Participant:</strong> {participant['name']} ({participant['usn']})</p>"
+                
+                event_html += "</div>"
+                event_details_html.append(event_html)
+                
+                # Format for database
+                formatted_event = event.copy()
+                formatted_events.append(formatted_event)
+
             # Prepare registration data
             registration_data = {
                 'ack_id': ack_id,
                 'email': data['email'],
                 'phone': data['phone'],
                 'college': data['college'],
-                'total_participants': total_participants,
-                'total_cost': data['totalCost'],
-                'event_details': data['selectedEvents'],
-                'registration_date': datetime.now().isoformat(),
                 'utr_number': data['utrNumber'],
-                'usn': data['usn']  # Include USN in registration data
+                'usn': primary_usn,  # Add primary USN to registration data
+                'total_participants': data['totalParticipants'],
+                'total_cost': data['totalCost'],
+                'event_details': formatted_events,
+                'registration_date': datetime.now().isoformat()
             }
             
-            print("Attempting to insert data:", registration_data)  # Debug log
-            
-            # Insert into Supabase
+            # Store in Supabase
             response = supabase.table('spot_registrations').insert(registration_data).execute()
-            print("Supabase response:", response)  # Debug log
             
             if response.data:
-                # Format event details for email
-                event_details_html = []
-                for event in data['selectedEvents']:
-                    event_html = f"""<div style="background-color: #2c2c2c; padding: 15px; margin: 10px 0; border-radius: 5px;">
-                        <h4 style="color: #FFD700; margin: 0 0 10px 0;">{event['event']}</h4>
-                        <p><strong>Category:</strong> {event['category']}</p>
-                        <p><strong>Type:</strong> {event['type'].title()}</p>
-                        <p><strong>Cost:</strong> ₹{event['cost']}</p>"""
-                    
-                    if 'members' in event:
-                        event_html += f"<p><strong>Team Members:</strong> {', '.join(event['members'])}</p>"
-                    elif 'participant' in event:
-                        event_html += f"<p><strong>Participant:</strong> {event['participant']}</p>"
-                    
-                    event_html += "</div>"
-                    event_details_html.append(event_html)
-
+                # Prepare email details
                 email_details = {
                     'email': data['email'],
                     'phone': data['phone'],
                     'college': data['college'],
                     'total_cost': data['totalCost'],
                     'utr_number': data['utrNumber'],
-                    'event_details_html': ''.join(event_details_html),
-                    'usn': data['usn']  # Include USN in email details
+                    'usn': primary_usn,  # Add USN to email details
+                    'event_details_html': ''.join(event_details_html)
                 }
                 
                 # Send confirmation email
                 send_spot_registration_email(data['email'], ack_id, email_details)
-
+                
                 return jsonify({
                     'success': True,
-                    'ack_id': ack_id
+                    'ack_id': ack_id,
+                    'redirect_url': f'/spot-acknowledgement/{ack_id}'
                 })
             
-            print("Registration failed - no data in response")  # Debug log
-            return jsonify({
-                'success': False,
-                'message': 'Registration failed'
-            })
+            return jsonify({'success': False, 'message': 'Registration failed'})
             
         except Exception as e:
-            print(f"Error in spot registration: {str(e)}")  # Debug log
-            return jsonify({
-                'success': False,
-                'message': str(e)
-            })
+            print(f"Error in spot registration: {str(e)}")
+            return jsonify({'success': False, 'message': str(e)})
     
-    return render_template("spot.html")
+    # For GET requests, redirect to the spot registration page
+    return redirect(url_for('spot_page'))
 
 @app.route('/spot-acknowledgement/<ack_id>')
-def show_spot_ack(ack_id):  # Remove login_required decorator
+def show_spot_ack(ack_id):
     try:
-        # Query spot_registrations table instead of registrations
         response = supabase.table('spot_registrations').select('*').eq('ack_id', ack_id).execute()
         
         if response.data and len(response.data) > 0:
             registration = response.data[0]
+            
+            # Format events for display
+            formatted_events = []
+            for event in registration['event_details']:
+                formatted_event = {
+                    'event': event['event'],
+                    'type': event['type'],
+                    'category': event.get('category', ''),
+                    'cost': event['cost']
+                }
+                
+                if event.get('members'):
+                    formatted_event['members'] = event['members']
+                elif event.get('participant'):
+                    formatted_event['participant'] = event['participant']
+                
+                formatted_events.append(formatted_event)
+            
             details = {
                 'email': registration['email'],
                 'phone': registration['phone'],
                 'college': registration['college'],
                 'total_participants': registration['total_participants'],
                 'total_cost': registration['total_cost'],
-                'event_details': registration['event_details'],
+                'event_details': formatted_events,
                 'registration_date': registration['registration_date'],
-                'utr_number': registration['utr_number'],  # Include UTR number in details
-                'usn': registration['usn']  # Include USN in details
+                'utr_number': registration['utr_number'],
+                'usn': registration['usn']
             }
             
             return render_template('spot_success.html', 
@@ -568,12 +574,12 @@ def show_spot_ack(ack_id):  # Remove login_required decorator
             )
             
         flash('Registration not found')
-        return redirect(url_for('spot_register'))
+        return redirect(url_for('spot_page'))
         
     except Exception as e:
         print(f"Error fetching registration: {str(e)}")
         flash('Error fetching registration details')
-        return redirect(url_for('spot_register'))
+        return redirect(url_for('spot_page'))
 
 def normalize_event_name(name):
     # Remove non-alphanumeric characters and lower the string

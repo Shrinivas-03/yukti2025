@@ -289,20 +289,58 @@
                 nameInput.name = `member-name-${i}`;
                 nameInput.placeholder = `Member ${i} Name`;
                 nameInput.className = "w-1/2 p-3 bg-[rgba(32,34,39,0.8)] border-2 border-[#00FFFF] rounded-lg text-white";
+                // Remove required attribute, will validate manually
                 
-                // USN input
+                // USN input with updated validation
                 const usnInput = document.createElement("input");
                 usnInput.type = "text";
                 usnInput.id = `member-usn-${i}`;
                 usnInput.name = `member-usn-${i}`;
-                usnInput.placeholder = `Member ${i} USN`;
+                usnInput.placeholder = `Member ${i} USN/College ID`;
                 usnInput.className = "w-1/2 p-3 bg-[rgba(32,34,39,0.8)] border-2 border-[#00FFFF] rounded-lg text-white";
+                usnInput.minLength = "1";
+                usnInput.maxLength = "20";
+                // Remove required attribute, will validate manually
                 
                 memberDiv.appendChild(nameInput);
                 memberDiv.appendChild(usnInput);
                 memberInputsContainer.appendChild(memberDiv);
             }
+
+            // Add manual validation to form submission
+            const form = document.getElementById('registrationForm');
+            form.onsubmit = function(e) {
+                e.preventDefault();
+                
+                let isValid = true;
+                const inputs = memberInputsContainer.querySelectorAll('input');
+                
+                inputs.forEach(input => {
+                    if (!input.value.trim()) {
+                        input.classList.add('error-border');
+                        isValid = false;
+                    } else {
+                        input.classList.remove('error-border');
+                    }
+                });
+
+                if (!isValid) {
+                    alert('Please fill in all member details');
+                    return false;
+                }
+
+                submitRegistration();
+            };
         }
+
+        // Add this CSS if not already present
+        const style = document.createElement('style');
+        style.textContent = `
+            .error-border {
+                border-color: #FF0000 !important;
+            }
+        `;
+        document.head.appendChild(style);
 
         addEventBtn.addEventListener("click", function() {
             if (currentEventSelection) {
