@@ -5,7 +5,7 @@ import secrets
 import os
 from supabase import create_client, Client
 from functools import wraps
-from werkzeug.security import check_password_hash
+from werkzeug.security import check_password_hash, generate_password_hash
 import re
 import io
 import csv
@@ -17,6 +17,8 @@ import cryptography
 import logging
 from logging.handlers import RotatingFileHandler
 from flask_minify import Minify
+import hashlib
+import json
 
 
 load_dotenv() 
@@ -274,6 +276,23 @@ def spot_page():
 def register_page():
     return render_template('registration.html')
 
+def hash_sensitive_data(data):
+    """Hash sensitive data before logging"""
+    if isinstance(data, dict):
+        hashed_data = {}
+        for key, value in data.items():
+            if key in ['email', 'phone', 'usn']:
+                # Hash sensitive fields
+                hashed_data[key] = hashlib.sha256(str(value).encode()).hexdigest()[:8] + '...'
+            elif key == 'members':
+                # Hash member details
+                hashed_data[key] = [{'name': '***', 'usn': hashlib.sha256(m['usn'].encode()).hexdigest()[:8] + '...'} 
+                                  for m in value]
+            else:
+                hashed_data[key] = value
+        return hashed_data
+    return data
+
 @app.route('/register', methods=['POST'])
 def register_submit():
     try:
@@ -281,7 +300,9 @@ def register_submit():
         if not data:
             return jsonify({'success': False, 'message': 'No data received'})
         
-        print("Received registration data:", data)  # Debug log
+        # Hash sensitive data before logging
+        masked_data = hash_sensitive_data(data)
+        print("Received registration data:", masked_data)  # Only log masked data
         
         ack_id = generate_ack_id()
         
@@ -348,7 +369,11 @@ def register_submit():
         response = supabase.table('registrations').insert(registration_data).execute()
         print("Supabase response:", response)  # Debug log
         
+        # Mask sensitive data in response
         if response.data:
+            masked_response = hash_sensitive_data(response.data[0])
+            print("Database response:", masked_response)  # Only log masked data
+            
             # Format email details with USN
             event_details_html = []
             for event in formatted_events:
@@ -383,7 +408,7 @@ def register_submit():
         
     except Exception as e:
         print(f"Registration Error: {str(e)}")  # Debug log
-        return jsonify({'success': False, 'message': str(e)})
+        return jsonify({'success': False, 'message': 'An error occurred'})  # Generic error message
 
 @app.route('/acknowledgement/<ack_id>')
 def show_ack(ack_id):
