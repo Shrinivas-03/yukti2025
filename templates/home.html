@@ -9,11 +9,10 @@
         <!-- Logo with pulse and glow -->
         <div class="relative">
             <div class="absolute inset-0 bg-[#00FFFF] opacity-50 blur-xl animate-pulse"></div>
-            <img src="{{ url_for('static', filename='images/logo.png') }}" 
-                 alt="YUKTI Logo" 
-                 class="w-32 h-32 mx-auto relative z-10 animate-bounce">
+            <img src="{{ url_for('static', filename='images/logo.png') }}" alt="YUKTI Logo"
+                class="w-32 h-32 mx-auto relative z-10 animate-bounce">
         </div>
-        
+
         <!-- Loading text with gradient animation -->
         <div class="text-xl font-bold">
             <span class="inline-block bg-gradient-to-r from-[#00FFFF] via-[#FF00FF] to-[#00FFFF] 
@@ -22,7 +21,7 @@
                 Loading...
             </span>
         </div>
-        
+
         <!-- Loading bar -->
         <div class="w-48 h-1 bg-[rgba(255,255,255,0.1)] rounded-full overflow-hidden">
             <div class="h-full w-full bg-gradient-to-r from-[#00FFFF] via-[#FF00FF] to-[#00FFFF] 
@@ -35,18 +34,66 @@
 
 <!-- Hero Section -->
 <section class="relative min-h-screen overflow-hidden bg-gradient-to-br from-[#1C1C1C] to-[#0A0A0A]">
-    <!-- Video Background -->
-    <video class="absolute top-0 left-0 w-full h-full object-cover z-0" autoplay muted loop playsinline
-        poster="{{ url_for('static', filename='assets/poster.jpg') }}" preload="metadata">
-        <source src="{{ url_for('static', filename='assets/bg-video.mp4') }}" type="video/mp4">
-    </video>
-    <div class="absolute inset-0 bg-black/60 z-10"></div>
+    <!-- Image Carousel -->
+    <div class="absolute inset-0 z-0">
+        <div id="imageCarousel" class="w-full h-full">
+            <img src="{{ url_for('static', filename='assets/carousel/bg-1.jpg') }}"
+                class="absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 opacity-100"
+                alt="YUKTI 2025">
+            <img src="{{ url_for('static', filename='assets/carousel/bg-2.jpg') }}"
+                class="absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 opacity-0"
+                alt="YUKTI 2025">
+            <img src="{{ url_for('static', filename='assets/carousel/bg-3.jpg') }}"
+                class="absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 opacity-0"
+                alt="YUKTI 2025">
+            <img src="{{ url_for('static', filename='assets/carousel/bg-4.jpg') }}"
+                class="absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 opacity-0"
+                alt="YUKTI 2025">
+            <img src="{{ url_for('static', filename='assets/carousel/bg-5.jpg') }}"
+                class="absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 opacity-0"
+                alt="YUKTI 2025">
+            <img src="{{ url_for('static', filename='assets/carousel/bg-6.jpg') }}"
+                class="absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 opacity-0"
+                alt="YUKTI 2025">
+            <img src="{{ url_for('static', filename='assets/carousel/bg-7.jpg') }}"
+                class="absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 opacity-0"
+                alt="YUKTI 2025">
+            <img src="{{ url_for('static', filename='assets/carousel/bg-8.jpg') }}"
+                class="absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 opacity-0"
+                alt="YUKTI 2025">
+            <img src="{{ url_for('static', filename='assets/carousel/bg-9.jpg') }}"
+                class="absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 opacity-0"
+                alt="YUKTI 2025">
+            <img src="{{ url_for('static', filename='assets/carousel/bg-10.jpg') }}"
+                class="absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 opacity-0"
+                alt="YUKTI 2025">
+            <img src="{{ url_for('static', filename='assets/carousel/bg-11.jpg') }}"
+                class="absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 opacity-0"
+                alt="YUKTI 2025">
+            <img src="{{ url_for('static', filename='assets/carousel/bg-12.jpg') }}"
+                class="absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 opacity-0"
+                alt="YUKTI 2025">
+            <img src="{{ url_for('static', filename='assets/carousel/bg-13.jpg') }}"
+                class="absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 opacity-0"
+                alt="YUKTI 2025">
+            <img src="{{ url_for('static', filename='assets/carousel/bg-14.jpg') }}"
+                class="absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 opacity-0"
+                alt="YUKTI 2025">
+            <img src="{{ url_for('static', filename='assets/carousel/bg-15.jpg') }}"
+                class="absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 opacity-0"
+                alt="YUKTI 2025">
+        </div>
+    </div>
+
+    <!-- Enhanced overlay with gradient -->
+    <div class="absolute inset-0 bg-gradient-to-b from-black/70 via-black/60 to-black/70 z-10"></div>
 
     <!-- Hero Content -->
     <div class="relative flex flex-col items-center justify-center min-h-screen text-center px-4 sm:px-6 md:px-8 
                 z-30 w-full max-w-7xl mx-auto">
         <div class="mb-4 sm:mb-6 md:mb-8">
-            <h1 class="text-[2.5rem] sm:text-[4rem] md:text-[5rem] lg:text-[6rem] text-[#00FFFF] mb-0 font-['Orbitron'] 
+            <h1
+                class="text-[2.5rem] sm:text-[4rem] md:text-[5rem] lg:text-[6rem] text-[#00FFFF] mb-0 font-['Orbitron'] 
                        tracking-wider transform hover:scale-105 transition-all duration-300 text-shadow-lg leading-none">
                 VTU
             </h1>
@@ -62,10 +109,10 @@
         <div class="hero-content w-full px-4">
             <h1 class="text-[2.5rem] sm:text-[3.5rem] md:text-[4.5rem] lg:text-[6rem] font-bold text-[#00FFFF] mb-2 
                        opacity-0 transform translate-y-8 animate-[fadeIn_0.8s_ease_forwards] leading-tight">
-                Yu<span class="inline-block text-[#FF00FF] animate-[pulse_2s_ease-in-out_infinite]">k</span>ti 
+                Yu<span class="inline-block text-[#FF00FF] animate-[pulse_2s_ease-in-out_infinite]">k</span>ti
                 2<span class="inline-block text-[#FF00FF] animate-[pulse_2s_ease-in-out_infinite]">0</span>25
             </h1>
-            
+
             <!-- Updated subtitle with larger text and enhanced styling -->
             <h2 class="text-xl sm:text-2xl md:text-3xl lg:text-4xl text-[#00FFFF] mb-8 
                        font-['Orbitron'] tracking-wider
@@ -75,16 +122,17 @@
                        !opacity-100 !transform-none">
                 Techno Management Cultural Fest
             </h2>
-            
+
             <p class="text-lg sm:text-xl md:text-2xl lg:text-[3rem] text-[#C0C0C0] 
                      animate-[fadeIn_1s_ease_forwards_0.5s] opacity-0">
-                "Re<span class="inline-block text-[#FF00FF] animate-[pulse_2s_ease-in-out_infinite]">im</span>agining 
+                "Re<span class="inline-block text-[#FF00FF] animate-[pulse_2s_ease-in-out_infinite]">im</span>agining
                 Tom<span class="inline-block text-[#FF00FF] animate-[pulse_2s_ease-in-out_infinite]">orr</span>ow"
             </p>
         </div>
 
         <!-- Countdown Timer -->
-        <div class="flex flex-wrap justify-center gap-2 sm:gap-3 md:gap-4 lg:gap-5 my-6 sm:my-8 md:my-10 w-full px-2 sm:px-4">
+        <div
+            class="flex flex-wrap justify-center gap-2 sm:gap-3 md:gap-4 lg:gap-5 my-6 sm:my-8 md:my-10 w-full px-2 sm:px-4">
             <div class="min-w-[70px] sm:min-w-[90px] md:min-w-[100px] p-2 sm:p-3 md:p-4 bg-black/30 backdrop-blur 
                         rounded-lg border border-[#00FFFF]">
                 <span class="block text-xs sm:text-sm text-[#00FFFF] mb-1 sm:mb-2">Days</span>
@@ -108,8 +156,7 @@
         </div>
 
         <div class="mt-4 sm:mt-6 md:mt-8">
-            <a href="{{ url_for('register_page') }}"
-               class="register-btn bg-gradient-to-r from-[#FF00FF] to-[#00FFFF] text-white font-bold py-3 px-8 rounded-lg
+            <a href="{{ url_for('register_page') }}" class="register-btn bg-gradient-to-r from-[#FF00FF] to-[#00FFFF] text-white font-bold py-3 px-8 rounded-lg
                       hover:from-[#00FFFF] hover:to-[#FF00FF] transition-all duration-300">
                 Register Now
             </a>
@@ -119,35 +166,75 @@
 <div class="h-0.5 bg-gradient-to-r from-[#6D28D9] via-[#3B82F6] to-[#00FFFF]"></div>
 
 <!-- About Festival Section -->
-<section class="py-12 md:py-16 lg:py-20 bg-gradient-to-br from-[#1C1C1C] to-[#0A0A0A] relative overflow-hidden">
+<section class="py-12 md:py-16 lg:py-20 relative overflow-hidden">
+    <!-- Enhanced layered background -->
+    <div
+        class="absolute inset-0 bg-[linear-gradient(135deg,#0A0A0A_0%,#1C1C1C_25%,#2E2E2E_50%,#1C1C1C_75%,#0A0A0A_100%)]">
+    </div>
+
+    <!-- Animated gradient overlay -->
+    <div class="absolute inset-0 bg-[linear-gradient(45deg,rgba(0,255,255,0.1),rgba(255,0,255,0.1))] opacity-50 
+                animate-[gradient-flow_15s_ease-in-out_infinite]"></div>
+
+    <!-- Radial glow effects -->
+    <div class="absolute inset-0">
+        <div class="absolute top-0 left-0 w-full h-full 
+                    bg-[radial-gradient(circle_at_30%_20%,rgba(0,255,255,0.15)_0%,transparent_50%)]"></div>
+        <div class="absolute top-0 left-0 w-full h-full 
+                    bg-[radial-gradient(circle_at_70%_80%,rgba(255,0,255,0.15)_0%,transparent_50%)]"></div>
+    </div>
+
+    <!-- Content wrapper -->
     <div class="relative z-10 max-w-4xl mx-auto px-4 sm:px-6">
-        <h2 class="text-4xl text-[#00FFFF] text-center mb-12 font-bold uppercase font-['Orbitron']">About the Festival</h2>
-        <div class="bg-[rgba(46,46,46,0.7)] backdrop-blur-md rounded-xl p-8 border-2 border-[#00FFFF] shadow-xl 
-                    transform transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_15px_30px_rgba(0,255,255,0.4)] 
-                    hover:border-[#FF00FF]">
+        <h2
+            class="text-4xl text-transparent bg-clip-text bg-gradient-to-r from-[#00FFFF] via-[#FF00FF] to-[#00FFFF] 
+                   text-center mb-12 font-bold uppercase font-['Orbitron'] animate-[gradient-flow_3s_ease-in-out_infinite]">
+            About the Festival
+        </h2>
+
+        <!-- Enhanced card styling -->
+        <div class="bg-[rgba(46,46,46,0.7)] backdrop-blur-md rounded-xl p-8 
+                    border-2 border-[#00FFFF] shadow-[0_0_30px_rgba(0,255,255,0.1)] 
+                    transform transition-all duration-300 hover:-translate-y-2 
+                    hover:shadow-[0_15px_30px_rgba(0,255,255,0.4)] hover:border-[#FF00FF]
+                    relative overflow-hidden">
+
+            <!-- Animated border glow -->
+            <div class="absolute -inset-px bg-gradient-to-r from-[#00FFFF] via-[#FF00FF] to-[#00FFFF] 
+                        opacity-0 blur transition-opacity duration-300 
+                        group-hover:opacity-100"></div>
+
+            <!-- Existing paragraph content -->
             <p>
-                <span class="text-[#00FFFF]">YUKTI</span>, the visionary initiative of Vice-Chancellor Dr. S. Vidyashankar,
+                <span class="text-[#00FFFF]">YUKTI</span>, the visionary initiative of Vice-Chancellor Dr. S.
+                Vidyashankar,
                 is a Regional-Level Techno Management Cultural Fest that celebrates innovation, creativity, and cultural
                 excellence. Organized by Visvesvaraya Technological University (VTU) and hosted every year by its
                 regional centers, Yukti has become a vibrant platform for students to showcase their talents, explore
                 cutting-edge ideas, and embrace artistic expression.
             </p>
             <p>
-                <span class="text-[#00FFFF]">VTU Kalaburagi</span>, This year will be hosting Yukti 2025, and the excitement
-                is bigger than ever! With the theme <span class="text-[#00FFFF]">"Reimagining Tomorrow"</span>, Yukti 2025
+                <span class="text-[#00FFFF]">VTU Kalaburagi</span>, This year will be hosting Yukti 2025, and the
+                excitement
+                is bigger than ever! With the theme <span class="text-[#00FFFF]">"Reimagining Tomorrow"</span>, Yukti
+                2025
                 is set to take place on March 10th and 11th, 2025, inviting participants to step into a future shaped by
                 bold innovation, unbridled creativity, and endless possibilities.
             </p>
             <p>
-                Step into <span class="text-[#00FFFF]">"Reimagining Tomorrow"</span> — where the synergy of technology and
+                Step into <span class="text-[#00FFFF]">"Reimagining Tomorrow"</span> — where the synergy of technology
+                and
                 tradition takes center stage, and your ideas soar to new heights. Yukti 2025 is the place to push
                 boundaries, embrace creativity, and shape the future.
             </p>
         </div>
+
+        <!-- Enhanced button styling -->
         <div class="text-center mt-8">
-            <a href="{{ url_for('about') }}" 
-               class="inline-block bg-[#FF00FF] text-[#1C1C1C] px-6 py-3 rounded-md font-bold uppercase 
-                      transition-all duration-300 hover:bg-transparent hover:text-[#FF00FF] hover:border-2 hover:border-[#FF00FF]">
+            <a href="{{ url_for('about') }}" class="inline-block bg-gradient-to-r from-[#FF00FF] to-[#00FFFF] text-white px-6 py-3 
+                      rounded-md font-bold uppercase transform transition-all duration-300 
+                      hover:from-[#00FFFF] hover:to-[#FF00FF] hover:scale-105 
+                      hover:shadow-[0_0_20px_rgba(255,0,255,0.5)]">
                 LEARN MORE →
             </a>
         </div>
@@ -157,7 +244,8 @@
 
 <!-- Artist Announcement -->
 <div class="py-8 sm:py-12 bg-gradient-to-br from-[#1C1C1C] to-[#0A0A0A] relative overflow-hidden px-4 sm:px-6">
-    <h2 class="text-2xl sm:text-3xl md:text-4xl text-[#00FFFF] text-center mb-6 sm:mb-8 font-bold uppercase font-['Orbitron']">
+    <h2
+        class="text-2xl sm:text-3xl md:text-4xl text-[#00FFFF] text-center mb-6 sm:mb-8 font-bold uppercase font-['Orbitron']">
         Artist Announcement
     </h2>
     <div class="bg-[rgba(46,46,46,0.8)] backdrop-blur-md rounded-xl p-4 sm:p-6 md:p-8 border-2 border-[#00FFFF] shadow-xl 
@@ -169,9 +257,7 @@
                 Get ready to witness an amazing performance! The artist reveal is just around the corner. Stay tuned for
                 more details!
             </p>
-            <a href="https://www.instagram.com/vtu_kalaburagi_yukti_2025"
-               target="_blank" 
-               class="inline-block bg-[#FF00FF] text-[#1C1C1C] px-4 sm:px-6 py-2 sm:py-3 rounded-md text-sm sm:text-base 
+            <a href="https://www.instagram.com/vtu_kalaburagi_yukti_2025" target="_blank" class="inline-block bg-[#FF00FF] text-[#1C1C1C] px-4 sm:px-6 py-2 sm:py-3 rounded-md text-sm sm:text-base 
                       font-bold uppercase transform transition-all duration-300 hover:bg-transparent 
                       hover:text-[#FF00FF] hover:border-2 hover:border-[#FF00FF] whitespace-nowrap">
                 Stay Notified <span class="hidden sm:inline">→</span>
@@ -184,46 +270,57 @@
 <!-- Events Section -->
 <section class="py-12 md:py-16 lg:py-20 bg-gradient-to-br from-[#1C1C1C] to-[#0A0A0A] text-center">
     <div class="max-w-6xl mx-auto px-4 sm:px-6">
-        <h2 class="text-3xl sm:text-4xl text-[#00FFFF] text-center mb-8 md:mb-12 font-bold uppercase font-['Orbitron']">Event Highlights</h2>
+        <h2 class="text-3xl sm:text-4xl text-[#00FFFF] text-center mb-8 md:mb-12 font-bold uppercase font-['Orbitron']">
+            Event Highlights</h2>
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
-            <div class="bg-[#2E2E2E] border-2 border-[#00FFFF] text-[#C0C0C0] rounded-lg p-6 transition-transform duration-300 hover:scale-105 hover:border-[#FF00FF]">
+            <div
+                class="bg-[#2E2E2E] border-2 border-[#00FFFF] text-[#C0C0C0] rounded-lg p-6 transition-transform duration-300 hover:scale-105 hover:border-[#FF00FF]">
                 <h3 class="text-2xl text-[#00FFFF] mb-4">Manthana Events(Tech)</h3>
                 <p>Experience groundbreaking technology from the brightest minds. From AI to robotics, this event is
                     where innovation meets reality.</p>
-                <a href="{{ url_for('tech') }}" class="inline-block bg-[#FF00FF] text-[#1C1C1C] px-6 py-3 rounded-md font-bold uppercase 
+                <a href="{{ url_for('tech') }}"
+                    class="inline-block bg-[#FF00FF] text-[#1C1C1C] px-6 py-3 rounded-md font-bold uppercase 
                       transition-all duration-300 hover:bg-transparent hover:text-[#FF00FF] hover:border-2 hover:border-[#FF00FF] mt-4">
                     Explore →
                 </a>
             </div>
-            <div class="bg-[#2E2E2E] border-2 border-[#00FFFF] text-[#C0C0C0] rounded-lg p-6 transition-transform duration-300 hover:scale-105 hover:border-[#FF00FF]">
+            <div
+                class="bg-[#2E2E2E] border-2 border-[#00FFFF] text-[#C0C0C0] rounded-lg p-6 transition-transform duration-300 hover:scale-105 hover:border-[#FF00FF]">
                 <h3 class="text-2xl text-[#00FFFF] mb-4">Manoranjana Events(Cultural)</h3>
                 <p>Dive into a celebration of dance, music, and art that transcends boundaries. A night of unforgettable
                     performances awaits!</p>
-                <a href="{{ url_for('cultural') }}" class="inline-block bg-[#FF00FF] text-[#1C1C1C] px-6 py-3 rounded-md font-bold uppercase 
+                <a href="{{ url_for('cultural') }}"
+                    class="inline-block bg-[#FF00FF] text-[#1C1C1C] px-6 py-3 rounded-md font-bold uppercase 
                       transition-all duration-300 hover:bg-transparent hover:text-[#FF00FF] hover:border-2 hover:border-[#FF00FF] mt-4">
                     Explore →
                 </a>
             </div>
-            <div class="bg-[#2E2E2E] border-2 border-[#00FFFF] text-[#C0C0C0] rounded-lg p-6 transition-transform duration-300 hover:scale-105 hover:border-[#FF00FF]">
+            <div
+                class="bg-[#2E2E2E] border-2 border-[#00FFFF] text-[#C0C0C0] rounded-lg p-6 transition-transform duration-300 hover:scale-105 hover:border-[#FF00FF]">
                 <h3 class="text-2xl text-[#00FFFF] mb-4">Chinthana Events(Management)</h3>
                 <p>Pitch your ideas and connect with mentors and investors. Where big dreams are born and realized!</p>
-                <a href="{{ url_for('management') }}" class="inline-block bg-[#FF00FF] text-[#1C1C1C] px-6 py-3 rounded-md font-bold uppercase 
+                <a href="{{ url_for('management') }}"
+                    class="inline-block bg-[#FF00FF] text-[#1C1C1C] px-6 py-3 rounded-md font-bold uppercase 
                       transition-all duration-300 hover:bg-transparent hover:text-[#FF00FF] hover:border-2 hover:border-[#FF00FF] mt-4">
                     Explore →
                 </a>
             </div>
-            <div class="bg-[#2E2E2E] border-2 border-[#00FFFF] text-[#C0C0C0] rounded-lg p-6 transition-transform duration-300 hover:scale-105 hover:border-[#FF00FF]">
+            <div
+                class="bg-[#2E2E2E] border-2 border-[#00FFFF] text-[#C0C0C0] rounded-lg p-6 transition-transform duration-300 hover:scale-105 hover:border-[#FF00FF]">
                 <h3 class="text-2xl text-[#00FFFF] mb-4">Krida Ratna(Gaming)</h3>
                 <p>Battle it out in a high-energy gaming arena! Prizes and glory await the ultimate champions.</p>
-                <a href="{{ url_for('games') }}" class="inline-block bg-[#FF00FF] text-[#1C1C1C] px-6 py-3 rounded-md font-bold uppercase 
+                <a href="{{ url_for('games') }}"
+                    class="inline-block bg-[#FF00FF] text-[#1C1C1C] px-6 py-3 rounded-md font-bold uppercase 
                       transition-all duration-300 hover:bg-transparent hover:text-[#FF00FF] hover:border-2 hover:border-[#FF00FF] mt-4">
                     Explore →
                 </a>
             </div>
-            <div class="bg-[#2E2E2E] border-2 border-[#00FFFF] text-[#C0C0C0] rounded-lg p-6 transition-transform duration-300 hover:scale-105 hover:border-[#FF00FF]">
+            <div
+                class="bg-[#2E2E2E] border-2 border-[#00FFFF] text-[#C0C0C0] rounded-lg p-6 transition-transform duration-300 hover:scale-105 hover:border-[#FF00FF]">
                 <h3 class="text-2xl text-[#00FFFF] mb-4">Kalachitrana<br>(Visual Arts)</h3>
                 <p>Battle it out in a high-energy gaming arena! Prizes and glory await the ultimate champions.</p>
-                <a href="{{ url_for('kalachitrana') }}" class="inline-block bg-[#FF00FF] text-[#1C1C1C] px-6 py-3 rounded-md font-bold uppercase 
+                <a href="{{ url_for('kalachitrana') }}"
+                    class="inline-block bg-[#FF00FF] text-[#1C1C1C] px-6 py-3 rounded-md font-bold uppercase 
                       transition-all duration-300 hover:bg-transparent hover:text-[#FF00FF] hover:border-2 hover:border-[#FF00FF] mt-4">
                     Explore →
                 </a>
@@ -236,7 +333,8 @@
 <!-- Brochure Section -->
 <div class="py-12 sm:py-16 md:py-20 bg-gradient-to-br from-[#1C1C1C] to-[#0A0A0A] text-center relative">
     <div class="max-w-4xl mx-auto px-4 sm:px-6">
-        <h2 class="text-2xl sm:text-3xl md:text-4xl text-[#00FFFF] mb-6 sm:mb-8 md:mb-12 font-bold uppercase font-['Orbitron']">
+        <h2
+            class="text-2xl sm:text-3xl md:text-4xl text-[#00FFFF] mb-6 sm:mb-8 md:mb-12 font-bold uppercase font-['Orbitron']">
             Event Brochure / Rulebook
         </h2>
         <p class="text-[#C0C0C0] mb-6 sm:mb-8 text-sm sm:text-base max-w-2xl mx-auto">
@@ -244,8 +342,7 @@
             opportunities waiting for you at Yukti 2025.
         </p>
         <div class="inline-block">
-            <a href="#" 
-               class="flex items-center justify-center gap-2 bg-[#FF00FF] text-[#1C1C1C] 
+            <a href="#" class="flex items-center justify-center gap-2 bg-[#FF00FF] text-[#1C1C1C] 
                       px-4 sm:px-6 py-2 sm:py-3 rounded-md font-bold uppercase text-sm sm:text-base
                       transition-all duration-300 hover:bg-transparent hover:text-[#FF00FF] 
                       hover:border-2 hover:border-[#FF00FF] whitespace-nowrap">
@@ -262,19 +359,19 @@
 <!-- Replace the entire Sponsors Section with this simplified version -->
 <section class="py-12 sm:py-16 md:py-20 bg-gradient-to-br from-[#1C1C1C] to-[#0A0A0A] text-center relative">
     <div class="max-w-6xl mx-auto px-4 sm:px-6">
-        <h2 class="text-2xl sm:text-3xl md:text-4xl text-[#00FFFF] mb-6 sm:mb-8 md:mb-12 font-bold uppercase font-['Orbitron']">
+        <h2
+            class="text-2xl sm:text-3xl md:text-4xl text-[#00FFFF] mb-6 sm:mb-8 md:mb-12 font-bold uppercase font-['Orbitron']">
             Our Sponsors
         </h2>
-        
+
         <div class="bg-[rgba(32,34,39,0.95)] p-8 rounded-xl border-2 border-[#00FFFF] 
                     transform transition-all duration-300 hover:-translate-y-2 
                     hover:shadow-[0_15px_30px_rgba(0,255,255,0.4)] hover:border-[#FF00FF]
                     max-w-2xl mx-auto">
             <h3 class="text-2xl text-[#FF00FF] mb-4 font-['Orbitron']">Coming Soon</h3>
             <p class="text-[#C0C0C0] mb-6">Sponsor announcements will be made shortly. Stay tuned!</p>
-            
-            <a href="mailto:vtuyukti.klb@gmail.com" 
-               class="inline-block bg-[#FF00FF] text-white px-8 py-4 rounded-lg font-bold 
+
+            <a href="mailto:vtuyukti.klb@gmail.com" class="inline-block bg-[#FF00FF] text-white px-8 py-4 rounded-lg font-bold 
                       transition-all duration-300 hover:bg-transparent hover:text-[#FF00FF] 
                       hover:border-2 hover:border-[#FF00FF] font-['Orbitron']">
                 Become a Sponsor
@@ -291,19 +388,33 @@
             transform: translateY(0);
         }
     }
-    
+
     @keyframes pulse {
-        0%, 100% { transform: scale(1); }
-        50% { transform: scale(1.1); }
+
+        0%,
+        100% {
+            transform: scale(1);
+        }
+
+        50% {
+            transform: scale(1.1);
+        }
     }
 
     @keyframes glow {
-        0%, 100% { text-shadow: 0 0 10px #00FFFF, 0 0 20px #00FFFF, 0 0 30px #00FFFF; }
-        50% { text-shadow: 0 0 20px #FF00FF, 0 0 40px #FF00FF, 0 0 60px #FF00FF; }
+
+        0%,
+        100% {
+            text-shadow: 0 0 10px #00FFFF, 0 0 20px #00FFFF, 0 0 30px #00FFFF;
+        }
+
+        50% {
+            text-shadow: 0 0 20px #FF00FF, 0 0 40px #FF00FF, 0 0 60px #FF00FF;
+        }
     }
 
     .text-shadow-lg {
-        text-shadow: 
+        text-shadow:
             0 0 10px rgba(0, 255, 255, 0.3),
             0 0 20px rgba(0, 255, 255, 0.2),
             0 0 30px rgba(0, 255, 255, 0.1);
@@ -311,7 +422,7 @@
 
     @media (max-width: 640px) {
         .text-shadow-lg {
-            text-shadow: 
+            text-shadow:
                 0 0 5px rgba(0, 255, 255, 0.3),
                 0 0 10px rgba(0, 255, 255, 0.2);
         }
@@ -334,7 +445,7 @@
         .hero-content {
             padding: 0 1rem;
         }
-        
+
         .hero-content h1 {
             line-height: 1.1;
             margin-bottom: 0.5rem;
@@ -346,12 +457,12 @@
             line-height: 1.2;
         }
 
-        .countdown-container > div {
+        .countdown-container>div {
             padding: 0.5rem;
         }
 
         .text-shadow-lg {
-            text-shadow: 
+            text-shadow:
                 0 0 5px rgba(0, 255, 255, 0.3),
                 0 0 10px rgba(0, 255, 255, 0.2);
         }
@@ -369,7 +480,7 @@
         .hero-content {
             transform: scale(0.9);
         }
-        
+
         .countdown-container {
             margin: 1rem 0;
         }
@@ -384,8 +495,15 @@
     }
 
     @keyframes numberChange {
-        0% { transform: scale(1.1); color: #FF00FF; }
-        100% { transform: scale(1); color: white; }
+        0% {
+            transform: scale(1.1);
+            color: #FF00FF;
+        }
+
+        100% {
+            transform: scale(1);
+            color: white;
+        }
     }
 
     .number-changed {
@@ -397,6 +515,7 @@
             opacity: 0;
             transform: translateY(20px);
         }
+
         to {
             opacity: 1;
             transform: translateY(0);
@@ -404,14 +523,27 @@
     }
 
     @keyframes loading-bar {
-        0% { transform: translateX(-100%); }
-        100% { transform: translateX(100%); }
+        0% {
+            transform: translateX(-100%);
+        }
+
+        100% {
+            transform: translateX(100%);
+        }
     }
 
     @keyframes gradient-flow {
-        0% { background-position: 0% 50%; }
-        50% { background-position: 100% 50%; }
-        100% { background-position: 0% 50%; }
+        0% {
+            background-position: 0% 50%;
+        }
+
+        50% {
+            background-position: 100% 50%;
+        }
+
+        100% {
+            background-position: 0% 50%;
+        }
     }
 
     #loading-screen {
@@ -428,6 +560,38 @@
     .animate-loading-bar {
         animation: loading-bar 2s linear infinite;
     }
+
+    @keyframes gradientFlow {
+
+        0%,
+        100% {
+            background-position: 0% 50%;
+        }
+
+        50% {
+            background-position: 100% 50%;
+        }
+    }
+
+    @keyframes borderGlow {
+
+        0%,
+        100% {
+            border-color: #00FFFF;
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+        }
+
+        50% {
+            border-color: #FF00FF;
+            box-shadow: 0 0 20px rgba(255, 0, 255, 0.3);
+        }
+    }
+
+    /* Add to existing styles */
+    #imageCarousel img {
+        opacity: 0;
+        transition: opacity 1s ease-in-out;
+    }
 </style>
 
 <script>
@@ -435,28 +599,28 @@
     const targetDate = new Date('2025-03-10T09:00:00+05:30').getTime();
 
     // Update countdown every second
-    const countdown = setInterval(function() {
+    const countdown = setInterval(function () {
         // Get current date and time
         const now = new Date().getTime();
-        
+
         // Calculate the time remaining
         const timeRemaining = targetDate - now;
-        
+
         // Calculate days, hours, minutes, seconds
         const days = Math.floor(timeRemaining / (1000 * 60 * 60 * 24));
         const hours = Math.floor((timeRemaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
         const minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
         const seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
-        
+
         // Add leading zeros for single digits
         const formatNumber = (num) => num.toString().padStart(2, '0');
-        
+
         // Update the HTML elements
         document.getElementById('days').textContent = formatNumber(days);
         document.getElementById('hours').textContent = formatNumber(hours);
         document.getElementById('minutes').textContent = formatNumber(minutes);
         document.getElementById('seconds').textContent = formatNumber(seconds);
-        
+
         // When countdown is finished
         if (timeRemaining < 0) {
             clearInterval(countdown);
@@ -464,7 +628,7 @@
             document.getElementById('hours').textContent = '00';
             document.getElementById('minutes').textContent = '00';
             document.getElementById('seconds').textContent = '00';
-            
+
             // Optional: Add a message when countdown is complete
             const countdownContainers = document.querySelectorAll('.countdown-box');
             countdownContainers.forEach(container => {
@@ -486,11 +650,34 @@
     });
 
     // Add loading screen logic
-    window.addEventListener('load', function() {
+    window.addEventListener('load', function () {
         const loadingScreen = document.getElementById('loading-screen');
         setTimeout(() => {
             loadingScreen.classList.add('hidden');
         }, 2000);
+    });
+
+    // Image carousel functionality
+    document.addEventListener('DOMContentLoaded', function () {
+        const images = document.querySelectorAll('#imageCarousel img');
+        let currentImageIndex = 0;
+
+        function showNextImage() {
+            // Hide current image
+            images[currentImageIndex].style.opacity = '0';
+
+            // Update index
+            currentImageIndex = (currentImageIndex + 1) % images.length;
+
+            // Show next image
+            images[currentImageIndex].style.opacity = '1';
+        }
+
+        // Initially show first image
+        images[0].style.opacity = '1';
+
+        // Change image every 3 seconds
+        setInterval(showNextImage, 3000);
     });
 </script>
 
