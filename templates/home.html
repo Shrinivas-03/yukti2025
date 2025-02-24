@@ -109,7 +109,8 @@
         <!-- Festival Title -->
         <div class="space-y-4 sm:space-y-6 md:space-y-8 mt-6 sm:mt-8 md:mt-10">
             <h1 class="text-[2.5rem] sm:text-[3.5rem] md:text-[4.5rem] lg:text-[6rem] font-bold text-[#00FFFF]
-                       opacity-0 transform translate-y-8 animate-[fadeIn_0.8s_ease_forwards] leading-tight">
+                       opacity-0 transform translate-y-8 animate-[fadeIn_0.8s_ease_forwards] leading-tight 
+                       font-turbo">
                 YU<span class="inline-block text-[#FF00FF] animate-[pulse_2s_ease-in-out_infinite]">K</span>TI -
                 2<span class="inline-block text-[#FF00FF] animate-[pulse_2s_ease-in-out_infinite]">0</span>25
             </h1>
@@ -561,6 +562,12 @@
 <div class="h-0.5 bg-gradient-to-r from-[#6D28D9] via-[#3B82F6] to-[#00FFFF]"></div>
 
 <style>
+    @font-face {
+        font-family: 'TurboType';
+        src: url("{{ url_for('static', filename='fonts/turbo-type-regular.ttf') }}") format('truetype');
+        font-weight: normal;
+        font-style: normal;
+    }
     @keyframes fadeIn {
         to {
             opacity: 1;
