@@ -631,7 +631,8 @@ input[type="radio"]:checked + label {
         const eventsContainer = document.getElementById("events-container");  // Add this line
         const memberInputsContainer = document.getElementById("member-inputs");  // Add this line
         const groupSizeInput = document.getElementById("group-size");  // Add this line
-
+        const groupSizeContainer = document.getElementById("group-size-container");
+        const teamMembersContainer = document.getElementById("team-members-container");
         // Initialize selectedEvents array
         let selectedEvents = [];
         let currentEventSelection = null;
@@ -1147,8 +1148,7 @@ input[type="radio"]:checked + label {
         });
         */
 
-        // The inline onclick handler calls submitRegistration(), which is defined below.
-    });
+        // The inline onclick handler calls submitRegistration(), which is defined below.});
 
     async function submitRegistration() {
         const submitButton = document.getElementById('submitButton');
