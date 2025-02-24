@@ -17,6 +17,7 @@ import cryptography
 import logging
 from logging.handlers import RotatingFileHandler
 from flask_minify import Minify
+import hashlib  # Add this import at the top
 
 
 load_dotenv() 
@@ -116,9 +117,32 @@ def send_registration_email(to_email, ack_id, details):
             {details['event_details_html']}
         </div>
 
-        <p style="background-color: #8B0000; padding: 10px; text-align: center; margin: 20px 0;">
-             Kindly ensure that the registration fees are paid at the registration desk on the event day <br> 10 March 2025, by 8:00 AM To 10:30 A.M.
-        </p>
+        <p style="background-color: rgba(139, 0, 0, 0.2); 
+          border: 2px solid #FF00FF;
+          padding: 15px;
+          text-align: center;
+          margin: 20px 0;
+          border-radius: 8px;
+          font-family: 'Orbitron', sans-serif;
+          color: #00FFFF;">
+    <span style="font-size: 1.1em; font-weight: bold; display: block; margin-bottom: 10px;">
+        PAYMENT INSTRUCTIONS
+    </span>
+    
+    Kindly ensure fees are paid either:<br>
+    - At registration desk <strong style="color: #FF00FF; margin: 0 5px;">OR</strong> 
+    - Via Demand Draft<br><br>
+    
+    <span style="color: #FF00FF;">◆ Event Date:</span> 10 March 2025<br>
+    <span style="color: #FF00FF;">◆ Payment Window:</span> 8:00 AM - 10:30 A.M.<br><br>
+    
+    <span style="font-size: 0.9em; display: block; margin-top: 10px;">
+        ※ DD Details:<br>
+        Account: The Finance Officer VTU Belagavi Yukti Cultural Account<br>
+        A/C: 110226756934 | IFSC: CNRB0001829<br>
+        Bank: Canara Bank | Payable at Kalaburagi
+    </span>
+</p>
          <p style="background-color: #8B0000; padding: 10px; text-align: center; margin: 20px 0;">
               Please bring valid college Id while coming to the event..
         </p>
@@ -661,6 +685,105 @@ def unauthorized(e):
         'success': False,
         'message': 'Authentication required'
     }), 401
+
+# Add these new routes after your existing routes
+@app.route('/utr-management')
+def utr_management():
+    return render_template('utr_management.html')
+
+# Add this function to hash sensitive data
+def mask_sensitive_data(data):
+    if isinstance(data, dict):
+        masked = {}
+        for key, value in data.items():
+            if key in ['email', 'phone', 'utr_number', 'dd_number', 'payment_reference']:
+                if value:
+                    masked[key] = value[:3] + '*' * (len(value) - 3)
+            else:
+                masked[key] = value
+        return masked
+    return data
+
+@app.route('/api/search-registration-utr/<ack_id>')
+def search_registration_utr(ack_id):
+    try:
+        print(f"Processing registration lookup") # Generic log without ID
+        response = supabase.table('registrations').select('*').eq('ack_id', ack_id).execute()
+        
+        if response.data and len(response.data) > 0:
+            registration = response.data[0]
+            # Mask sensitive data before logging
+            safe_log_data = mask_sensitive_data(registration)
+            print(f"Found registration data: {safe_log_data}")
+            
+            return jsonify({
+                'success': True,
+                'registration': registration
+            })
+        
+        print("No matching registration found")
+        return jsonify({
+            'success': False,
+            'message': 'Registration not found'
+        })
+        
+    except Exception as e:
+        print(f"Error in registration lookup: {str(e)}")
+        return jsonify({
+            'success': False,
+            'message': 'An error occurred'  # Generic error message
+        })
+
+@app.route('/api/update-payment', methods=['POST'])
+def update_payment():
+    try:
+        data = request.get_json()
+        if not all([data.get('ack_id'), data.get('payment_type'), data.get('reference_number')]):
+            return jsonify({
+                'success': False,
+                'message': 'Missing required fields'
+            })
+        
+        # Hash the reference number for logging
+        hashed_ref = hashlib.sha256(data['reference_number'].encode()).hexdigest()[:8]
+        print(f"Processing payment update with ref: {hashed_ref}")
+
+        ack_id = data.get('ack_id')
+        payment_type = data.get('payment_type')
+        reference_number = data.get('reference_number')
+        
+        update_data = {
+            'payment_type': payment_type,
+            'payment_status': 'paid',  # Set status to paid
+            'payment_date': datetime.now().isoformat(),
+            'payment_reference': reference_number
+        }
+        update_data['utr_number'] = None
+        update_data['dd_number'] = None
+        
+        if payment_type == 'utr':
+            update_data['utr_number'] = reference_number
+        else:
+            update_data['dd_number'] = reference_number
+
+        response = supabase.table('registrations').update(update_data).eq('ack_id', ack_id).execute()
+        print("Update Payment response:", response)  # New logging line
+
+        if response.data:
+            return jsonify({
+                'success': True,
+                'message': 'Payment details updated successfully'
+            })
+        return jsonify({
+            'success': False,
+            'message': 'Failed to update payment details'
+        })
+    except Exception as e:
+        print(f"Error updating payment: {str(e)}")
+        return jsonify({
+            'success': False,
+            'message': str(e)
+        })
 
 if __name__ == "__main__":
     app.run(debug=app.config['DEBUG'])
