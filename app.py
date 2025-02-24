@@ -484,7 +484,11 @@ def get_matching_registrations(table_name, norm_event, reg_type):
                         'event_cost': event.get('cost', 0),
                         'type': 'online',  # Always use online type
                         'team_members': '',
-                        'event_details': reg.get('event_details', [])
+                        'event_details': reg.get('event_details', []),
+                        'payment_status': reg.get('payment_status', 'Pending'),  # Add payment status
+                        'payment_type': reg.get('payment_type', 'N/A'),  # Add payment type
+                        'utr_number': reg.get('utr_number', 'N/A'),  # Add UTR number
+                        'dd_number': reg.get('dd_number', 'N/A')  # Add DD number
                     }
                     
                     # Handle team members
@@ -566,59 +570,132 @@ def get_registrations():
         })
 
 @app.route('/api/download-registrations')
-@login_required()  # Remove the allowed_pages parameter
+@login_required()
 def download_registrations():
     try:
-        event_name = request.args.get('event')
+        event_id = request.args.get('event')
         
+        if not event_id:
+            return jsonify({
+                'success': False,
+                'message': 'Event ID is required'
+            })
+
+        # Event mappings (shortened for readability)
+        event_mappings = {
+            'prakalpa_prastuthi': 'Prakalpa Prastuthi',
+            'chanaksh': 'Chanaksh',
+            'robo_samara_war': 'Robo Samara (Robo War)',
+            'robo_samara_race': 'Robo Samara (Robo Race)',
+            'pragyan': 'Pragyan',
+            'vagmita': 'Vagmita',
+        }
+
+        # Get display name
+        event_name = event_mappings.get(event_id)
         if not event_name:
             return jsonify({
                 'success': False,
-                'message': 'Event name is required'
+                'message': 'Invalid event ID'
             })
+
+        response = supabase.table('registrations').select('*').execute()
         
-        # Get registrations for the specific event
-        norm_event = normalize_event_name(event_name)
-        matches = get_matching_registrations('registrations', norm_event, 'online')
+        if not response.data:
+            return jsonify({
+                'success': False,
+                'message': 'No registrations found'
+            })
+
+        matches = []
+        for reg in response.data:
+            if not reg.get('event_details'):
+                continue
+
+            for event in reg.get('event_details', []):
+                # Normalize event name comparison
+                stored_event = event.get('event', '').split('(')[0].strip()
+                if stored_event.startswith(event_name):
+                    # Default values for optional fields
+                    payment_status = reg.get('payment_status', 'Pending')
+                    payment_type = reg.get('payment_type', '')  # Empty string instead of N/A
+                    
+                    # Safe handling of reference numbers
+                    utr_number = reg.get('utr_number', '')
+                    dd_number = reg.get('dd_number', '')
+                    
+                    # Handle payment type display
+                    payment_type_display = payment_type.upper() if payment_type else 'N/A'
+                    
+                    # Determine reference number
+                    reference_number = 'N/A'
+                    if payment_type == 'utr' and utr_number:
+                        reference_number = utr_number
+                    elif payment_type == 'dd' and dd_number:
+                        reference_number = dd_number
+
+                    matches.append({
+                        'ack_id': reg.get('ack_id', ''),
+                        'college': reg.get('college', ''),
+                        'email': reg.get('email', ''),
+                        'phone': reg.get('phone', ''),
+                        'event_name': event.get('event', ''),
+                        'event_cost': event.get('cost', 0),
+                        'payment_status': payment_status,
+                        'payment_type': payment_type_display,
+                        'reference_number': reference_number,
+                        'registration_date': reg.get('registration_date', '')
+                    })
 
         if not matches:
             return jsonify({
                 'success': False,
                 'message': 'No registrations found for this event'
             })
-        
-        # Prepare CSV output
+
+        # Create CSV
         output = io.StringIO(newline='')
         output.write('\ufeff')  # UTF-8 BOM
         writer = csv.writer(output, dialect='excel', quoting=csv.QUOTE_ALL)
         
-        # Define headers based on registration type
-        headers = ['Ack ID', 'College', 'Email', 'Phone', 'Participants', 'Total Cost', 'Registration Date']
-            
+        headers = [
+            'Ack ID', 
+            'College', 
+            'Email', 
+            'Phone',
+            'Event Name', 
+            'Event Cost',
+            'Payment Status',
+            'Payment Type',
+            'Reference Number',
+            'Registration Date'
+        ]
+        
         writer.writerow(headers)
 
-        # Write data rows
         for reg in matches:
             row = [
-                reg.get('ack_id', ''),
-                reg.get('college', ''),
-                reg.get('email', ''),
-                reg.get('phone', ''),
-                reg.get('team_members', ''),
-                f"₹{reg.get('total_cost', 0)}",
-                reg.get('registration_date', '').split('T')[0]
+                reg['ack_id'],
+                reg['college'],
+                reg['email'],
+                reg['phone'],
+                reg['event_name'],
+                f"₹{reg['event_cost']}",
+                reg['payment_status'],
+                reg['payment_type'],
+                reg['reference_number'],
+                reg['registration_date'].split('T')[0] if reg['registration_date'] else 'N/A'
             ]
-            
             writer.writerow(row)
-        
-        # Get CSV content and create response
+
         csv_output = output.getvalue()
         output.close()
+        
         response = Response(
             csv_output.encode('utf-8-sig'),
             mimetype='text/csv; charset=utf-8-sig',
             headers={
-                'Content-Disposition': f'attachment; filename={norm_event}_online_registrations.csv',
+                'Content-Disposition': f'attachment; filename={event_id}_registrations.csv',
                 'Content-Type': 'text/csv; charset=utf-8-sig',
                 'Cache-Control': 'no-cache'
             }
@@ -792,8 +869,8 @@ def admin_dashboard():
             'id': 'technical',
             'name': 'Manthana (Technical Events)',
             'events': [
-                {'id': 'prakalpa_prastuthi', 'name': 'Prakalpa Prastuthi (Live Project Expo)'},
-                {'id': 'chanaksh', 'name': 'Chanaksh (Coding Event)'},
+                {'id': 'prakalpa_prastuthi', 'name': 'Prakalpa Prastuthi (Ideathon)'},
+                {'id': 'chanaksh', 'name': 'Chanaksh (Code Quest)'},
                 {'id': 'robo_samara_war', 'name': 'Robo Samara (Robo War)'},
                 {'id': 'robo_samara_race', 'name': 'Robo Samara (Robo Race)'},
                 {'id': 'pragyan', 'name': 'Pragyan (Quiz)'},
@@ -804,8 +881,8 @@ def admin_dashboard():
             'id': 'cultural',
             'name': 'Manoranjana (Cultural Events)',
             'events': [
-                {'id': 'ninaad_solo', 'name': 'NINAAD (Singing Solo)'},
-                {'id': 'ninaad_group', 'name': 'NINAAD (Singing Group)'},
+                {'id': 'ninaad_solo', 'name': 'Ninaad (Singing Solo)'},
+                {'id': 'ninaad_group', 'name': 'Ninaad (Singing Group)'},
                 {'id': 'nritya_solo', 'name': 'Nritya Saadhana (Dance Solo)'},
                 {'id': 'nritya_group', 'name': 'Nritya Saadhana (Dance Group)'},
                 {'id': 'navyataa', 'name': 'Navyataa (Ramp Walk)'}
@@ -815,10 +892,10 @@ def admin_dashboard():
             'id': 'management',
             'name': 'Chintana (Management Events)',
             'events': [
-                {'id': 'daksh', 'name': 'Daksh (The Best Manager)'},
-                {'id': 'shreshta_vitta', 'name': 'Shreshta Vitta (Finance) Final'},
+                {'id': 'daksha', 'name': 'Daksha (Best Manager)'},
+                {'id': 'shreshta_vitta', 'name': 'Shreshta Vitta (Finance)'},
                 {'id': 'manava_sansadhan', 'name': 'Manava Sansadhan (HR)'},
-                {'id': 'sumedha', 'name': 'Sumedha (Start Up)'},
+                {'id': 'sumedha', 'name': 'Sumedha (Start-Up)'},
                 {'id': 'vipanan', 'name': 'Vipanan (Marketing)'}
             ]
         },
@@ -828,14 +905,14 @@ def admin_dashboard():
             'events': [
                 {'id': 'sthala_chitrapatha', 'name': 'Sthala Chitrapatha (Spot Photography)'},
                 {'id': 'chitragatha', 'name': 'Chitragatha (Short Film)'},
-                {'id': 'rupekha', 'name': 'Rupekha (Sketch Art)'},
+                {'id': 'ruprekha', 'name': 'Ruprekha (Sketch Art)'},
                 {'id': 'hastakala', 'name': 'Hastakala (Painting)'},
                 {'id': 'swachitra', 'name': 'Swachitra (Selfie Point)'}
             ]
         },
         {
             'id': 'games',
-            'name': 'Krida Ratna (Game Events)',
+            'name': 'Krida Ratna (Game Zone)',
             'events': [
                 {'id': 'bgmi', 'name': 'BGMI'},
                 {'id': 'mission_talaash', 'name': 'Mission Talaash (Treasure Hunt)'}
@@ -845,25 +922,25 @@ def admin_dashboard():
 
     # Updated event name mappings
     event_names = {
-        'prakalpa_prastuthi': 'Prakalpa Prastuthi (Live Project Expo)',
-        'chanaksh': 'Chanaksh (Coding Event)',
+        'prakalpa_prastuthi': 'Prakalpa Prastuthi (Ideathon)',
+        'chanaksh': 'Chanaksh (Code Quest)',
         'robo_samara_war': 'Robo Samara (Robo War)',
         'robo_samara_race': 'Robo Samara (Robo Race)',
         'pragyan': 'Pragyan (Quiz)',
         'vagmita': 'Vagmita (Elocution)',
-        'ninaad_solo': 'NINAAD (Singing Solo)',
-        'ninaad_group': 'NINAAD (Singing Group)',
+        'ninaad_solo': 'Ninaad (Singing Solo)',
+        'ninaad_group': 'Ninaad (Singing Group)',
         'nritya_solo': 'Nritya Saadhana (Dance Solo)',
         'nritya_group': 'Nritya Saadhana (Dance Group)',
         'navyataa': 'Navyataa (Ramp Walk)',
-        'daksh': 'Daksh (The Best Manager)',
-        'shreshta_vitta': 'Shreshta Vitta (Finance) Final',
+        'daksh': 'Daksha (Best Manager)',
+        'shreshta_vitta': 'Shreshta Vitta (Finance)',
         'manava_sansadhan': 'Manava Sansadhan (HR)',
-        'sumedha': 'Sumedha (Start Up)',
+        'sumedha': 'Sumedha (Start-Up)',
         'vipanan': 'Vipanan (Marketing)',
         'sthala_chitrapatha': 'Sthala Chitrapatha (Spot Photography)',
         'chitragatha': 'Chitragatha (Short Film)',
-        'rupekha': 'Rupekha (Sketch Art)',
+        'ruprekha': 'Ruprekha (Sketch Art)',
         'hastakala': 'Hastakala (Painting)',
         'swachitra': 'Swachitra (Selfie Point)',
         'bgmi': 'BGMI',
@@ -878,25 +955,25 @@ def admin_dashboard():
 def get_event_name(event_id):
     # Simple event name mapping
     event_names = {
-        'project_expo': 'Prakalpa Prastuthi (Live Project Expo)',
-        'coding': 'Chanaksh (Coding Event)',
+        'project_expo': 'Prakalpa Prastuthi (Ideathon)',
+        'coding': 'Chanaksh (Code Quest)',
         'robo_war': 'Robo Samara (Robo War)',
         'robo_race': 'Robo Samara (Robo Race)',
         'quiz': 'Pragyan (Quiz)',
         'elocution': 'Vagmita (Elocution)',
-        'singing_solo': 'NINAAD (Singing Solo)',
-        'singing_group': 'NINAAD (Singing Group)',
+        'singing_solo': 'Ninaad (Singing Solo)',
+        'singing_group': 'Ninaad (Singing Group)',
         'dance_solo': 'Nritya Saadhana (Dance Solo)',
         'dance_group': 'Nritya Saadhana (Dance Group)',
         'ramp_walk': 'Navyataa (Ramp Walk)',
-        'best_manager': 'Daksh (The Best Manager)',
-        'finance': 'Shreshta Vitta (Finance) Final',
+        'best_manager': 'Daksha (Best Manager)',
+        'finance': 'Shreshta Vitta (Finance)',
         'hr': 'Manava Sansadhan (HR)',
-        'startup': 'Sumedha (Start Up)',
+        'startup': 'Sumedha (Start-Up)',
         'marketing': 'Vipanan (Marketing)',
         'photography': 'Sthala Chitrapatha (Spot Photography)',
         'short_film': 'Chitragatha (Short Film)',
-        'sketch': 'Rupekha (Sketch Art)',
+        'sketch': 'Ruprekha (Sketch Art)',
         'painting': 'Hastakala (Painting)',
         'selfie': 'Swachitra (Selfie Point)',
         'bgmi': 'BGMI',
@@ -1077,8 +1154,8 @@ def event_dashboard():
             'id': 'technical',
             'name': 'Manthana (Technical Events)',
             'events': [
-                {'id': 'project_expo', 'name': 'Prakalpa Prastuthi (Live Project Expo)'},
-                {'id': 'coding', 'name': 'Chanaksh (Coding Event)'},
+                {'id': 'project_expo', 'name': 'Prakalpa Prastuthi (Ideathon)'},
+                {'id': 'coding', 'name': 'Chanaksh (Code Quest)'},
                 {'id': 'robo_war', 'name': 'Robo Samara (Robo War)'},
                 {'id': 'robo_race', 'name': 'Robo Samara (Robo Race)'},
                 {'id': 'quiz', 'name': 'Pragyan (Quiz)'},
@@ -1091,7 +1168,7 @@ def event_dashboard():
             'events': [
                 {'id': 'photography', 'name': 'Sthala Chitrapatha (Spot Photography)'},
                 {'id': 'short_film', 'name': 'Chitragatha (Short Film)'},
-                {'id': 'sketch', 'name': 'Rupekha (Sketch Art)'},
+                {'id': 'sketch', 'name': 'Ruprekha (Sketch Art)'},
                 {'id': 'painting', 'name': 'Hastakala (Painting)'},
                 {'id': 'selfie', 'name': 'Swachitra (Selfie Point)'}
             ]
@@ -1102,9 +1179,9 @@ def event_dashboard():
 
 @app.route('/api/admin/event-registrations/<event_id>')
 @login_required()
-def get_event_registrations_by_id(event_id):  # Changed function name
+def get_event_registrations_by_id(event_id):
     try:
-        print(f"Looking up registrations for event ID: {event_id}")  # Debug log
+        print(f"Looking up registrations for event ID: {event_id}")
         response = supabase.table('registrations').select('*').execute()
         
         if not response.data:
@@ -1114,46 +1191,77 @@ def get_event_registrations_by_id(event_id):  # Changed function name
                 'registrations': []
             })
 
-        # Create event name mapping (database name to ID)
-        event_name_to_id = {
-            'Prakalpa Prastuthi (Live Project Expo)': 'prakalpa_prastuthi',
-            'Chanaksh (Coding Event)': 'chanaksh',
+        # Updated event name mappings to include variations
+        event_mappings = {
+            'Prakalpa Prastuthi': 'prakalpa_prastuthi',
+            'Prakalpa Prastuthi (Ideathon)': 'prakalpa_prastuthi',
+            'Chanaksh': 'chanaksh',
+            'Chanaksh (Code Quest)': 'chanaksh',
             'Robo Samara (Robo War)': 'robo_samara_war',
             'Robo Samara (Robo Race)': 'robo_samara_race',
+            'Pragyan': 'pragyan',
             'Pragyan (Quiz)': 'pragyan',
+            'Vagmita': 'vagmita',
             'Vagmita (Elocution)': 'vagmita',
+            'Ninaad': 'ninaad_solo',
             'NINAAD (Singing Solo)': 'ninaad_solo',
+            'Ninaad (Singing Solo)': 'ninaad_solo',
             'NINAAD (Singing Group)': 'ninaad_group',
+            'Ninaad (Singing Group)': 'ninaad_group',
             'Nritya Saadhana (Dance Solo)': 'nritya_solo',
             'Nritya Saadhana (Dance Group)': 'nritya_group',
+            'Navyataa': 'navyataa',
             'Navyataa (Ramp Walk)': 'navyataa',
-            'Daksh (The Best Manager)': 'daksh',
-            'Shreshta Vitta (Finance) Final': 'shreshta_vitta',
+            'Daksha': 'daksha',
+            'Daksha (Best Manager)': 'daksha',
+            'Shreshta Vitta': 'shreshta_vitta',
+            'Shreshta Vitta (Finance)': 'shreshta_vitta',
+            'Manava Sansadhan': 'manava_sansadhan',
             'Manava Sansadhan (HR)': 'manava_sansadhan',
-            'Sumedha (Start Up)': 'sumedha',
+            'Sumedha': 'sumedha',
+            'Sumedha (Start-Up)': 'sumedha',
+            'Vipanan': 'vipanan',
             'Vipanan (Marketing)': 'vipanan',
+            'Sthala Chitrapatha': 'sthala_chitrapatha',
             'Sthala Chitrapatha (Spot Photography)': 'sthala_chitrapatha',
+            'Chitragatha': 'chitragatha',
             'Chitragatha (Short Film)': 'chitragatha',
-            'Rupekha (Sketch Art)': 'rupekha',
+            'Ruprekha': 'ruprekha',
+            'Ruprekha (Sketch Art)': 'ruprekha',
+            'Hastakala': 'hastakala',
             'Hastakala (Painting)': 'hastakala',
+            'Swachitra': 'swachitra',
             'Swachitra (Selfie Point)': 'swachitra',
             'BGMI': 'bgmi',
+            'Mission Talaash': 'mission_talaash',
             'Mission Talaash (Treasure Hunt)': 'mission_talaash'
         }
 
-        # Create reverse mapping (ID to name)
-        id_to_name = {v: k for k, v in event_name_to_id.items()}
-        event_name = id_to_name.get(event_id, 'Unknown Event')
+        # Create reverse mapping for event names
+        id_to_name = {v: k.split(' (')[0] for k, v in event_mappings.items()}
+        event_name = get_event_name(event_id)
+
+        print(f"Looking for event: {event_name}")  # Debug log
 
         event_registrations = []
         for reg in response.data:
-            for event in reg.get('event_details', []):
-                stored_event_name = event.get('event', '')
-                stored_event_id = event_name_to_id.get(stored_event_name)
+            if not reg.get('event_details'):
+                continue
                 
-                print(f"Comparing {stored_event_id} with {event_id}")  # Debug log
-                
-                if stored_event_id == event_id:
+            for event in reg['event_details']:
+                # Get stored event name and remove parentheses content
+                stored_event_name = event.get('event', '').split(' (')[0].strip()
+                print(f"Checking registration event: {stored_event_name}")  # Debug log
+
+                # Check if this event matches our target event
+                event_id_from_stored = None
+                for name_pattern, eid in event_mappings.items():
+                    if name_pattern.split(' (')[0].strip() == stored_event_name:
+                        event_id_from_stored = eid
+                        break
+
+                if event_id_from_stored == event_id:
+                    print(f"Found matching event: {stored_event_name}")  # Debug log
                     registration = {
                         'ack_id': reg['ack_id'],
                         'college': reg['college'],
@@ -1162,20 +1270,20 @@ def get_event_registrations_by_id(event_id):  # Changed function name
                         'payment_type': reg.get('payment_type'),
                         'utr_number': reg.get('utr_number'),
                         'dd_number': reg.get('dd_number'),
+                        'event_cost': event.get('cost', 0)
                     }
                     
-                    # Format participants information
-                    if event['type'] == 'team' and 'members' in event:
+                    # Add participant information
+                    if event.get('type') == 'team' and event.get('members'):
                         participants = [f"{m['name']} ({m['usn']})" for m in event['members']]
                         registration['participants'] = participants
-                    elif 'participant' in event:
+                    elif event.get('participant'):
                         participant = event['participant']
                         registration['participants'] = [f"{participant['name']} ({participant['usn']})"]
-                    
+                        
                     event_registrations.append(registration)
 
-        if not event_registrations:
-            print(f"No registrations found for event: {event_id}")  # Debug log
+        print(f"Found {len(event_registrations)} registrations")  # Debug log
 
         return jsonify({
             'success': True,
@@ -1184,34 +1292,34 @@ def get_event_registrations_by_id(event_id):  # Changed function name
         })
 
     except Exception as e:
-        print(f"Error fetching event registrations: {str(e)}")  # Debug log
+        print(f"Error fetching event registrations: {str(e)}")
         return jsonify({
             'success': False,
-            'message': 'Error fetching registrations'
+            'message': f'Error fetching registrations: {str(e)}'
         })
 
 # Update get_event_name function
 def get_event_name(event_id):
     event_names = {
-        'prakalpa_prastuthi': 'Prakalpa Prastuthi (Live Project Expo)',
-        'chanaksh': 'Chanaksh (Coding Event)',
+        'prakalpa_prastuthi': 'Prakalpa Prastuthi (Ideathon)',
+        'chanaksh': 'Chanaksh (Code Quest)',
         'robo_samara_war': 'Robo Samara (Robo War)',
         'robo_samara_race': 'Robo Samara (Robo Race)',
         'pragyan': 'Pragyan (Quiz)',
         'vagmita': 'Vagmita (Elocution)',
-        'ninaad_solo': 'NINAAD (Singing Solo)',
-        'ninaad_group': 'NINAAD (Singing Group)',
+        'ninaad_solo': 'Ninaad (Singing Solo)',
+        'ninaad_group': 'Ninaad (Singing Group)',
         'nritya_solo': 'Nritya Saadhana (Dance Solo)',
         'nritya_group': 'Nritya Saadhana (Dance Group)',
         'navyataa': 'Navyataa (Ramp Walk)',
-        'daksh': 'Daksh (The Best Manager)',
-        'shreshta_vitta': 'Shreshta Vitta (Finance) Final',
+        'daksha': 'Daksha (Best Manager)',
+        'shreshta_vitta': 'Shreshta Vitta (Finance)',
         'manava_sansadhan': 'Manava Sansadhan (HR)',
-        'sumedha': 'Sumedha (Start Up)',
+        'sumedha': 'Sumedha (Start-Up)',
         'vipanan': 'Vipanan (Marketing)',
         'sthala_chitrapatha': 'Sthala Chitrapatha (Spot Photography)',
         'chitragatha': 'Chitragatha (Short Film)',
-        'rupekha': 'Rupekha (Sketch Art)',
+        'ruprekha': 'Ruprekha (Sketch Art)',
         'hastakala': 'Hastakala (Painting)',
         'swachitra': 'Swachitra (Selfie Point)',
         'bgmi': 'BGMI',

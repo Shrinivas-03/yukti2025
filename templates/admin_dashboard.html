@@ -171,6 +171,7 @@
                                 <th class="p-3 text-left">College</th>
                                 <th class="p-3 text-left">Phone</th>
                                 <th class="p-3 text-left">Event Name</th>
+                                <th class="p-3 text-left">Cost</th>
                                 <th class="p-3 text-left">Payment Status</th>
                                 <th class="p-3 text-left">Payment Details</th>
                             </tr>
@@ -401,12 +402,14 @@ async function showRegistrations(eventId) {
                 const paymentDetails = reg.payment_type ? 
                     `${reg.payment_type.toUpperCase()}: ${reg.utr_number || reg.dd_number}` : 
                     'Not Available';
+                const eventCost = reg.event_cost || 0;  // Get the event cost
 
                 tr.innerHTML = `
                     <td class="p-3 text-white">${reg.ack_id}</td>
                     <td class="p-3 text-white">${reg.college}</td>
                     <td class="p-3 text-white">${reg.phone}</td>
                     <td class="p-3 text-white">${data.eventName}</td>
+                    <td class="p-3 text-[#00FFFF]">₹${eventCost}</td>
                     <td class="p-3 ${paymentStatus.toLowerCase() === 'paid' ? 'text-green-500' : 'text-yellow-500'} font-bold">
                         ${paymentStatus.charAt(0).toUpperCase() + paymentStatus.slice(1)}
                     </td>
