@@ -581,7 +581,7 @@ def download_registrations():
                 'message': 'Event ID is required'
             })
 
-        # Event mappings (shortened for readability)
+        # Updated event mappings to include all events including cultural ones
         event_mappings = {
             'prakalpa_prastuthi': 'Prakalpa Prastuthi',
             'chanaksh': 'Chanaksh',
@@ -589,16 +589,47 @@ def download_registrations():
             'robo_samara_race': 'Robo Samara (Robo Race)',
             'pragyan': 'Pragyan',
             'vagmita': 'Vagmita',
+            # Cultural events
+            'ninaad_solo': 'Ninaad',
+            'ninaad_group': 'Ninaad',
+            'nritya_solo': 'Nritya Saadhana',
+            'nritya_group': 'Nritya Saadhana',
+            'navyataa': 'Navyataa',
+            # Management events
+            'daksha': 'Daksha',
+            'shreshta_vitta': 'Shreshta Vitta',
+            'manava_sansadhan': 'Manava Sansadhan',
+            'sumedha': 'Sumedha',
+            'vipanan': 'Vipanan',
+            # Visual Art events
+            'sthala_chitrapatha': 'Sthala Chitrapatha',
+            'chitragatha': 'Chitragatha',
+            'ruprekha': 'Ruprekha',
+            'hastakala': 'Hastakala',
+            'swachitra': 'Swachitra',
+            # Games events
+            'bgmi': 'BGMI',
+            'mission_talaash': 'Mission Talaash'
         }
 
         # Get display name
         event_name = event_mappings.get(event_id)
         if not event_name:
+            print(f"Invalid event ID: {event_id}")  # Debug log
             return jsonify({
                 'success': False,
                 'message': 'Invalid event ID'
             })
 
+        # Additional event type checks for events with variants
+        event_variants = {
+            'ninaad_solo': '(Singing Solo)',
+            'ninaad_group': '(Singing Group)',
+            'nritya_solo': '(Dance Solo)',
+            'nritya_group': '(Dance Group)'
+        }
+
+        # Rest of the function remains the same
         response = supabase.table('registrations').select('*').execute()
         
         if not response.data:
@@ -613,27 +644,12 @@ def download_registrations():
                 continue
 
             for event in reg.get('event_details', []):
-                # Normalize event name comparison
+                # Get stored event name
                 stored_event = event.get('event', '').split('(')[0].strip()
-                if stored_event.startswith(event_name):
-                    # Default values for optional fields
-                    payment_status = reg.get('payment_status', 'Pending')
-                    payment_type = reg.get('payment_type', '')  # Empty string instead of N/A
-                    
-                    # Safe handling of reference numbers
-                    utr_number = reg.get('utr_number', '')
-                    dd_number = reg.get('dd_number', '')
-                    
-                    # Handle payment type display
-                    payment_type_display = payment_type.upper() if payment_type else 'N/A'
-                    
-                    # Determine reference number
-                    reference_number = 'N/A'
-                    if payment_type == 'utr' and utr_number:
-                        reference_number = utr_number
-                    elif payment_type == 'dd' and dd_number:
-                        reference_number = dd_number
-
+                variant_suffix = event_variants.get(event_id, '')
+                
+                # Check if the event matches either the base name or with variant
+                if stored_event.startswith(event_name) and (not variant_suffix or variant_suffix in event.get('event', '')):
                     matches.append({
                         'ack_id': reg.get('ack_id', ''),
                         'college': reg.get('college', ''),
@@ -641,9 +657,9 @@ def download_registrations():
                         'phone': reg.get('phone', ''),
                         'event_name': event.get('event', ''),
                         'event_cost': event.get('cost', 0),
-                        'payment_status': payment_status,
-                        'payment_type': payment_type_display,
-                        'reference_number': reference_number,
+                        'payment_status': reg.get('payment_status', 'Pending'),
+                        'payment_type': reg.get('payment_type', 'N/A'),
+                        'reference_number': reg.get('utr_number') or reg.get('dd_number') or 'N/A',
                         'registration_date': reg.get('registration_date', '')
                     })
 
