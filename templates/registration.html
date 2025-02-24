@@ -21,6 +21,10 @@
             <form id="registrationForm" class="space-y-6" onsubmit="event.preventDefault(); submitRegistration();">
                 <!-- Event Selection Section -->
                 <div class="space-y-6">
+                    <div class="registration-section">
+                        <h2>Event Registration</h2>
+                        <p class="important-note">Note: You can register for only one event.</p>
+                    </div>
                     <div class="form-group">
                         <label for="category" class="block text-xl font-bold text-[#00FFFF] mb-2">Select Event Category</label>
                         <select id="category" required 
@@ -605,20 +609,16 @@ input[type="radio"]:checked + label {
     opacity: 0.5;
     cursor: not-allowed;
 }
+
+.important-note {
+    color: #ff4444;
+    font-weight: bold;
+    margin-bottom: 1em;
+}
 </style>
 
 <!-- Keep existing JavaScript -->
 <script>
-    // Declare selectedEvents globally so that submitRegistration can access it.
-    let selectedEvents = [];
-
-    document.addEventListener("DOMContentLoaded", function () {
-        const categorySelect = document.getElementById("category");
-        const eventsContainer = document.getElementById("events-container");
-        const groupSizeContainer = document.getElementById("group-size-container");
-        const groupSizeInput = document.getElementById("group-size");
-        const teamMembersContainer = document.getElementById("team-members-container");
-        const memberInputsContainer = document.getElementById("member-inputs");
         const addEventBtn = document.getElementById("add-event-btn");
         const selectedEventsList = document.getElementById("selected-events-list");
         const selectedEventsSection = document.querySelector(".selected-events-section");
@@ -627,7 +627,13 @@ input[type="radio"]:checked + label {
         const individualParticipantContainer = document.getElementById("individual-participant-container");
         const individualParticipantInput = document.getElementById("individual-participant");
         const overallParticipantsSpan = document.getElementById("overallParticipants");
+        const categorySelect = document.getElementById("category");  // Add this line
+        const eventsContainer = document.getElementById("events-container");  // Add this line
+        const memberInputsContainer = document.getElementById("member-inputs");  // Add this line
+        const groupSizeInput = document.getElementById("group-size");  // Add this line
 
+        // Initialize selectedEvents array
+        let selectedEvents = [];
         let currentEventSelection = null;
 
         
@@ -848,9 +854,23 @@ input[type="radio"]:checked + label {
             if (selectedEvents.length > 0) {
                 selectedEventsSection.classList.remove('hidden');
                 document.querySelector('.personal-details-section').classList.remove('hidden');
+                
+                // Disable category select and event options
+                categorySelect.disabled = true;
+                const radioInputs = document.querySelectorAll('input[name="event"]');
+                radioInputs.forEach(input => input.disabled = true);
+                
+                // Disable add event button
+                addEventBtn.disabled = true;
+                addEventBtn.classList.add('opacity-50', 'cursor-not-allowed');
             } else {
                 selectedEventsSection.classList.add('hidden');
                 document.querySelector('.personal-details-section').classList.add('hidden');
+                
+                // Re-enable category select and event options
+                categorySelect.disabled = false;
+                const radioInputs = document.querySelectorAll('input[name="event"]');
+                radioInputs.forEach(input => input.disabled = false);
             }
             
             updateTotalCost();
@@ -873,6 +893,14 @@ input[type="radio"]:checked + label {
             if (selectedEvents.length === 0) {
                 selectedEventsSection.classList.add("hidden");
                 personalDetailsSection.classList.add("hidden");
+                addEventBtn.disabled = false;
+                addEventBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+                
+                // Clear and reset form
+                resetEventSelection();
+                categorySelect.disabled = false;
+                const radioInputs = document.querySelectorAll('input[name="event"]');
+                radioInputs.forEach(input => input.disabled = false);
             }
         };
 
@@ -1340,5 +1368,87 @@ input[type="radio"]:checked + label {
             }
         }
     });
+
+// Initialize selectedEvents array and event handlers
+document.addEventListener('DOMContentLoaded', function() {
+    let selectedEvents = [];
+    let currentEventSelection = null;
+
+    // Enable category select
+    categorySelect.disabled = false;
+
+    // Reset any previously disabled elements
+    const radioInputs = document.querySelectorAll('input[name="event"]');
+    radioInputs.forEach(input => input.disabled = false);
+    
+    // Clear any previous selections
+    eventsContainer.innerHTML = '<p class="text-gray-400">Please select a category first.</p>';
+    
+    categorySelect.addEventListener("change", function() {
+        const selectedCategory = this.value;
+        eventsContainer.innerHTML = '';
+
+        if (selectedCategory && events[selectedCategory]) {
+            events[selectedCategory].forEach(event => {
+                const div = document.createElement("div");
+                div.classList.add("event-option");
+
+                const input = document.createElement("input");
+                input.type = "radio";
+                input.name = "event";
+                input.value = event.name;
+                input.id = event.name.replace(/\s+/g, "-").toLowerCase();
+
+                const label = document.createElement("label");
+                label.htmlFor = input.id;
+                label.textContent = `${event.name} - ₹${event.cost} ${event.type === 'team' ? `(${event.minTeam}-${event.maxTeam} members)` : ''}`;
+
+                div.appendChild(input);
+                div.appendChild(label);
+                eventsContainer.appendChild(div);
+
+                // Add change listener to each radio button
+                input.addEventListener("change", function() {
+                    currentEventSelection = event;
+                    addEventBtn.disabled = false;
+                    
+                    if (event.type === "team") {
+                        showTeamInputs(event);
+                    } else {
+                        showIndividualInput();
+                    }
+                });
+            });
+        } else {
+            eventsContainer.innerHTML = '<p class="text-gray-400">Please select a category first.</p>';
+        }
+    });
+});
+
+function showTeamInputs(event) {
+    groupSizeContainer.classList.remove("hidden");
+    teamMembersContainer.classList.remove("hidden");
+    individualParticipantContainer.classList.add("hidden");
+    
+    groupSizeInput.min = event.minTeam;
+    groupSizeInput.max = event.maxTeam;
+    groupSizeInput.value = event.minTeam;
+    
+    const sizeLabel = groupSizeContainer.querySelector('label');
+    sizeLabel.innerHTML = `<strong>Number of Participants (${event.minTeam}-${event.maxTeam})</strong>`;
+    
+    generateMemberInputs(event.minTeam);
+}
+
+function showIndividualInput() {
+    groupSizeContainer.classList.add("hidden");
+    teamMembersContainer.classList.add("hidden");
+    individualParticipantContainer.classList.remove("hidden");
+    individualParticipantInput.required = true;
+    individualParticipantInput.value = "";
+    document.getElementById('individual-usn').value = "";
+}
+
+// ...rest of existing code...
 </script>
 {% endblock %}
