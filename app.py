@@ -54,16 +54,7 @@ app.config.update(
     PERMANENT_SESSION_LIFETIME=timedelta(minutes=30)  # Increased from 5 to 30 minutes
 )
 
-
-
-#Function to set cache headers
-# Set Cache-Control headers for static responses
-@app.after_request
-def add_cache_headers(response):
-    if 'Cache-Control' not in response.headers:
-        response.headers['Cache-Control'] = 'public, max-age=31536000'  # Cache for 1 year
-    return response  # Always return the response
-
+# Remove the cache-related function and keep the static file serving route
 # Serve images from multiple static subdirectories
 @app.route('/static/<folder>/<path:filename>')
 def serve_static_files(folder, filename):
@@ -93,7 +84,7 @@ def send_registration_email(to_email, ack_id, details):
                     Visvesvaraya Technological University
                 </h1>
                 <h2 style="margin: 0 0 5px 0; font-size: 20px;">
-                    Center of PG Studies And Regional Office Kalaburagi
+                    Center for PG Studies And Regional Office Kalaburagi
                 </h2>
                 <div style="font-size: 22px; font-weight: bold; letter-spacing: 2px; color: #FFD700;">
                     Yukti-2025
