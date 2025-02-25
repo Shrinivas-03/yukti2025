@@ -201,12 +201,15 @@
                         onclick="submitRegistration()"
                         class="w-full bg-[#FF00FF] text-white py-3 px-6 rounded-lg font-bold uppercase 
                                transition-all duration-300 hover:bg-transparent hover:text-[#FF00FF] 
-                               hover:border-2 hover:border-[#FF00FF]"
+                               hover:border-2 hover:border-[#FF00FF] relative"
                         id="submitButton">
-                    <div class="button-content flex items-center justify-center">
-                        <span>Register Now</span>
-                        <div class="spinner hidden"></div>
-                    </div>
+                    <span class="inline-flex items-center">
+                        <span class="button-text">Register Now</span>
+                        <svg class="animate-spin ml-2 h-5 w-5 hidden" id="spinner" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
+                        </svg>
+                    </span>
                 </button>
             </div>
         </div>
@@ -643,19 +646,19 @@ input[type="radio"]:checked + label {
         
         const events = {
             technical: [
-                { name: "Prakalpa Prastuthi (Ideathon)", type: "team", cost: 200, minTeam: 1, maxTeam: 3 },
-                { name: "Chanaksh (Code Quest)", type: "individual", cost: 100 },
+                { name: "Prakalpa Prastuthi (Ideathon)", type: "team", cost: 300, minTeam: 2, maxTeam: 4 },
+                { name: "Chanaksh (Code Quest)", type: "individual", cost: 200 },
                 { name: "Robo Samara (Robo War)", type: "team", cost: 300, minTeam: 1, maxTeam: 4},
                 { name: "Robo Samara (Robo Race)", type: "team", cost: 300, minTeam: 1, maxTeam: 4},
                 { name: "Pragyan (Quiz)", type: "team", cost: 300, minTeam: 1, maxTeam: 4},
-                { name: "Vagmita (Elocution)", type: "individual", cost: 200 }
+                { name: "Vagmita (Elocution)", type: "individual", cost: 150 }
             ],
             VisualArt: [
                 
-                { name: "Sthala Chitrapatha (Spot Photography)", type: "individual", cost: 150 },
-                { name: "Chitragatha (Short Film)", type: "team", cost: 400, minTeam: 1, maxTeam: 4 },
+                { name: "Sthala Chitrapatha (Spot Photography)", type: "individual", cost: 300 },
+                { name: "Chitragatha (Short Film)", type: "team", cost: 300, minTeam: 1, maxTeam: 4 },
                 { name: "Ruprekha (Sketch Art)", type: "individual", cost: 200 },
-                { name: "Hastakala (Painting)", type: "individual", cost: 150 },
+                { name: "Hastakala (Painting)", type: "individual", cost: 200 },
                 { name: "Swachitra (Selfie Point)", type: "individual", cost: 100 },
             ],
             Cultural: [
@@ -672,11 +675,11 @@ input[type="radio"]:checked + label {
                 { name: "Shreshta Vitta (Finance) ", type: "individual", cost: 200 },
                 { name: "Manava Sansadhan (HR)", type: "team", cost: 300, minTeam: 1, maxTeam: 4 },
                 { name: "Sumedha (Start-Up)", type: "individual", cost: 150 },
-                { name: "Vipanan (Marketing)", type: "team", cost: 150,minTeam:2 ,maxTeam:2 }
+                { name: "Vipanan (Marketing)", type: "team", cost: 200,minTeam:2 ,maxTeam:2 }
             ],
             games: [
-                { name: "BGMI", type: "team", cost: 400, minTeam: 1, maxTeam: 5 },
-                { name: "Mission Talaash (Treasure Hunt)", type: "team", cost: 300, minTeam: 1, maxTeam: 5 }
+                { name: "BGMI", type: "team", cost: 500, minTeam: 1, maxTeam: 5 },
+                { name: "Mission Talaash (Treasure Hunt)", type: "team", cost: 1000, minTeam: 5, maxTeam: 5 }
             ]
         };
 
@@ -1143,16 +1146,16 @@ input[type="radio"]:checked + label {
         // The inline onclick handler calls submitRegistration(), which is defined below.});
 
     async function submitRegistration() {
-        const submitButton = document.getElementById('submitButton');
-        const spinner = submitButton.querySelector('.spinner');
-        const buttonText = submitButton.querySelector('span');
-
+        const button = document.getElementById('submitButton');
+        const buttonText = button.querySelector('.button-text');
+        const spinner = button.querySelector('#spinner');
+        
         try {
-            // Show spinner and disable button
-            spinner.classList.remove('hidden');
-            submitButton.disabled = true;
+            // Show spinner
             buttonText.textContent = 'Registering...';
-
+            spinner.classList.remove('hidden');
+            button.disabled = true;
+            
             if (selectedEvents.length === 0) {
                 alert('Please select at least one event');
                 resetButton();
@@ -1201,9 +1204,9 @@ input[type="radio"]:checked + label {
         }
 
         function resetButton() {
-            spinner.classList.add('hidden');
-            submitButton.disabled = false;
             buttonText.textContent = 'Register Now';
+            spinner.classList.add('hidden');
+            button.disabled = false;
         }
     }
 

@@ -234,6 +234,16 @@
 </head>
 
 <body class="bg-dark text-white">
+
+    <script>
+        // Check if page has been reloaded in this session
+        if (!sessionStorage.getItem('reloaded')) {
+            sessionStorage.setItem('reloaded', 'true');
+            window.location.reload(true); // Force reload from server
+        }
+    </script>
+    
+    
     <!-- Navbar -->
     <header class="fixed top-0 w-full z-[2001] bg-[rgba(30,30,30,0.9)] h-16 sm:h-18 md:h-20 shadow-lg backdrop-blur-md">
         <div class="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 h-full flex justify-between items-center">
@@ -466,7 +476,7 @@
                             class="w-10 h-10 rounded-full bg-[rgba(0,255,255,0.1)] border border-[#00FFFF] flex items-center justify-center hover:bg-[#00FFFF] hover:-translate-y-1 transition-all duration-300">
                             <i class="fab fa-instagram text-[#FF00FF]"></i>
                         </a>
-                        <a href="https://www.youtube.com" target="_blank"
+                        <a href="https://www.youtube.com/channel/UC5qpzSwPBVOpS9k6g8wwFiw" target="_blank"
                             class="w-10 h-10 rounded-full bg-[rgba(0,255,255,0.1)] border border-[#00FFFF] flex items-center justify-center hover:bg-[#00FFFF] hover:-translate-y-1 transition-all duration-300">
                             <i class="fab fa-youtube text-[#FF00FF]"></i>
                         </a>

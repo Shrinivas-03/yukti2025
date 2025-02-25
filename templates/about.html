@@ -60,19 +60,31 @@
             transform transition-all duration-300 hover:-translate-y-2 
             hover:shadow-[0_15px_30px_rgba(0,255,255,0.4)] hover:border-[#FF00FF]">
     <div class="flex flex-col md:flex-row items-center gap-3 sm:gap-4 md:gap-6">
-        <div class="flex-shrink-0">
+        <!-- Chief Patron title - Shows first on mobile -->
+        <div class="flex flex-col w-full order-1 md:hidden">
+            <h2 class="text-xl sm:text-2xl md:text-3xl text-[#FF00FF] text-center mb-6 sm:mb-8 font-['Cinzel']">
+                Chief Patron
+            </h2>
+        </div>
+
+        <!-- VC Image - Shows second on mobile -->
+        <div class="flex-shrink-0 order-2 md:order-none">
             <img class="w-[100px] sm:w-[150px] md:w-[210px] rounded-full border-2 sm:border-3 border-[#ff6700]" 
                  src="{{ url_for('static', filename='assets/VC.webp') }}" 
                  alt="Dr. S. Vidyashankar">
         </div>
-        <div class="flex-grow text-justify sm:text-left px-2 sm:px-4">
-            <h2 class="text-xl sm:text-2xl md:text-3xl text-[#FF00FF] text-left mb-6 sm:mb-8 font-['Cinzel']">
+        
+        <!-- Text content - Shows third on mobile -->
+        <div class="flex-grow text-justify sm:text-left px-2 sm:px-4 order-3 md:order-none">
+            <!-- Chief Patron title - Hidden on mobile, visible on desktop -->
+            <h2 class="hidden md:block text-xl sm:text-2xl md:text-3xl text-[#FF00FF] text-left mb-6 sm:mb-8 font-['Cinzel']">
                 Chief Patron
             </h2>
-            <h2 class="text-lg sm:text-xl md:text-2xl text-[#00FFFF] mb-2 text-center sm:text-left">
+            
+            <h2 class="text-lg sm:text-xl md:text-2xl text-[#00FFFF] mb-2 text-center md:text-left">
                 Dr. S. Vidyashankar
             </h2>
-            <h3 class="text-base sm:text-lg md:text-xl text-[#3B82F6] mb-4 text-center sm:text-left">
+            <h3 class="text-base sm:text-lg md:text-xl text-[#3B82F6] mb-4 text-center md:text-left">
                 Hon'ble Vice Chancellor, VTU, Belagavi
             </h3>
             <div class="space-y-4">
