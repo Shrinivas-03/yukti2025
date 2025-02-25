@@ -36,28 +36,20 @@
                         The flash mob served as an electrifying opening act, bringing together performers from various departments who had practiced in secret for weeks. The unexpected nature of the performance created a buzz of excitement throughout the campus.
                     </p>
                 </div>
-                <div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4">
-                    <!-- Gallery Items -->
-                    {% for i in range(6) %}
-                    <div class="gallery-item group relative overflow-hidden rounded-xl cursor-pointer
-                                transform transition-all duration-300 hover:-translate-y-2 
-                                hover:shadow-[0_15px_30px_rgba(0,255,255,0.4)]
-                                border-2 border-[#00FFFF] hover:border-[#FF00FF]">
-                        <img src="{{ url_for('static', filename='gallery/fl' ~ loop.index ~ '.jpg') }}"
-                             alt="Flash Mob Performance {{ loop.index }}"
-                             class="w-full h-32 sm:h-48 md:h-64 object-cover transition-transform duration-300 
-                                    group-hover:scale-110"
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    {% for i in range(1, 4) %}
+                    <div class="gallery-item group relative overflow-hidden rounded-xl border-2 border-secondary hover:border-primary/50 
+                                transition-all duration-300 hover:-translate-y-2 hover:shadow-lg hover:shadow-primary/20">
+                        <img src="{{ url_for('static', filename='gallery/fl' ~ i ~ '.jpg') }}"
+                             alt="Flash Mob Event Image {{ i }}"
+                             class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110"
                              loading="lazy"
-                             onerror="this.src='{{ url_for('static', filename='gallery/place.jpg') }}'; console.error('Failed to load:', this.src);">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 
-                                    group-hover:opacity-100 transition-opacity duration-300
-                                    flex items-end justify-center pb-4">
-                            <button class="view-image-btn bg-gradient-to-r from-[#00FFFF] to-[#FF00FF] text-white 
-                                         px-4 py-2 rounded-lg transform -translate-y-4 opacity-0 
-                                         group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300
-                                         hover:from-[#FF00FF] hover:to-[#00FFFF]">
-                                View
-                            </button>
+                             onclick="openModal(this.src)"
+                             onerror="this.src='{{ url_for('static', filename='gallery/place.jpg') }}'; 
+                                      console.error('Failed to load:', this.src);">
+                        <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4 
+                                    opacity-0 group-hover:opacity-100 transition-opacity">
+                            <p class="text-primary text-sm">Flash Mob Performance - Moment {{ i }}</p>
                         </div>
                     </div>
                     {% endfor %}
@@ -77,28 +69,18 @@
                         Distinguished guests and university officials came together to mark the beginning of this grand celebration, setting the tone for the upcoming days of innovation, creativity, and excellence.
                     </p>
                 </div>
-                <div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     <!-- Gallery Items -->
-                    {% for i in range(4) %}
-                    <div class="gallery-item group relative overflow-hidden rounded-xl cursor-pointer
-                                transform transition-all duration-300 hover:-translate-y-2 
-                                hover:shadow-[0_15px_30px_rgba(0,255,255,0.4)]
-                                border-2 border-[#00FFFF] hover:border-[#FF00FF]">
+                    {% for i in range(3) %}
+                    <div class="gallery-item group relative overflow-hidden rounded-xl border-2 border-secondary hover:border-primary/50 transition-all duration-300 hover:-translate-y-2 hover:shadow-lg hover:shadow-primary/20">
                         <img src="{{ url_for('static', filename='gallery/wl' ~ loop.index ~ '.jpg') }}"
-                             alt="Welcome Ceremony Image {{ loop.index }}"
-                             class="w-full h-32 sm:h-48 md:h-64 object-cover transition-transform duration-300 
-                                    group-hover:scale-110"
-                             loading="lazy"
-                             onerror="this.src='{{ url_for('static', filename='gallery/place.jpg') }}'; console.error('Failed to load:', this.src);">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 
-                                    group-hover:opacity-100 transition-opacity duration-300
-                                    flex items-end justify-center pb-4">
-                            <button class="view-image-btn bg-gradient-to-r from-[#00FFFF] to-[#FF00FF] text-white 
-                                         px-4 py-2 rounded-lg transform -translate-y-4 opacity-0 
-                                         group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300
-                                         hover:from-[#FF00FF] hover:to-[#00FFFF]">
-                                View
-                            </button>
+     alt="Welcome Ceremony Image {{ loop.index }}"
+     class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110"
+     loading="lazy"
+     onerror="this.src='{{ url_for('static', filename='gallery/place.jpg') }}'; console.error('Failed to load:', this.src);">
+
+                        <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4 opacity-0 group-hover:opacity-100 transition-opacity">
+                            <p class="text-primary text-sm">Welcome Ceremony - Moment {{ loop.index }}</p>
                         </div>
                     </div>
                     {% endfor %}
@@ -124,27 +106,16 @@
                     <p class="text-gray-300 mb-4 text-lg leading-relaxed">
                         Showcasing innovation through hackathons, coding competitions, robotics challenges, and technical workshops that pushed the boundaries of technological creativity.
                     </p>
-                    <div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 mb-8">
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
                         {% for i in range(3) %}
-                        <div class="gallery-item group relative overflow-hidden rounded-xl cursor-pointer
-                                    transform transition-all duration-300 hover:-translate-y-2 
-                                    hover:shadow-[0_15px_30px_rgba(0,255,255,0.4)]
-                                    border-2 border-[#00FFFF] hover:border-[#FF00FF]">
+                        <div class="gallery-item group relative overflow-hidden rounded-xl border-2 border-secondary hover:border-primary/50 transition-all duration-300 hover:-translate-y-2 hover:shadow-lg hover:shadow-primary/20">
                             <img src="{{ url_for('static', filename='gallery/tc' ~ loop.index ~ '.jpg') }}"
                                  alt="Technical Event {{ loop.index }}"
-                                 class="w-full h-32 sm:h-48 md:h-64 object-cover transition-transform duration-300 
-                                        group-hover:scale-110"
+                                 class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110"
                                  loading="lazy"
                                  onerror="this.src='{{ url_for('static', filename='gallery/place.jpg') }}'; console.error('Failed to load:', this.src);">
-                            <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 
-                                        group-hover:opacity-100 transition-opacity duration-300
-                                        flex items-end justify-center pb-4">
-                                <button class="view-image-btn bg-gradient-to-r from-[#00FFFF] to-[#FF00FF] text-white 
-                                             px-4 py-2 rounded-lg transform -translate-y-4 opacity-0 
-                                             group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300
-                                             hover:from-[#FF00FF] hover:to-[#00FFFF]">
-                                    View
-                                </button>
+                            <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4 opacity-0 group-hover:opacity-100 transition-opacity">
+                                <p class="text-primary text-sm">Technical Events - Moment {{ loop.index }}</p>
                             </div>
                         </div>
                         {% endfor %}
@@ -157,27 +128,16 @@
                     <p class="text-gray-300 mb-4 text-lg leading-relaxed">
                         Celebrating artistic expression through dance, music, drama, and fashion shows that brought color and creativity to the festival atmosphere.
                     </p>
-                    <div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 mb-8">
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
                         {% for i in range(6) %}
-                        <div class="gallery-item group relative overflow-hidden rounded-xl cursor-pointer
-                                    transform transition-all duration-300 hover:-translate-y-2 
-                                    hover:shadow-[0_15px_30px_rgba(0,255,255,0.4)]
-                                    border-2 border-[#00FFFF] hover:border-[#FF00FF]">
+                        <div class="gallery-item group relative overflow-hidden rounded-xl border-2 border-secondary hover:border-primary/50 transition-all duration-300 hover:-translate-y-2 hover:shadow-lg hover:shadow-primary/20">
                             <img src="{{ url_for('static', filename='gallery/cl' ~ loop.index ~ '.jpg') }}"
                                  alt="Cultural Event {{ loop.index }}"
-                                 class="w-full h-32 sm:h-48 md:h-64 object-cover transition-transform duration-300 
-                                        group-hover:scale-110"
+                                 class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110"
                                  loading="lazy"
                                  onerror="this.src='{{ url_for('static', filename='gallery/place.jpg') }}'; console.error('Failed to load:', this.src);">
-                            <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 
-                                        group-hover:opacity-100 transition-opacity duration-300
-                                        flex items-end justify-center pb-4">
-                                <button class="view-image-btn bg-gradient-to-r from-[#00FFFF] to-[#FF00FF] text-white 
-                                             px-4 py-2 rounded-lg transform -translate-y-4 opacity-0 
-                                             group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300
-                                             hover:from-[#FF00FF] hover:to-[#00FFFF]">
-                                    View
-                                </button>
+                            <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4 opacity-0 group-hover:opacity-100 transition-opacity">
+                                <p class="text-primary text-sm">Cultural Events - Moment {{ loop.index }}</p>
                             </div>
                         </div>
                         {% endfor %}
@@ -190,27 +150,16 @@
                     <p class="text-gray-300 mb-4 text-lg leading-relaxed">
                         Testing strategic thinking and leadership through business simulations, case studies, and entrepreneurship competitions.
                     </p>
-                    <div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4">
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                         {% for i in range(2) %}
-                        <div class="gallery-item group relative overflow-hidden rounded-xl cursor-pointer
-                                    transform transition-all duration-300 hover:-translate-y-2 
-                                    hover:shadow-[0_15px_30px_rgba(0,255,255,0.4)]
-                                    border-2 border-[#00FFFF] hover:border-[#FF00FF]">
+                        <div class="gallery-item group relative overflow-hidden rounded-xl border-2 border-secondary hover:border-primary/50 transition-all duration-300 hover:-translate-y-2 hover:shadow-lg hover:shadow-primary/20">
                             <img src="{{ url_for('static', filename='gallery/mn' ~ loop.index ~ '.jpg') }}"
                                  alt="Management Event {{ loop.index }}"
-                                 class="w-full h-32 sm:h-48 md:h-64 object-cover transition-transform duration-300 
-                                        group-hover:scale-110"
+                                 class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110"
                                  loading="lazy"
                                  onerror="this.src='{{ url_for('static', filename='gallery/place.jpg') }}'; console.error('Failed to load:', this.src);">
-                            <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 
-                                        group-hover:opacity-100 transition-opacity duration-300
-                                        flex items-end justify-center pb-4">
-                                <button class="view-image-btn bg-gradient-to-r from-[#00FFFF] to-[#FF00FF] text-white 
-                                             px-4 py-2 rounded-lg transform -translate-y-4 opacity-0 
-                                             group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300
-                                             hover:from-[#FF00FF] hover:to-[#00FFFF]">
-                                    View
-                                </button>
+                            <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4 opacity-0 group-hover:opacity-100 transition-opacity">
+                                <p class="text-primary text-sm">Management Events - Moment {{ loop.index }}</p>
                             </div>
                         </div>
                         {% endfor %}
@@ -231,28 +180,17 @@
                         The electric atmosphere filled with pulsating beats, dazzling lights, and enthusiastic cheers created an unforgettable night of celebration and entertainment.
                     </p>
                 </div>
-                <div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     <!-- Gallery Items -->
                     {% for i in range(9) %}
-                    <div class="gallery-item group relative overflow-hidden rounded-xl cursor-pointer
-                                transform transition-all duration-300 hover:-translate-y-2 
-                                hover:shadow-[0_15px_30px_rgba(0,255,255,0.4)]
-                                border-2 border-[#00FFFF] hover:border-[#FF00FF]">
+                    <div class="gallery-item group relative overflow-hidden rounded-xl border-2 border-secondary hover:border-primary/50 transition-all duration-300 hover:-translate-y-2 hover:shadow-lg hover:shadow-primary/20">
                         <img src="{{ url_for('static', filename='gallery/nt' ~ loop.index ~ '.jpg') }}"
                              alt="Celebrity Night - Day 1 Image {{ loop.index }}"
-                             class="w-full h-32 sm:h-48 md:h-64 object-cover transition-transform duration-300 
-                                    group-hover:scale-110"
+                             class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110"
                              loading="lazy"
                              onerror="this.src='{{ url_for('static', filename='gallery/place.jpg') }}'; console.error('Failed to load:', this.src);">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 
-                                    group-hover:opacity-100 transition-opacity duration-300
-                                    flex items-end justify-center pb-4">
-                            <button class="view-image-btn bg-gradient-to-r from-[#00FFFF] to-[#FF00FF] text-white 
-                                         px-4 py-2 rounded-lg transform -translate-y-4 opacity-0 
-                                         group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300
-                                         hover:from-[#FF00FF] hover:to-[#00FFFF]">
-                                View
-                            </button>
+                        <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4 opacity-0 group-hover:opacity-100 transition-opacity">
+                            <p class="text-primary text-sm">Celebrity Night - Day 1 - Moment {{ loop.index }}</p>
                         </div>
                     </div>
                     {% endfor %}
@@ -272,28 +210,17 @@
                         The ceremony celebrated excellence across technical, cultural, and management domains, inspiring future participants and creating moments of pride for winners and their institutions alike.
                     </p>
                 </div>
-                <div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     <!-- Gallery Items -->
                     {% for i in range(6) %}
-                    <div class="gallery-item group relative overflow-hidden rounded-xl cursor-pointer
-                                transform transition-all duration-300 hover:-translate-y-2 
-                                hover:shadow-[0_15px_30px_rgba(0,255,255,0.4)]
-                                border-2 border-[#00FFFF] hover:border-[#FF00FF]">
+                    <div class="gallery-item group relative overflow-hidden rounded-xl border-2 border-secondary hover:border-primary/50 transition-all duration-300 hover:-translate-y-2 hover:shadow-lg hover:shadow-primary/20">
                         <img src="{{ url_for('static', filename='gallery/aw' ~ loop.index ~ '.jpg') }}"
                              alt="Awards Ceremony Image {{ loop.index }}"
-                             class="w-full h-32 sm:h-48 md:h-64 object-cover transition-transform duration-300 
-                                    group-hover:scale-110"
+                             class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110"
                              loading="lazy"
                              onerror="this.src='{{ url_for('static', filename='gallery/place.jpg') }}'; console.error('Failed to load:', this.src);">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 
-                                    group-hover:opacity-100 transition-opacity duration-300
-                                    flex items-end justify-center pb-4">
-                            <button class="view-image-btn bg-gradient-to-r from-[#00FFFF] to-[#FF00FF] text-white 
-                                         px-4 py-2 rounded-lg transform -translate-y-4 opacity-0 
-                                         group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300
-                                         hover:from-[#FF00FF] hover:to-[#00FFFF]">
-                                View
-                            </button>
+                        <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4 opacity-0 group-hover:opacity-100 transition-opacity">
+                            <p class="text-primary text-sm">Awards Ceremony - Moment {{ loop.index }}</p>
                         </div>
                     </div>
                     {% endfor %}
@@ -313,28 +240,17 @@
                         The grand finale featured spectacular live performances, creating an atmosphere of pure joy and excitement as the festival drew to a memorable close.
                     </p>
                 </div>
-                <div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     <!-- Gallery Items -->
                     {% for i in range(4) %}
-                    <div class="gallery-item group relative overflow-hidden rounded-xl cursor-pointer
-                                transform transition-all duration-300 hover:-translate-y-2 
-                                hover:shadow-[0_15px_30px_rgba(0,255,255,0.4)]
-                                border-2 border-[#00FFFF] hover:border-[#FF00FF]">
+                    <div class="gallery-item group relative overflow-hidden rounded-xl border-2 border-secondary hover:border-primary/50 transition-all duration-300 hover:-translate-y-2 hover:shadow-lg hover:shadow-primary/20">
                         <img src="{{ url_for('static', filename='gallery/n' ~ loop.index ~ '.jpg') }}?v=1"
                              alt="Celebrity Night - Day 2 Image {{ loop.index }}"
-                             class="w-full h-32 sm:h-48 md:h-64 object-cover transition-transform duration-300 
-                                    group-hover:scale-110"
+                             class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110"
                              loading="lazy"
                              onerror="this.src='{{ url_for('static', filename='gallery/place.jpg') }}'; console.error('Failed to load:', this.src);">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 
-                                    group-hover:opacity-100 transition-opacity duration-300
-                                    flex items-end justify-center pb-4">
-                            <button class="view-image-btn bg-gradient-to-r from-[#00FFFF] to-[#FF00FF] text-white 
-                                         px-4 py-2 rounded-lg transform -translate-y-4 opacity-0 
-                                         group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300
-                                         hover:from-[#FF00FF] hover:to-[#00FFFF]">
-                                View
-                            </button>
+                        <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4 opacity-0 group-hover:opacity-100 transition-opacity">
+                            <p class="text-primary text-sm">Celebrity Night - Day 2 - Moment {{ loop.index }}</p>
                         </div>
                     </div>
                     {% endfor %}
@@ -342,6 +258,15 @@
             </div>
         </section>
     </div>
+</div>
+
+<!-- Add modal for image popup -->
+<div id="imageModal" class="fixed inset-0 z-50 hidden bg-black bg-opacity-90 flex items-center justify-center p-4">
+    <button onclick="closeModal()" class="absolute top-4 right-4 text-white hover:text-[#FF00FF] text-xl sm:text-2xl">
+        <i class="fas fa-times"></i>
+    </button>
+    <img id="modalImage" src="" alt="Enlarged Image" 
+         class="max-w-full max-h-[90vh] object-contain rounded-lg">
 </div>
 
 <script>
@@ -387,17 +312,34 @@
             closePopup();
         }
     });
-</script>
 
-<style>
-/* Add these responsive styles */
-@media (max-width: 640px) {
-    .gallery-item {
-        height: 150px; /* Adjust height for mobile */
+    const modal = document.getElementById('imageModal');
+    const modalImg = document.getElementById('modalImage');
+
+    function openModal(imgSrc) {
+        modal.classList.remove('hidden');
+        modalImg.src = imgSrc;
+        document.body.style.overflow = 'hidden';
     }
-    .gallery-item img {
-        height: 150px;
+
+    function closeModal() {
+        modal.classList.add('hidden');
+        modalImg.src = '';
+        document.body.style.overflow = 'auto';
     }
-}
-</style>
+
+    // Close modal when clicking outside the image
+    modal.addEventListener('click', function(e) {
+        if (e.target === modal) {
+            closeModal();
+        }
+    });
+
+    // Close modal with Escape key
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            closeModal();
+        }
+    });
+</script>
 {% endblock %}

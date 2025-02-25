@@ -5,34 +5,34 @@
 {% block content %}
 <!-- Event Page Header -->
  <div class="h-0.5 bg-gradient-to-r from-[#6D28D9] via-[#3B82F6] to-[#00FFFF]"></div>
-<section class="relative py-24 bg-gradient-to-r from-dark via-darker to-dark animate-gradient-flow overflow-hidden">
+<section class="relative py-12 sm:py-24 bg-gradient-to-r from-dark via-darker to-dark animate-gradient-flow overflow-hidden">
     <!-- Background Overlay -->
     <div class="absolute inset-0 bg-[linear-gradient(90deg,transparent_50%,rgba(0,255,255,0.05)_100%),radial-gradient(circle_at_50%_50%,rgba(0,255,255,0.1)_0%,transparent_50%)] animate-[shimmer_10s_infinite_linear]"></div>
     
     <!-- Header Content -->
-    <h1 class="relative z-10 text-center mb-6 font-['Orbitron'] text-transparent bg-clip-text bg-gradient-to-r from-[#00FFFF] via-[#FF00FF] to-[#00FFFF] text-4xl sm:text-5xl md:text-[4.5rem] drop-shadow-[2px_2px_8px_rgba(0,0,0,0.5)]">
+    <h1 class="relative z-10 text-center mb-6 font-['Orbitron'] text-transparent bg-clip-text bg-gradient-to-r from-[#00FFFF] via-[#FF00FF] to-[#00FFFF] text-3xl sm:text-4xl md:text-5xl lg:text-[4.5rem] px-4 drop-shadow-[2px_2px_8px_rgba(0,0,0,0.5)]">
         Chintana<br>(Management Events)
     </h1>
 </section>
 
 <!-- Events Container -->
-<div class="container mx-auto py-12 px-4 text-center">
+<div class="container mx-auto py-6 sm:py-12 px-4 text-center">
     
     <!-- DAKSH Card -->
-    <div class="max-w-3xl mx-auto mb-12 bg-[rgba(32,34,39,0.95)] backdrop-blur-md p-4 rounded-xl border-2 border-[#00FFFF] 
+    <div class="max-w-3xl mx-auto mb-6 sm:mb-12 bg-[rgba(32,34,39,0.95)] backdrop-blur-md p-3 sm:p-4 rounded-xl border-2 border-[#00FFFF] 
                 transform transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_15px_30px_rgba(0,255,255,0.4)] hover:border-[#FF00FF]">
         
         <!-- Event Image -->
-        <div class="relative h-32 bg-[#121212] flex justify-center items-center">
+        <div class="relative h-24 sm:h-32 bg-[#121212] flex justify-center items-center">
             <img src="{{ url_for('static', filename='assets/logos/DAKSH.png') }}" 
                  alt="Best Manager"
-                 class="w-32 h-32 object-contain transition-all duration-500 hover:scale-105 hover:brightness-110">
+                 class="w-24 h-24 sm:w-32 sm:h-32 object-contain transition-all duration-500 hover:scale-105 hover:brightness-110">
             <div class="absolute bottom-0 left-0 w-full h-1/2 bg-gradient-to-b from-transparent to-[rgba(18,18,18,0.95)]"></div>
         </div>
 
         <!-- Event Content -->
-        <div class="p-6 bg-gradient-to-b from-[rgba(18,18,18,0.95)] to-[rgba(18,18,18,1)]">
-            <h3 class="text-2xl mb-4 font-['Orbitron'] text-transparent bg-clip-text bg-gradient-to-r from-[#00FFFF] via-[#FF00FF] to-[#00FFFF] 
+        <div class="p-4 sm:p-6 bg-gradient-to-b from-[rgba(18,18,18,0.95)] to-[rgba(18,18,18,1)]">
+            <h3 class="text-xl sm:text-2xl mb-3 sm:mb-4 font-['Orbitron'] text-transparent bg-clip-text bg-gradient-to-r from-[#00FFFF] via-[#FF00FF] to-[#00FFFF] 
                        drop-shadow-[2px_2px_4px_rgba(0,0,0,0.3)] text-center">
                 DAKSHA<br>
                 <span class="text-lg text-[#00FFFF] font-['Rajdhani']">(Best Manager)</span>
@@ -40,19 +40,19 @@
             
             <!-- Event Description -->
             <div class="event-description text-center">
-                <p class="text-lg text-[#C0C0C0] leading-relaxed mb-6 mx-auto font-['Rajdhani']">
+                <p class="text-base sm:text-lg text-[#C0C0C0] leading-relaxed mb-4 sm:mb-6 mx-auto font-['Rajdhani']">
                     "It's hard to beat a person who never gives up."
                 </p>
-                <p class="text-lg text-[#C0C0C0] leading-relaxed mb-6 mx-auto font-['Rajdhani']">
+                <p class="text-base sm:text-lg text-[#C0C0C0] leading-relaxed mb-4 sm:mb-6 mx-auto font-['Rajdhani']">
                     Prepare for a thrilling journey as you dive into the ultimate managerial challenge! Showcase your grit and determination across the realms of management function.
                 </p>
                 
                 <!-- Expanded Content -->
-                <div class="hidden opacity-0 transition-opacity duration-300 p-8 bg-[rgba(45,49,56,0.8)] rounded-lg mt-4 text-left space-y-6">
+                <div class="hidden opacity-0 transition-opacity duration-300 p-4 sm:p-8 bg-[rgba(45,49,56,0.8)] rounded-lg mt-3 sm:mt-4 text-left space-y-4 sm:space-y-6">
                     <!-- Event Guidelines -->
-                    <div class="bg-[rgba(32,34,39,0.95)] p-4 rounded-lg border-l-4 border-[#00FFFF] hover:border-[#FF00FF] transition-all duration-300">
-                        <h4 class="text-[#00FFFF] text-lg font-['Orbitron'] font-bold mb-3">Event Guidelines:</h4>
-                        <ol class="list-decimal list-inside text-[#C0C0C0] space-y-2 ml-4 font-['Rajdhani']">
+                    <div class="bg-[rgba(32,34,39,0.95)] p-3 sm:p-4 rounded-lg border-l-4 border-[#00FFFF] hover:border-[#FF00FF] transition-all duration-300">
+                        <h4 class="text-base sm:text-lg text-[#00FFFF] font-['Orbitron'] font-bold mb-3">Event Guidelines:</h4>
+                        <ol class="list-decimal list-inside text-sm sm:text-base text-[#C0C0C0] space-y-2 ml-4 font-['Rajdhani']">
                             <li>This is an individual event</li>
                             <li>All participants must be at the venue 45 minutes before the event starts</li>
                             <li>There will be 4 rounds</li>
@@ -66,22 +66,22 @@
                     </div>
 
                     <!-- Round Details -->
-                    <div class="bg-[rgba(32,34,39,0.95)] p-4 rounded-lg border-l-4 border-[#00FFFF] hover:border-[#FF00FF] transition-all duration-300">
-                        <h4 class="text-[#00FFFF] text-lg font-['Orbitron'] font-bold mb-3">Round Details:</h4>
+                    <div class="bg-[rgba(32,34,39,0.95)] p-3 sm:p-4 rounded-lg border-l-4 border-[#00FFFF] hover:border-[#FF00FF] transition-all duration-300">
+                        <h4 class="text-base sm:text-lg text-[#00FFFF] font-['Orbitron'] font-bold mb-3">Round Details:</h4>
                         
                         <div class="mb-4">
                             <h5 class="text-[#00FFFF] font-['Rajdhani'] font-bold mb-2">Round 1: Aptitude Test (25 Marks)</h5>
-                            <p class="text-[#C0C0C0] ml-4 font-['Rajdhani']">Assessment of problem-solving, prioritization, numerical skills and general knowledge. 25 questions, 1 mark each.</p>
+                            <p class="text-sm sm:text-base text-[#C0C0C0] ml-4 font-['Rajdhani']">Assessment of problem-solving, prioritization, numerical skills and general knowledge. 25 questions, 1 mark each.</p>
                         </div>
 
                         <div class="mb-4">
                             <h5 class="text-[#00FFFF] font-['Rajdhani'] font-bold mb-2">Round 2: Rapid Fire Round - Psychometric Test (25 Marks)</h5>
-                            <p class="text-[#C0C0C0] ml-4 font-['Rajdhani']">Measures mental capabilities, behavioral styles, abilities, and personality traits. 25 questions, 1 mark each.</p>
+                            <p class="text-sm sm:text-base text-[#C0C0C0] ml-4 font-['Rajdhani']">Measures mental capabilities, behavioral styles, abilities, and personality traits. 25 questions, 1 mark each.</p>
                         </div>
 
                         <div class="mb-4">
                             <h5 class="text-[#00FFFF] font-['Rajdhani'] font-bold mb-2">Round 3: Situation Analysis (25 Marks)</h5>
-                            <ul class="list-disc list-inside text-[#C0C0C0] space-y-2 ml-4 font-['Rajdhani']">
+                            <ul class="list-disc list-inside text-sm sm:text-base text-[#C0C0C0] space-y-2 ml-4 font-['Rajdhani']">
                                 <li>Tests critical thinking and decision-making skills</li>
                                 <li>60 seconds preparation time</li>
                                 <li>3 minutes presentation time</li>
@@ -90,7 +90,7 @@
 
                         <div class="mb-4">
                             <h5 class="text-[#00FFFF] font-['Rajdhani'] font-bold mb-2">Round 4: Personal Interview (25 Marks)</h5>
-                            <ul class="list-disc list-inside text-[#C0C0C0] space-y-2 ml-4 font-['Rajdhani']">
+                            <ul class="list-disc list-inside text-sm sm:text-base text-[#C0C0C0] space-y-2 ml-4 font-['Rajdhani']">
                                 <li>Interview by panel of judges</li>
                                 <li>CV submission required</li>
                                 <li>Evaluation based on Resume Quality, Body Language, and Answer Justification</li>
@@ -100,17 +100,17 @@
 
                     <!-- Coordinators -->
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div class="bg-[rgba(32,34,39,0.95)] p-4 rounded-lg border-l-4 border-[#00FFFF] hover:border-[#FF00FF] transition-all duration-300">
-                            <h4 class="text-[#00FFFF] text-lg font-['Orbitron'] font-bold mb-3">Faculty Coordinators:</h4>
-                            <ul class="text-[#C0C0C0] space-y-2 ml-4 font-['Rajdhani']">
+                        <div class="bg-[rgba(32,34,39,0.95)] p-3 sm:p-4 rounded-lg border-l-4 border-[#00FFFF] hover:border-[#FF00FF] transition-all duration-300">
+                            <h4 class="text-base sm:text-lg text-[#00FFFF] font-['Orbitron'] font-bold mb-3">Faculty Coordinators:</h4>
+                            <ul class="text-sm sm:text-base text-[#C0C0C0] space-y-2 ml-4 font-['Rajdhani']">
                                 <li>Dr. K. Shivaraman Gouda - Chairman</li>
                                 <li>Prof. Sanjay Pattanshetty - Member</li>
                             </ul>
                         </div>
 
-                        <div class="bg-[rgba(32,34,39,0.95)] p-4 rounded-lg border-l-4 border-[#00FFFF] hover:border-[#FF00FF] transition-all duration-300">
-                            <h4 class="text-[#00FFFF] text-lg font-['Orbitron'] font-bold mb-3">Student Coordinators:</h4>
-                            <ul class="text-[#C0C0C0] space-y-2 ml-4 font-['Rajdhani']">
+                        <div class="bg-[rgba(32,34,39,0.95)] p-3 sm:p-4 rounded-lg border-l-4 border-[#00FFFF] hover:border-[#FF00FF] transition-all duration-300">
+                            <h4 class="text-base sm:text-lg text-[#00FFFF] font-['Orbitron'] font-bold mb-3">Student Coordinators:</h4>
+                            <ul class="text-sm sm:text-base text-[#C0C0C0] space-y-2 ml-4 font-['Rajdhani']">
                                 <li>Mallikarjun - 7892568754</li>
                                 <li>Asif - 7406860007</li>
                                 <li>Vaishnavi Patil - 8951387220</li>
@@ -124,16 +124,16 @@
             </div>
             
             <!-- Buttons -->
-            <div class="flex flex-col items-center gap-4 mt-8">
+            <div class="flex flex-col items-center gap-3 sm:gap-4 mt-6 sm:mt-8">
                 <button onclick="toggleDescription(this)"
-                        class="px-10 py-3 text-base font-semibold font-['Orbitron'] tracking-wider rounded-lg bg-transparent text-[#00FFFF] 
+                        class="px-6 sm:px-10 py-2 sm:py-3 text-sm sm:text-base font-semibold font-['Orbitron'] tracking-wider rounded-lg bg-transparent text-[#00FFFF] 
                                border-2 border-[#00FFFF] transition-all duration-400 hover:-translate-y-1 
                                hover:shadow-[0_5px_15px_rgba(0,255,255,0.3)] hover:text-[#FF00FF] hover:border-[#FF00FF] mx-auto">
                     Read More
                 </button>
                 
                 <a href="{{ url_for('register_page') }}" 
-                   class="px-10 py-3 bg-[#FF00FF] text-white rounded-lg font-bold uppercase font-['Orbitron']
+                   class="px-6 sm:px-10 py-2 sm:py-3 text-sm sm:text-base bg-[#FF00FF] text-white rounded-lg font-bold uppercase font-['Orbitron']
                           transition-all duration-300 hover:bg-transparent hover:text-[#FF00FF] 
                           hover:border-2 hover:border-[#FF00FF] mx-auto">
                     Register Now
@@ -141,12 +141,12 @@
             </div>
 
             <!-- Event Details -->
-            <ul class="mt-6 p-6 bg-black/20 rounded-lg space-y-3 text-center">
-                <li class="flex items-center justify-center gap-3 text-base text-[#C0C0C0] font-['Rajdhani']">
+            <ul class="mt-4 sm:mt-6 p-4 sm:p-6 bg-black/20 rounded-lg space-y-2 sm:space-y-3 text-center">
+                <li class="flex items-center justify-center gap-3 text-sm sm:text-base text-[#C0C0C0] font-['Rajdhani']">
                     <i class="bi bi-person-fill text-[#00FFFF]"></i>
                     Individual Event
                 </li>
-                <li class="flex items-center justify-center gap-3 text-base text-[#C0C0C0] font-['Rajdhani']">
+                <li class="flex items-center justify-center gap-3 text-sm sm:text-base text-[#C0C0C0] font-['Rajdhani']">
                     <i class="bi bi-cash text-[#00FFFF]"></i>
                     Registration Fee: ₹300
                 </li>
@@ -156,20 +156,20 @@
     </div>
 
     <!-- SHRESTHA VITTA Card -->
-    <div class="max-w-3xl mx-auto mb-12 bg-[rgba(32,34,39,0.95)] backdrop-blur-md p-4 rounded-xl border-2 border-[#00FFFF] 
+    <div class="max-w-3xl mx-auto mb-6 sm:mb-12 bg-[rgba(32,34,39,0.95)] backdrop-blur-md p-3 sm:p-4 rounded-xl border-2 border-[#00FFFF] 
                 transform transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_15px_30px_rgba(0,255,255,0.4)] hover:border-[#FF00FF]">
         
         <!-- Event Image -->
-        <div class="relative h-32 bg-[#121212] flex justify-center items-center">
+        <div class="relative h-24 sm:h-32 bg-[#121212] flex justify-center items-center">
             <img src="{{ url_for('static', filename='assets/logos/finance.jpg') }}" 
                  alt="Finance Event"
-                 class="w-32 h-32 object-contain transition-all duration-500 hover:scale-105 hover:brightness-110">
+                 class="w-24 h-24 sm:w-32 sm:h-32 object-contain transition-all duration-500 hover:scale-105 hover:brightness-110">
             <div class="absolute bottom-0 left-0 w-full h-1/2 bg-gradient-to-b from-transparent to-[rgba(18,18,18,0.95)]"></div>
         </div>
 
         <!-- Event Content -->
-        <div class="p-6 bg-gradient-to-b from-[rgba(18,18,18,0.95)] to-[rgba(18,18,18,1)]">
-            <h3 class="text-2xl mb-4 font-['Orbitron'] text-transparent bg-clip-text bg-gradient-to-r from-[#00FFFF] via-[#FF00FF] to-[#00FFFF] 
+        <div class="p-4 sm:p-6 bg-gradient-to-b from-[rgba(18,18,18,0.95)] to-[rgba(18,18,18,1)]">
+            <h3 class="text-xl sm:text-2xl mb-3 sm:mb-4 font-['Orbitron'] text-transparent bg-clip-text bg-gradient-to-r from-[#00FFFF] via-[#FF00FF] to-[#00FFFF] 
                        drop-shadow-[2px_2px_4px_rgba(0,0,0,0.3)] text-center">
                 SHRESTHA VITTA<br>
                 <span class="text-lg text-[#00FFFF] font-['Rajdhani']">(FINANCE)</span>
@@ -177,19 +177,19 @@
             
             <!-- Event Description -->
             <div class="event-description text-center">
-                <p class="text-lg text-[#C0C0C0] leading-relaxed mb-4 mx-auto font-kannada">
+                <p class="text-base sm:text-lg text-[#C0C0C0] leading-relaxed mb-4 sm:mb-6 mx-auto font-kannada">
                     "ಅಪಾಯವಿಲ್ಲದೆ ಸಂಪಾದಿಸಿ, ವಿಷಾದವಿಲ್ಲದೆ ನೀಡಿ: ವಿಜಯೋತ್ಸವಕ್ಕಾಗಿ ನಿಮ್ಮ ಪ್ರತಿಭೆಗಳನ್ನು ವ್ಯಾಪಾರ ಮಾಡಿ!"
                 </p>
-                <p class="text-lg text-[#C0C0C0] leading-relaxed mb-6 mx-auto font-['Rajdhani']">
+                <p class="text-base sm:text-lg text-[#C0C0C0] leading-relaxed mb-4 sm:mb-6 mx-auto font-['Rajdhani']">
                     "Earn without Risk, Give without Regret: Trade Your Talents for Triumph!" Money won is twice as sweet as money earned.
                 </p>
                 
                 <!-- Expanded Content -->
-                <div class="hidden opacity-0 transition-opacity duration-300 p-8 bg-[rgba(45,49,56,0.8)] rounded-lg mt-4 text-left space-y-6">
+                <div class="hidden opacity-0 transition-opacity duration-300 p-4 sm:p-8 bg-[rgba(45,49,56,0.8)] rounded-lg mt-3 sm:mt-4 text-left space-y-4 sm:space-y-6">
                     <!-- Round Details -->
-                    <div class="bg-[rgba(32,34,39,0.95)] p-4 rounded-lg border-l-4 border-[#00FFFF] hover:border-[#FF00FF] transition-all duration-300">
-                        <h4 class="text-[#00FFFF] text-lg font-['Orbitron'] font-bold mb-3">Competition Rounds:</h4>
-                        <ul class="text-[#C0C0C0] space-y-2 ml-4 font-['Rajdhani']">
+                    <div class="bg-[rgba(32,34,39,0.95)] p-3 sm:p-4 rounded-lg border-l-4 border-[#00FFFF] hover:border-[#FF00FF] transition-all duration-300">
+                        <h4 class="text-base sm:text-lg text-[#00FFFF] font-['Orbitron'] font-bold mb-3">Competition Rounds:</h4>
+                        <ul class="text-sm sm:text-base text-[#C0C0C0] space-y-2 ml-4 font-['Rajdhani']">
                             <li>First Round - Case Study Analysis</li>
                             <li>Second Round - FinQuest: Dive into the Depths (Pick and Speak)</li>
                             <li>Final Round - Mock Trading</li>
@@ -198,17 +198,17 @@
 
                     <!-- Coordinators -->
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div class="bg-[rgba(32,34,39,0.95)] p-4 rounded-lg border-l-4 border-[#00FFFF] hover:border-[#FF00FF] transition-all duration-300">
-                            <h4 class="text-[#00FFFF] text-lg font-['Orbitron'] font-bold mb-3">Faculty Coordinators:</h4>
-                            <ul class="text-[#C0C0C0] space-y-2 ml-4 font-['Rajdhani']">
+                        <div class="bg-[rgba(32,34,39,0.95)] p-3 sm:p-4 rounded-lg border-l-4 border-[#00FFFF] hover:border-[#FF00FF] transition-all duration-300">
+                            <h4 class="text-base sm:text-lg text-[#00FFFF] font-['Orbitron'] font-bold mb-3">Faculty Coordinators:</h4>
+                            <ul class="text-sm sm:text-base text-[#C0C0C0] space-y-2 ml-4 font-['Rajdhani']">
                                 <li>Prof. Manjunath Awalakki - Chairman</li>
                                 <li>Prof. Rahul Moolbharathi - Member</li>
                             </ul>
                         </div>
 
-                        <div class="bg-[rgba(32,34,39,0.95)] p-4 rounded-lg border-l-4 border-[#00FFFF] hover:border-[#FF00FF] transition-all duration-300">
-                            <h4 class="text-[#00FFFF] text-lg font-['Orbitron'] font-bold mb-3">Student Coordinators:</h4>
-                            <ul class="text-[#C0C0C0] space-y-2 ml-4 font-['Rajdhani']">
+                        <div class="bg-[rgba(32,34,39,0.95)] p-3 sm:p-4 rounded-lg border-l-4 border-[#00FFFF] hover:border-[#FF00FF] transition-all duration-300">
+                            <h4 class="text-base sm:text-lg text-[#00FFFF] font-['Orbitron'] font-bold mb-3">Student Coordinators:</h4>
+                            <ul class="text-sm sm:text-base text-[#C0C0C0] space-y-2 ml-4 font-['Rajdhani']">
                                 <li>Ashwin Kumar - 8277466247</li>
                                 <li>Arun Rajput - 8880163300</li>
                                 <li>Narsingh - 9035691013</li>
@@ -221,16 +221,16 @@
             </div>
             
             <!-- Buttons -->
-            <div class="flex flex-col items-center gap-4 mt-8">
+            <div class="flex flex-col items-center gap-3 sm:gap-4 mt-6 sm:mt-8">
                 <button onclick="toggleDescription(this)"
-                        class="px-10 py-3 text-base font-semibold font-['Orbitron'] tracking-wider rounded-lg bg-transparent text-[#00FFFF] 
+                        class="px-6 sm:px-10 py-2 sm:py-3 text-sm sm:text-base font-semibold font-['Orbitron'] tracking-wider rounded-lg bg-transparent text-[#00FFFF] 
                                border-2 border-[#00FFFF] transition-all duration-400 hover:-translate-y-1 
                                hover:shadow-[0_5px_15px_rgba(0,255,255,0.3)] hover:text-[#FF00FF] hover:border-[#FF00FF] mx-auto">
                     Read More
                 </button>
                 
                 <a href="{{ url_for('register_page') }}" 
-                   class="px-10 py-3 bg-[#FF00FF] text-white rounded-lg font-bold uppercase font-['Orbitron']
+                   class="px-6 sm:px-10 py-2 sm:py-3 text-sm sm:text-base bg-[#FF00FF] text-white rounded-lg font-bold uppercase font-['Orbitron']
                           transition-all duration-300 hover:bg-transparent hover:text-[#FF00FF] 
                           hover:border-2 hover:border-[#FF00FF] mx-auto">
                     Register Now
@@ -238,12 +238,12 @@
             </div>
 
             <!-- Event Details -->
-            <ul class="mt-6 p-6 bg-black/20 rounded-lg space-y-3 text-center">
-                <li class="flex items-center justify-center gap-3 text-base text-[#C0C0C0] font-['Rajdhani']">
+            <ul class="mt-4 sm:mt-6 p-4 sm:p-6 bg-black/20 rounded-lg space-y-2 sm:space-y-3 text-center">
+                <li class="flex items-center justify-center gap-3 text-sm sm:text-base text-[#C0C0C0] font-['Rajdhani']">
                     <i class="bi bi-people-fill text-[#00FFFF]"></i>
                     Team Size: 2-3 members
                 </li>
-                <li class="flex items-center justify-center gap-3 text-base text-[#C0C0C0] font-['Rajdhani']">
+                <li class="flex items-center justify-center gap-3 text-sm sm:text-base text-[#C0C0C0] font-['Rajdhani']">
                     <i class="bi bi-cash text-[#00FFFF]"></i>
                     Registration Fee: ₹400/team
                 </li>
@@ -253,20 +253,20 @@
     </div>
 
     <!-- VIPANAN Card -->
-    <div class="max-w-3xl mx-auto mb-12 bg-[rgba(32,34,39,0.95)] backdrop-blur-md p-4 rounded-xl border-2 border-[#00FFFF] 
+    <div class="max-w-3xl mx-auto mb-6 sm:mb-12 bg-[rgba(32,34,39,0.95)] backdrop-blur-md p-3 sm:p-4 rounded-xl border-2 border-[#00FFFF] 
                 transform transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_15px_30px_rgba(0,255,255,0.4)] hover:border-[#FF00FF]">
         
         <!-- Event Image -->
-        <div class="relative h-32 bg-[#121212] flex justify-center items-center">
+        <div class="relative h-24 sm:h-32 bg-[#121212] flex justify-center items-center">
             <img src="{{ url_for('static', filename='assets/logos/marketing.jpg') }}" 
                  alt="Marketing Event"
-                 class="w-32 h-32 object-contain transition-all duration-500 hover:scale-105 hover:brightness-110">
+                 class="w-24 h-24 sm:w-32 sm:h-32 object-contain transition-all duration-500 hover:scale-105 hover:brightness-110">
             <div class="absolute bottom-0 left-0 w-full h-1/2 bg-gradient-to-b from-transparent to-[rgba(18,18,18,0.95)]"></div>
         </div>
 
         <!-- Event Content -->
-        <div class="p-6 bg-gradient-to-b from-[rgba(18,18,18,0.95)] to-[rgba(18,18,18,1)]">
-            <h3 class="text-2xl mb-4 font-['Orbitron'] text-transparent bg-clip-text bg-gradient-to-r from-[#00FFFF] via-[#FF00FF] to-[#00FFFF] 
+        <div class="p-4 sm:p-6 bg-gradient-to-b from-[rgba(18,18,18,0.95)] to-[rgba(18,18,18,1)]">
+            <h3 class="text-xl sm:text-2xl mb-3 sm:mb-4 font-['Orbitron'] text-transparent bg-clip-text bg-gradient-to-r from-[#00FFFF] via-[#FF00FF] to-[#00FFFF] 
                        drop-shadow-[2px_2px_4px_rgba(0,0,0,0.3)] text-center">
                 VIPANAN<br>
                 <span class="text-lg text-[#00FFFF] font-['Rajdhani']">(Marketing)</span>
@@ -274,19 +274,19 @@
             
             <!-- Event Description -->
             <div class="event-description text-center">
-                <p class="text-lg text-[#C0C0C0] leading-relaxed mb-4 mx-auto italic font-['Rajdhani']">
+                <p class="text-base sm:text-lg text-[#C0C0C0] leading-relaxed mb-4 sm:mb-6 mx-auto italic font-['Rajdhani']">
                     "Drive Desire, Spark Action, Elevate Your Business"
                 </p>
-                <p class="text-lg text-[#C0C0C0] leading-relaxed mb-6 mx-auto font-['Rajdhani']">
+                <p class="text-base sm:text-lg text-[#C0C0C0] leading-relaxed mb-4 sm:mb-6 mx-auto font-['Rajdhani']">
                     Do you have the innovation to stand out in the marketing world? Vipanan provides a platform for students to showcase their skills, ignite their creativity, and unleash their clever wits on a global stage.
                 </p>
                 
                 <!-- Expanded Content -->
-                <div class="hidden opacity-0 transition-opacity duration-300 p-8 bg-[rgba(45,49,56,0.8)] rounded-lg mt-4 text-left space-y-6">
+                <div class="hidden opacity-0 transition-opacity duration-300 p-4 sm:p-8 bg-[rgba(45,49,56,0.8)] rounded-lg mt-3 sm:mt-4 text-left space-y-4 sm:space-y-6">
                     <!-- Event Guidelines -->
-                    <div class="bg-[rgba(32,34,39,0.95)] p-4 rounded-lg border-l-4 border-[#00FFFF] hover:border-[#FF00FF] transition-all duration-300">
-                        <h4 class="text-[#00FFFF] text-lg font-['Orbitron'] font-bold mb-3">Event Guidelines:</h4>
-                        <ol class="list-decimal list-inside text-[#C0C0C0] space-y-2 ml-4 font-['Rajdhani']">
+                    <div class="bg-[rgba(32,34,39,0.95)] p-3 sm:p-4 rounded-lg border-l-4 border-[#00FFFF] hover:border-[#FF00FF] transition-all duration-300">
+                        <h4 class="text-base sm:text-lg text-[#00FFFF] font-['Orbitron'] font-bold mb-3">Event Guidelines:</h4>
+                        <ol class="list-decimal list-inside text-sm sm:text-base text-[#C0C0C0] space-y-2 ml-4 font-['Rajdhani']">
                             <li>Teams consist of 2 members at this event</li>
                             <li>Bring college ID cards</li>
                             <li>Bring personal laptops, internet dongles, pen drives, calculators, etc</li>
@@ -299,17 +299,17 @@
 
                     <!-- Coordinators -->
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div class="bg-[rgba(32,34,39,0.95)] p-4 rounded-lg border-l-4 border-[#00FFFF] hover:border-[#FF00FF] transition-all duration-300">
-                            <h4 class="text-[#00FFFF] text-lg font-['Orbitron'] font-bold mb-3">Faculty Coordinators:</h4>
-                            <ul class="text-[#C0C0C0] space-y-2 ml-4 font-['Rajdhani']">
+                        <div class="bg-[rgba(32,34,39,0.95)] p-3 sm:p-4 rounded-lg border-l-4 border-[#00FFFF] hover:border-[#FF00FF] transition-all duration-300">
+                            <h4 class="text-base sm:text-lg text-[#00FFFF] font-['Orbitron'] font-bold mb-3">Faculty Coordinators:</h4>
+                            <ul class="text-sm sm:text-base text-[#C0C0C0] space-y-2 ml-4 font-['Rajdhani']">
                                 <li>Dr. Satish Uplaonkar - Chairman</li>
                                 <li>Dr. Sharangoud Biradar - Member</li>
                             </ul>
                         </div>
 
-                        <div class="bg-[rgba(32,34,39,0.95)] p-4 rounded-lg border-l-4 border-[#00FFFF] hover:border-[#FF00FF] transition-all duration-300">
-                            <h4 class="text-[#00FFFF] text-lg font-['Orbitron'] font-bold mb-3">Student Coordinators:</h4>
-                            <ul class="text-[#C0C0C0] space-y-2 ml-4 font-['Rajdhani']">
+                        <div class="bg-[rgba(32,34,39,0.95)] p-3 sm:p-4 rounded-lg border-l-4 border-[#00FFFF] hover:border-[#FF00FF] transition-all duration-300">
+                            <h4 class="text-base sm:text-lg text-[#00FFFF] font-['Orbitron'] font-bold mb-3">Student Coordinators:</h4>
+                            <ul class="text-sm sm:text-base text-[#C0C0C0] space-y-2 ml-4 font-['Rajdhani']">
                                 <li>Md. Fayaz - 7795437857</li>
                                 <li>Laxmi Ganachari - 8147499657</li>
                                 <li>Bhuvaneshwari - 7022355053</li>
@@ -323,16 +323,16 @@
             </div>
             
             <!-- Buttons -->
-            <div class="flex flex-col items-center gap-4 mt-8">
+            <div class="flex flex-col items-center gap-3 sm:gap-4 mt-6 sm:mt-8">
                 <button onclick="toggleDescription(this)"
-                        class="px-10 py-3 text-base font-semibold font-['Orbitron'] tracking-wider rounded-lg bg-transparent text-[#00FFFF] 
+                        class="px-6 sm:px-10 py-2 sm:py-3 text-sm sm:text-base font-semibold font-['Orbitron'] tracking-wider rounded-lg bg-transparent text-[#00FFFF] 
                                border-2 border-[#00FFFF] transition-all duration-400 hover:-translate-y-1 
                                hover:shadow-[0_5px_15px_rgba(0,255,255,0.3)] hover:text-[#FF00FF] hover:border-[#FF00FF] mx-auto">
                     Read More
                 </button>
                 
                 <a href="{{ url_for('register_page') }}" 
-                   class="px-10 py-3 bg-[#FF00FF] text-white rounded-lg font-bold uppercase font-['Orbitron']
+                   class="px-6 sm:px-10 py-2 sm:py-3 text-sm sm:text-base bg-[#FF00FF] text-white rounded-lg font-bold uppercase font-['Orbitron']
                           transition-all duration-300 hover:bg-transparent hover:text-[#FF00FF] 
                           hover:border-2 hover:border-[#FF00FF] mx-auto">
                     Register Now
@@ -340,12 +340,12 @@
             </div>
 
             <!-- Event Details -->
-            <ul class="mt-6 p-6 bg-black/20 rounded-lg space-y-3 text-center">
-                <li class="flex items-center justify-center gap-3 text-base text-[#C0C0C0] font-['Rajdhani']">
+            <ul class="mt-4 sm:mt-6 p-4 sm:p-6 bg-black/20 rounded-lg space-y-2 sm:space-y-3 text-center">
+                <li class="flex items-center justify-center gap-3 text-sm sm:text-base text-[#C0C0C0] font-['Rajdhani']">
                     <i class="bi bi-people-fill text-[#00FFFF]"></i>
                     Team Size: 2 members
                 </li>
-                <li class="flex items-center justify-center gap-3 text-base text-[#C0C0C0] font-['Rajdhani']">
+                <li class="flex items-center justify-center gap-3 text-sm sm:text-base text-[#C0C0C0] font-['Rajdhani']">
                     <i class="bi bi-cash text-[#00FFFF]"></i>
                     Registration Fee: ₹300/team
                 </li>
@@ -355,20 +355,20 @@
     </div>
 
     <!-- MANAVA SANSADHAN Card -->
-    <div class="max-w-3xl mx-auto mb-12 bg-[rgba(32,34,39,0.95)] backdrop-blur-md p-4 rounded-xl border-2 border-[#00FFFF] 
+    <div class="max-w-3xl mx-auto mb-6 sm:mb-12 bg-[rgba(32,34,39,0.95)] backdrop-blur-md p-3 sm:p-4 rounded-xl border-2 border-[#00FFFF] 
                 transform transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_15px_30px_rgba(0,255,255,0.4)] hover:border-[#FF00FF]">
         
         <!-- Event Image -->
-        <div class="relative h-32 bg-[#121212] flex justify-center items-center">
+        <div class="relative h-24 sm:h-32 bg-[#121212] flex justify-center items-center">
             <img src="{{ url_for('static', filename='assets/logos/hr.jpg') }}" 
                  alt="HR Event"
-                 class="w-32 h-32 object-contain transition-all duration-500 hover:scale-105 hover:brightness-110">
+                 class="w-24 h-24 sm:w-32 sm:h-32 object-contain transition-all duration-500 hover:scale-105 hover:brightness-110">
             <div class="absolute bottom-0 left-0 w-full h-1/2 bg-gradient-to-b from-transparent to-[rgba(18,18,18,0.95)]"></div>
         </div>
 
         <!-- Event Content -->
-        <div class="p-6 bg-gradient-to-b from-[rgba(18,18,18,0.95)] to-[rgba(18,18,18,1)]">
-            <h3 class="text-2xl mb-4 font-['Orbitron'] text-transparent bg-clip-text bg-gradient-to-r from-[#00FFFF] via-[#FF00FF] to-[#00FFFF] 
+        <div class="p-4 sm:p-6 bg-gradient-to-b from-[rgba(18,18,18,0.95)] to-[rgba(18,18,18,1)]">
+            <h3 class="text-xl sm:text-2xl mb-3 sm:mb-4 font-['Orbitron'] text-transparent bg-clip-text bg-gradient-to-r from-[#00FFFF] via-[#FF00FF] to-[#00FFFF] 
                        drop-shadow-[2px_2px_4px_rgba(0,0,0,0.3)] text-center">
                 MANAVA SANSADHAN<br>
                 <span class="text-lg text-[#00FFFF] font-['Rajdhani']">(HR)</span>
@@ -376,19 +376,19 @@
             
             <!-- Event Description -->
             <div class="event-description text-center">
-                <p class="text-lg text-[#C0C0C0] leading-relaxed mb-6 mx-auto font-['Rajdhani']">
+                <p class="text-base sm:text-lg text-[#C0C0C0] leading-relaxed mb-4 sm:mb-6 mx-auto font-['Rajdhani']">
                     Test your human resource management skills through multiple challenging rounds of assessment.
                 </p>
                 
                 <!-- Expanded Content -->
-                <div class="hidden opacity-0 transition-opacity duration-300 p-8 bg-[rgba(45,49,56,0.8)] rounded-lg mt-4 text-left space-y-6">
+                <div class="hidden opacity-0 transition-opacity duration-300 p-4 sm:p-8 bg-[rgba(45,49,56,0.8)] rounded-lg mt-3 sm:mt-4 text-left space-y-4 sm:space-y-6">
                     <!-- Level Details -->
-                    <div class="bg-[rgba(32,34,39,0.95)] p-4 rounded-lg border-l-4 border-[#00FFFF] hover:border-[#FF00FF] transition-all duration-300">
-                        <h4 class="text-[#00FFFF] text-lg font-['Orbitron'] font-bold mb-3">Competition Levels:</h4>
+                    <div class="bg-[rgba(32,34,39,0.95)] p-3 sm:p-4 rounded-lg border-l-4 border-[#00FFFF] hover:border-[#FF00FF] transition-all duration-300">
+                        <h4 class="text-base sm:text-lg text-[#00FFFF] font-['Orbitron'] font-bold mb-3">Competition Levels:</h4>
                         
                         <div class="mb-4">
                             <h5 class="text-[#00FFFF] font-['Rajdhani'] font-bold mb-2">Level 1: Quiz</h5>
-                            <ul class="list-disc list-inside text-[#C0C0C0] space-y-2 ml-4 font-['Rajdhani']">
+                            <ul class="list-disc list-inside text-sm sm:text-base text-[#C0C0C0] space-y-2 ml-4 font-['Rajdhani']">
                                 <li>20 questions</li>
                                 <li>Time duration: 10 minutes</li>
                             </ul>
@@ -396,7 +396,7 @@
 
                         <div class="mb-4">
                             <h5 class="text-[#00FFFF] font-['Rajdhani'] font-bold mb-2">Level 2: Group Discussion</h5>
-                            <ul class="list-disc list-inside text-[#C0C0C0] space-y-2 ml-4 font-['Rajdhani']">
+                            <ul class="list-disc list-inside text-sm sm:text-base text-[#C0C0C0] space-y-2 ml-4 font-['Rajdhani']">
                                 <li>Debates/case studies</li>
                                 <li>Time duration: 20 minutes</li>
                             </ul>
@@ -404,23 +404,23 @@
 
                         <div class="mb-4">
                             <h5 class="text-[#00FFFF] font-['Rajdhani'] font-bold mb-2">Level 3: Personal Interview</h5>
-                            <p class="text-[#C0C0C0] ml-4 font-['Rajdhani']">Interview panel: Dr. Rekha Patil and Dr. Rajshekar Basvapattan</p>
+                            <p class="text-sm sm:text-base text-[#C0C0C0] ml-4 font-['Rajdhani']">Interview panel: Dr. Rekha Patil and Dr. Rajshekar Basvapattan</p>
                         </div>
                     </div>
 
                     <!-- Coordinators -->
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div class="bg-[rgba(32,34,39,0.95)] p-4 rounded-lg border-l-4 border-[#00FFFF] hover:border-[#FF00FF] transition-all duration-300">
-                            <h4 class="text-[#00FFFF] text-lg font-['Orbitron'] font-bold mb-3">Faculty Coordinators:</h4>
-                            <ul class="text-[#C0C0C0] space-y-2 ml-4 font-['Rajdhani']">
+                        <div class="bg-[rgba(32,34,39,0.95)] p-3 sm:p-4 rounded-lg border-l-4 border-[#00FFFF] hover:border-[#FF00FF] transition-all duration-300">
+                            <h4 class="text-base sm:text-lg text-[#00FFFF] font-['Orbitron'] font-bold mb-3">Faculty Coordinators:</h4>
+                            <ul class="text-sm sm:text-base text-[#C0C0C0] space-y-2 ml-4 font-['Rajdhani']">
                                 <li>Dr. Rekha N. patil - Chairman</li>
                                 <li>Dr. Rajshekhar Basavapattan - Member</li>
                             </ul>
                         </div>
 
-                        <div class="bg-[rgba(32,34,39,0.95)] p-4 rounded-lg border-l-4 border-[#00FFFF] hover:border-[#FF00FF] transition-all duration-300">
-                            <h4 class="text-[#00FFFF] text-lg font-['Orbitron'] font-bold mb-3">Student Coordinators:</h4>
-                            <ul class="text-[#C0C0C0] space-y-2 ml-4 font-['Rajdhani']">
+                        <div class="bg-[rgba(32,34,39,0.95)] p-3 sm:p-4 rounded-lg border-l-4 border-[#00FFFF] hover:border-[#FF00FF] transition-all duration-300">
+                            <h4 class="text-base sm:text-lg text-[#00FFFF] font-['Orbitron'] font-bold mb-3">Student Coordinators:</h4>
+                            <ul class="text-sm sm:text-base text-[#C0C0C0] space-y-2 ml-4 font-['Rajdhani']">
                                 <li>Saniya Moosa - 8618573867</li>
                                 <li>Asfiya - 6361264134</li>
                                 <li>Khutaja - 6364155204</li>
@@ -434,16 +434,16 @@
             </div>
             
             <!-- Buttons -->
-            <div class="flex flex-col items-center gap-4 mt-8">
+            <div class="flex flex-col items-center gap-3 sm:gap-4 mt-6 sm:mt-8">
                 <button onclick="toggleDescription(this)"
-                        class="px-10 py-3 text-base font-semibold font-['Orbitron'] tracking-wider rounded-lg bg-transparent text-[#00FFFF] 
+                        class="px-6 sm:px-10 py-2 sm:py-3 text-sm sm:text-base font-semibold font-['Orbitron'] tracking-wider rounded-lg bg-transparent text-[#00FFFF] 
                                border-2 border-[#00FFFF] transition-all duration-400 hover:-translate-y-1 
                                hover:shadow-[0_5px_15px_rgba(0,255,255,0.3)] hover:text-[#FF00FF] hover:border-[#FF00FF] mx-auto">
                     Read More
                 </button>
                 
                 <a href="{{ url_for('register_page') }}" 
-                   class="px-10 py-3 bg-[#FF00FF] text-white rounded-lg font-bold uppercase font-['Orbitron']
+                   class="px-6 sm:px-10 py-2 sm:py-3 text-sm sm:text-base bg-[#FF00FF] text-white rounded-lg font-bold uppercase font-['Orbitron']
                           transition-all duration-300 hover:bg-transparent hover:text-[#FF00FF] 
                           hover:border-2 hover:border-[#FF00FF] mx-auto">
                     Register Now
@@ -451,12 +451,12 @@
             </div>
 
             <!-- Event Details -->
-            <ul class="mt-6 p-6 bg-black/20 rounded-lg space-y-3 text-center">
-                <li class="flex items-center justify-center gap-3 text-base text-[#C0C0C0] font-['Rajdhani']">
+            <ul class="mt-4 sm:mt-6 p-4 sm:p-6 bg-black/20 rounded-lg space-y-2 sm:space-y-3 text-center">
+                <li class="flex items-center justify-center gap-3 text-sm sm:text-base text-[#C0C0C0] font-['Rajdhani']">
                     <i class="bi bi-person-fill text-[#00FFFF]"></i>
                     Individual Event
                 </li>
-                <li class="flex items-center justify-center gap-3 text-base text-[#C0C0C0] font-['Rajdhani']">
+                <li class="flex items-center justify-center gap-3 text-sm sm:text-base text-[#C0C0C0] font-['Rajdhani']">
                     <i class="bi bi-cash text-[#00FFFF]"></i>
                     Registration Fee: ₹250
                 </li>
@@ -466,20 +466,20 @@
     </div>
 
     <!-- SUMEDHA Card -->
-    <div class="max-w-3xl mx-auto mb-12 bg-[rgba(32,34,39,0.95)] backdrop-blur-md p-4 rounded-xl border-2 border-[#00FFFF] 
+    <div class="max-w-3xl mx-auto mb-6 sm:mb-12 bg-[rgba(32,34,39,0.95)] backdrop-blur-md p-3 sm:p-4 rounded-xl border-2 border-[#00FFFF] 
                 transform transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_15px_30px_rgba(0,255,255,0.4)] hover:border-[#FF00FF]">
         
         <!-- Event Image -->
-        <div class="relative h-32 bg-[#121212] flex justify-center items-center">
+        <div class="relative h-24 sm:h-32 bg-[#121212] flex justify-center items-center">
             <img src="{{ url_for('static', filename='assets/logos/startup.jpg') }}" 
                  alt="Business Startup Event"
-                 class="w-32 h-32 object-contain transition-all duration-500 hover:scale-105 hover:brightness-110">
+                 class="w-24 h-24 sm:w-32 sm:h-32 object-contain transition-all duration-500 hover:scale-105 hover:brightness-110">
             <div class="absolute bottom-0 left-0 w-full h-1/2 bg-gradient-to-b from-transparent to-[rgba(18,18,18,0.95)]"></div>
         </div>
 
         <!-- Event Content -->
-        <div class="p-6 bg-gradient-to-b from-[rgba(18,18,18,0.95)] to-[rgba(18,18,18,1)]">
-            <h3 class="text-2xl mb-4 font-['Orbitron'] text-transparent bg-clip-text bg-gradient-to-r from-[#00FFFF] via-[#FF00FF] to-[#00FFFF] 
+        <div class="p-4 sm:p-6 bg-gradient-to-b from-[rgba(18,18,18,0.95)] to-[rgba(18,18,18,1)]">
+            <h3 class="text-xl sm:text-2xl mb-3 sm:mb-4 font-['Orbitron'] text-transparent bg-clip-text bg-gradient-to-r from-[#00FFFF] via-[#FF00FF] to-[#00FFFF] 
                        drop-shadow-[2px_2px_4px_rgba(0,0,0,0.3)] text-center">
                 SUMEDHA<br>
                 <span class="text-lg text-[#00FFFF] font-['Rajdhani']">(Business Start-up)</span>
@@ -487,16 +487,16 @@
             
             <!-- Event Description -->
             <div class="event-description text-center">
-                <p class="text-lg text-[#C0C0C0] leading-relaxed mb-6 mx-auto font-['Rajdhani']">
+                <p class="text-base sm:text-lg text-[#C0C0C0] leading-relaxed mb-4 sm:mb-6 mx-auto font-['Rajdhani']">
                     Present your innovative business ideas and get mentored by industry experts to transform your vision into reality.
                 </p>
                 
                 <!-- Expanded Content -->
-                <div class="hidden opacity-0 transition-opacity duration-300 p-8 bg-[rgba(45,49,56,0.8)] rounded-lg mt-4 text-left space-y-6">
+                <div class="hidden opacity-0 transition-opacity duration-300 p-4 sm:p-8 bg-[rgba(45,49,56,0.8)] rounded-lg mt-3 sm:mt-4 text-left space-y-4 sm:space-y-6">
                     <!-- Rules and Regulations -->
-                    <div class="bg-[rgba(32,34,39,0.95)] p-4 rounded-lg border-l-4 border-[#00FFFF] hover:border-[#FF00FF] transition-all duration-300">
-                        <h4 class="text-[#00FFFF] text-lg font-['Orbitron'] font-bold mb-3">Rules & Regulations:</h4>
-                        <ol class="list-decimal list-inside text-[#C0C0C0] space-y-2 ml-4 font-['Rajdhani']">
+                    <div class="bg-[rgba(32,34,39,0.95)] p-3 sm:p-4 rounded-lg border-l-4 border-[#00FFFF] hover:border-[#FF00FF] transition-all duration-300">
+                        <h4 class="text-base sm:text-lg text-[#00FFFF] font-['Orbitron'] font-bold mb-3">Rules & Regulations:</h4>
+                        <ol class="list-decimal list-inside text-sm sm:text-base text-[#C0C0C0] space-y-2 ml-4 font-['Rajdhani']">
                             <li>A team must include a minimum of two members and a maximum of five members</li>
                             <li>Each team may submit up to three business ideas in separate sheets</li>
                             <li>One idea per team will be shortlisted by the Jury and the results will be announced</li>
@@ -512,18 +512,18 @@
 
                     <!-- Coordinators -->
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div class="bg-[rgba(32,34,39,0.95)] p-4 rounded-lg border-l-4 border-[#00FFFF] hover:border-[#FF00FF] transition-all duration-300">
-                            <h4 class="text-[#00FFFF] text-lg font-['Orbitron'] font-bold mb-3">Faculty Coordinators:</h4>
-                            <ul class="text-[#C0C0C0] space-y-2 ml-4 font-['Rajdhani']">
+                        <div class="bg-[rgba(32,34,39,0.95)] p-3 sm:p-4 rounded-lg border-l-4 border-[#00FFFF] hover:border-[#FF00FF] transition-all duration-300">
+                            <h4 class="text-base sm:text-lg text-[#00FFFF] font-['Orbitron'] font-bold mb-3">Faculty Coordinators:</h4>
+                            <ul class="text-sm sm:text-base text-[#C0C0C0] space-y-2 ml-4 font-['Rajdhani']">
                                 <li>Dr. Shubhangi D. C. - Chairman (IPR)</li>
                                 <li>Dr. B. Shambhu Lingappa - Chairman</li>
                                 <li>Dr. Shailaja Kheni - Member</li>
                             </ul>
                         </div>
 
-                        <div class="bg-[rgba(32,34,39,0.95)] p-4 rounded-lg border-l-4 border-[#00FFFF] hover:border-[#FF00FF] transition-all duration-300">
-                            <h4 class="text-[#00FFFF] text-lg font-['Orbitron'] font-bold mb-3">Student Coordinators:</h4>
-                            <ul class="text-[#C0C0C0] space-y-2 ml-4 font-['Rajdhani']">
+                        <div class="bg-[rgba(32,34,39,0.95)] p-3 sm:p-4 rounded-lg border-l-4 border-[#00FFFF] hover:border-[#FF00FF] transition-all duration-300">
+                            <h4 class="text-base sm:text-lg text-[#00FFFF] font-['Orbitron'] font-bold mb-3">Student Coordinators:</h4>
+                            <ul class="text-sm sm:text-base text-[#C0C0C0] space-y-2 ml-4 font-['Rajdhani']">
                                 <li>Deepak - 8050290826</li>
                                 <li>Anusha - 9663844136</li>
                                 <li>Chandrakala - 9986826481</li>
@@ -535,16 +535,16 @@
             </div>
             
             <!-- Buttons -->
-            <div class="flex flex-col items-center gap-4 mt-8">
+            <div class="flex flex-col items-center gap-3 sm:gap-4 mt-6 sm:mt-8">
                 <button onclick="toggleDescription(this)"
-                        class="px-10 py-3 text-base font-semibold font-['Orbitron'] tracking-wider rounded-lg bg-transparent text-[#00FFFF] 
+                        class="px-6 sm:px-10 py-2 sm:py-3 text-sm sm:text-base font-semibold font-['Orbitron'] tracking-wider rounded-lg bg-transparent text-[#00FFFF] 
                                border-2 border-[#00FFFF] transition-all duration-400 hover:-translate-y-1 
                                hover:shadow-[0_5px_15px_rgba(0,255,255,0.3)] hover:text-[#FF00FF] hover:border-[#FF00FF] mx-auto">
                     Read More
                 </button>
                 
                 <a href="{{ url_for('register_page') }}" 
-                   class="px-10 py-3 bg-[#FF00FF] text-white rounded-lg font-bold uppercase font-['Orbitron']
+                   class="px-6 sm:px-10 py-2 sm:py-3 text-sm sm:text-base bg-[#FF00FF] text-white rounded-lg font-bold uppercase font-['Orbitron']
                           transition-all duration-300 hover:bg-transparent hover:text-[#FF00FF] 
                           hover:border-2 hover:border-[#FF00FF] mx-auto">
                     Register Now
@@ -552,12 +552,12 @@
             </div>
 
             <!-- Event Details -->
-            <ul class="mt-6 p-6 bg-black/20 rounded-lg space-y-3 text-center">
-                <li class="flex items-center justify-center gap-3 text-base text-[#C0C0C0] font-['Rajdhani']">
+            <ul class="mt-4 sm:mt-6 p-4 sm:p-6 bg-black/20 rounded-lg space-y-2 sm:space-y-3 text-center">
+                <li class="flex items-center justify-center gap-3 text-sm sm:text-base text-[#C0C0C0] font-['Rajdhani']">
                     <i class="bi bi-people-fill text-[#00FFFF]"></i>
                     Team Size: 2-5 members
                 </li>
-                <li class="flex items-center justify-center gap-3 text-base text-[#C0C0C0] font-['Rajdhani']">
+                <li class="flex items-center justify-center gap-3 text-sm sm:text-base text-[#C0C0C0] font-['Rajdhani']">
                     <i class="bi bi-cash text-[#00FFFF]"></i>
                     Registration Fee: ₹500/team
                 </li>
@@ -567,6 +567,24 @@
     </div>
 
 </div>
+
+<!-- Add responsive styles -->
+<style>
+    @media (max-width: 640px) {
+        .event-description > div {
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+        
+        .grid {
+            grid-template-columns: 1fr;
+        }
+        
+        .coordinator-section {
+            margin-top: 1rem;
+        }
+    }
+</style>
 
 <script>
     // Toggle description functionality
