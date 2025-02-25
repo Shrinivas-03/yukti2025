@@ -236,9 +236,13 @@
 <body class="bg-dark text-white">
 
     <script>
-        // Force reload every time the page is loaded
-        window.location.reload(true); // Force reload from server
+        // Check if page has been reloaded in this session
+        if (!sessionStorage.getItem('reloaded')) {
+            sessionStorage.setItem('reloaded', 'true');
+            window.location.reload(true); // Force reload from server
+        }
     </script>
+    
     
     <!-- Navbar -->
     <header class="fixed top-0 w-full z-[2001] bg-[rgba(30,30,30,0.9)] h-16 sm:h-18 md:h-20 shadow-lg backdrop-blur-md">
