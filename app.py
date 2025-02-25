@@ -54,22 +54,7 @@ app.config.update(
     PERMANENT_SESSION_LIFETIME=timedelta(minutes=30)  # Increased from 5 to 30 minutes
 )
 
-
-
-#Function to set cache headers
-# Set Cache-Control headers for static responses
-@app.after_request
-def add_cache_headers(response):
-    if request.path.startswith('/static/'):
-        # Cache static files for 1 year (versioned URLs ensure freshness)
-        response.headers['Cache-Control'] = 'public, max-age=31536000, immutable'
-    else:
-        # Prevent caching for all other routes (dynamic content)
-        response.headers['Cache-Control'] = 'no-store, no-cache, must-revalidate, max-age=0'
-        response.headers['Pragma'] = 'no-cache'
-        response.headers['Expires'] = '0'
-    return response
-
+# Remove the cache-related function and keep the static file serving route
 # Serve images from multiple static subdirectories
 @app.route('/static/<folder>/<path:filename>')
 def serve_static_files(folder, filename):
