@@ -60,9 +60,15 @@ app.config.update(
 # Set Cache-Control headers for static responses
 @app.after_request
 def add_cache_headers(response):
-    if 'Cache-Control' not in response.headers:
-        response.headers['Cache-Control'] = 'public, max-age=31536000'  # Cache for 1 year
-    return response  # Always return the response
+    if request.path.startswith('/static/'):
+        # Cache static files for 1 year (versioned URLs ensure freshness)
+        response.headers['Cache-Control'] = 'public, max-age=31536000, immutable'
+    else:
+        # Prevent caching for all other routes (dynamic content)
+        response.headers['Cache-Control'] = 'no-store, no-cache, must-revalidate, max-age=0'
+        response.headers['Pragma'] = 'no-cache'
+        response.headers['Expires'] = '0'
+    return response
 
 # Serve images from multiple static subdirectories
 @app.route('/static/<folder>/<path:filename>')
@@ -93,7 +99,7 @@ def send_registration_email(to_email, ack_id, details):
                     Visvesvaraya Technological University
                 </h1>
                 <h2 style="margin: 0 0 5px 0; font-size: 20px;">
-                    Center of PG Studies And Regional Office Kalaburagi
+                    Center for PG Studies And Regional Office Kalaburagi
                 </h2>
                 <div style="font-size: 22px; font-weight: bold; letter-spacing: 2px; color: #FFD700;">
                     Yukti-2025
