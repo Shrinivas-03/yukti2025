@@ -73,27 +73,7 @@
                 }
             }
         }
-        module.exports = {
-  content: ["./src/**/*.{html,js,ts,jsx,tsx}"], // Adjust paths if needed
-  theme: {
-    extend: {
-      fontFamily: {
-        turbo: ["TurboType", "sans-serif"], // Custom font family
-      },
-      animation: {
-        fadeIn: "fadeIn 0.8s ease forwards",
-        pulse: "pulse 2s ease-in-out infinite",
-      },
-      keyframes: {
-        fadeIn: {
-          "0%": { opacity: 0, transform: "translateY(8px)" },
-          "100%": { opacity: 1, transform: "translateY(0)" },
-        },
-      },
-    },
-  },
-  plugins: [],
-};
+       
 
     </script>
     <style>
@@ -383,11 +363,11 @@
                             <a href="{{ url_for('register_page') }}" class="relative overflow-hidden px-4 sm:px-6 py-2 sm:py-3 rounded-lg font-bold
                       text-sm sm:text-base md:text-lg group">
                                 <span class="relative z-10 text-white">Register</span>
-                                <div class="absolute inset-0 bg-gradient-to-r from-[#6D28D9] via-[#00FFFF] to-[#FF00FF]
+                                <div class="absolute inset-0 bg-gradient-to-r from-[#00FFFF] to-[#FF00FF]
                             animate-[gradient-flow_3s_ease-in-out_infinite]"></div>
                                 <div class="absolute inset-0 opacity-0 group-hover:opacity-100 
                             transition-opacity duration-300 bg-gradient-to-r 
-                            from-[#FF00FF] via-[#00FFFF] to-[#6D28D9]
+                            from-[#FF00FF] to-[#00FFFF]
                             animate-[gradient-flow_3s_ease-in-out_infinite]"></div>
                                 <div class="absolute -inset-[2px] bg-gradient-to-r from-[#00FFFF] to-[#FF00FF] 
                             rounded-lg opacity-0 group-hover:opacity-100 blur-md 
@@ -447,7 +427,7 @@
                         <li class="flex items-center gap-2 group">
                             <span class="text-[#00FFFF] text-lg">•</span>
                             <a href="{{ url_for('register_page') }}"
-                                class="text-gray-300 hover:text-[#FF00FF] transition-colors duration-300">
+                                class="text-gray-300 hover:text-[#00FFFF] transition-colors duration-300">
                                 Register
                             </a>
                         </li>
