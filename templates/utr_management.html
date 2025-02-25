@@ -1,0 +1,316 @@
+{% extends "base.html" %}
+
+{% block title %}Payment Management - YUKTI 2025{% endblock %}
+
+{% block content %}
+<div class="h-0.5 bg-gradient-to-r from-[#6D28D9] via-[#3B82F6] to-[#00FFFF]"></div>
+
+<div class="min-h-screen bg-gradient-to-br from-[#1C1C1C] to-[#0A0A0A] py-12 px-4">
+    <div class="max-w-3xl mx-auto">
+        <div class="bg-[rgba(46,46,46,0.8)] backdrop-blur-md p-6 rounded-xl border-2 border-[#00FFFF] 
+                    shadow-[0_0_15px_rgba(0,255,255,0.3)]">
+            
+            <h1 class="text-3xl font-bold text-[#00FFFF] text-center mb-8 font-['Orbitron']">
+                Payment Management
+            </h1>
+
+            <!-- Search Section -->
+            <div class="mb-8">
+                <div class="flex gap-4">
+                    <div class="flex-1">
+                        <label class="block text-[#00FFFF] mb-2">Registration ID</label>
+                        <div class="flex gap-2">
+                            <span class="bg-[rgba(32,34,39,0.8)] text-white p-3 border-2 border-[#00FFFF] rounded-lg">
+                                YUKTI-2025-
+                            </span>
+                            <input type="text" 
+                                   id="searchId" 
+                                   placeholder="00001" 
+                                   maxlength="5"
+                                   pattern="[0-9]{5}"
+                                   class="flex-1 p-3 bg-[rgba(32,34,39,0.8)] border-2 border-[#00FFFF] rounded-lg text-white
+                                          placeholder:text-gray-400 outline-none">
+                        </div>
+                    </div>
+                    <button onclick="searchRegistration()"
+                            class="self-end px-6 py-3 bg-[#FF00FF] text-white rounded-lg font-bold
+                                   transition-all duration-300 hover:bg-transparent hover:text-[#FF00FF] 
+                                   hover:border-2 hover:border-[#FF00FF]">
+                        Search
+                    </button>
+                </div>
+                <p id="searchError" class="text-red-500 mt-2 hidden">Registration not found</p>
+            </div>
+
+            <!-- Registration Details -->
+            <div id="registrationDetails" class="hidden space-y-6">
+                <div class="bg-[rgba(32,34,39,0.8)] p-6 rounded-lg border border-[#00FFFF]">
+                    <h3 class="text-xl text-[#00FFFF] font-['Orbitron'] mb-4">Registration Details</h3>
+                    <div class="grid grid-cols-2 gap-4 text-[#C0C0C0]">
+                        <p><strong>College:</strong> <span id="collegeText"></span></p>
+                        <p><strong>Email:</strong> <span id="emailText"></span></p>
+                        <p><strong>Total Amount:</strong> ₹<span id="amountText"></span></p>
+                        <p><strong>Payment Status:</strong> <span id="statusText"></span></p>
+                    </div>
+                </div>
+
+                <!-- Add Event Details Section -->
+                <div class="bg-[rgba(32,34,39,0.8)] p-6 rounded-lg border border-[#00FFFF]">
+                    <h3 class="text-xl text-[#00FFFF] font-['Orbitron'] mb-4">Event Details</h3>
+                    <div id="eventsList" class="space-y-4">
+                        <!-- Events will be populated dynamically -->
+                    </div>
+                </div>
+
+                <!-- Payment Update Form -->
+                <div id="paymentUpdateForm" class="bg-[rgba(32,34,39,0.8)] p-6 rounded-lg border border-[#00FFFF]">
+                    <h3 class="text-xl text-[#00FFFF] font-['Orbitron'] mb-4">Update Payment</h3>
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-[#00FFFF] mb-2">Payment Type</label>
+                            <select id="paymentType" 
+                                    onchange="updateReferenceLabel()"
+                                    class="w-full p-3 bg-[rgba(32,34,39,0.8)] border-2 border-[#00FFFF] rounded-lg text-white">
+                                <option value="utr">UTR Number</option>
+                                <option value="dd">DD Number</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label id="referenceLabel" class="block text-[#00FFFF] mb-2">UTR Number</label>
+                            <input type="text" 
+                                   id="referenceNumber" 
+                                   class="w-full p-3 bg-[rgba(32,34,39,0.8)] border-2 border-[#00FFFF] rounded-lg text-white
+                                          placeholder:text-gray-400 outline-none">
+                        </div>
+                        <button onclick="updatePayment()"
+                                class="w-full bg-[#FF00FF] text-white py-3 px-6 rounded-lg font-bold uppercase 
+                                       transition-all duration-300 hover:bg-transparent hover:text-[#FF00FF] 
+                                       hover:border-2 hover:border-[#FF00FF]">
+                            Update Payment
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="h-0.5 bg-gradient-to-r from-[#6D28D9] via-[#3B82F6] to-[#00FFFF]"></div>
+
+<script>
+let currentAckId = '';
+
+function updateReferenceLabel() {
+    const paymentType = document.getElementById('paymentType').value;
+    const label = document.getElementById('referenceLabel');
+    label.textContent = paymentType === 'utr' ? 'UTR Number' : 'DD Number';
+}
+
+async function searchRegistration() {
+    const searchId = document.getElementById('searchId').value;
+    if (!searchId || searchId.length !== 5) {
+        alert('Please enter a valid 5-digit number');
+        return;
+    }
+
+    const ackId = `YUKTI-2025-${searchId.padStart(5, '0')}`;
+    currentAckId = ackId;
+
+    try {
+        const response = await fetch(`/api/search-registration-utr/${ackId}`, { 
+            cache: 'no-store',
+            headers: {
+                'Accept': 'application/json'
+            }
+        });
+        
+        const data = await response.json();
+
+        if (data.success) {
+            document.getElementById('searchError').classList.add('hidden');
+            document.getElementById('registrationDetails').classList.remove('hidden');
+            
+            // Update basic details
+            document.getElementById('collegeText').textContent = data.registration.college;
+            document.getElementById('emailText').textContent = data.registration.email;
+            document.getElementById('amountText').textContent = data.registration.total_cost;
+            const statusText = document.getElementById('statusText');
+            const status = data.registration.payment_status || 'pending';
+            statusText.textContent = status.charAt(0).toUpperCase() + status.slice(1);
+            // Add color styling based on status
+            if (status === 'paid') {
+                statusText.className = 'text-green-500 font-bold';
+            } else {
+                statusText.className = 'text-yellow-500 font-bold';
+            }
+            
+            // Update event details
+            const eventsList = document.getElementById('eventsList');
+            eventsList.innerHTML = ''; // Clear previous events
+            
+            data.registration.event_details.forEach(event => {
+                const eventDiv = document.createElement('div');
+                eventDiv.className = 'bg-[rgba(46,46,46,0.8)] p-4 rounded-lg border border-[#00FFFF] mb-4';
+                
+                let participantsHtml = '';
+                if (event.type === 'team' && event.members) {
+                    participantsHtml = `
+                        <div class="mt-2 text-gray-300">
+                            <strong>Team Members:</strong>
+                            <ul class="list-disc list-inside">
+                                ${event.members.map(member => 
+                                    `<li>${member.name} (${member.usn})</li>`
+                                ).join('')}
+                            </ul>
+                        </div>`;
+                } else if (event.participant) {
+                    participantsHtml = `
+                        <div class="mt-2 text-gray-300">
+                            <strong>Participant:</strong> ${event.participant.name} (${event.participant.usn})
+                        </div>`;
+                }
+
+                eventDiv.innerHTML = `
+                    <div class="text-[#00FFFF] font-semibold">${event.event}</div>
+                    <div class="text-gray-300 text-sm mt-1">
+                        <span>Category: ${event.category}</span>
+                        <span class="mx-2">|</span>
+                        <span>Type: ${event.type}</span>
+                        <span class="mx-2">|</span>
+                        <span>Cost: ₹${event.cost}</span>
+                    </div>
+                    ${participantsHtml}
+                `;
+                
+                eventsList.appendChild(eventDiv);
+            });
+
+            // Pre-fill payment details if any
+            if (data.registration.utr_number || data.registration.dd_number) {
+                const paymentType = data.registration.payment_type || 'utr';
+                document.getElementById('paymentType').value = paymentType;
+                document.getElementById('referenceNumber').value = 
+                    paymentType === 'utr' ? data.registration.utr_number : data.registration.dd_number;
+                updateReferenceLabel();
+            } else {
+                // Reset payment fields if no existing payment
+                document.getElementById('paymentType').value = 'utr';
+                document.getElementById('referenceNumber').value = '';
+                updateReferenceLabel();
+            }
+
+            // Disable payment form if already paid
+            const paymentForm = document.getElementById('paymentUpdateForm');
+            if (!paymentForm) {
+                console.error('Payment form not found');
+                return;
+            }
+            const paymentInputs = paymentForm.querySelectorAll('input, select, button');
+            
+            if (status === 'paid') {
+                // Remove any existing banner first
+                const existingBanner = paymentForm.querySelector('.payment-status-banner');
+                if (existingBanner) {
+                    existingBanner.remove();
+                }
+
+                // Add paid status banner
+                paymentForm.insertAdjacentHTML('afterbegin', `
+                    <div class="payment-status-banner bg-green-500/20 border border-green-500 rounded-lg p-4 mb-4 text-center">
+                        <p class="text-green-500 font-bold">Payment Completed</p>
+                        <p class="text-gray-300 text-sm">
+                            ${data.registration.payment_type === 'utr' ? 'UTR' : 'DD'} Number: 
+                            ${data.registration.utr_number || data.registration.dd_number}
+                        </p>
+                    </div>
+                `);
+                
+                // Disable all form inputs
+                paymentInputs.forEach(input => {
+                    input.disabled = true;
+                    input.classList.add('opacity-50', 'cursor-not-allowed');
+                });
+                
+                // Hide the update button
+                const updateBtn = paymentForm.querySelector('button');
+                if (updateBtn) {
+                    updateBtn.style.display = 'none';
+                }
+            } else {
+                // Enable form if not paid
+                const existingBanner = paymentForm.querySelector('.payment-status-banner');
+                if (existingBanner) {
+                    existingBanner.remove();
+                }
+
+                paymentInputs.forEach(input => {
+                    input.disabled = false;
+                    input.classList.remove('opacity-50', 'cursor-not-allowed');
+                });
+                
+                const updateBtn = paymentForm.querySelector('button');
+                if (updateBtn) {
+                    updateBtn.style.display = 'block';
+                }
+            }
+        } else {
+            document.getElementById('searchError').textContent = data.message;
+            document.getElementById('searchError').classList.remove('hidden');
+            document.getElementById('registrationDetails').classList.add('hidden');
+        }
+    } catch (error) {
+        document.getElementById('searchError').textContent = 'An error occurred';
+        document.getElementById('searchError').classList.remove('hidden');
+        document.getElementById('registrationDetails').classList.add('hidden');
+    }
+}
+
+async function updatePayment() {
+    if (!currentAckId) {
+        alert('Please search for a registration first');
+        return;
+    }
+
+    const paymentType = document.getElementById('paymentType').value;
+    const referenceNumber = document.getElementById('referenceNumber').value;
+
+    if (!referenceNumber) {
+        alert('Please enter a reference number');
+        return;
+    }
+
+    try {
+        const response = await fetch('/api/update-payment', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                ack_id: currentAckId,
+                payment_type: paymentType,
+                reference_number: referenceNumber
+            })
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+            alert('Payment details updated successfully');
+            document.getElementById('referenceNumber').value = '';
+            setTimeout(() => {
+                location.reload();
+            }, 1500);
+        } else {
+            alert('Update failed. Please try again.');
+        }
+    } catch (error) {
+        alert('An error occurred. Please try again.');
+    }
+}
+
+// Initialize the page
+document.addEventListener('DOMContentLoaded', function() {
+    updateReferenceLabel();
+});
+</script>
+{% endblock %}

@@ -14,12 +14,44 @@
                     shadow-[0_0_15px_rgba(0,255,255,0.3)] mb-8 
                     transform transition-all duration-300 hover:border-[#FF00FF] 
                     hover:shadow-[0_15px_30px_rgba(0,255,255,0.4)]">
+
+                    <h1 style="margin: 0 0 1.5rem 0; 
+          font-size: 24px;
+          font-family: 'Orbitron', sans-serif;
+          color: #00FFFF;
+          text-align: center;
+          font-weight: bold;
+          text-transform: uppercase;
+          letter-spacing: 1px;">
+    Visvesvaraya Technological University
+</h1>
+
+<h2 style="margin: 0 0 1.5rem 0;
+          font-size: 20px;
+          font-family: 'Orbitron', sans-serif;
+          color: #00FFFF;
+          text-align: center;
+          font-weight: bold;
+          letter-spacing: 0.5px;">
+    Center for PG Studies And Regional Office Kalaburagi
+</h2>
+
+<div style="font-size: 22px;
+          font-family: 'Orbitron', sans-serif;
+          color: #00FFFF;
+          text-align: center;
+          font-weight: bold;
+          letter-spacing: 2px;
+          text-shadow: 0 0 8px rgba(0, 255, 255, 0.6);
+          margin-bottom: 1.5rem;">
+    Yukti-2025
+</div>
             
-            <h1 class="text-3xl font-bold text-[#00FFFF] text-center mb-6 font-['Orbitron']">Registration Successful!</h1>
+            <h3 class="text-3xl font-bold text-[#00FFFF] text-center mb-6 font-['Orbitron']">Registration Successful!</h3>
             
             <!-- Registration Details -->
             <div class="space-y-6">
-                <h2 class="text-2xl text-[#00FFFF] font-['Orbitron']">Acknowledgement ID: {{ ack_id }}</h2>
+                <h3 class="text-2xl text-[#00FFFF] font-['Orbitron']">Acknowledgement ID: {{ ack_id }}</h3>
                 
                 <!-- Personal Details -->
                 <div class="bg-[rgba(32,34,39,0.8)] p-6 rounded-lg border border-[#00FFFF] space-y-4">
@@ -70,8 +102,33 @@
 
                 <!-- Important Note -->
                 <div class="bg-[rgba(255,0,255,0.1)] border-2 border-[#FF00FF] p-4 rounded-lg text-center">
-                    <p class="text-[#FF00FF] font-bold mb-2">
-                        Please pay the registration fees at the registration desk on the event day.
+                    <p style="color: #FF00FF; 
+                    font-weight: bold; 
+                    margin: 0 0 1rem 0;
+                    border-left: 3px solid #FF00FF;
+                    padding-left: 15px;
+                    text-align: left;">
+                Kindly ensure the registration fees are paid either:<br>
+                - At the registration desk <strong style="color: #FF00FF;">OR</strong><br>
+                - Via Demand Draft (DD) submitted on the event day<br><br>
+                
+                <span style="color: #FF00FF;">Event Date:</span><br>
+                10 March 2025<br>
+                8:00 AM to 10:30 A.M.<br><br>
+                
+                <span style="display: block; margin-top: 10px; font-size: 0.9em;">
+                    ※ DD should be drawn in favor of:<br>
+                    "The Finance Officer VTU Belagavi Yukti Cultural Account"<br>
+                    A/C: 110226756934 | Canara Bank | IFSC: CNRB0001829
+                </span>
+            </p>
+                    <p class="text-[#C0C0C0]">
+                        Please bring valid college Id while coming to the event..
+                    </p>
+                    <p class="text-[#C0C0C0]">
+                        <p class="text-[#C0C0C0]">
+                            Please bring HardCopy Of Acknowledgement Pdf.
+                        </p>
                     </p>
                     <p class="text-[#C0C0C0]">
                         Keep this acknowledgement ID for future reference.
@@ -110,11 +167,34 @@
 <!-- PDF Template -->
 <div id="pdf-template" style="display: none;">
     <div style="padding: 20px; font-family: Arial, sans-serif; color: black;">
-        <div style="text-align: center; border-bottom: 2px solid black; padding-bottom: 10px; margin-bottom: 20px;">
-            <img src="{{ url_for('static', filename='images/logo.png') }}" alt="YUKTI 2025" style="width: 100px; margin-bottom: 10px; display: block; margin-left: auto; margin-right: auto;">
-            <h1 style="margin: 0;">YUKTI 2025</h1>
-            <h2 style="margin: 10px 0;">Registration Confirmation</h2>
-            <p style="color: #666;">{{ details.registration_date|format_datetime }}</p>
+        <div style="position: relative; border-bottom: 2px solid black; padding-bottom: 10px; margin-bottom: 20px;">
+            <!-- Logo on top left -->
+            <img src="{{ url_for('static', filename='images/logo.png') }}" 
+                 alt="YUKTI 2025" 
+                 style="width: 100px; position: absolute; left: 0; top: 0;">
+    
+            <!-- Centered text container -->
+            <div style="text-align: center; margin: 0 auto;">
+                <!-- Line 2: University Name -->
+                <h1 style="margin: 0 0 5px 0; font-size: 24px;">
+                    Visvesvaraya Technological University
+                </h1>
+                
+                <!-- Line 3: Center Name -->
+                <h2 style="margin: 0 0 5px 0; font-size: 20px;">
+                    Center for PG Studies And Regional Office Kalaburagi
+                </h2>
+                
+                <!-- Line 4: Event Name -->
+                <div style="font-size: 22px; font-weight: bold; letter-spacing: 2px;">
+                    Yukti-2025
+                </div>
+                
+                <!-- Registration Date -->
+                <p style="color: #666; margin: 5px 0 0 0;">
+                    {{ details.registration_date|format_datetime }}
+                </p>
+            </div>
         </div>
 
         <div style="margin-bottom: 20px;">
@@ -164,7 +244,24 @@
 
         <div style="margin-top: 20px; text-align: center;">
             <div style="border: 2px solid black; padding: 10px; margin-bottom: 20px;">
-                <p style="margin: 5px 0; font-weight: bold;">Kindly ensure that the registration fees are paid at the registration desk on the event day, March 10, by 8:00 AM.</p>
+                <p style="margin: 5px 0; font-weight: bold; border-left: 3px solid #00FFFF; padding-left: 15px; font-family: 'Orbitron', sans-serif;">
+                    Kindly ensure that the registration fees are paid at the registration desk on the event day. 
+                    <span style="display: block; margin: 10px 0 5px 0; color: #00FFFF;">OR</span>
+                    
+                    Submit Demand Draft (DD) payable to:<br>
+                    <span style="font-size: 0.9em; display: block; margin: 8px 0;">
+                        ▸ Account Name: The Finance Officer VTU Belagavi Yukti Cultural Account<br>
+                        ▸ Account No: 110226756934<br>
+                        ▸ Bank: Canara Bank (IFSC: CNRB0001829)<br>
+                        ▸ Payable at: Kalaburagi<br>
+                    </span>
+                
+                    <span style="color: #00FFFF;">Event Date:</span> 10 March 2025<br>
+                    <span style="color: #00FFFF;">Payment Window:</span> 8:00 AM to 10:30 A.M.<br>
+                
+                    
+                </p>
+                <p style="margin: 5px 0; font-weight: bold;">Please bring HardCopy Of Acknowledgement Pdf</p>
                 <p style="margin: 5px 0; font-weight: bold;">Please bring valid college Id while coming to the event.</p>
             </div>
             <div style="margin-top: 30px; border-top: 1px solid black; padding-top: 10px;">
