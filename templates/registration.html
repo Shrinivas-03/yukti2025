@@ -201,12 +201,15 @@
                         onclick="submitRegistration()"
                         class="w-full bg-[#FF00FF] text-white py-3 px-6 rounded-lg font-bold uppercase 
                                transition-all duration-300 hover:bg-transparent hover:text-[#FF00FF] 
-                               hover:border-2 hover:border-[#FF00FF]"
+                               hover:border-2 hover:border-[#FF00FF] relative"
                         id="submitButton">
-                    <div class="button-content flex items-center justify-center">
-                        <span>Register Now</span>
-                        <div class="spinner hidden"></div>
-                    </div>
+                    <span class="inline-flex items-center">
+                        <span class="button-text">Register Now</span>
+                        <svg class="animate-spin ml-2 h-5 w-5 hidden" id="spinner" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
+                        </svg>
+                    </span>
                 </button>
             </div>
         </div>
@@ -1143,16 +1146,16 @@ input[type="radio"]:checked + label {
         // The inline onclick handler calls submitRegistration(), which is defined below.});
 
     async function submitRegistration() {
-        const submitButton = document.getElementById('submitButton');
-        const spinner = submitButton.querySelector('.spinner');
-        const buttonText = submitButton.querySelector('span');
-
+        const button = document.getElementById('submitButton');
+        const buttonText = button.querySelector('.button-text');
+        const spinner = button.querySelector('#spinner');
+        
         try {
-            // Show spinner and disable button
-            spinner.classList.remove('hidden');
-            submitButton.disabled = true;
+            // Show spinner
             buttonText.textContent = 'Registering...';
-
+            spinner.classList.remove('hidden');
+            button.disabled = true;
+            
             if (selectedEvents.length === 0) {
                 alert('Please select at least one event');
                 resetButton();
@@ -1201,9 +1204,9 @@ input[type="radio"]:checked + label {
         }
 
         function resetButton() {
-            spinner.classList.add('hidden');
-            submitButton.disabled = false;
             buttonText.textContent = 'Register Now';
+            spinner.classList.add('hidden');
+            button.disabled = false;
         }
     }
 

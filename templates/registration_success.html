@@ -7,56 +7,44 @@
 <div class="h-0.5 bg-gradient-to-r from-[#6D28D9] via-[#3B82F6] to-[#00FFFF]"></div>
 
 <!-- Update container background and theme -->
-<div class="min-h-screen bg-gradient-to-br from-[#1C1C1C] to-[#0A0A0A] py-12 px-4">
-    <div class="max-w-4xl mx-auto">
+<div class="min-h-screen bg-gradient-to-br from-[#1C1C1C] to-[#0A0A0A] py-8 sm:py-10 md:py-12">
+    <div class="w-[95%] sm:w-[90%] md:w-[85%] lg:w-[75%] max-w-4xl mx-auto">
         <!-- Success Message Container -->
-        <div class="bg-[rgba(46,46,46,0.8)] backdrop-blur-md p-6 rounded-xl border-2 border-[#00FFFF] 
-                    shadow-[0_0_15px_rgba(0,255,255,0.3)] mb-8 
+        <div class="bg-[rgba(46,46,46,0.8)] backdrop-blur-md p-4 sm:p-6 md:p-8 rounded-xl border-2 border-[#00FFFF] 
+                    shadow-[0_0_15px_rgba(0,255,255,0.3)] mb-6 sm:mb-8 
                     transform transition-all duration-300 hover:border-[#FF00FF] 
                     hover:shadow-[0_15px_30px_rgba(0,255,255,0.4)]">
 
-                    <h1 style="margin: 0 0 1.5rem 0; 
-          font-size: 24px;
-          font-family: 'Orbitron', sans-serif;
-          color: #00FFFF;
-          text-align: center;
-          font-weight: bold;
-          text-transform: uppercase;
-          letter-spacing: 1px;">
-    Visvesvaraya Technological University
-</h1>
+            <!-- University headers with responsive text -->
+            <h1 class="text-lg sm:text-xl md:text-2xl text-[#00FFFF] text-center font-bold mb-3 sm:mb-4 font-['Orbitron']">
+                Visvesvaraya Technological University
+            </h1>
 
-<h2 style="margin: 0 0 1.5rem 0;
-          font-size: 20px;
-          font-family: 'Orbitron', sans-serif;
-          color: #00FFFF;
-          text-align: center;
-          font-weight: bold;
-          letter-spacing: 0.5px;">
-    Center for PG Studies And Regional Office Kalaburagi
-</h2>
+            <h2 class="text-base sm:text-lg md:text-xl text-[#00FFFF] text-center font-bold mb-3 sm:mb-4 font-['Orbitron']">
+                Center for PG Studies And Regional Office Kalaburagi
+            </h2>
 
-<div style="font-size: 22px;
-          font-family: 'Orbitron', sans-serif;
-          color: #00FFFF;
-          text-align: center;
-          font-weight: bold;
-          letter-spacing: 2px;
-          text-shadow: 0 0 8px rgba(0, 255, 255, 0.6);
-          margin-bottom: 1.5rem;">
-    Yukti-2025
-</div>
+            <div class="text-lg sm:text-xl md:text-2xl text-[#00FFFF] text-center font-bold tracking-wider 
+                        text-shadow-[0_0_8px_rgba(0,255,255,0.6)] mb-4 sm:mb-6 font-['Orbitron']">
+                Yukti-2025
+            </div>
             
-            <h3 class="text-3xl font-bold text-[#00FFFF] text-center mb-6 font-['Orbitron']">Registration Successful!</h3>
+            <h3 class="text-xl sm:text-2xl md:text-3xl font-bold text-[#00FFFF] text-center mb-4 sm:mb-6 font-['Orbitron']">
+                Registration Successful!
+            </h3>
             
-            <!-- Registration Details -->
-            <div class="space-y-6">
-                <h3 class="text-2xl text-[#00FFFF] font-['Orbitron']">Acknowledgement ID: {{ ack_id }}</h3>
+            <!-- Registration Details with responsive spacing -->
+            <div class="space-y-4 sm:space-y-6">
+                <h3 class="text-lg sm:text-xl md:text-2xl text-[#00FFFF] font-['Orbitron']">
+                    Acknowledgement ID: {{ ack_id }}
+                </h3>
                 
-                <!-- Personal Details -->
-                <div class="bg-[rgba(32,34,39,0.8)] p-6 rounded-lg border border-[#00FFFF] space-y-4">
-                    <h3 class="text-xl text-[#00FFFF] font-['Orbitron'] mb-4">Registration Details</h3>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-[#C0C0C0]">
+                <!-- Details sections with responsive text and padding -->
+                <div class="bg-[rgba(32,34,39,0.8)] p-3 sm:p-4 md:p-6 rounded-lg border border-[#00FFFF] space-y-3 sm:space-y-4">
+                    <h3 class="text-base sm:text-lg md:text-xl text-[#00FFFF] font-['Orbitron'] mb-3 sm:mb-4">
+                        Registration Details
+                    </h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4 text-sm sm:text-base text-[#C0C0C0]">
                         <p><strong>Email:</strong> {{ details.email }}</p>
                         <p><strong>Phone:</strong> {{ details.phone }}</p>
                         <p><strong>College:</strong> {{ details.college }}</p>
@@ -100,57 +88,54 @@
                     </div>
                 </div>
 
-                <!-- Important Note -->
-                <div class="bg-[rgba(255,0,255,0.1)] border-2 border-[#FF00FF] p-4 rounded-lg text-center">
-                    <p style="color: #FF00FF; 
-                    font-weight: bold; 
-                    margin: 0 0 1rem 0;
-                    border-left: 3px solid #FF00FF;
-                    padding-left: 15px;
-                    text-align: left;">
-                Kindly ensure the registration fees are paid either:<br>
-                - At the registration desk <strong style="color: #FF00FF;">OR</strong><br>
-                - Via Demand Draft (DD) submitted on the event day<br><br>
-                
-                <span style="color: #FF00FF;">Event Date:</span><br>
-                10 March 2025<br>
-                8:00 AM to 10:30 A.M.<br><br>
-                
-                <span style="display: block; margin-top: 10px; font-size: 0.9em;">
-                    ※ DD should be drawn in favor of:<br>
-                    "The Finance Officer VTU Belagavi Yukti Cultural Account"<br>
-                    A/C: 110226756934 | Canara Bank | IFSC: CNRB0001829
-                </span>
-            </p>
-                    <p class="text-[#C0C0C0]">
+                <!-- Important Note with responsive text -->
+                <div class="bg-[rgba(255,0,255,0.1)] border-2 border-[#FF00FF] p-3 sm:p-4 md:p-6 rounded-lg">
+                    <p class="text-[#FF00FF] font-bold text-sm sm:text-base space-y-2 sm:space-y-3 
+                              border-l-3 border-[#FF00FF] pl-3 sm:pl-4 text-left">
+                        Kindly ensure the registration fees are paid either:<br>
+                        - At the registration desk <strong style="color: #FF00FF;">OR</strong><br>
+                        - Via Demand Draft (DD) submitted on the event day<br><br>
+                        
+                        <span style="color: #FF00FF;">Event Date:</span><br>
+                        10 March 2025<br>
+                        8:00 AM to 10:30 A.M.<br><br>
+                        
+                        <span style="display: block; margin-top: 10px; font-size: 0.9em;">
+                            ※ DD should be drawn in favor of:<br>
+                            "The Finance Officer VTU Belagavi Yukti Cultural Account"<br>
+                            A/C: 110226756934 | Canara Bank | IFSC: CNRB0001829
+                        </span>
+                    </p>
+                    <p class="text-xs sm:text-sm text-[#C0C0C0] mt-2 sm:mt-3">
                         Please bring valid college Id while coming to the event..
                     </p>
-                    <p class="text-[#C0C0C0]">
-                        <p class="text-[#C0C0C0]">
-                            Please bring HardCopy Of Acknowledgement Pdf.
-                        </p>
+                    <p class="text-xs sm:text-sm text-[#C0C0C0] mt-2 sm:mt-3">
+                        Please bring HardCopy Of Acknowledgement Pdf.
                     </p>
-                    <p class="text-[#C0C0C0]">
+                    <p class="text-xs sm:text-sm text-[#C0C0C0] mt-2 sm:mt-3">
                         Keep this acknowledgement ID for future reference.
                     </p>
                 </div>
 
-                <!-- Action Buttons -->
-                <div class="flex flex-wrap justify-center gap-4">
+                <!-- Action Buttons with responsive sizing -->
+                <div class="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4 mt-4 sm:mt-6">
                     <button onclick="window.print()" 
-                            class="bg-[#FF00FF] text-white px-6 py-3 rounded-lg font-bold
+                            class="w-full sm:w-auto text-sm sm:text-base px-4 sm:px-6 py-2 sm:py-3 
+                                   bg-[#FF00FF] text-white rounded-lg font-bold
                                    transition-all duration-300 hover:bg-transparent hover:text-[#FF00FF] 
                                    hover:border-2 hover:border-[#FF00FF]">
                         Print
                     </button>
                     <button onclick="window.location.href='/'" 
-                            class="bg-[#FF00FF] text-white px-6 py-3 rounded-lg font-bold
+                            class="w-full sm:w-auto text-sm sm:text-base px-4 sm:px-6 py-2 sm:py-3 
+                                   bg-[#FF00FF] text-white rounded-lg font-bold
                                    transition-all duration-300 hover:bg-transparent hover:text-[#FF00FF] 
                                    hover:border-2 hover:border-[#FF00FF]">
                         Back to Home
                     </button>
                     <button onclick="window.location.href='/register-page'" 
-                            class="bg-[#FF00FF] text-white px-6 py-3 rounded-lg font-bold
+                            class="w-full sm:w-auto text-sm sm:text-base px-4 sm:px-6 py-2 sm:py-3 
+                                   bg-[#FF00FF] text-white rounded-lg font-bold
                                    transition-all duration-300 hover:bg-transparent hover:text-[#FF00FF] 
                                    hover:border-2 hover:border-[#FF00FF]">
                         New Registration
@@ -261,7 +246,7 @@
                 
                     
                 </p>
-                <p style="margin: 5px 0; font-weight: bold;">Please bring HardCopy Of Acknowledgement Pdf</p>
+                <p style="margin: 5px 0; font-weight: bold;">Please bring Hardcopy Of Acknowledgement PDF</p>
                 <p style="margin: 5px 0; font-weight: bold;">Please bring valid college Id while coming to the event.</p>
             </div>
             <div style="margin-top: 30px; border-top: 1px solid black; padding-top: 10px;">
