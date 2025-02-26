@@ -230,6 +230,57 @@
                 display: inline;
             }
         }
+
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        .animate-marquee {
+            animation: marquee 10s linear infinite; /* Changed from 30s to 20s for faster speed */
+        }
+
+        .animate-marquee:hover {
+            animation-play-state: paused;
+        }
+
+        /* Update marquee animations */
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* Base marquee animation */
+        .animate-marquee {
+            animation: marquee 15s linear infinite; /* Default speed for desktop */
+        }
+
+        /* Responsive marquee speeds */
+        @media (max-width: 768px) {
+            .animate-marquee {
+                animation-duration: 12s; /* Medium screens */
+            }
+        }
+
+        @media (max-width: 640px) {
+            .animate-marquee {
+                animation-duration: 8s; /* Small screens */
+            }
+        }
+
+        /* Pause on hover for devices with hover capability */
+        @media (hover: hover) {
+            .animate-marquee:hover {
+                animation-play-state: paused;
+            }
+        }
+
+        /* Better touch device handling */
+        @media (hover: none) {
+            .animate-marquee {
+                animation-play-state: running !important;
+            }
+        }
     </style>
 </head>
 
@@ -390,8 +441,64 @@
         </div>
     </header>
 
+    <!-- Update just the marquee section -->
+<div class="fixed top-16 sm:top-18 md:top-20 w-full z-[1999] bg-gradient-to-r from-[#1C1C1C] via-[#141414] to-[#1C1C1C] border-y border-[#00FFFF]/20 backdrop-blur-sm">
+    <div class="relative h-8 sm:h-10 md:h-12 overflow-hidden"> <!-- Adjusted heights -->
+        <!-- Gradient fade edges -->
+        <div class="absolute inset-y-0 left-0 w-12 sm:w-16 md:w-20 bg-gradient-to-r from-[#1C1C1C] to-transparent z-10"></div>
+        <div class="absolute inset-y-0 right-0 w-12 sm:w-16 md:w-20 bg-gradient-to-l from-[#1C1C1C] to-transparent z-10"></div>
+        
+        <!-- Marquee content with larger text -->
+        <div class="flex items-center animate-marquee whitespace-nowrap h-full"> <!-- Added h-full -->
+            <div class="flex items-center gap-8 mx-4">
+                <span class="text-base sm:text-lg md:text-xl text-[#00FFFF] font-['Orbitron']"> <!-- Increased text size -->
+                    <i class="fas fa-star-of-life fa-spin mr-2"></i>
+                    Registration Opens: February 27th, 11:00 AM IST
+                </span>
+                <span class="text-[#FF00FF] text-xl sm:text-2xl">★</span> <!-- Increased star size -->
+                <span class="text-base sm:text-lg md:text-xl text-[#00FFFF] font-['Orbitron']">
+                    <i class="fas fa-calendar-check mr-2"></i>
+                    Event Dates: March 10-11, 2025
+                </span>
+                <span class="text-[#FF00FF] text-xl sm:text-2xl">★</span>
+                <span class="text-base sm:text-lg md:text-xl text-[#00FFFF] font-['Orbitron']">
+                    <i class="fas fa-trophy mr-2"></i>
+                    Exciting Prizes awaits
+                </span>
+                <span class="text-[#FF00FF] text-xl sm:text-2xl">★</span>
+                <span class="text-base sm:text-lg md:text-xl text-[#00FFFF] font-['Orbitron']">
+                    <i class="fas fa-microphone mr-2"></i>
+                    Artists to be Announced Soon
+                </span>
+            </div>
+            <!-- Duplicate content with same larger text -->
+            <div class="flex items-center gap-8 mx-4">
+                <span class="text-base sm:text-lg md:text-xl text-[#00FFFF] font-['Orbitron']">
+                    <i class="fas fa-star-of-life fa-spin mr-2"></i>
+                    Registration Opens: February 27th, 11:00 AM IST
+                </span>
+                <span class="text-[#FF00FF] text-xl sm:text-2xl">★</span>
+                <span class="text-base sm:text-lg md:text-xl text-[#00FFFF] font-['Orbitron']">
+                    <i class="fas fa-calendar-check mr-2"></i>
+                    Event Dates: March 10-11, 2025
+                </span>
+                <span class="text-[#FF00FF] text-xl sm:text-2xl">★</span>
+                <span class="text-base sm:text-lg md:text-xl text-[#00FFFF] font-['Orbitron']">
+                    <i class="fas fa-trophy mr-2"></i>
+                    Exciting Prizes awaits
+                </span>
+                <span class="text-[#FF00FF] text-xl sm:text-2xl">★</span>
+                <span class="text-base sm:text-lg md:text-xl text-[#00FFFF] font-['Orbitron']">
+                    <i class="fas fa-microphone mr-2"></i>
+                    Artists to be Announced Soon
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
     <!-- Dynamic Content Block -->
-    <main class="min-h-screen pt-20 relative z-0">
+    <main class="min-h-screen pt-32 sm:pt-36 md:pt-40 relative z-0">
         {% block content %}{% endblock %}
     </main>
 
