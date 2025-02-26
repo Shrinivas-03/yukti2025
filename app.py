@@ -32,14 +32,13 @@ app = Flask(__name__,
     static_folder='static'
 )
 
-# Configure Compression with optimized settings
+# Update Compress configuration
 compress = Compress()
 app.config.update(
     # Prefer Brotli for supported browsers, fallback to gzip
     COMPRESS_ALGORITHM=['br', 'gzip'],
     
-    # Use moderate Brotli compression level (6) for better speed/compression balance
-    # Higher levels (7-11) give diminishing returns but much slower compression
+    # Use moderate Brotli compression level
     COMPRESS_BR_LEVEL=6,
     
     # Only compress these mime types
@@ -55,17 +54,18 @@ app.config.update(
         'application/x-yaml'
     ],
     
-    # Enable caching of compressed assets
-    COMPRESS_CACHE_BACKEND='filesystem',
-    COMPRESS_CACHE_KEY='compression-cache',
-    
     # Don't compress files smaller than 500 bytes
     COMPRESS_MIN_SIZE=500,
+    
+    # Remove the cache backend configuration that was causing the error
+    # COMPRESS_CACHE_BACKEND='filesystem',
+    # COMPRESS_CACHE_KEY='compression-cache',
     
     # Cache compressed files for 5 minutes (300 seconds)
     SEND_FILE_MAX_AGE_DEFAULT=300
 )
 
+# Initialize compression after config
 compress.init_app(app)
 
 Minify(app=app, html=True, js=True, cssless=True)
