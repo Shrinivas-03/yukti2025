@@ -243,10 +243,10 @@
         }
     </script>
     
-    <!-- Add this right after your existing script tags in head -->
+    <!-- Remove the DEV_MODE script -->
+    <!-- Remove or comment out this entire script block -->
     <script>
-        // Global variable to check if we're in dev mode
-        const DEV_MODE = {% if config.get('DEV_MODE', False) %}true{% else %}false{% endif %};
+        // Remove global DEV_MODE variable and checkRegistration function
     </script>
     
     <!-- Navbar -->
@@ -376,7 +376,6 @@
                         <!-- Register Button with Enhanced Animation -->
                         <li>
                             <a href="{{ url_for('register_page') }}" 
-                               onclick="return checkRegistration(event)"
                                class="relative overflow-hidden px-4 sm:px-6 py-2 sm:py-3 rounded-lg font-bold
                                       text-sm sm:text-base md:text-lg group">
                                 <span class="relative z-10 text-white">Register</span>
@@ -675,11 +674,7 @@
         });
 
         function checkRegistration(event) {
-            // Allow registration if in dev mode
-            if (DEV_MODE) {
-                return true;
-            }
-            
+            // Remove DEV_MODE check since we want it disabled
             const openingDate = new Date('2024-02-27T11:00:00+05:30');
             const now = new Date();
             

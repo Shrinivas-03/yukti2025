@@ -22,7 +22,6 @@ import pytz
 
 load_dotenv() 
 
-
 class Config:
     SECRET_KEY = os.environ.get('FLASK_SECRET_KEY')
     SUPABASE_URL = os.environ.get('SUPABASE_URL', "https://kccbgaxhhdgzkyazjnnk.supabase.co")
@@ -51,7 +50,7 @@ app.config.update(
     SESSION_COOKIE_SECURE=True,   # Ensures cookies are sent only over HTTPS
     SESSION_COOKIE_HTTPONLY=True, # Prevents JavaScript from accessing cookies
     SESSION_COOKIE_SAMESITE='Lax', # Helps prevent CSRF attacks
-    PERMANENT_SESSION_LIFETIME=timedelta(minutes=30)  # Increased from 5 to 30 minutes
+    PERMANENT_SESSION_LIFETIME=timedelta(minutes=30),  # Increased from 5 to 30 minutes
 )
 
 @app.after_request
@@ -225,9 +224,7 @@ def format_datetime(value):
 
 # Add this after imports
 def is_registration_open():
-    if DEV_MODE:
-        return False
-        
+    # Remove DEV_MODE check since we want it disabled
     IST = pytz.timezone('Asia/Kolkata')
     registration_start = datetime(2024, 2, 27, 11, 0, tzinfo=IST)
     current_time = datetime.now(IST)
@@ -279,23 +276,12 @@ def admin_page():
 
 @app.route('/register-page')
 def register_page():
-    # Check for dev mode first
-    if DEV_MODE:
-        return render_template('registration.html')
-        
-    if not is_registration_open():
-        return render_template('registration_closed.html')
+    # Remove all checks and just return the registration page
     return render_template('registration.html')
 
 @app.route('/register', methods=['POST'])
 def register_submit():
-    # Check for dev mode first
-    if not DEV_MODE:
-        if not is_registration_open():
-            return jsonify({
-                'success': False,
-                'message': 'Registration opens on February 27, 2024 at 11:00 AM IST'
-            })
+    # Remove all registration time checks and start directly with the try block
     try:
         data = request.get_json(silent=True)
         if not data:
