@@ -1459,50 +1459,85 @@ function showIndividualInput() {
 // ...rest of existing code...
 
 function validateMemberName(input) {
-    // Filter out anything except letters, spaces, and dots
-    let filtered = input.value.replace(/[^A-Za-z\s.]/g, '');
+    // Allow only letters and spaces
+    let filtered = input.value.replace(/[^A-Za-z\s]/g, '');
     if (input.value !== filtered) {
         input.value = filtered;
-    }
-    
-    const errorId = `${input.id}-error`;
-    let errorElement = document.getElementById(errorId);
-    if (!errorElement) {
-        errorElement = document.createElement('div');
-        errorElement.id = errorId;
-        errorElement.className = 'text-red-500 text-sm mt-1';
-        input.parentNode.appendChild(errorElement);
+        let errorId = `${input.id}-error`;
+        let errorElement = document.getElementById(errorId);
+        if (!errorElement) {
+            errorElement = document.createElement('div');
+            errorElement.id = errorId;
+            errorElement.className = 'text-red-500 text-sm mt-1';
+            input.parentNode.appendChild(errorElement);
+        }
+        errorElement.textContent = 'Only characters are allowed';
+        input.setCustomValidity('Invalid characters');
+        addEventBtn.disabled = true;
+        return;
     }
     
     if (filtered.trim() === '') {
         input.classList.remove('error-border');
-        errorElement.textContent = '';
+        let errorId = `${input.id}-error`;
+        let errorElement = document.getElementById(errorId);
+        if (errorElement) { errorElement.textContent = ''; }
         input.setCustomValidity('Name is required');
         addEventBtn.disabled = true;
-    } else if (filtered.trim().length < 4) {  // Minimum length of 4 characters
+    } else if (filtered.trim().length < 4) {
         input.classList.add('error-border');
+        let errorId = `${input.id}-error`;
+        let errorElement = document.getElementById(errorId);
+        if (!errorElement) {
+            errorElement = document.createElement('div');
+            errorElement.id = errorId;
+            errorElement.className = 'text-red-500 text-sm mt-1';
+            input.parentNode.appendChild(errorElement);
+        }
         errorElement.textContent = 'Name must be at least 4 characters';
         input.setCustomValidity('Name too short');
         addEventBtn.disabled = true;
     } else {
         input.classList.remove('error-border');
-        errorElement.textContent = '';
+        let errorId = `${input.id}-error`;
+        let errorElement = document.getElementById(errorId);
+        if (errorElement) { errorElement.textContent = ''; }
         input.setCustomValidity('');
-        
-        // Only enable Next button if all names are valid
         const allInputsValid = checkAllMemberInputsValid();
         addEventBtn.disabled = !allInputsValid;
     }
 }
 
-// Update checkAllMemberInputsValid to include length check
+function validatePhone() {
+    const phoneInput = document.getElementById('phone');
+    const phoneError = document.getElementById('phone-error');
+    const submitButton = document.getElementById('submitButton');
+    
+    // Remove non-digits
+    const value = phoneInput.value.replace(/\D/g, '');
+    phoneInput.value = value;
+    
+    if (value.length !== 10) {
+        phoneInput.classList.add('error-border');
+        phoneError.textContent = 'Enter valid number';
+        phoneError.classList.remove('hidden');
+        submitButton.disabled = true;
+        return false;
+    } else {
+        phoneInput.classList.remove('error-border');
+        phoneError.classList.add('hidden');
+        submitButton.disabled = false;
+        return true;
+    }
+}
+
 function checkAllMemberInputsValid() {
     const memberInputs = memberInputsContainer.querySelectorAll('input[id^="member-"]');
     const regex = /^[A-Za-z\s.]*$/;
     
     for (const input of memberInputs) {
         const value = input.value.trim();
-        if (!regex.test(value) || value.length < 4) {  // Minimum length of 4 characters
+        if (!regex.test(value) || value.length < 2) {
             return false;
         }
     }
@@ -1542,7 +1577,7 @@ function validatePhone() {
 
     if (value.length !== 10) {
         phoneInput.classList.add('error-border');
-        phoneError.textContent = 'Phone number must be 10 digits';
+        phoneError.textContent = 'Enter valid number';
         phoneError.classList.remove('hidden');
         submitButton.disabled = true;
         return false;
