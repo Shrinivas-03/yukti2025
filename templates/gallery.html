@@ -3,142 +3,214 @@
 {% block title %}Gallery - YUKTI 2025{% endblock %}
 
 {% block content %}
-<div class="h-0.5 bg-[#CD7F32] "></div>
-<div class="min-h-screen pt-16 sm:pt-20 bg-gradient-to-r from-dark via-darker to-dark animate-gradient-flow">
-    <div class="container mx-auto px-2 sm:px-4">
-        <!-- Image Popup -->
-        <div id="imagePopup" class="fixed inset-0 bg-black bg-opacity-90 hidden z-50 justify-center items-center">
-            <div class="relative max-w-4xl mx-auto p-4">
-                <button onclick="closePopup()" class="absolute -top-12 right-0 w-10 h-10 bg-primary text-black rounded-full flex items-center justify-center hover:bg-white transition-all transform hover:scale-110">
-                    ✕
-                </button>
-                <img id="popupImage" src="" alt="" class="max-w-full max-h-[90vh] object-contain border-2 border-primary rounded">
-            </div>
+<!-- Update the divider -->
+<div class="h-0.5 bg-gradient-to-r from-[#6D28D9] via-[#3B82F6] to-[#00FFFF]"></div>
+
+<!-- Add themed header section -->
+<section class="relative py-12 overflow-hidden">
+    <!-- Layered background gradients -->
+    <div class="absolute inset-0">
+        <!-- Base gradient -->
+        <div class="absolute inset-0 bg-gradient-to-br from-[#1C1C1C] via-[#141414] to-[#0A0A0A]"></div>
+        
+        <!-- Animated gradient overlays -->
+        <div class="absolute inset-0">
+            <div class="absolute inset-0 bg-[linear-gradient(45deg,rgba(0,255,255,0.1),rgba(255,0,255,0.1))] opacity-30 
+                        animate-[gradient-flow_15s_ease-in-out_infinite]"></div>
+            <div class="absolute inset-0 bg-[linear-gradient(-45deg,rgba(255,0,255,0.1),rgba(0,255,255,0.1))] opacity-30 
+                        animate-[gradient-flow_15s_ease-in-out_infinite_reverse]"></div>
+        </div>
+        
+        <!-- Radial glow effects -->
+        <div class="absolute inset-0">
+            <div class="absolute top-0 left-0 w-full h-full 
+                        bg-[radial-gradient(circle_at_25%_25%,rgba(0,255,255,0.15)_0%,transparent_50%)]"></div>
+            <div class="absolute bottom-0 right-0 w-full h-full 
+                        bg-[radial-gradient(circle_at_75%_75%,rgba(255,0,255,0.15)_0%,transparent_50%)]"></div>
+        </div>
+    </div>
+
+    <!-- Content with enhanced header -->
+    <div class="relative z-10">
+        <div class="text-center mb-12">
+            <h1 class="text-4xl sm:text-5xl md:text-6xl font-['Orbitron'] 
+                       bg-gradient-to-r from-[#00FFFF] via-[#FF00FF] to-[#00FFFF] 
+                       bg-clip-text text-transparent animate-[gradient-flow_3s_ease-in-out_infinite]
+                       mb-4 tracking-wider">
+                Gallery
+            </h1>
+            <p class="text-xl text-[#C0C0C0] max-w-2xl mx-auto px-4">
+                Explore moments from our previous events
+            </p>
+            
+            <!-- Decorative underline -->
+            <div class="w-24 h-1 mx-auto mt-6 bg-gradient-to-r from-[#00FFFF] to-[#FF00FF] rounded-full
+                        transform transition-all duration-300 hover:scale-x-150 hover:from-[#FF00FF] hover:to-[#00FFFF]"></div>
         </div>
 
-        <!-- Gallery Content -->
-        <section class="bg-[rgba(30,30,30,0.8)] backdrop-blur-lg rounded-xl sm:rounded-2xl p-4 sm:p-8 shadow-2xl">
-            <div class="text-center mb-6 sm:mb-8">
-                <h1 class="text-2xl sm:text-3xl md:text-4xl text-primary font-bold font-[Orbitron] tracking-wider">
-                    <span class="inline-block transform hover:scale-105 transition-transform duration-300">Gallery</span>
-                </h1>
-                <p class="text-base sm:text-xl text-gray-300 font-[Rajdhani] max-w-3xl mx-auto">Snapshots of Unforgettable Memories from Yukti Fest 2024!</p>
+        <!-- Existing gallery content wrapper -->
+        <div class="container mx-auto px-4">
+            <!-- Image Popup -->
+            <div id="imagePopup" class="fixed inset-0 bg-black bg-opacity-90 hidden z-50 justify-center items-center">
+                <div class="relative max-w-4xl mx-auto p-4">
+                    <button onclick="closePopup()" class="absolute -top-12 right-0 w-10 h-10 bg-primary text-black rounded-full flex items-center justify-center hover:bg-white transition-all transform hover:scale-110">
+                        ✕
+                    </button>
+                    <img id="popupImage" src="" alt="" class="max-w-full max-h-[90vh] object-contain border-2 border-primary rounded">
+                </div>
             </div>
 
-            <!-- Flash Mob Section -->
-            <div class="space-y-6 sm:space-y-8 md:space-y-12">
-                <div class="bg-black bg-opacity-30 rounded-lg sm:rounded-xl p-4 sm:p-6 border border-primary/10">
-                    <div class="text-center mb-4 sm:mb-6">
-                        <h2 class="text-xl sm:text-2xl md:text-3xl text-primary font-[Audiowide] tracking-wide">
+            <!-- Gallery Content -->
+            <section class="bg-[rgba(32,34,39,0.95)] backdrop-blur-md p-4 sm:p-6 md:p-8 rounded-xl border-2 border-[#00FFFF] 
+            transform transition-all duration-300 hover:shadow-[0_15px_30px_rgba(0,255,255,0.4)] hover:border-[#FF00FF]">
+    
+                <!-- Gallery Sections Container -->
+                <div class="space-y-8 sm:space-y-12">
+                    <!-- Flash Mob Section -->
+                    <div class="bg-[rgba(20,20,20,0.8)] p-4 sm:p-6 md:p-8 rounded-xl border border-[#00FFFF] 
+                                transform transition-all duration-300 hover:-translate-y-1 
+                                hover:shadow-[0_10px_20px_rgba(0,255,255,0.3)] hover:border-[#FF00FF]">
+                        <h2 class="text-2xl sm:text-3xl md:text-4xl text-center font-['Orbitron'] mb-6 sm:mb-8 
+                                bg-gradient-to-r from-[#00FFFF] via-[#FF00FF] to-[#00FFFF] 
+                                bg-clip-text text-transparent">
                             Flash Mob
                         </h2>
-                    </div>
-                    <div class="mb-4 sm:mb-8 px-2 sm:px-4">
-                        <p class="text-sm sm:text-base md:text-lg text-gray-300 leading-relaxed text-justify hyphens-auto">
-                            A high-energy, surprise dance performance where a group of students suddenly gathered and performed in a public space, engaging the audience and setting the festive mood for the tech fest.
-                        </p>
-                        <p class="text-sm sm:text-base md:text-lg text-gray-300 leading-relaxed text-justify hyphens-auto">
-                            The flash mob served as an electrifying opening act, bringing together performers from various departments who had practiced in secret for weeks. The unexpected nature of the performance created a buzz of excitement throughout the campus.
-                        </p>
-                    </div>
-                    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 sm:gap-6 justify-items-center">
-                        {% for i in range(1, 4) %}
-                        <div class="gallery-item group relative overflow-hidden rounded-lg sm:rounded-xl border-2 border-secondary hover:border-primary/50 
-                                    transition-all duration-300 hover:-translate-y-2 hover:shadow-lg hover:shadow-primary/20">
-                            <img src="{{ url_for('static', filename='gallery/fl' ~ i ~ '.jpg') }}"
-                                 alt="Flash Mob Event Image {{ i }}"
-                                 class="w-full h-48 sm:h-64 object-cover transition-transform duration-300 group-hover:scale-110"
-                                 loading="lazy"
-                                 onclick="openModal(this.src)"
-                                 onerror="this.src='{{ url_for('static', filename='gallery/place.jpg') }}'; 
-                                          console.error('Failed to load:', this.src);">
-                            <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4 
-                                        opacity-0 group-hover:opacity-100 transition-opacity">
-                                <p class="text-primary text-sm">Flash Mob Performance - Moment {{ i }}</p>
-                            </div>
+                        <div class="mb-4 sm:mb-8 px-2 sm:px-4">
+                            <p class="text-sm sm:text-base md:text-lg text-gray-300 leading-relaxed text-justify hyphens-auto">
+                                A high-energy, surprise dance performance where a group of students suddenly gathered and performed in a public space, engaging the audience and setting the festive mood for the tech fest.
+                            </p>
+                            <p class="text-sm sm:text-base md:text-lg text-gray-300 leading-relaxed text-justify hyphens-auto">
+                                The flash mob served as an electrifying opening act, bringing together performers from various departments who had practiced in secret for weeks. The unexpected nature of the performance created a buzz of excitement throughout the campus.
+                            </p>
                         </div>
-                        {% endfor %}
-                    </div>
-                </div>
-
-                <!-- Welcome Ceremony Section -->
-                <div class="mb-12 bg-black bg-opacity-30 rounded-xl p-6 border border-primary/10">
-                    <h2 class="text-3xl text-primary text-center mb-6 font-[Syncopate] tracking-wide transform hover:scale-105 transition-transform duration-300">
-                        Welcome Ceremony
-                    </h2>
-                    <div class="mb-8 text-gray-300">
-                        <p class="text-lg leading-relaxed mb-4 text-justify hyphens-auto">
-                            The grand opening of the tech fest, featuring speeches from dignitaries, a ceremonial lamp lighting, and an introduction to the exciting events lined up for the festival.
-                        </p>
-                        <p class="text-lg leading-relaxed mb-4 text-justify hyphens-auto">
-                            Distinguished guests and university officials came together to mark the beginning of this grand celebration, setting the tone for the upcoming days of innovation, creativity, and excellence.
-                        </p>
-                    </div>
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 justify-items-center">
-                        <!-- Gallery Items -->
-                        {% for i in range(3) %}
-                        <div class="gallery-item group relative overflow-hidden rounded-xl border-2 border-secondary hover:border-primary/50 transition-all duration-300 hover:-translate-y-2 hover:shadow-lg hover:shadow-primary/20">
-                            <img src="{{ url_for('static', filename='gallery/wl' ~ loop.index ~ '.jpg') }}"
-                                 alt="Welcome Ceremony Image {{ loop.index }}"
-                                 class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110"
-                                 loading="lazy"
-                                 onerror="this.src='{{ url_for('static', filename='gallery/place.jpg') }}'; console.error('Failed to load:', this.src);">
-
-                            <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4 opacity-0 group-hover:opacity-100 transition-opacity">
-                                <p class="text-primary text-sm">Welcome Ceremony - Moment {{ loop.index }}</p>
-                            </div>
-                        </div>
-                        {% endfor %}
-                    </div>
-                </div>
-
-                <!-- Combined Events Section -->
-                <div class="mb-12 bg-black bg-opacity-30 rounded-xl p-6 border border-primary/10">
-                    <h2 class="text-3xl text-primary text-center mb-6 font-[Audiowide] tracking-wide transform hover:scale-105 transition-transform duration-300">
-                        Festival Events Showcase
-                    </h2>
-                    
-                    <!-- Events Description -->
-                    <div class="mb-8 text-gray-300">
-                        <p class="text-lg leading-relaxed mb-4 text-justify hyphens-auto">
-                            A spectacular fusion of technical brilliance, cultural excellence, and management acumen came together in our grand festival. From coding competitions to dance performances, and from robotics to business challenges, the events showcased diverse talents across multiple domains.
-                        </p>
-                    </div>
-
-                    <!-- Technical Events Subsection -->
-                    <div class="mb-8">
-                        <h3 class="text-2xl text-primary mb-4 font-[Rajdhani] pl-4 border-l-4 border-secondary">Technical Events</h3>
-                        <p class="text-gray-300 mb-4 text-lg leading-relaxed text-justify hyphens-auto">
-                            Showcasing innovation through hackathons, coding competitions, robotics challenges, and technical workshops that pushed the boundaries of technological creativity.
-                        </p>
-                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8 justify-items-center">
-                            {% for i in range(3) %}
-                            <div class="gallery-item group relative overflow-hidden rounded-xl border-2 border-secondary hover:border-primary/50 transition-all duration-300 hover:-translate-y-2 hover:shadow-lg hover:shadow-primary/20">
-                                <img src="{{ url_for('static', filename='gallery/tc' ~ loop.index ~ '.jpg') }}"
-                                     alt="Technical Event {{ loop.index }}"
-                                     class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110"
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 justify-items-center">
+                            {% for i in range(1, 4) %}
+                            <div class="gallery-item group relative overflow-hidden rounded-lg sm:rounded-xl border-2 border-secondary hover:border-primary/50 
+                                        transition-all duration-300 hover:-translate-y-2 hover:shadow-lg hover:shadow-primary/20">
+                                <img src="{{ url_for('static', filename='gallery/fl' ~ i ~ '.jpg') }}"
+                                     alt="Flash Mob Event Image {{ i }}"
+                                     class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
                                      loading="lazy"
-                                     onerror="this.src='{{ url_for('static', filename='gallery/place.jpg') }}'; console.error('Failed to load:', this.src);">
-                                <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4 opacity-0 group-hover:opacity-100 transition-opacity">
-                                    <p class="text-primary text-sm">Technical Events - Moment {{ loop.index }}</p>
+                                     onclick="openModal(this.src)"
+                                     onerror="this.src='{{ url_for('static', filename='gallery/place.jpg') }}'; 
+                                              console.error('Failed to load:', this.src);">
+                                <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4 
+                                            opacity-0 group-hover:opacity-100 transition-opacity">
+                                    <p class="text-primary text-sm">Flash Mob Performance - Moment {{ i }}</p>
                                 </div>
                             </div>
                             {% endfor %}
                         </div>
                     </div>
 
-                    <!-- Cultural Events Subsection -->
-                    <div class="mb-8">
-                        <h3 class="text-2xl text-primary mb-4 font-[Rajdhani] pl-4 border-l-4 border-secondary">Cultural Events</h3>
+                    <!-- Welcome Ceremony Section -->
+                    <div class="bg-[rgba(20,20,20,0.8)] p-4 sm:p-6 md:p-8 rounded-xl border border-[#00FFFF] 
+                                transform transition-all duration-300 hover:-translate-y-1 
+                                hover:shadow-[0_10px_20px_rgba(0,255,255,0.3)] hover:border-[#FF00FF]">
+                        <h2 class="text-2xl sm:text-3xl md:text-4xl text-center font-['Orbitron'] mb-6 sm:mb-8 
+                                bg-gradient-to-r from-[#00FFFF] via-[#FF00FF] to-[#00FFFF] 
+                                bg-clip-text text-transparent">
+                            Welcome Ceremony
+                        </h2>
+                        <div class="mb-8 text-gray-300">
+                            <p class="text-lg leading-relaxed mb-4 text-justify hyphens-auto">
+                                The grand opening of the tech fest, featuring speeches from dignitaries, a ceremonial lamp lighting, and an introduction to the exciting events lined up for the festival.
+                            </p>
+                            <p class="text-lg leading-relaxed mb-4 text-justify hyphens-auto">
+                                Distinguished guests and university officials came together to mark the beginning of this grand celebration, setting the tone for the upcoming days of innovation, creativity, and excellence.
+                            </p>
+                        </div>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 justify-items-center">
+                            <!-- Gallery Items -->
+                            {% for i in range(3) %}
+                            <div class="gallery-item group relative overflow-hidden rounded-xl border-2 border-secondary hover:border-primary/50 transition-all duration-300 hover:-translate-y-2 hover:shadow-lg hover:shadow-primary/20">
+                                <img src="{{ url_for('static', filename='gallery/wl' ~ loop.index ~ '.jpg') }}"
+                                     alt="Welcome Ceremony Image {{ loop.index }}"
+                                     class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
+                                     loading="lazy"
+                                     onerror="this.src='{{ url_for('static', filename='gallery/place.jpg') }}'; console.error('Failed to load:', this.src);">
+
+                                <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4 opacity-0 group-hover:opacity-100 transition-opacity">
+                                    <p class="text-primary text-sm">Welcome Ceremony - Moment {{ loop.index }}</p>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <!-- Combined Events Section -->
+                    <div class="bg-[rgba(20,20,20,0.8)] p-4 sm:p-6 md:p-8 rounded-xl border border-[#00FFFF] 
+                                transform transition-all duration-300 hover:-translate-y-1 
+                                hover:shadow-[0_10px_20px_rgba(0,255,255,0.3)] hover:border-[#FF00FF]">
+                        <h2 class="text-2xl sm:text-3xl md:text-4xl text-center font-['Orbitron'] mb-6 sm:mb-8 
+                                bg-gradient-to-r from-[#00FFFF] via-[#FF00FF] to-[#00FFFF] 
+                                bg-clip-text text-transparent">
+                            Festival Events Showcase
+                        </h2>
+                        
+                        <!-- Events Description -->
+                        <div class="mb-8 text-gray-300">
+                            <p class="text-lg leading-relaxed mb-4 text-justify hyphens-auto">
+                                A spectacular fusion of technical brilliance, cultural excellence, and management acumen came together in our grand festival. From coding competitions to dance performances, and from robotics to business challenges, the events showcased diverse talents across multiple domains.
+                            </p>
+                        </div>
+
+                        <!-- Technical Events Subsection -->
+                        <div class="mb-8">
+                            <h3 class="text-2xl text-primary mb-4 font-[Rajdhani] pl-4 border-l-4 border-secondary">Technical Events</h3>
+                            <p class="text-gray-300 mb-4 text-lg leading-relaxed text-justify hyphens-auto">
+                                Showcasing innovation through hackathons, coding competitions, robotics challenges, and technical workshops that pushed the boundaries of technological creativity.
+                            </p>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mb-8 justify-items-center">
+                                {% for i in range(3) %}
+                                <div class="gallery-item group relative overflow-hidden rounded-xl border-2 border-secondary hover:border-primary/50 transition-all duration-300 hover:-translate-y-2 hover:shadow-lg hover:shadow-primary/20">
+                                    <img src="{{ url_for('static', filename='gallery/tc' ~ loop.index ~ '.jpg') }}"
+                                         alt="Technical Event {{ loop.index }}"
+                                         class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
+                                         loading="lazy"
+                                         onerror="this.src='{{ url_for('static', filename='gallery/place.jpg') }}'; console.error('Failed to load:', this.src);">
+                                    <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4 opacity-0 group-hover:opacity-100 transition-opacity">
+                                        <p class="text-primary text-sm">Technical Events - Moment {{ loop.index }}</p>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+
+                        <!-- Cultural Events Subsection -->
+                        <div class="mb-8">
+                            <h3 class="text-2xl text-primary mb-4 font-[Rajdhani] pl-4 border-l-4 border-secondary">Cultural Events</h3>
+                            <p class="text-gray-300 mb-4 text-lg leading-relaxed text-justify hyphens-auto">
+                                Celebrating artistic expression through dance, music, drama, and fashion shows that brought color and creativity to the festival atmosphere.
+                            </p>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mb-8 justify-items-center">
+                                {% for i in range(6) %}
+                                <div class="gallery-item group relative overflow-hidden rounded-xl border-2 border-secondary hover:border-primary/50 transition-all duration-300 hover:-translate-y-2 hover:shadow-lg hover:shadow-primary/20">
+                                    <img src="{{ url_for('static', filename='gallery/cl' ~ loop.index ~ '.jpg') }}"
+                                         alt="Cultural Event {{ loop.index }}"
+                                         class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
+                                         loading="lazy"
+                                         onerror="this.src='{{ url_for('static', filename='gallery/place.jpg') }}'; console.error('Failed to load:', this.src);">
+                                    <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4 opacity-0 group-hover:opacity-100 transition-opacity">
+                                        <p class="text-primary text-sm">Cultural Events - Moment {{ loop.index }}</p>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+
+                     <!-- Cultural Events Subsection -->
+                     <div class="mb-8">
+                        <h3 class="text-2xl text-primary mb-4 font-[Rajdhani] pl-4 border-l-4 border-secondary">Management Events</h3>
                         <p class="text-gray-300 mb-4 text-lg leading-relaxed text-justify hyphens-auto">
                             Celebrating artistic expression through dance, music, drama, and fashion shows that brought color and creativity to the festival atmosphere.
                         </p>
-                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8 justify-items-center">
-                            {% for i in range(6) %}
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mb-8 justify-items-center">
+                            {% for i in range(3) %}
                             <div class="gallery-item group relative overflow-hidden rounded-xl border-2 border-secondary hover:border-primary/50 transition-all duration-300 hover:-translate-y-2 hover:shadow-lg hover:shadow-primary/20">
-                                <img src="{{ url_for('static', filename='gallery/cl' ~ loop.index ~ '.jpg') }}"
+                                <img src="{{ url_for('static', filename='gallery/mn' ~ loop.index ~ '.jpg') }}"
                                      alt="Cultural Event {{ loop.index }}"
-                                     class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110"
+                                     class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
                                      loading="lazy"
                                      onerror="this.src='{{ url_for('static', filename='gallery/place.jpg') }}'; console.error('Failed to load:', this.src);">
                                 <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4 opacity-0 group-hover:opacity-100 transition-opacity">
@@ -147,170 +219,196 @@
                             </div>
                             {% endfor %}
                         </div>
-                    </div>
+                    </div>   
+                 </div>
 
-                    <!-- Management Events Subsection -->
-                    <div class="mb-8">
-                        <h3 class="text-2xl text-primary mb-4 font-[Rajdhani] pl-4 border-l-4 border-secondary">Management Events</h3>
-                        <p class="text-gray-300 mb-4 text-lg leading-relaxed text-justify hyphens-auto">
-                            Testing strategic thinking and leadership through business simulations, case studies, and entrepreneurship competitions.
-                        </p>
-                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 justify-items-center">
-                            {% for i in range(2) %}
+                    <!-- Celebrity Night - Day 1 Section -->
+                    <div class="bg-[rgba(20,20,20,0.8)] p-4 sm:p-6 md:p-8 rounded-xl border border-[#00FFFF] 
+                                transform transition-all duration-300 hover:-translate-y-1 
+                                hover:shadow-[0_10px_20px_rgba(0,255,255,0.3)] hover:border-[#FF00FF]">
+                        <h2 class="text-2xl sm:text-3xl md:text-4xl text-center font-['Orbitron'] mb-6 sm:mb-8 
+                                bg-gradient-to-r from-[#00FFFF] via-[#FF00FF] to-[#00FFFF] 
+                                bg-clip-text text-transparent">
+                            Celebrity Night - Day 1
+                        </h2>
+                        <div class="mb-8 text-gray-300">
+                            <p class="text-lg leading-relaxed mb-4 text-justify hyphens-auto">
+                                A thrilling evening with a popular celebrity guest, featuring live music, dance performances, and entertainment that kept the crowd energized and excited.
+                            </p>
+                            <p class="text-lg leading-relaxed mb-4 text-justify hyphens-auto">
+                                The electric atmosphere filled with pulsating beats, dazzling lights, and enthusiastic cheers created an unforgettable night of celebration and entertainment.
+                            </p>
+                        </div>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 justify-items-center">
+                            <!-- Gallery Items -->
+                            {% for i in range(9) %}
                             <div class="gallery-item group relative overflow-hidden rounded-xl border-2 border-secondary hover:border-primary/50 transition-all duration-300 hover:-translate-y-2 hover:shadow-lg hover:shadow-primary/20">
-                                <img src="{{ url_for('static', filename='gallery/mn' ~ loop.index ~ '.jpg') }}"
-                                     alt="Management Event {{ loop.index }}"
-                                     class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110"
+                                <img src="{{ url_for('static', filename='gallery/nt' ~ loop.index ~ '.jpg') }}"
+                                     alt="Celebrity Night - Day 1 Image {{ loop.index }}"
+                                     class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
                                      loading="lazy"
                                      onerror="this.src='{{ url_for('static', filename='gallery/place.jpg') }}'; console.error('Failed to load:', this.src);">
                                 <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4 opacity-0 group-hover:opacity-100 transition-opacity">
-                                    <p class="text-primary text-sm">Management Events - Moment {{ loop.index }}</p>
+                                    <p class="text-primary text-sm">Celebrity Night - Day 1 - Moment {{ loop.index }}</p>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <!-- Awards Ceremony Section -->
+                    <div class="bg-[rgba(20,20,20,0.8)] p-4 sm:p-6 md:p-8 rounded-xl border border-[#00FFFF] 
+                                transform transition-all duration-300 hover:-translate-y-1 
+                                hover:shadow-[0_10px_20px_rgba(0,255,255,0.3)] hover:border-[#FF00FF]">
+                        <h2 class="text-2xl sm:text-3xl md:text-4xl text-center font-['Orbitron'] mb-6 sm:mb-8 
+                                bg-gradient-to-r from-[#00FFFF] via-[#FF00FF] to-[#00FFFF] 
+                                bg-clip-text text-transparent">
+                            Awards Ceremony
+                        </h2>
+                        <div class="mb-8 text-gray-300">
+                            <p class="text-lg leading-relaxed mb-4 text-justify hyphens-auto">
+                                A prestigious event honoring the winners of various competitions, recognizing their talent, hard work, and innovation with trophies, certificates, and accolades.
+                            </p>
+                            <p class="text-lg leading-relaxed mb-4 text-justify hyphens-auto">
+                                The ceremony celebrated excellence across technical, cultural, and management domains, inspiring future participants and creating moments of pride for winners and their institutions alike.
+                            </p>
+                        </div>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 justify-items-center">
+                            <!-- Gallery Items -->
+                            {% for i in range(6) %}
+                            <div class="gallery-item group relative overflow-hidden rounded-xl border-2 border-secondary hover:border-primary/50 transition-all duration-300 hover:-translate-y-2 hover:shadow-lg hover:shadow-primary/20">
+                                <img src="{{ url_for('static', filename='gallery/aw' ~ loop.index ~ '.jpg') }}"
+                                     alt="Awards Ceremony Image {{ loop.index }}"
+                                     class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
+                                     loading="lazy"
+                                     onerror="this.src='{{ url_for('static', filename='gallery/place.jpg') }}'; console.error('Failed to load:', this.src);">
+                                <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4 opacity-0 group-hover:opacity-100 transition-opacity">
+                                    <p class="text-primary text-sm">Awards Ceremony - Moment {{ loop.index }}</p>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <!-- Celebrity Night - Day 2 Section -->
+                    <div class="bg-[rgba(20,20,20,0.8)] p-4 sm:p-6 md:p-8 rounded-xl border border-[#00FFFF] 
+                                transform transition-all duration-300 hover:-translate-y-1 
+                                hover:shadow-[0_10px_20px_rgba(0,255,255,0.3)] hover:border-[#FF00FF]">
+                        <h2 class="text-2xl sm:text-3xl md:text-4xl text-center font-['Orbitron'] mb-6 sm:mb-8 
+                                bg-gradient-to-r from-[#00FFFF] via-[#FF00FF] to-[#00FFFF] 
+                                bg-clip-text text-transparent">
+                            Celebrity Night - Day 2
+                        </h2>
+                        <div class="mb-8 text-gray-300">
+                            <p class="text-lg leading-relaxed mb-4 text-justify hyphens-auto">
+                                Another star-studded night with a different celebrity or artist, bringing an electrifying close to the fest with mesmerizing performances, music, and celebrations.
+                            </p>
+                            <p class="text-lg leading-relaxed mb-4 text-justify hyphens-auto">
+                                The grand finale featured spectacular live performances, creating an atmosphere of pure joy and excitement as the festival drew to a memorable close.
+                            </p>
+                        </div>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 justify-items-center">
+                            <!-- Gallery Items -->
+                            {% for i in range(4) %}
+                            <div class="gallery-item group relative overflow-hidden rounded-xl border-2 border-secondary hover:border-primary/50 transition-all duration-300 hover:-translate-y-2 hover:shadow-lg hover:shadow-primary/20">
+                                <img src="{{ url_for('static', filename='gallery/n' ~ loop.index ~ '.jpg') }}?v=1"
+                                     alt="Celebrity Night - Day 2 Image {{ loop.index }}"
+                                     class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
+                                     loading="lazy"
+                                     onerror="this.src='{{ url_for('static', filename='gallery/place.jpg') }}'; console.error('Failed to load:', this.src);">
+                                <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4 opacity-0 group-hover:opacity-100 transition-opacity">
+                                    <p class="text-primary text-sm">Celebrity Night - Day 2 - Moment {{ loop.index }}</p>
                                 </div>
                             </div>
                             {% endfor %}
                         </div>
                     </div>
                 </div>
-
-                <!-- Celebrity Night - Day 1 Section -->
-                <div class="mb-12 bg-black bg-opacity-30 rounded-xl p-6 border border-primary/10">
-                    <h2 class="text-3xl text-primary text-center mb-6 font-[Syncopate] tracking-wide transform hover:scale-105 transition-transform duration-300">
-                        Celebrity Night - Day 1
-                    </h2>
-                    <div class="mb-8 text-gray-300">
-                        <p class="text-lg leading-relaxed mb-4 text-justify hyphens-auto">
-                            A thrilling evening with a popular celebrity guest, featuring live music, dance performances, and entertainment that kept the crowd energized and excited.
-                        </p>
-                        <p class="text-lg leading-relaxed mb-4 text-justify hyphens-auto">
-                            The electric atmosphere filled with pulsating beats, dazzling lights, and enthusiastic cheers created an unforgettable night of celebration and entertainment.
-                        </p>
-                    </div>
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 justify-items-center">
-                        <!-- Gallery Items -->
-                        {% for i in range(9) %}
-                        <div class="gallery-item group relative overflow-hidden rounded-xl border-2 border-secondary hover:border-primary/50 transition-all duration-300 hover:-translate-y-2 hover:shadow-lg hover:shadow-primary/20">
-                            <img src="{{ url_for('static', filename='gallery/nt' ~ loop.index ~ '.jpg') }}"
-                                 alt="Celebrity Night - Day 1 Image {{ loop.index }}"
-                                 class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110"
-                                 loading="lazy"
-                                 onerror="this.src='{{ url_for('static', filename='gallery/place.jpg') }}'; console.error('Failed to load:', this.src);">
-                            <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4 opacity-0 group-hover:opacity-100 transition-opacity">
-                                <p class="text-primary text-sm">Celebrity Night - Day 1 - Moment {{ loop.index }}</p>
-                            </div>
-                        </div>
-                        {% endfor %}
-                    </div>
-                </div>
-
-                <!-- Awards Ceremony Section -->
-                <div class="mb-12 bg-black bg-opacity-30 rounded-xl p-6 border border-primary/10">
-                    <h2 class="text-3xl text-primary text-center mb-6 font-[Syncopate] tracking-wide transform hover:scale-105 transition-transform duration-300">
-                        Awards Ceremony
-                    </h2>
-                    <div class="mb-8 text-gray-300">
-                        <p class="text-lg leading-relaxed mb-4 text-justify hyphens-auto">
-                            A prestigious event honoring the winners of various competitions, recognizing their talent, hard work, and innovation with trophies, certificates, and accolades.
-                        </p>
-                        <p class="text-lg leading-relaxed mb-4 text-justify hyphens-auto">
-                            The ceremony celebrated excellence across technical, cultural, and management domains, inspiring future participants and creating moments of pride for winners and their institutions alike.
-                        </p>
-                    </div>
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 justify-items-center">
-                        <!-- Gallery Items -->
-                        {% for i in range(6) %}
-                        <div class="gallery-item group relative overflow-hidden rounded-xl border-2 border-secondary hover:border-primary/50 transition-all duration-300 hover:-translate-y-2 hover:shadow-lg hover:shadow-primary/20">
-                            <img src="{{ url_for('static', filename='gallery/aw' ~ loop.index ~ '.jpg') }}"
-                                 alt="Awards Ceremony Image {{ loop.index }}"
-                                 class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110"
-                                 loading="lazy"
-                                 onerror="this.src='{{ url_for('static', filename='gallery/place.jpg') }}'; console.error('Failed to load:', this.src);">
-                            <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4 opacity-0 group-hover:opacity-100 transition-opacity">
-                                <p class="text-primary text-sm">Awards Ceremony - Moment {{ loop.index }}</p>
-                            </div>
-                        </div>
-                        {% endfor %}
-                    </div>
-                </div>
-
-                <!-- Celebrity Night - Day 2 Section -->
-                <div class="mb-12 bg-black bg-opacity-30 rounded-xl p-6 border border-primary/10">
-                    <h2 class="text-3xl text-primary text-center mb-6 font-[Syncopate] tracking-wide transform hover:scale-105 transition-transform duration-300">
-                        Celebrity Night - Day 2
-                    </h2>
-                    <div class="mb-8 text-gray-300">
-                        <p class="text-lg leading-relaxed mb-4 text-justify hyphens-auto">
-                            Another star-studded night with a different celebrity or artist, bringing an electrifying close to the fest with mesmerizing performances, music, and celebrations.
-                        </p>
-                        <p class="text-lg leading-relaxed mb-4 text-justify hyphens-auto">
-                            The grand finale featured spectacular live performances, creating an atmosphere of pure joy and excitement as the festival drew to a memorable close.
-                        </p>
-                    </div>
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 justify-items-center">
-                        <!-- Gallery Items -->
-                        {% for i in range(4) %}
-                        <div class="gallery-item group relative overflow-hidden rounded-xl border-2 border-secondary hover:border-primary/50 transition-all duration-300 hover:-translate-y-2 hover:shadow-lg hover:shadow-primary/20">
-                            <img src="{{ url_for('static', filename='gallery/n' ~ loop.index ~ '.jpg') }}?v=1"
-                                 alt="Celebrity Night - Day 2 Image {{ loop.index }}"
-                                 class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110"
-                                 loading="lazy"
-                                 onerror="this.src='{{ url_for('static', filename='gallery/place.jpg') }}'; console.error('Failed to load:', this.src);">
-                            <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4 opacity-0 group-hover:opacity-100 transition-opacity">
-                                <p class="text-primary text-sm">Celebrity Night - Day 2 - Moment {{ loop.index }}</p>
-                            </div>
-                        </div>
-                        {% endfor %}
-                    </div>
-                </div>
-            </div>
-        </section>
+            </section>
+        </div>
     </div>
-</div>
 
-<!-- Add modal for image popup -->
-<div id="imageModal" class="fixed inset-0 z-50 hidden bg-black bg-opacity-90 flex items-center justify-center p-2 sm:p-4">
-    <button onclick="closeModal()" class="absolute top-2 right-2 sm:top-4 sm:right-4 w-8 h-8 sm:w-10 sm:h-10 bg-white/10 rounded-full flex items-center justify-center text-white hover:text-[#FF00FF] text-xl sm:text-2xl">
-        <i class="fas fa-times"></i>
-    </button>
-    <img id="modalImage" src="" alt="Enlarged Image" 
-         class="max-w-[95%] sm:max-w-[90%] max-h-[90vh] object-contain rounded-lg">
-</div>
+    <!-- Add floating particles effect -->
+    <div class="absolute inset-0 pointer-events-none">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+    </div>
+</section>
 
+<!-- Update bottom divider -->
+<div class="h-0.5 bg-gradient-to-r from-[#6D28D9] via-[#3B82F6] to-[#00FFFF]"></div>
+
+<!-- Add theme styles -->
 <style>
-    @media (max-width: 640px) {
-        .gallery-item img {
-            height: 200px;
-        }
-        
-        .text-justify {
-            text-align: justify;
-            hyphens: auto;
-        }
-        
-        #imageModal button {
-            transform: scale(0.9);
+    @keyframes gradient-flow {
+        0%, 100% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+    }
+
+    @keyframes float {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-20px); }
+    }
+
+    .particle {
+        position: absolute;
+        width: 4px;
+        height: 4px;
+        background: rgba(0, 255, 255, 0.5);
+        border-radius: 50%;
+        animation: float 15s infinite;
+    }
+
+    .particle:nth-child(1) {
+        top: 20%;
+        left: 20%;
+        animation-delay: 0s;
+    }
+
+    .particle:nth-child(2) {
+        top: 60%;
+        left: 50%;
+        animation-delay: -5s;
+        background: rgba(255, 0, 255, 0.5);
+    }
+
+    .particle:nth-child(3) {
+        top: 40%;
+        left: 80%;
+        animation-delay: -10s;
+        background: rgba(109, 40, 217, 0.5);
+    }
+
+    /* Keep existing gallery styles */
+    /* ...existing gallery-specific styles... */
+
+    /* Add consistent aspect ratio for all image containers */
+    .gallery-item {
+        aspect-ratio: 4/3;
+        width: 100%;
+    }
+
+    .gallery-item img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    /* Ensure consistent container heights */
+    @media (min-width: 640px) {
+        .gallery-section {
+            min-height: 400px;
         }
     }
 
-    @media (min-width: 641px) {
-        .text-justify {
-            text-align: justify;
-            hyphens: manual;
-        }
-        
-        .gallery-section {
-            padding: 1.5rem;
-        }
-        
-        .gallery-description {
-            padding: 0 1rem;
-        }
-        
-        .gallery-grid {
-            gap: 1.5rem;
-        }
+    /* Add smooth transitions */
+    .gallery-item, .gallery-item img {
+        transition: all 0.3s ease-in-out;
     }
 </style>
 
+<!-- Keep existing scripts -->
 <script>
     // Remove handleImageError function as we're using simpler error handling
 
@@ -385,4 +483,3 @@
     });
 </script>
 {% endblock %}
-```

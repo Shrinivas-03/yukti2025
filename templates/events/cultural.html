@@ -120,7 +120,7 @@
                 </li>
                 <li class="flex items-center justify-center gap-3 text-sm sm:text-base text-[#C0C0C0] font-['Rajdhani']">
                     <i class="bi bi-cash text-[#00FFFF]"></i>
-                    Registration Fee: ₹300/Solo, ₹800/Group
+                    Registration Fee: ₹299/Solo, ₹499/Group
                 </li>
                 
             </ul>
@@ -233,14 +233,14 @@
                 </li>
                 <li class="flex items-center justify-center gap-3 text-sm sm:text-base text-[#C0C0C0] font-['Rajdhani']">
                     <i class="bi bi-cash text-[#00FFFF]"></i>
-                    Registration Fee: ₹300/Solo, ₹1000/Group
+                    Registration Fee: ₹300/Solo, ₹500/Group
                 </li>
                
             </ul>
         </div>
     </div>
 
-    <!-- NAVYATAA Card -->
+    <!-- NAVYATAA Card - Updated to match other cards -->
     <div class="max-w-3xl mx-auto mb-6 sm:mb-12 bg-[rgba(32,34,39,0.95)] backdrop-blur-md p-3 sm:p-4 rounded-xl border-2 border-[#00FFFF] 
                 transform transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_15px_30px_rgba(0,255,255,0.4)] hover:border-[#FF00FF]">
         
@@ -252,7 +252,6 @@
             <div class="absolute bottom-0 left-0 w-full h-1/2 bg-gradient-to-b from-transparent to-[rgba(18,18,18,0.95)]"></div>
         </div>
 
-        <!-- Update content padding and spacing -->
         <div class="p-4 sm:p-6 bg-gradient-to-b from-[rgba(18,18,18,0.95)] to-[rgba(18,18,18,1)]">
             <!-- Update heading sizes -->
             <h3 class="text-xl sm:text-2xl mb-3 sm:mb-4 font-['Orbitron'] text-transparent bg-clip-text bg-gradient-to-r from-[#00FFFF] via-[#FF00FF] to-[#00FFFF] 
@@ -268,11 +267,9 @@
                 </p>
                 
                 <!-- Update expanded content layout -->
-                <div class="hidden opacity-0 transition-opacity duration-300 
-                            p-4 sm:p-8 bg-[rgba(45,49,56,0.8)] rounded-lg mt-3 sm:mt-4 
-                            text-left space-y-4 sm:space-y-6">
-                    <!-- Rules and Regulations -->
-                    <div class="bg-[rgba(32,34,39,0.95)] p-3 sm:p-4 rounded-lg border-l-4 border-[#00FFFF] hover:border-[#FF00FF] transition-all duration-300"></div>
+                <div class="hidden opacity-0 transition-opacity duration-300 p-4 sm:p-8 bg-[rgba(45,49,56,0.8)] rounded-lg mt-3 sm:mt-4 text-left space-y-4 sm:space-y-6">
+                    <!-- Rules Section -->
+                    <div class="bg-[rgba(32,34,39,0.95)] p-3 sm:p-4 rounded-lg border-l-4 border-[#00FFFF] hover:border-[#FF00FF] transition-all duration-300">
                         <h4 class="text-base sm:text-lg text-[#00FFFF] font-['Orbitron'] font-bold mb-3">Rules & Regulations:</h4>
                         <ol class="list-decimal list-inside text-sm sm:text-base text-[#C0C0C0] space-y-2 ml-4 font-['Rajdhani']">
                             <li>The theme for the event will be: Be Bold For Change</li>
@@ -287,7 +284,7 @@
                         </ol>
                     </div>
 
-                    <!-- Coordinators -->
+                    <!-- Coordinators Section -->
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div class="bg-[rgba(32,34,39,0.95)] p-3 sm:p-4 rounded-lg border-l-4 border-[#00FFFF] hover:border-[#FF00FF] transition-all duration-300">
                             <h4 class="text-base sm:text-lg text-[#00FFFF] font-['Orbitron'] font-bold mb-3">Faculty Coordinators:</h4>
@@ -313,7 +310,7 @@
                 </div>
             </div>
             
-            <!-- Update button styling -->
+            <!-- Update button section -->
             <div class="flex flex-col items-center gap-3 sm:gap-4 mt-6 sm:mt-8">
                 <button onclick="toggleDescription(this)"
                         class="px-6 sm:px-10 py-2 sm:py-3 text-sm sm:text-base font-semibold font-['Orbitron'] tracking-wider rounded-lg bg-transparent text-[#00FFFF] 
@@ -330,16 +327,15 @@
                 </a>
             </div>
 
-            <!-- Update event details -->
-            <ul class="mt-4 sm:mt-6 p-4 sm:p-6 bg-black/20 rounded-lg 
-                       space-y-2 sm:space-y-3 text-center">
+            <!-- Event Details -->
+            <ul class="mt-4 sm:mt-6 p-4 sm:p-6 bg-black/20 rounded-lg space-y-2 sm:space-y-3 text-center">
                 <li class="flex items-center justify-center gap-3 text-sm sm:text-base text-[#C0C0C0] font-['Rajdhani']">
                     <i class="bi bi-people-fill text-[#00FFFF]"></i>
-                    Solo/Duo/Group Event
+                    Solo Event
                 </li>
                 <li class="flex items-center justify-center gap-3 text-sm sm:text-base text-[#C0C0C0] font-['Rajdhani']">
                     <i class="bi bi-cash text-[#00FFFF]"></i>
-                    Registration Fee: ₹300/Solo, ₹500/Duo, ₹800/Group
+                    Registration Fee: ₹200
                 </li>
                 
             </ul>
@@ -372,29 +368,51 @@
 <!-- Update toggle description script -->
 <script>
     // Toggle description functionality
-    function toggleDescription(button) {
+    function toggleDescription(button, hasCoordinators = false) {
         const currentCard = button.closest('.max-w-3xl');
         const expandedContent = currentCard.querySelector('.event-description > div');
+        const coordinatorInfo = hasCoordinators ? currentCard.querySelector('.coordinator-info') : null;
         const cardPosition = currentCard.getBoundingClientRect().top + window.pageYOffset;
         
         if (expandedContent.classList.contains('hidden')) {
-            expandedContent.dataset.scrollPos = window.pageYOffset;
+            // Show content
             expandedContent.classList.remove('hidden');
             expandedContent.style.display = 'block';
+            
             requestAnimationFrame(() => {
                 expandedContent.style.opacity = '1';
                 button.textContent = 'Show Less';
+                
+                // Show coordinators with delay if they exist
+                if (coordinatorInfo) {
+                    setTimeout(() => {
+                        coordinatorInfo.classList.remove('hidden');
+                        requestAnimationFrame(() => {
+                            coordinatorInfo.style.opacity = '1';
+                        });
+                    }, 300);
+                }
+                
                 window.scrollTo({
                     top: cardPosition - 20,
                     behavior: 'smooth'
                 });
             });
         } else {
+            // Hide content
             expandedContent.style.opacity = '0';
+            if (coordinatorInfo) {
+                coordinatorInfo.style.opacity = '0';
+            }
             button.textContent = 'Read More';
+            
             setTimeout(() => {
                 expandedContent.style.display = 'none';
                 expandedContent.classList.add('hidden');
+                if (coordinatorInfo) {
+                    coordinatorInfo.classList.add('hidden');
+                }
+                
                 window.scrollTo({
                     top: cardPosition - 20,
                     behavior: 'smooth'
