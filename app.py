@@ -171,10 +171,10 @@ def send_spot_registration_email(to_email, ack_id, details):
 
 
 def generate_ack_id():
-    timestamp = datetime.now().strftime("%Y")
-    # Use secrets instead of random for cryptographic operations
-    random_chars = ''.join(secrets.choice(string.ascii_uppercase + string.digits) for _ in range(5))
-    return f"YUKTI-{timestamp}-{random_chars}"
+    # Create a new formatted ID with sequential number padded to 5 digits
+    current_num = len(supabase.table('registrations').select('ack_id').execute().data) + 1
+    formatted_num = str(current_num).zfill(5)  # Pad with zeros to make 5 digits
+    return f"YUKTI-2025-{formatted_num}"
 
 # Authentication decorator
 def login_required(allowed_pages=None):
