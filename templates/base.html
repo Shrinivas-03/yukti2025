@@ -243,6 +243,11 @@
         }
     </script>
     
+    <!-- Add this right after your existing script tags in head -->
+    <script>
+        // Global variable to check if we're in dev mode
+        const DEV_MODE = {% if config.get('DEV_MODE', False) %}true{% else %}false{% endif %};
+    </script>
     
     <!-- Navbar -->
     <header class="fixed top-0 w-full z-[2001] bg-[rgba(30,30,30,0.9)] h-16 sm:h-18 md:h-20 shadow-lg backdrop-blur-md">
@@ -370,18 +375,13 @@
 
                         <!-- Register Button with Enhanced Animation -->
                         <li>
-                            <a href="{{ url_for('register_page') }}" class="relative overflow-hidden px-4 sm:px-6 py-2 sm:py-3 rounded-lg font-bold
-                      text-sm sm:text-base md:text-lg group">
+                            <a href="{{ url_for('register_page') }}" 
+                               onclick="return checkRegistration(event)"
+                               class="relative overflow-hidden px-4 sm:px-6 py-2 sm:py-3 rounded-lg font-bold
+                                      text-sm sm:text-base md:text-lg group">
                                 <span class="relative z-10 text-white">Register</span>
                                 <div class="absolute inset-0 bg-gradient-to-r from-[#00FFFF] to-[#FF00FF]
-                            animate-[gradient-flow_3s_ease-in-out_infinite]"></div>
-                                <div class="absolute inset-0 opacity-0 group-hover:opacity-100 
-                            transition-opacity duration-300 bg-gradient-to-r 
-                            from-[#FF00FF] to-[#00FFFF]
-                            animate-[gradient-flow_3s_ease-in-out_infinite]"></div>
-                                <div class="absolute -inset-[2px] bg-gradient-to-r from-[#00FFFF] to-[#FF00FF] 
-                            rounded-lg opacity-0 group-hover:opacity-100 blur-md 
-                            transition-opacity duration-300"></div>
+                                            animate-[gradient-flow_3s_ease-in-out_infinite]"></div>
                             </a>
                         </li>
                     </ul>
@@ -673,6 +673,23 @@
                 }
             }
         });
+
+        function checkRegistration(event) {
+            // Allow registration if in dev mode
+            if (DEV_MODE) {
+                return true;
+            }
+            
+            const openingDate = new Date('2024-02-27T11:00:00+05:30');
+            const now = new Date();
+            
+            if (now < openingDate) {
+                event.preventDefault();
+                alert('Registration opens on February 27, 2024 at 11:00 AM IST');
+                return false;
+            }
+            return true;
+        }
     </script>
 </body>
 

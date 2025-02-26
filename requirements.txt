@@ -8,3 +8,4 @@ pillow
 python-dotenv
 flask_minify
 Flask-Compress
+pytz==2024.1

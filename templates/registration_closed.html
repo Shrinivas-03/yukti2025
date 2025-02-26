@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %}Registration Closed - YUKTI 2025{% endblock %}
+
+{% block content %}
+<div class="min-h-screen bg-gradient-to-br from-[#1C1C1C] to-[#0A0A0A] flex items-center justify-center px-4 py-12">
+    <div class="bg-[rgba(46,46,46,0.8)] backdrop-blur-md p-8 rounded-xl border-2 border-[#00FFFF] 
+                max-w-lg w-full text-center space-y-6">
+        <h1 class="text-3xl font-bold text-[#00FFFF] font-['Orbitron']">Registration Opening Soon</h1>
+        
+        <div class="bg-[rgba(32,34,39,0.8)] p-6 rounded-lg border border-[#FF00FF]">
+            <p class="text-lg text-white mb-4">
+                Registration will open on:
+            </p>
+            <p class="text-2xl text-[#FF00FF] font-bold mb-2">
+                February 27, 2024
+            </p>
+            <p class="text-xl text-[#00FFFF]">
+                11:00 AM IST
+            </p>
+        </div>
+
+        <a href="{{ url_for('home') }}" 
+           class="inline-block bg-[#FF00FF] text-white py-3 px-6 rounded-lg font-bold 
+                  transition-all duration-300 hover:bg-transparent hover:text-[#FF00FF] 
+                  hover:border-2 hover:border-[#FF00FF]">
+            Back to Home
+        </a>
+    </div>
+</div>
+{% endblock %}

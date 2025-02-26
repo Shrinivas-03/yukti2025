@@ -1,8 +1,11 @@
 from flask import Flask, render_template, request, redirect, url_for, session, flash, jsonify, Response, send_from_directory
 from datetime import datetime, timedelta
+import string
+import secrets
 import os
 from supabase import create_client, Client
 from functools import wraps
+from werkzeug.security import check_password_hash, generate_password_hash  # Add generate_password_hash
 import re
 import io
 import csv
@@ -10,9 +13,12 @@ import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from dotenv import load_dotenv
+import cryptography
+import logging
+from logging.handlers import RotatingFileHandler
 from flask_minify import Minify
-import hashlib
-from flask_compress import Compress
+import hashlib  # Add this import at the top
+import pytz
 
 load_dotenv() 
 
@@ -31,43 +37,6 @@ app = Flask(__name__,
     static_url_path='/static',
     static_folder='static'
 )
-
-# Update Compress configuration
-compress = Compress()
-app.config.update(
-    # Prefer Brotli for supported browsers, fallback to gzip
-    COMPRESS_ALGORITHM=['br', 'gzip'],
-    
-    # Use moderate Brotli compression level
-    COMPRESS_BR_LEVEL=6,
-    
-    # Only compress these mime types
-    COMPRESS_MIMETYPES=[
-        'text/html',
-        'text/css',
-        'text/xml',
-        'application/json',
-        'application/javascript',
-        'text/javascript',
-        'text/plain',
-        'application/xml',
-        'application/x-yaml'
-    ],
-    
-    # Don't compress files smaller than 500 bytes
-    COMPRESS_MIN_SIZE=500,
-    
-    # Remove the cache backend configuration that was causing the error
-    # COMPRESS_CACHE_BACKEND='filesystem',
-    # COMPRESS_CACHE_KEY='compression-cache',
-    
-    # Cache compressed files for 5 minutes (300 seconds)
-    SEND_FILE_MAX_AGE_DEFAULT=300
-)
-
-# Initialize compression after config
-compress.init_app(app)
-
 Minify(app=app, html=True, js=True, cssless=True)
 # Remove Compress(app) line
 
@@ -82,30 +51,16 @@ app.config.update(
     SESSION_COOKIE_SECURE=True,   # Ensures cookies are sent only over HTTPS
     SESSION_COOKIE_HTTPONLY=True, # Prevents JavaScript from accessing cookies
     SESSION_COOKIE_SAMESITE='Lax', # Helps prevent CSRF attacks
-    PERMANENT_SESSION_LIFETIME=timedelta(minutes=5),  # Changed from 30 to 5 minutes
-    SEND_FILE_MAX_AGE_DEFAULT=300  # 5 minutes in seconds
+    PERMANENT_SESSION_LIFETIME=timedelta(minutes=30)  # Increased from 5 to 30 minutes
 )
 
 @app.after_request
 def add_cache_control_headers(response):
-    # Set stricter cache control headers
-    response.headers["Cache-Control"] = "public, max-age=300, must-revalidate"  # 5 minutes
+    response.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
     response.headers["Pragma"] = "no-cache"
-    response.headers["Expires"] = (datetime.utcnow() + timedelta(minutes=5)).strftime('%a, %d %b %Y %H:%M:%S GMT')
-    
-    # Add Vary header for proper cache invalidation
-    response.vary.add('Cookie')
-    response.vary.add('Accept-Encoding')
-    
+    response.headers["Expires"] = "0"
     return response
-
-@app.after_request
-def add_compression_headers(response):
-    # Add Vary header to handle different compression algorithms
-    if 'Content-Encoding' in response.headers:
-        response.headers['Vary'] = 'Accept-Encoding'
-    return response
-
+    
 # Remove the cache-related function and keep the static file serving route
 # Serve images from multiple static subdirectories
 @app.route('/static/<folder>/<path:filename>')
@@ -268,6 +223,16 @@ def format_datetime(value):
         print(f"Date formatting error: {str(e)}")
         return value
 
+# Add this after imports
+def is_registration_open():
+    if DEV_MODE:
+        return True
+        
+    IST = pytz.timezone('Asia/Kolkata')
+    registration_start = datetime(2024, 2, 27, 11, 0, tzinfo=IST)
+    current_time = datetime.now(IST)
+    return current_time >= registration_start
+
 # Routes
 @app.route('/')
 def home():
@@ -314,10 +279,23 @@ def admin_page():
 
 @app.route('/register-page')
 def register_page():
+    # Check for dev mode first
+    if DEV_MODE:
+        return render_template('registration.html')
+        
+    if not is_registration_open():
+        return render_template('registration_closed.html')
     return render_template('registration.html')
 
 @app.route('/register', methods=['POST'])
 def register_submit():
+    # Check for dev mode first
+    if not DEV_MODE:
+        if not is_registration_open():
+            return jsonify({
+                'success': False,
+                'message': 'Registration opens on February 27, 2024 at 11:00 AM IST'
+            })
     try:
         data = request.get_json(silent=True)
         if not data:
@@ -801,6 +779,14 @@ def search_registration(ack_id):
             'message': str(e)
         })
 
+# Add this new function to handle unauthorized access
+@app.errorhandler(401)
+def unauthorized(e):
+    return jsonify({
+        'success': False,
+        'message': 'Authentication required'
+    }), 401
+
 # Add these new routes after your existing routes
 @app.route('/utr-management')
 def utr_management():
@@ -1188,6 +1174,14 @@ def get_dashboard_stats():
             'message': 'Error fetching statistics'
         })
 
+@app.route('/api/admin/check-session')
+def check_session():
+    if 'user_id' in session:
+        # Refresh session
+        session['login_time'] = datetime.now().isoformat()
+        return jsonify({'valid': True})
+    return jsonify({'valid': False}), 401
+
 @app.route('/event-dashboard')
 @login_required()
 def event_dashboard():
@@ -1369,23 +1363,6 @@ def get_event_name(event_id):
         'mission_talaash': 'Mission Talaash (Treasure Hunt)'
     }
     return event_names.get(event_id, 'Unknown Event')
-
-@app.route('/api/check-updates')
-def check_updates():
-    """Endpoint to check for updates and force refresh if needed"""
-    try:
-        last_update = session.get('last_update', datetime.utcnow())
-        current_time = datetime.utcnow()
-        
-        # If more than 5 minutes have passed
-        if current_time - datetime.fromisoformat(last_update) > timedelta(minutes=5):
-            session['last_update'] = current_time.isoformat()
-            return jsonify({'refresh_needed': True})
-            
-        return jsonify({'refresh_needed': False})
-    except Exception as e:
-        print(f"Update check error: {str(e)}")
-        return jsonify({'refresh_needed': False})
 
 if __name__ == "__main__":
     app.run(debug=app.config['DEBUG'])
