@@ -727,6 +727,13 @@ input[type="radio"]:checked + label {
                     nameInput.className = "w-full p-2 sm:p-3 text-sm sm:text-base bg-[rgba(32,34,39,0.8)] border-2 border-[#00FFFF] rounded-lg text-white \
                                          placeholder:text-gray-400 outline-none transition-all duration-300 \
                                          focus:border-[#FF00FF] focus:shadow-[0_0_8px_rgba(3,233,244,0.4)]";
+                    // Add name validation for team member name
+                    nameInput.addEventListener('input', function() {
+                        validateMemberName(this);
+                    });
+                    nameInput.addEventListener('keyup', function() {
+                        validateMemberName(this);
+                    });
                     
                     nameWrapper.appendChild(nameLabel);
                     nameWrapper.appendChild(nameInput);
@@ -1263,6 +1270,13 @@ input[type="radio"]:checked + label {
             nameInput.className = "w-full p-2 sm:p-3 text-sm sm:text-base bg-[rgba(32,34,39,0.8)] border-2 border-[#00FFFF] rounded-lg text-white \
                                  placeholder:text-gray-400 outline-none transition-all duration-300 \
                                  focus:border-[#FF00FF] focus:shadow-[0_0_8px_rgba(3,233,244,0.4)]";
+            // Add name validation for team member name
+            nameInput.addEventListener('input', function() {
+                validateMemberName(this);
+            });
+            nameInput.addEventListener('keyup', function() {
+                validateMemberName(this);
+            });
             
             nameWrapper.appendChild(nameLabel);
             nameWrapper.appendChild(nameInput);
@@ -1441,5 +1455,78 @@ function showIndividualInput() {
 }
 
 // ...rest of existing code...
+
+function validateMemberName(input) {
+    // Filter out anything except letters, spaces, and dots
+    let filtered = input.value.replace(/[^A-Za-z\s.]/g, '');
+    if (input.value !== filtered) {
+        input.value = filtered;
+    }
+    
+    const errorId = `${input.id}-error`;
+    let errorElement = document.getElementById(errorId);
+    if (!errorElement) {
+        errorElement = document.createElement('div');
+        errorElement.id = errorId;
+        errorElement.className = 'text-red-500 text-sm mt-1';
+        input.parentNode.appendChild(errorElement);
+    }
+    
+    if (filtered.trim() === '') {
+        input.classList.remove('error-border');
+        errorElement.textContent = '';
+        input.setCustomValidity('Name is required');
+        addEventBtn.disabled = true;
+    } else if (filtered.trim().length < 4) {  // Minimum length of 4 characters
+        input.classList.add('error-border');
+        errorElement.textContent = 'Name must be at least 4 characters';
+        input.setCustomValidity('Name too short');
+        addEventBtn.disabled = true;
+    } else {
+        input.classList.remove('error-border');
+        errorElement.textContent = '';
+        input.setCustomValidity('');
+        
+        // Only enable Next button if all names are valid
+        const allInputsValid = checkAllMemberInputsValid();
+        addEventBtn.disabled = !allInputsValid;
+    }
+}
+
+// Update checkAllMemberInputsValid to include length check
+function checkAllMemberInputsValid() {
+    const memberInputs = memberInputsContainer.querySelectorAll('input[id^="member-"]');
+    const regex = /^[A-Za-z\s.]*$/;
+    
+    for (const input of memberInputs) {
+        const value = input.value.trim();
+        if (!regex.test(value) || value.length < 4) {  // Minimum length of 4 characters
+            return false;
+        }
+    }
+    return true;
+}
+
+// Attach the validateMemberName function to all relevant text inputs
+document.querySelectorAll('input[type="text"]').forEach(input => {
+    if (input.id.startsWith("member-") || input.id === "individual-participant") {
+        input.addEventListener('input', function() {
+            validateMemberName(this);
+        });
+    }
+});
+
+function checkAllMemberInputsValid() {
+    const memberInputs = memberInputsContainer.querySelectorAll('input[id^="member-"]');
+    const regex = /^[A-Za-z\s.]*$/;
+    
+    for (const input of memberInputs) {
+        const value = input.value.trim();
+        if (!regex.test(value) || value.length < 2) {
+            return false;
+        }
+    }
+    return true;
+}
 </script>
 {% endblock %}
