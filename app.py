@@ -226,7 +226,7 @@ def format_datetime(value):
 # Add this after imports
 def is_registration_open():
     if DEV_MODE:
-        return True
+        return False
         
     IST = pytz.timezone('Asia/Kolkata')
     registration_start = datetime(2024, 2, 27, 11, 0, tzinfo=IST)
