@@ -640,6 +640,40 @@
             }
         }
     </style>
+    <script>
+        // Periodic update checker
+        function checkForUpdates() {
+            fetch('/api/check-updates')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.refresh_needed) {
+                        // Show a user-friendly notification
+                        if (confirm('New updates are available. Refresh to see the latest features?')) {
+                            window.location.reload(true);
+                        }
+                    }
+                })
+                .catch(console.error);
+        }
+
+        // Check for updates every 5 minutes
+        setInterval(checkForUpdates, 300000); // 5 minutes in milliseconds
+
+        // Initial page load optimization
+        document.addEventListener('DOMContentLoaded', function() {
+            // Only force reload if it's been more than 5 minutes since last visit
+            const lastVisit = sessionStorage.getItem('lastVisit');
+            const currentTime = new Date().getTime();
+            
+            if (!lastVisit || (currentTime - parseInt(lastVisit)) > 300000) {
+                sessionStorage.setItem('lastVisit', currentTime);
+                if (!sessionStorage.getItem('reloaded')) {
+                    sessionStorage.setItem('reloaded', 'true');
+                    window.location.reload(true);
+                }
+            }
+        });
+    </script>
 </body>
 
 </html>
