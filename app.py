@@ -60,7 +60,7 @@ app.config.update(
 @app.after_request
 def add_cache_headers(response):
     if 'Cache-Control' not in response.headers:
-        response.headers['Cache-Control'] = 'public, max-age=31536000'  # Cache for 1 year
+        response.headers['Cache-Control'] = 'public, max-age=300'  # Cache for 5 minutes
     return response  # Always return the response
 
 # Serve images from multiple static subdirectories
