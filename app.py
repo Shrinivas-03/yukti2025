@@ -2,7 +2,12 @@ from flask import Flask, render_template, request, redirect, url_for, session, f
 from datetime import datetime, timedelta
 import os
 from supabase import create_client, Client
+<<<<<<< HEAD
 from functools import wraps
+=======
+import functools  # Add this full import
+from functools import wraps  # Keep this existing import
+>>>>>>> 0ac4d7257230e03252c9065fb52aae53b1865773
 import re
 import io
 import csv
@@ -78,12 +83,22 @@ app.secret_key = app.config['SECRET_KEY']
 # Initialize Supabase client
 supabase: Client = create_client(app.config['SUPABASE_URL'], app.config['SUPABASE_KEY'])
 
+# Keep only one session config, remove all other session configs
 app.config.update(
+<<<<<<< HEAD
     SESSION_COOKIE_SECURE=True,   # Ensures cookies are sent only over HTTPS
     SESSION_COOKIE_HTTPONLY=True, # Prevents JavaScript from accessing cookies
     SESSION_COOKIE_SAMESITE='Lax', # Helps prevent CSRF attacks
     PERMANENT_SESSION_LIFETIME=timedelta(minutes=5),  # Changed from 30 to 5 minutes
     SEND_FILE_MAX_AGE_DEFAULT=300  # 5 minutes in seconds
+=======
+    SESSION_COOKIE_SECURE=True,
+    SESSION_COOKIE_HTTPONLY=True,
+    SESSION_COOKIE_SAMESITE='Lax',
+    PERMANENT_SESSION_LIFETIME=timedelta(minutes=5),
+    SESSION_REFRESH_EACH_REQUEST=False,  # Disable auto refresh
+    SEND_FILE_MAX_AGE_DEFAULT=300
+>>>>>>> 0ac4d7257230e03252c9065fb52aae53b1865773
 )
 
 @app.after_request
@@ -236,6 +251,7 @@ def generate_ack_id():
     return f"YUKTI-{year}-{formatted_number}"
 
 # Authentication decorator
+<<<<<<< HEAD
 def login_required(allowed_pages=None):
     def decorator(f):
         @wraps(f)
@@ -252,6 +268,23 @@ def login_required(allowed_pages=None):
             return f(*args, **kwargs)
         return decorated_function
     return decorator
+=======
+def login_required(f=None):
+    if f is None:
+        return functools.partial(login_required)
+        
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if 'user_id' not in session:
+            return jsonify({
+                'success': False,
+                'message': 'Authentication required'
+            }), 401
+            
+        return f(*args, **kwargs)
+        
+    return decorated_function
+>>>>>>> 0ac4d7257230e03252c9065fb52aae53b1865773
 
 # Add this after creating the Flask app
 @app.template_filter('format_datetime')
@@ -911,10 +944,16 @@ def admin():
 @app.route('/admin/dashboard')
 def admin_dashboard():
     if 'user_id' not in session:
+<<<<<<< HEAD
         flash('Please login first', 'error')
         return redirect(url_for('admin'))
         
     # Updated categories with normalized event IDs
+=======
+        return redirect(url_for('admin'))
+    
+    # Remove any session modifications
+>>>>>>> 0ac4d7257230e03252c9065fb52aae53b1865773
     categories = [
         {
             'id': 'technical',
@@ -998,7 +1037,10 @@ def admin_dashboard():
         'mission_talaash': 'Mission Talaash (Treasure Hunt)'
     }
     
+<<<<<<< HEAD
     session['login_time'] = datetime.now().isoformat()
+=======
+>>>>>>> 0ac4d7257230e03252c9065fb52aae53b1865773
     return render_template('admin_dashboard.html', categories=categories, event_details=event_names)
 
 # ...rest of existing code...
@@ -1038,6 +1080,7 @@ def get_event_name(event_id):
 def admin_login_api():
     try:
         data = request.get_json()
+<<<<<<< HEAD
         user_id = data.get('user_id')
         password = data.get('password')
 
@@ -1072,6 +1115,24 @@ def admin_login_api():
             'success': False,
             'message': 'An error occurred'
         }), 500
+=======
+        if not (data and data.get('user_id') and data.get('password')):
+            return jsonify({'success': False, 'message': 'Missing credentials'}), 400
+
+        response = supabase.table('admin_users').select('*').eq('user_id', data['user_id']).execute()
+        
+        if response.data and response.data[0]['password'] == data['password']:
+            session.clear()  # Clear any existing session
+            session.permanent = True  # Enable session expiry
+            session['user_id'] = data['user_id']
+            return jsonify({'success': True, 'redirect': url_for('admin_dashboard')})
+
+        return jsonify({'success': False, 'message': 'Invalid credentials'}), 401
+
+    except Exception as e:
+        print(f"Login error: {str(e)}")
+        return jsonify({'success': False, 'message': 'An error occurred'}), 500
+>>>>>>> 0ac4d7257230e03252c9065fb52aae53b1865773
 
 # Helper function to create admin user (you can use this in development)
 @app.route('/api/admin/create', methods=['POST'])
@@ -1369,6 +1430,7 @@ def get_event_name(event_id):
         'mission_talaash': 'Mission Talaash (Treasure Hunt)'
     }
     return event_names.get(event_id, 'Unknown Event')
+<<<<<<< HEAD
 
 @app.route('/api/check-updates')
 def check_updates():
@@ -1386,6 +1448,9 @@ def check_updates():
     except Exception as e:
         print(f"Update check error: {str(e)}")
         return jsonify({'refresh_needed': False})
+=======
+>>>>>>> 0ac4d7257230e03252c9065fb52aae53b1865773
 
 if __name__ == "__main__":
-    app.run(debug=app.config['DEBUG'])
+    # Disable the reloader by setting use_reloader to False
+    app.run(debug=False, use_reloader=False)

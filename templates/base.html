@@ -10,7 +10,7 @@
     </style>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+
     <!-- Correct Favicon Section -->
     <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
 
@@ -73,7 +73,7 @@
                 }
             }
         }
-       
+
 
     </script>
     <style>
@@ -232,12 +232,18 @@
         }
 
         @keyframes marquee {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(-50%);
+            }
         }
 
         .animate-marquee {
-            animation: marquee 10s linear infinite; /* Changed from 30s to 20s for faster speed */
+            animation: marquee 10s linear infinite;
+            /* Changed from 30s to 20s for faster speed */
         }
 
         .animate-marquee:hover {
@@ -246,25 +252,33 @@
 
         /* Update marquee animations */
         @keyframes marquee {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(-50%);
+            }
         }
 
         /* Base marquee animation */
         .animate-marquee {
-            animation: marquee 15s linear infinite; /* Default speed for desktop */
+            animation: marquee 15s linear infinite;
+            /* Default speed for desktop */
         }
 
         /* Responsive marquee speeds */
         @media (max-width: 768px) {
             .animate-marquee {
-                animation-duration: 12s; /* Medium screens */
+                animation-duration: 12s;
+                /* Medium screens */
             }
         }
 
         @media (max-width: 640px) {
             .animate-marquee {
-                animation-duration: 8s; /* Small screens */
+                animation-duration: 8s;
+                /* Small screens */
             }
         }
 
@@ -293,13 +307,13 @@
             window.location.reload(true); // Force reload from server
         }
     </script>
-    
+
     <!-- Remove the DEV_MODE script -->
     <!-- Remove or comment out this entire script block -->
     <script>
         // Remove global DEV_MODE variable and checkRegistration function
     </script>
-    
+
     <!-- Navbar -->
     <header class="fixed top-0 w-full z-[2001] bg-[rgba(30,30,30,0.9)] h-16 sm:h-18 md:h-20 shadow-lg backdrop-blur-md">
         <div class="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 h-full flex justify-between items-center">
@@ -426,8 +440,7 @@
 
                         <!-- Register Button with Enhanced Animation -->
                         <li>
-                            <a href="{{ url_for('register_page') }}" 
-                               class="relative overflow-hidden px-4 sm:px-6 py-2 sm:py-3 rounded-lg font-bold
+                            <a href="{{ url_for('register_page') }}" class="relative overflow-hidden px-4 sm:px-6 py-2 sm:py-3 rounded-lg font-bold
                                       text-sm sm:text-base md:text-lg group">
                                 <span class="relative z-10 text-white">Register</span>
                                 <div class="absolute inset-0 bg-gradient-to-r from-[#00FFFF] to-[#FF00FF]
@@ -442,60 +455,110 @@
     </header>
 
     <!-- Update just the marquee section -->
-<div class="fixed top-16 sm:top-18 md:top-20 w-full z-[1999] bg-gradient-to-r from-[#1C1C1C] via-[#141414] to-[#1C1C1C] border-y border-[#00FFFF]/20 backdrop-blur-sm">
-    <div class="relative h-8 sm:h-10 md:h-12 overflow-hidden"> <!-- Adjusted heights -->
-        <!-- Gradient fade edges -->
-        <div class="absolute inset-y-0 left-0 w-12 sm:w-16 md:w-20 bg-gradient-to-r from-[#1C1C1C] to-transparent z-10"></div>
-        <div class="absolute inset-y-0 right-0 w-12 sm:w-16 md:w-20 bg-gradient-to-l from-[#1C1C1C] to-transparent z-10"></div>
-        
-        <!-- Marquee content with larger text -->
-        <div class="flex items-center animate-marquee whitespace-nowrap h-full"> <!-- Added h-full -->
-            <div class="flex items-center gap-8 mx-4">
-                <span class="text-base sm:text-lg md:text-xl text-[#00FFFF] font-['Orbitron']"> <!-- Increased text size -->
-                    <i class="fas fa-star-of-life fa-spin mr-2"></i>
-                    Registration Opens: February 27th, 11:00 AM IST
-                </span>
-                <span class="text-[#FF00FF] text-xl sm:text-2xl">★</span> <!-- Increased star size -->
-                <span class="text-base sm:text-lg md:text-xl text-[#00FFFF] font-['Orbitron']">
-                    <i class="fas fa-calendar-check mr-2"></i>
-                    Event Dates: March 10-11, 2025
-                </span>
-                <span class="text-[#FF00FF] text-xl sm:text-2xl">★</span>
-                <span class="text-base sm:text-lg md:text-xl text-[#00FFFF] font-['Orbitron']">
-                    <i class="fas fa-trophy mr-2"></i>
-                    Exciting Prizes awaits
-                </span>
-                <span class="text-[#FF00FF] text-xl sm:text-2xl">★</span>
-                <span class="text-base sm:text-lg md:text-xl text-[#00FFFF] font-['Orbitron']">
-                    <i class="fas fa-microphone mr-2"></i>
-                    Artists to be Announced Soon
-                </span>
+    <div
+        class="fixed top-16 sm:top-18 md:top-20 w-full z-[1999] bg-gradient-to-r from-[#1C1C1C] via-[#141414] to-[#1C1C1C] border-y border-[#00FFFF]/20 backdrop-blur-sm">
+        <div class="relative h-8 sm:h-10 md:h-12 overflow-hidden"> <!-- Adjusted heights -->
+            <!-- Gradient fade edges -->
+            <div
+                class="absolute inset-y-0 left-0 w-12 sm:w-16 md:w-20 bg-gradient-to-r from-[#1C1C1C] to-transparent z-10">
             </div>
-            <!-- Duplicate content with same larger text -->
-            <div class="flex items-center gap-8 mx-4">
-                <span class="text-base sm:text-lg md:text-xl text-[#00FFFF] font-['Orbitron']">
-                    <i class="fas fa-star-of-life fa-spin mr-2"></i>
-                    Registration Opens: February 27th, 11:00 AM IST
-                </span>
-                <span class="text-[#FF00FF] text-xl sm:text-2xl">★</span>
-                <span class="text-base sm:text-lg md:text-xl text-[#00FFFF] font-['Orbitron']">
-                    <i class="fas fa-calendar-check mr-2"></i>
-                    Event Dates: March 10-11, 2025
-                </span>
-                <span class="text-[#FF00FF] text-xl sm:text-2xl">★</span>
-                <span class="text-base sm:text-lg md:text-xl text-[#00FFFF] font-['Orbitron']">
-                    <i class="fas fa-trophy mr-2"></i>
-                    Exciting Prizes awaits
-                </span>
-                <span class="text-[#FF00FF] text-xl sm:text-2xl">★</span>
-                <span class="text-base sm:text-lg md:text-xl text-[#00FFFF] font-['Orbitron']">
-                    <i class="fas fa-microphone mr-2"></i>
-                    Artists to be Announced Soon
-                </span>
+            <div
+                class="absolute inset-y-0 right-0 w-12 sm:w-16 md:w-20 bg-gradient-to-l from-[#1C1C1C] to-transparent z-10">
+            </div>
+
+            <!-- Marquee content with larger text -->
+            <div class="flex items-center animate-marquee whitespace-nowrap h-full"> <!-- Added h-full -->
+                <div class="flex items-center gap-8 mx-4">
+                    <span class="text-base sm:text-lg md:text-xl text-[#00FFFF] font-['Orbitron']">
+                        <!-- Increased text size -->
+                        <i class="fas fa-star-of-life fa-spin mr-2"></i>
+                        Registration Opens: February 27th, 12:00 M IST
+                    </span>
+                    <span class="text-[#FF00FF] text-xl sm:text-2xl">★</span> <!-- Increased star size -->
+                    <span class="text-base sm:text-lg md:text-xl text-[#00FFFF] font-['Orbitron']">
+                        <i class="fas fa-calendar-check mr-2"></i>
+                        Event Dates: March 10-11, 2025
+                    </span>
+                    <span class="text-[#FF00FF] text-xl sm:text-2xl">★</span>
+                    <span class="text-base sm:text-lg md:text-xl text-[#00FFFF] font-['Orbitron']">
+                        <i class="fas fa-trophy mr-2"></i>
+                        Exciting Prizes await
+                    </span>
+                    <span class="text-[#FF00FF] text-xl sm:text-2xl">★</span>
+                    <span class="text-base sm:text-lg md:text-xl text-[#00FFFF] font-['Orbitron']">
+                        <i class="fas fa-microphone mr-2"></i>
+                        Artists to be Announced Soon
+                    </span>
+                </div>
+                <!-- Duplicate content with same larger text -->
+                <div class="flex items-center gap-8 mx-4">
+                    <span class="text-base sm:text-lg md:text-xl text-[#00FFFF] font-['Orbitron']">
+                        <i class="fas fa-star-of-life fa-spin mr-2"></i>
+                        Registration Opens: February 27th, 12:00 PM IST
+                    </span>
+                    <span class="text-[#FF00FF] text-xl sm:text-2xl">★</span>
+                    <span class="text-base sm:text-lg md:text-xl text-[#00FFFF] font-['Orbitron']">
+                        <i class="fas fa-calendar-check mr-2"></i>
+                        Event Dates: March 10-11, 2025
+                    </span>
+                    <span class="text-[#FF00FF] text-xl sm:text-2xl">★</span>
+                    <span class="text-base sm:text-lg md:text-xl text-[#00FFFF] font-['Orbitron']">
+                        <i class="fas fa-trophy mr-2"></i>
+                        Exciting Prizes await
+                    </span>
+                    <span class="text-[#FF00FF] text-xl sm:text-2xl">★</span>
+                    <span class="text-base sm:text-lg md:text-xl text-[#00FFFF] font-['Orbitron']">
+                        <i class="fas fa-microphone mr-2"></i>
+                        Artists to be Announced Soon
+                    </span>
+                </div>
+                <!--Third Duplicate-->
+                <div class="flex items-center gap-8 mx-4">
+                    <span class="text-base sm:text-lg md:text-xl text-[#00FFFF] font-['Orbitron']">
+                        <i class="fas fa-star-of-life fa-spin mr-2"></i>
+                        Registration Opens: February 27th, 12:00 PM IST
+                    </span>
+                    <span class="text-[#FF00FF] text-xl sm:text-2xl">★</span>
+                    <span class="text-base sm:text-lg md:text-xl text-[#00FFFF] font-['Orbitron']">
+                        <i class="fas fa-calendar-check mr-2"></i>
+                        Event Dates: March 10-11, 2025
+                    </span>
+                    <span class="text-[#FF00FF] text-xl sm:text-2xl">★</span>
+                    <span class="text-base sm:text-lg md:text-xl text-[#00FFFF] font-['Orbitron']">
+                        <i class="fas fa-trophy mr-2"></i>
+                        Exciting Prizes await
+                    </span>
+                    <span class="text-[#FF00FF] text-xl sm:text-2xl">★</span>
+                    <span class="text-base sm:text-lg md:text-xl text-[#00FFFF] font-['Orbitron']">
+                        <i class="fas fa-microphone mr-2"></i>
+                        Artists to be Announced Soon
+                    </span>
+                </div>
+                <!--Fourth duplicate-->
+                <div class="flex items-center gap-8 mx-4">
+                    <span class="text-base sm:text-lg md:text-xl text-[#00FFFF] font-['Orbitron']">
+                        <i class="fas fa-star-of-life fa-spin mr-2"></i>
+                        Registration Opens: February 27th, 12:00 PM IST
+                    </span>
+                    <span class="text-[#FF00FF] text-xl sm:text-2xl">★</span>
+                    <span class="text-base sm:text-lg md:text-xl text-[#00FFFF] font-['Orbitron']">
+                        <i class="fas fa-calendar-check mr-2"></i>
+                        Event Dates: March 10-11, 2025
+                    </span>
+                    <span class="text-[#FF00FF] text-xl sm:text-2xl">★</span>
+                    <span class="text-base sm:text-lg md:text-xl text-[#00FFFF] font-['Orbitron']">
+                        <i class="fas fa-trophy mr-2"></i>
+                        Exciting Prizes await
+                    </span>
+                    <span class="text-[#FF00FF] text-xl sm:text-2xl">★</span>
+                    <span class="text-base sm:text-lg md:text-xl text-[#00FFFF] font-['Orbitron']">
+                        <i class="fas fa-microphone mr-2"></i>
+                        Artists to be Announced Soon
+                    </span>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
     <!-- Dynamic Content Block -->
     <main class="min-h-screen pt-32 sm:pt-36 md:pt-40 relative z-0">
@@ -766,11 +829,11 @@
         setInterval(checkForUpdates, 300000); // 5 minutes in milliseconds
 
         // Initial page load optimization
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             // Only force reload if it's been more than 5 minutes since last visit
             const lastVisit = sessionStorage.getItem('lastVisit');
             const currentTime = new Date().getTime();
-            
+
             if (!lastVisit || (currentTime - parseInt(lastVisit)) > 300000) {
                 sessionStorage.setItem('lastVisit', currentTime);
                 if (!sessionStorage.getItem('reloaded')) {
@@ -784,7 +847,7 @@
             // Remove DEV_MODE check since we want it disabled
             const openingDate = new Date('2024-02-27T11:00:00+05:30');
             const now = new Date();
-            
+
             if (now < openingDate) {
                 event.preventDefault();
                 alert('Registration opens on February 27, 2025 at 11:00 AM IST');

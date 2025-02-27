@@ -36,7 +36,7 @@
 
         <div class="flex justify-between items-center mb-8">
             <h1 class="text-3xl font-bold text-[#00FFFF] font-['Orbitron']">Admin Dashboard</h1>
-            <div class="space-x-4">
+            <div class="flex flex-wrap items-center gap-4"> <!-- Changed from space-x-4 to flex flex-wrap and gap-4 -->
                 <button onclick="toggleSection('searchSection')"
                         class="px-6 py-3 bg-[#00FFFF] text-white rounded-lg font-bold
                                transition-all duration-300 hover:bg-transparent hover:text-[#00FFFF] 
@@ -55,6 +55,18 @@
                           hover:border-2 hover:border-[#6D28D9]">
                     Payment Management
                 </a>
+                <button onclick="toggleSection('stallSection')"
+                        class="px-6 py-3 bg-[#6D28D9] text-white rounded-lg font-bold
+                               transition-all duration-300 hover:bg-transparent hover:text-[#6D28D9] 
+                               hover:border-2 hover:border-[#6D28D9] mt-2">  <!-- Added mt-2 class -->
+                    Stall Details
+                </button>
+                <button onclick="toggleSection('sponsorSection')"
+                        class="px-6 py-3 bg-[#6D28D9] text-white rounded-lg font-bold
+                               transition-all duration-300 hover:bg-transparent hover:text-[#6D28D9] 
+                               hover:border-2 hover:border-[#6D28D9] mt-2">
+                    Sponsor Details
+                </button>
                 <button onclick="logout()" 
                         class="px-6 py-3 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors">
                     Logout
@@ -180,6 +192,104 @@
                             <!-- Data will be populated dynamically -->
                         </tbody>
                     </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Stall Details Section -->
+        <div id="stallSection" class="section-content hidden">
+            <div class="bg-[rgba(46,46,46,0.8)] p-6 rounded-xl border-2 border-[#00FFFF]">
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="text-2xl text-[#00FFFF] font-['Orbitron']">Stall Management</h2>
+                    <button onclick="downloadStallDetails()"
+                            class="px-4 py-2 bg-[#FF00FF] text-white rounded-lg hover:bg-transparent 
+                                   hover:text-[#FF00FF] hover:border-2 hover:border-[#FF00FF] transition-all duration-300">
+                        Download CSV
+                    </button>
+                </div>
+
+                <div class="overflow-x-auto">
+                    <table class="w-full border-collapse">
+                        <thead>
+                            <tr class="bg-[rgba(32,34,39,0.8)] text-[#00FFFF]">
+                                <th class="p-3 text-left">Stall No</th>
+                                <th class="p-3 text-left">Stall Category</th>
+                                <th class="p-3 text-left">Items Description</th>
+                                <th class="p-3 text-left">Stall Owner</th>
+                                <th class="p-3 text-left">Contact Number</th>
+                                <th class="p-3 text-left">Amount Paid</th>
+                                <th class="p-3 text-left">Reference ID/UTR</th>
+                                <th class="p-3 text-left">Transaction Date</th>
+                            </tr>
+                        </thead>
+                        <tbody id="stallTableBody">
+                            <!-- Data will be populated dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Add new button below the table -->
+                <div class="mt-6 flex justify-end gap-4">
+                    <button onclick="saveStallDetails()"
+                            class="px-6 py-3 bg-blue-500 text-white rounded-lg font-bold
+                                   transition-all duration-300 hover:bg-transparent hover:text-blue-500 
+                                   hover:border-2 hover:border-blue-500">
+                        Save Changes
+                    </button>
+                    <button onclick="addNewStall()"
+                            class="px-6 py-3 bg-green-500 text-white rounded-lg font-bold
+                                   transition-all duration-300 hover:bg-transparent hover:text-green-500 
+                                   hover:border-2 hover:border-green-500">
+                        Add New Stall +
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Add new Sponsor Details Section -->
+        <div id="sponsorSection" class="section-content hidden">
+            <div class="bg-[rgba(46,46,46,0.8)] p-6 rounded-xl border-2 border-[#00FFFF]">
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="text-2xl text-[#00FFFF] font-['Orbitron']">Sponsor Management</h2>
+                    <button onclick="downloadSponsorDetails()"
+                            class="px-4 py-2 bg-[#FF00FF] text-white rounded-lg hover:bg-transparent 
+                                   hover:text-[#FF00FF] hover:border-2 hover:border-[#FF00FF] transition-all duration-300">
+                        Download CSV
+                    </button>
+                </div>
+
+                <div class="overflow-x-auto">
+                    <table class="w-full border-collapse">
+                        <thead>
+                            <tr class="bg-[rgba(32,34,39,0.8)] text-[#00FFFF]">
+                                <th class="p-3 text-left">Serial No</th>
+                                <th class="p-3 text-left">Sponsored By</th>
+                                <th class="p-3 text-left">Sponsored Category</th>
+                                <th class="p-3 text-left">Amount Paid</th>
+                                <th class="p-3 text-left">Reference ID/UTR</th>
+                                <th class="p-3 text-left">Transaction Date</th>
+                            </tr>
+                        </thead>
+                        <tbody id="sponsorTableBody">
+                            <!-- Data will be populated dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Add button below table -->
+                <div class="mt-6 flex justify-end gap-4">
+                    <button onclick="saveSponsorDetails()"
+                            class="px-6 py-3 bg-blue-500 text-white rounded-lg font-bold
+                                   transition-all duration-300 hover:bg-transparent hover:text-blue-500 
+                                   hover:border-2 hover:border-blue-500">
+                        Save Changes
+                    </button>
+                    <button onclick="addNewSponsor()"
+                            class="px-6 py-3 bg-green-500 text-white rounded-lg font-bold
+                                   transition-all duration-300 hover:bg-transparent hover:text-green-500 
+                                   hover:border-2 hover:border-green-500">
+                        Add New Sponsor +
+                    </button>
                 </div>
             </div>
         </div>
@@ -328,12 +438,13 @@ function checkSession() {
         });
 }
 
-// Check session every minute
-setInterval(checkSession, 60000);
+// Remove or comment out these functions that might cause refreshing:
+// - checkSession()
+// - setInterval(checkSession, 60000)
+// - fetchDashboardStats() periodic refresh
 
-// Initial session check and stats fetch
 document.addEventListener('DOMContentLoaded', function() {
-    checkSession();
+    // Only fetch stats once on load
     fetchDashboardStats();
     toggleSection('searchSection');
 });
