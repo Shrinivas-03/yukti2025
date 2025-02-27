@@ -328,12 +328,13 @@ function checkSession() {
         });
 }
 
-// Check session every minute
-setInterval(checkSession, 60000);
+// Remove or comment out these functions that might cause refreshing:
+// - checkSession()
+// - setInterval(checkSession, 60000)
+// - fetchDashboardStats() periodic refresh
 
-// Initial session check and stats fetch
 document.addEventListener('DOMContentLoaded', function() {
-    checkSession();
+    // Only fetch stats once on load
     fetchDashboardStats();
     toggleSection('searchSection');
 });

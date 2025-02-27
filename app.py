@@ -2,7 +2,8 @@ from flask import Flask, render_template, request, redirect, url_for, session, f
 from datetime import datetime, timedelta
 import os
 from supabase import create_client, Client
-from functools import wraps
+import functools  # Add this full import
+from functools import wraps  # Keep this existing import
 import re
 import io
 import csv
@@ -78,12 +79,14 @@ app.secret_key = app.config['SECRET_KEY']
 # Initialize Supabase client
 supabase: Client = create_client(app.config['SUPABASE_URL'], app.config['SUPABASE_KEY'])
 
+# Keep only one session config, remove all other session configs
 app.config.update(
-    SESSION_COOKIE_SECURE=True,   # Ensures cookies are sent only over HTTPS
-    SESSION_COOKIE_HTTPONLY=True, # Prevents JavaScript from accessing cookies
-    SESSION_COOKIE_SAMESITE='Lax', # Helps prevent CSRF attacks
-    PERMANENT_SESSION_LIFETIME=timedelta(minutes=5),  # Changed from 30 to 5 minutes
-    SEND_FILE_MAX_AGE_DEFAULT=300  # 5 minutes in seconds
+    SESSION_COOKIE_SECURE=True,
+    SESSION_COOKIE_HTTPONLY=True,
+    SESSION_COOKIE_SAMESITE='Lax',
+    PERMANENT_SESSION_LIFETIME=timedelta(minutes=5),
+    SESSION_REFRESH_EACH_REQUEST=False,  # Disable auto refresh
+    SEND_FILE_MAX_AGE_DEFAULT=300
 )
 
 @app.after_request
@@ -196,22 +199,21 @@ def generate_ack_id():
     return f"YUKTI-{year}-{formatted_number}"
 
 # Authentication decorator
-def login_required(allowed_pages=None):
-    def decorator(f):
-        @wraps(f)
-        def decorated_function(*args, **kwargs):
-            if not session.get('user_id'):
-                return jsonify({
-                    'success': False,
-                    'message': 'Authentication required'
-                }), 401
+def login_required(f=None):
+    if f is None:
+        return functools.partial(login_required)
+        
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if 'user_id' not in session:
+            return jsonify({
+                'success': False,
+                'message': 'Authentication required'
+            }), 401
             
-            # Refresh the session timestamp on each request
-            session['login_time'] = datetime.now().isoformat()
-            
-            return f(*args, **kwargs)
-        return decorated_function
-    return decorator
+        return f(*args, **kwargs)
+        
+    return decorated_function
 
 # Add this after creating the Flask app
 @app.template_filter('format_datetime')
@@ -871,10 +873,9 @@ def admin():
 @app.route('/admin/dashboard')
 def admin_dashboard():
     if 'user_id' not in session:
-        flash('Please login first', 'error')
         return redirect(url_for('admin'))
-        
-    # Updated categories with normalized event IDs
+    
+    # Remove any session modifications
     categories = [
         {
             'id': 'technical',
@@ -958,7 +959,6 @@ def admin_dashboard():
         'mission_talaash': 'Mission Talaash (Treasure Hunt)'
     }
     
-    session['login_time'] = datetime.now().isoformat()
     return render_template('admin_dashboard.html', categories=categories, event_details=event_names)
 
 # ...rest of existing code...
@@ -998,40 +998,22 @@ def get_event_name(event_id):
 def admin_login_api():
     try:
         data = request.get_json()
-        user_id = data.get('user_id')
-        password = data.get('password')
+        if not (data and data.get('user_id') and data.get('password')):
+            return jsonify({'success': False, 'message': 'Missing credentials'}), 400
 
-        if not user_id or not password:
-            return jsonify({
-                'success': False,
-                'message': 'Missing credentials'
-            }), 400
-
-        # Query admin_users table directly
-        response = supabase.table('admin_users').select('*').eq('user_id', user_id).execute()
+        response = supabase.table('admin_users').select('*').eq('user_id', data['user_id']).execute()
         
-        if response.data and len(response.data) > 0:
-            admin = response.data[0]
-            if password == admin['password']:
-                session.permanent = True  # Make session permanent
-                session.clear()
-                session['user_id'] = user_id
-                session['login_time'] = datetime.now().isoformat()
-                session['is_admin'] = True
-                
-                return jsonify({'success': True})
+        if response.data and response.data[0]['password'] == data['password']:
+            session.clear()  # Clear any existing session
+            session.permanent = True  # Enable session expiry
+            session['user_id'] = data['user_id']
+            return jsonify({'success': True, 'redirect': url_for('admin_dashboard')})
 
-        return jsonify({
-            'success': False,
-            'message': 'Invalid credentials'
-        }), 401
+        return jsonify({'success': False, 'message': 'Invalid credentials'}), 401
 
     except Exception as e:
         print(f"Login error: {str(e)}")
-        return jsonify({
-            'success': False,
-            'message': 'An error occurred'
-        }), 500
+        return jsonify({'success': False, 'message': 'An error occurred'}), 500
 
 # Helper function to create admin user (you can use this in development)
 @app.route('/api/admin/create', methods=['POST'])
@@ -1330,22 +1312,6 @@ def get_event_name(event_id):
     }
     return event_names.get(event_id, 'Unknown Event')
 
-@app.route('/api/check-updates')
-def check_updates():
-    """Endpoint to check for updates and force refresh if needed"""
-    try:
-        last_update = session.get('last_update', datetime.utcnow())
-        current_time = datetime.utcnow()
-        
-        # If more than 5 minutes have passed
-        if current_time - datetime.fromisoformat(last_update) > timedelta(minutes=5):
-            session['last_update'] = current_time.isoformat()
-            return jsonify({'refresh_needed': True})
-            
-        return jsonify({'refresh_needed': False})
-    except Exception as e:
-        print(f"Update check error: {str(e)}")
-        return jsonify({'refresh_needed': False})
-
 if __name__ == "__main__":
-    app.run(debug=app.config['DEBUG'])
+    # Disable the reloader by setting use_reloader to False
+    app.run(debug=False, use_reloader=False)
