@@ -60,7 +60,7 @@ app.config.update(
 @app.after_request
 def add_cache_headers(response):
     if 'Cache-Control' not in response.headers:
-        response.headers['Cache-Control'] = 'public, max-age=31536000'  # Cache for 1 year
+        response.headers['Cache-Control'] = 'public, max-age=300'  # Cache for 5 minutes
     return response  # Always return the response
 
 # Serve images from multiple static subdirectories
@@ -98,9 +98,16 @@ def send_registration_email(to_email, ack_id, details):
                     {details['event_details_html']}
                 </div>
 
-                <p style="background-color: #8B0000; padding: 10px; text-align: center; margin: 20px 0;">
-                    Please pay the registration fees at the registration desk on the event day.
-                </p>
+                <p class="bg-[rgba(255,0,255,0.1)] border-2 border-[#FF00FF] p-3 sm:p-4 md:p-6 rounded-lg text-white font-bold text-sm sm:text-base text-center">
+    Please pay the registration fees at the registration desk on the event day or submit a Demand Draft (DD) in the favor of "The Finance Officer, VTU Belagavi, Yukti Cultural Account" on 10th March 2025 before 10:30 AM.
+</p>
+<p class="bg-[rgba(255,0,255,0.1)] border-2 border-[#FF00FF] p-3 sm:p-4 md:p-6 rounded-lg text-white font-bold text-sm sm:text-base text-center">
+    Bring a hard copy of the acknowledgment receipt – failure to do so will result in cancellation of registration and restricted entry.
+</p>
+<p class="bg-[rgba(255,0,255,0.1)] border-2 border-[#FF00FF] p-3 sm:p-4 md:p-6 rounded-lg text-white font-bold text-sm sm:text-base text-center">
+    Carry a valid college ID for event entry.
+</p>
+
             </div>
         </body>
         </html>
