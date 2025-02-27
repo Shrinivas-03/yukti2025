@@ -163,14 +163,16 @@
                     </div>
                     
                     <div>
-                        <label for="email" class="block text-white mb-2">Email</label>
+                        <label for="email" class="block text-white mb-2">Email <span class="text-red-500">*</span></label>
                         <input type="email" 
                                id="email" 
                                placeholder="Enter your email" 
                                required
+                               oninput="validateEmail()"
                                class="w-full p-3 bg-[rgba(32,34,39,0.8)] border-2 border-[#00FFFF] rounded-lg text-white
                                       placeholder:text-gray-400 outline-none transition-all duration-300
                                       focus:border-[#FF00FF] focus:shadow-[0_0_8px_rgba(3,233,244,0.4)]">
+                        <div id="email-error" class="text-red-500 text-sm mt-1 hidden">Please enter a valid mail id</div>
                     </div>
                     
                     <div>
@@ -1605,5 +1607,28 @@ submitRegistration = async function() {
     }
     await originalSubmitRegistration();
 };
+
+function validateEmail() {
+    const emailInput = document.getElementById('email');
+    const emailError = document.getElementById('email-error');
+    const submitButton = document.getElementById('submitButton');
+
+    // Regular expression for email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const isValid = emailRegex.test(emailInput.value.trim());
+
+    if (!isValid) {
+        emailInput.classList.add('error-border');
+        emailError.textContent = 'Please enter a valid mail id';
+        emailError.classList.remove('hidden');
+        submitButton.disabled = true;
+        return false;
+    } else {
+        emailInput.classList.remove('error-border');
+        emailError.classList.add('hidden');
+        submitButton.disabled = false;
+        return true;
+    }
+}
 </script>
 {% endblock %}
