@@ -309,7 +309,7 @@
                         </div>
                         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 justify-items-center">
                             <!-- Gallery Items -->
-                            {% for i in range(4) %}
+                            {% for i in range(3) %}
                             <div class="gallery-item group relative overflow-hidden rounded-xl border-2 border-secondary hover:border-primary/50 transition-all duration-300 hover:-translate-y-2 hover:shadow-lg hover:shadow-primary/20">
                                 <img src="{{ url_for('static', filename='gallery/n' ~ loop.index ~ '.jpg') }}?v=1"
                                      alt="Celebrity Night - Day 2 Image {{ loop.index }}"
