@@ -406,6 +406,36 @@
     .gallery-item, .gallery-item img {
         transition: all 0.3s ease-in-out;
     }
+
+    /* Only add mobile-specific styles */
+    @media (max-width: 640px) {
+        /* Force 2 columns on mobile */
+        .grid {
+            grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        }
+
+        /* Reduce text sizes on mobile */
+        h2 {
+            font-size: 1.25rem !important; /* 20px */
+        }
+
+        h3 {
+            font-size: 1rem !important; /* 16px */
+        }
+
+        p {
+            font-size: 0.875rem !important; /* 14px */
+        }
+
+        .text-sm {
+            font-size: 0.75rem !important; /* 12px */
+        }
+
+        /* Adjust image container height for consistency */
+        .gallery-item {
+            height: 150px !important;
+        }
+    }
 </style>
 
 <!-- Keep existing scripts -->
