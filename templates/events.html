@@ -67,6 +67,33 @@
                         </details>
                     </div>
                 </div>
+                <!-- Management Events Card -->
+                <div class="bg-[rgba(46,46,46,0.8)] backdrop-blur-md rounded-xl border-2 border-[#00FFFF] 
+                            transform transition-all duration-300 hover:-translate-y-2 
+                            hover:shadow-[0_15px_30px_rgba(0,255,255,0.4)] hover:border-[#FF00FF]">
+                    <img class="w-full h-40 object-cover rounded-t-xl" src="{{ url_for('static', filename='assets/management.jpg') }}" alt="Management Events">
+                    <div class="p-4">
+                        <h5 class="text-xl text-[#00FFFF] uppercase mb-2 font-['Orbitron']">Chinthana (Management Events)</h5>
+                        <p class="text-[#C0C0C0] text-sm mb-4">Engage in business challenges and entrepreneurial summits.</p>
+                        <details class="border-2 border-[#00FFFF] rounded-md p-4 bg-[rgba(32,34,39,0.95)] 
+                                     transition-all duration-300 hover:border-[#FF00FF]">
+                            <summary class="cursor-pointer font-bold outline-none mb-3 text-[#00FFFF]">View Management Events</summary>
+                            <ul class="space-y-2">
+                                <li class="bg-[rgba(32,34,39,0.95)] p-2 rounded text-[#C0C0C0]">Daksh (Best Manager)</li>
+                                <li class="bg-[rgba(32,34,39,0.95)] p-2 rounded text-[#C0C0C0]">Shresta Vitta (Finance)</li>
+                                <li class="bg-[rgba(32,34,39,0.95)] p-2 rounded text-[#C0C0C0]">Vipan (Marketing)</li>
+                                <li class="bg-[rgba(32,34,39,0.95)] p-2 rounded text-[#C0C0C0]">Manava Sansadhan (HR)</li>
+                                <li class="bg-[rgba(32,34,39,0.95)] p-2 rounded text-[#C0C0C0]">Sumedha (Start up)</li>
+                            </ul>
+                            <a href="{{ url_for('management') }}" 
+                               class="inline-block mt-4 bg-[#FF00FF] text-[#1C1C1C] px-4 py-2 rounded 
+                                             transition-all duration-300 hover:bg-transparent hover:text-[#FF00FF] 
+                                             hover:border-2 hover:border-[#FF00FF]">
+                                View More
+                            </a>
+                        </details>
+                    </div>
+                </div>
 
                 <!-- Cultural Events Card -->
                 <div class="bg-[rgba(46,46,46,0.8)] backdrop-blur-md rounded-xl border-2 border-[#00FFFF] 
@@ -122,33 +149,7 @@
                     </div>
                 </div>
 
-                <!-- Management Events Card -->
-                <div class="bg-[rgba(46,46,46,0.8)] backdrop-blur-md rounded-xl border-2 border-[#00FFFF] 
-                            transform transition-all duration-300 hover:-translate-y-2 
-                            hover:shadow-[0_15px_30px_rgba(0,255,255,0.4)] hover:border-[#FF00FF]">
-                    <img class="w-full h-40 object-cover rounded-t-xl" src="{{ url_for('static', filename='assets/management.jpg') }}" alt="Management Events">
-                    <div class="p-4">
-                        <h5 class="text-xl text-[#00FFFF] uppercase mb-2 font-['Orbitron']">Chinthana (Management Events)</h5>
-                        <p class="text-[#C0C0C0] text-sm mb-4">Engage in business challenges and entrepreneurial summits.</p>
-                        <details class="border-2 border-[#00FFFF] rounded-md p-4 bg-[rgba(32,34,39,0.95)] 
-                                     transition-all duration-300 hover:border-[#FF00FF]">
-                            <summary class="cursor-pointer font-bold outline-none mb-3 text-[#00FFFF]">View Management Events</summary>
-                            <ul class="space-y-2">
-                                <li class="bg-[rgba(32,34,39,0.95)] p-2 rounded text-[#C0C0C0]">Daksh (Best Manager)</li>
-                                <li class="bg-[rgba(32,34,39,0.95)] p-2 rounded text-[#C0C0C0]">Shresta Vitta (Finance)</li>
-                                <li class="bg-[rgba(32,34,39,0.95)] p-2 rounded text-[#C0C0C0]">Vipan (Marketing)</li>
-                                <li class="bg-[rgba(32,34,39,0.95)] p-2 rounded text-[#C0C0C0]">Manava Sansadhan (HR)</li>
-                                <li class="bg-[rgba(32,34,39,0.95)] p-2 rounded text-[#C0C0C0]">Sumedha (Start up)</li>
-                            </ul>
-                            <a href="{{ url_for('management') }}" 
-                               class="inline-block mt-4 bg-[#FF00FF] text-[#1C1C1C] px-4 py-2 rounded 
-                                             transition-all duration-300 hover:bg-transparent hover:text-[#FF00FF] 
-                                             hover:border-2 hover:border-[#FF00FF]">
-                                View More
-                            </a>
-                        </details>
-                    </div>
-                </div>
+                
 
                 <!-- Gaming Events Card -->
                 <div class="bg-[rgba(46,46,46,0.8)] backdrop-blur-md rounded-xl border-2 border-[#00FFFF] 
@@ -156,7 +157,7 @@
                             hover:shadow-[0_15px_30px_rgba(0,255,255,0.4)] hover:border-[#FF00FF]">
                     <img class="w-full h-40 object-cover rounded-t-xl" src="{{ url_for('static', filename='assets/gaming.jpg') }}" alt="Gaming Events">
                     <div class="p-4">
-                        <h5 class="text-xl text-[#00FFFF] uppercase mb-2 font-['Orbitron']">Krida Ratna Events</h5>
+                        <h5 class="text-xl text-[#00FFFF] uppercase mb-2 font-['Orbitron']">Krida Ratna (Game Zone )</h5>
                         <p class="text-[#C0C0C0] text-sm mb-4">Join high-octane tournaments and e-sport battles.</p>
                         <details class="border-2 border-[#00FFFF] rounded-md p-4 bg-[rgba(32,34,39,0.95)] 
                                      transition-all duration-300 hover:border-[#FF00FF]">

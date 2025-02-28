@@ -124,7 +124,7 @@
                 </li>
                 <li class="flex items-center justify-center gap-3 text-base text-[#C0C0C0] font-['Rajdhani']">
                     <i class="bi bi-cash text-[#00FFFF]"></i>
-                    Registration Fee: ₹300
+                    Registration Fee: ₹200
                 </li>
         </div>
     </div>
@@ -255,20 +255,31 @@
                     Showcase your artistic skills by creating beautiful sketches that capture the essence of the given theme.
                 </p>
                 
+                
                 <!-- Expanded Content -->
                 <div class="hidden opacity-0 transition-opacity duration-300 p-8 bg-[rgba(45,49,56,0.8)] text-left rounded-lg mt-4 text-left space-y-6">
+                    <!-- Add Themes Section -->
+                    <div class="bg-[rgba(32,34,39,0.95)] p-4 rounded-lg border-l-4 border-[#00FFFF] hover:border-[#FF00FF] transition-all duration-300">
+                        <h4 class="text-[#00FFFF] text-lg font-['Orbitron'] font-bold mb-3">Themes:</h4>
+                        <ul class="list-disc list-inside text-[#C0C0C0] space-y-2 ml-4 font-['Rajdhani']">
+                            <li>Theme 1 – Global Warming</li>
+                            <li>Theme 2 – Water Crisis</li>
+                        </ul>
+                    </div>
+
                     <!-- Rules and Regulations -->
                     <div class="bg-[rgba(32,34,39,0.95)] p-4 rounded-lg border-l-4 border-[#00FFFF] hover:border-[#FF00FF] transition-all duration-300">
                         <h4 class="text-[#00FFFF] text-lg font-['Orbitron'] font-bold mb-3">Rules & Regulations:</h4>
                         <ol class="list-decimal list-inside text-[#C0C0C0] space-y-2 ml-4 font-['Rajdhani']">
-                            <li>Team size: 01</li>
-                            <li>The theme will be given on the spot</li>
-                            <li>Participants should report on the first day only</li>
-                            <li>Participants should bring their own sketching materials</li>
-                            <li>The sketch should be completed within the given time frame</li>
-                            <li>Judgment will be based on creativity, adherence to the theme, and overall presentation</li>
-                            <li>The additional instruction will be announced on the spot</li>
-                            <li>The judge's decision will be the final</li>
+                            <li>The student should be studying in UG/PG in the year 2024-25.</li>
+                            <li>Category: Spray painting, oil painting and canvas painting.</li>
+                            <li>All artwork must be original; no entries will be accepted or considered if they are plagiarized.</li>
+                            <li>Only one entry per student</li>
+                            <li>The duration of the competition shall be 2 hour. No extra time shall be given on any grounds</li>
+                            <li>The participants will need to BRING THEIR A3 SIZE SHEET OF PAPER(297 mm x 420 mm),drawing and painting material, and rough cloth for cleaning, etc.</li>
+                            <li>Colour should not be thrown on the floor or side wall while executing the work or after the competition is over</li>
+                            <li>Evaluation will be based on the theme, quality, difficulty of work, artistic value, and overall presentations</li>
+                            <li>The event is open to artists of all levels who create artwork exclusively using pencils.</li>
                         </ol>
                     </div>
 
@@ -277,18 +288,15 @@
                         <div class="bg-black/30 p-4 rounded-lg border border-[#00FFFF]">
                             <h4 class="text-[#00FFFF] font-bold mb-2">Faculty Coordinators:</h4>
                             <ul class="space-y-1 text-gray-300 text-sm">
-                                <li>Dr.Kishan Naik - Chairman</li>
+                                <li>Dr.Kishan Naik - Chairman - 9845383928</li>
                                 <li>Prof. Pallavi Patil - Member</li>
                                 <li>Prof. Swapna  - Member</li> 
                             </ul>
                         </div>
-                        <div class="bg-black/30 p-4 rounded-lg border border-[#00FFFF]"></div>
+                        <div class="bg-black/30 p-4 rounded-lg border border-[#00FFFF]">
                             <h4 class="text-[#00FFFF] font-bold mb-2">Student Coordinators:</h4>
                             <ul class="space-y-1 text-gray-300 text-sm">
-                                <li>Supriya G  - 8618114482</li>
-                                <li>Rohan - 6360547989  </li>
-                                <li>Vaishnavi - 7411076538  </li>
-                                <li>Krutika - 7892615486 </li>
+                                <li>Mr. Rajesh Holkar</li>
                             </ul>
                         </div>
                     </div>
@@ -467,7 +475,7 @@
                     <!-- Terms and Conditions -->
                     <div class="bg-[rgba(32,34,39,0.95)] p-4 rounded-lg border-l-4 border-[#00FFFF] hover:border-[#FF00FF] transition-all duration-300">
                         <h4 class="text-[#00FFFF] text-lg font-['Orbitron'] font-bold mb-3">Terms and Conditions:</h4>
-                        <ol class="list-decimal list-inside text-[#C0C0C0] space-y-2 ml-4 font-['Rajdhani']">
+                        <ol class="list-decimal list-inside text-[#C0C0C0] space-y-2 ml-4 font-['Rajdhani']"></ol>
                             <li>A team of a maximum of 6 members is allowed</li>
                             <li>One entry per college is allowed</li>
                             <li>All the necessary materials are to be bought by the respective teams only</li>
@@ -536,10 +544,8 @@
 <!-- Update bottom divider -->
 <div class="h-0.5 bg-gradient-to-r from-[#6D28D9] via-[#3B82F6] to-[#00FFFF]"></div>
 
-
-
-<script></script>
-    // Updated toggle description functionality
+<!-- Fix the script section -->
+<script>
     function toggleDescription(button) {
         const currentCard = button.closest('.max-w-3xl');
         const expandedContent = currentCard.querySelector('.event-description > div');
