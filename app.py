@@ -17,6 +17,7 @@ from dotenv import load_dotenv
 from flask_minify import Minify
 import hashlib
 from flask_compress import Compress
+from email_validator import validate_email, EmailNotValidError
 
 load_dotenv() 
 
@@ -344,15 +345,51 @@ def admin_page():
 def register_page():
     return render_template('registration.html')
 
+def validate_phone(phone):
+    """Validate phone number format"""
+    # Check if phone is exactly 10 digits and starts with 6-9
+    if not phone:
+        return False, "Phone number is required"
+    
+    phone = str(phone).strip()
+    if not re.match(r'^[6-9]\d{9}$', phone):
+        return False, "Phone number must be 10 digits and start with 6-9"
+    
+    return True, "Valid phone number"
+
+def validate_email_address(email):
+    """Validate email using email-validator library"""
+    try:
+        # Validate and get normalized email
+        valid = validate_email(email)
+        return True, "Valid email"
+    except EmailNotValidError as e:
+        return False, str(e)
+
 @app.route('/register', methods=['POST'])
 def register_submit():
     try:
         data = request.get_json(silent=True)
         if not data:
             return jsonify({'success': False, 'message': 'No data received'})
-        
-        print("Received registration data:", data)  # Debug log
-        
+
+        # Validate email
+        email_valid, email_msg = validate_email_address(data['email'])
+        if not email_valid:
+            return jsonify({
+                'success': False, 
+                'message': f'Invalid email: {email_msg}'
+            })
+
+        # Validate phone
+        phone_valid, phone_msg = validate_phone(data['phone'])
+        if not phone_valid:
+            return jsonify({
+                'success': False, 
+                'message': f'Invalid phone: {phone_msg}'
+            })
+
+        # Continue with existing registration logic
         ack_id = generate_ack_id()
         
         # Format event details

@@ -9,3 +9,4 @@ python-dotenv
 flask_minify
 Flask-Compress
 pytz==2024.1
+email-validator==2.1.0.post1
