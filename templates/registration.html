@@ -175,6 +175,7 @@
                         <div id="email-error" class="text-red-500 text-sm mt-1 hidden">Please enter a valid mail id</div>
                     </div>
                     
+                    <!-- Update the phone input field -->
                     <div>
                         <label for="phone" class="block text-white mb-2">Phone (WhatsApp) <span class="text-red-500">*</span></label>
                         <input type="tel" 
@@ -659,14 +660,14 @@ input[type="radio"]:checked + label {
             ],
             VisualArt: [
                 
-                { name: "Sthala Chitrapatha (Spot Photography)", type: "individual", cost: 300 },
+                { name: "Sthala Chitrapatha (Spot Photography)", type: "individual", cost: 200 },
                 { name: "Chitragatha (Short Film)", type: "team", cost: 300, minTeam: 1, maxTeam: 5 },
                 { name: "Ruprekha (Sketch Art)", type: "individual", cost: 200 },
                 { name: "Hastakala (Painting)", type: "individual", cost: 200 },
                 { name: "Swachitra (Selfie Point)", type: "individual", cost: 100 },
             ],
             Cultural: [
-                { name: "Ninaad (Singing Solo)", type: "individual", cost: 300 },
+                { name: "Ninaad (Singing Solo)", type: "individual", cost: 200 },
                 { name: "Ninaad (Singing Group)", type: "team", cost: 500,minTeam:4, maxTeam:10 },
                 { name: "Nritya Saadhana (Dance Solo)", type: "individual", cost: 299 },
                 { name: "Nritya Saadhana (Dance Group)", type: "team", cost: 499 ,minTeam:4, maxTeam:10},
@@ -816,7 +817,7 @@ input[type="radio"]:checked + label {
                     if (!nameInput || !usnInput || !nameInput.value.trim() || !usnInput.value.trim()) {
                         hasError = true;
                         if (nameInput) nameInput.classList.add('error-border');
-                        if (usnInput) usnInput.classList.add('error-border');
+                        if (usnInput) nameInput.classList.add('error-border');
                         document.getElementById('individual-error').style.display = 'block';
                         return;
                     }
@@ -1515,13 +1516,17 @@ function validatePhone() {
     const phoneError = document.getElementById('phone-error');
     const submitButton = document.getElementById('submitButton');
     
-    // Remove non-digits
-    const value = phoneInput.value.replace(/\D/g, '');
-    phoneInput.value = value;
-    
-    if (value.length !== 10) {
+    // Remove non-digits and truncate to 10 characters
+    let value = phoneInput.value.replace(/\D/g, '');
+    value = value.slice(0, 10); // Prevent input beyond 10 digits
+    phoneInput.value = value; // Update the input value
+
+    // Validate with a single regex: 10 digits starting with 6,7,8,9
+    const isValid = /^[6-9]\d{9}$/.test(value);
+
+    if (!isValid) {
         phoneInput.classList.add('error-border');
-        phoneError.textContent = 'Enter valid number';
+        phoneError.textContent = 'Enter a valid 10-digit number starting with 6, 7, 8, or 9';
         phoneError.classList.remove('hidden');
         submitButton.disabled = true;
         return false;
