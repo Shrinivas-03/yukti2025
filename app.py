@@ -1480,6 +1480,350 @@ def check_updates():
         print(f"Update check error: {str(e)}")
         return jsonify({'refresh_needed': False})
 
+@app.route('/api/stalls', methods=['GET', 'POST'])
+@login_required()
+def manage_stalls():
+    if request.method == 'GET':
+        try:
+            order_by = request.args.get('order')
+            query = supabase.table('stalls').select('*')
+            if order_by:
+                field, direction = order_by.split('.')
+                query = query.order(field, desc=(direction == 'desc'))
+            response = query.execute()
+            if response.data:
+                return jsonify({
+                    'success': True,
+                    'stalls': response.data
+                })
+            return jsonify({
+                'success': True,
+                'stalls': []
+            })
+        except Exception as e:
+            print(f"Error fetching stalls: {str(e)}")
+            return jsonify({
+                'success': False,
+                'message': str(e)
+            })
+    elif request.method == 'POST':
+        try:
+            data = request.get_json()
+            # Convert transaction_date to ISO format
+            transaction_date_str = data.get('transaction_date')
+            if transaction_date_str:
+                try:
+                    data['transaction_date'] = datetime.strptime(transaction_date_str, '%Y-%m-%d').isoformat()
+                except ValueError:
+                    return jsonify({
+                        'success': False,
+                        'message': 'Invalid date format. Please use YYYY-MM-DD.'
+                    })
+            response = supabase.table('stalls').insert(data).execute()
+
+            if response.data:
+                return jsonify({
+                    'success': True,
+                    'message': 'Stall added successfully',
+                    'id': response.data[0]['id']
+                })
+            return jsonify({
+                'success': False,
+                'message': 'Failed to add stall'
+            })
+        except Exception as e:
+            print(f"Error adding stall: {str(e)}")
+            return jsonify({
+                'success': False,
+                'message': str(e)
+            })
+
+@app.route('/api/stalls/<stall_id>', methods=['PUT', 'DELETE'])
+@login_required()
+def manage_stall(stall_id):
+    if request.method == 'PUT':
+        try:
+            data = request.get_json()
+            # Convert transaction_date to ISO format if it exists
+            transaction_date_str = data.get('transaction_date')
+            if transaction_date_str:
+                try:
+                    data['transaction_date'] = datetime.strptime(transaction_date_str, '%Y-%m-%d').isoformat()
+                except ValueError:
+                    return jsonify({
+                        'success': False,
+                        'message': 'Invalid date format. Please use YYYY-MM-DD.'
+                    })
+            response = supabase.table('stalls').update(data).eq('id', stall_id).execute()
+
+            if response.data:
+                return jsonify({
+                    'success': True,
+                    'message': 'Stall updated successfully'
+                })
+            return jsonify({
+                    'success': False,
+                    'message': 'Failed to update stall'
+                })
+        except Exception as e:
+            print(f"Error updating stall: {str(e)}")
+            return jsonify({
+                'success': False,
+                'message': str(e)
+            })
+    elif request.method == 'DELETE':
+        try:
+            response = supabase.table('stalls').delete().eq('id', stall_id).execute()
+
+            if response.data:
+                return jsonify({
+                    'success': True,
+                    'message': 'Stall deleted successfully'
+                })
+            return jsonify({
+                'success': False,
+                'message': 'Failed to delete stall'
+            })
+        except Exception as e:
+            print(f"Error deleting stall: {str(e)}")
+            return jsonify({
+                'success': False,
+                'message': str(e)
+            })
+
+@app.route('/api/download-stalls')
+@login_required()
+def download_stalls():
+    try:
+        response = supabase.table('stalls').select('*').execute()
+
+        if not response.data:
+            return jsonify({
+                'success': False,
+                'message': 'No stall details found'
+            })
+
+        # Create CSV
+        output = io.StringIO(newline='')
+        output.write('\ufeff')  # UTF-8 BOM
+        writer = csv.writer(output, dialect='excel', quoting=csv.QUOTE_ALL)
+
+        headers = [
+            'Stall No',
+            'Stall Category',
+            'Items Description',
+            'Stall Owner',
+            'Contact Number',
+            'Amount Paid',
+            'Reference ID/UTR',
+            'Transaction Date'
+        ]
+
+        writer.writerow(headers)
+
+        for stall in response.data:
+            row = [
+                stall.get('stall_no', ''),
+                stall.get('stall_category', ''),
+                stall.get('items_description', ''),
+                stall.get('stall_owner', ''),
+                stall.get('contact_number', ''),
+                stall.get('amount_paid', ''),
+                stall.get('reference_id_utr', ''),
+                stall.get('transaction_date', '')
+            ]
+            writer.writerow(row)
+
+        csv_output = output.getvalue()
+        output.close()
+
+        response = Response(
+            csv_output.encode('utf-8-sig'),
+            mimetype='text/csv; charset=utf-8-sig',
+            headers={
+                'Content-Disposition': 'attachment; filename=stall_details.csv',
+                'Content-Type': 'text/csv; charset=utf-8-sig',
+                'Cache-Control': 'no-cache'
+            }
+        )
+
+        return response
+
+    except Exception as e:
+        print(f"Error in download_stalls: {str(e)}")
+        return jsonify({
+            'success': False,
+            'message': f"Error generating CSV: {str(e)}"
+        })
+
+# Sponsor Management APIs
+@app.route('/api/sponsors', methods=['GET', 'POST'])
+@login_required()
+def manage_sponsors():
+    if request.method == 'GET':
+        try:
+            response = supabase.table('sponsors').select('*').execute()
+            if response.data:
+                return jsonify({
+                    'success': True,
+                    'sponsors': response.data
+                })
+            return jsonify({
+                'success': True,
+                'sponsors': []
+            })
+        except Exception as e:
+            print(f"Error fetching sponsors: {str(e)}")
+            return jsonify({
+                'success': False,
+                'message': str(e)
+            })
+    elif request.method == 'POST':
+        try:
+            data = request.get_json()
+            # Convert transaction_date to ISO format
+            transaction_date_str = data.get('transaction_date')
+            if transaction_date_str:
+                try:
+                    data['transaction_date'] = datetime.strptime(transaction_date_str, '%Y-%m-%d').isoformat()
+                except ValueError:
+                    return jsonify({
+                        'success': False,
+                        'message': 'Invalid date format. Please use YYYY-MM-DD.'
+                    })
+            response = supabase.table('sponsors').insert(data).execute()
+
+            if response.data:
+                return jsonify({
+                    'success': True,
+                    'message': 'Sponsor added successfully',
+                    'id': response.data[0]['id']
+                })
+            return jsonify({
+                'success': False,
+                'message': 'Failed to add sponsor'
+            })
+        except Exception as e:
+            print(f"Error adding sponsor: {str(e)}")
+            return jsonify({
+                'success': False,
+                'message': str(e)
+            })
+
+@app.route('/api/sponsors/<sponsor_id>', methods=['PUT', 'DELETE'])
+@login_required()
+def manage_sponsor(sponsor_id):
+    if request.method == 'PUT':
+        try:
+            data = request.get_json()
+             # Convert transaction_date to ISO format if it exists
+            transaction_date_str = data.get('transaction_date')
+            if transaction_date_str:
+                try:
+                    data['transaction_date'] = datetime.strptime(transaction_date_str, '%Y-%m-%d').isoformat()
+                except ValueError:
+                    return jsonify({
+                        'success': False,
+                        'message': 'Invalid date format. Please use YYYY-MM-DD.'
+                    })
+            response = supabase.table('sponsors').update(data).eq('id', sponsor_id).execute()
+
+            if response.data:
+                return jsonify({
+                    'success': True,
+                    'message': 'Sponsor updated successfully'
+                })
+            return jsonify({
+                    'success': False,
+                    'message': 'Failed to update sponsor'
+                })
+        except Exception as e:
+            print(f"Error updating sponsor: {str(e)}")
+            return jsonify({
+                'success': False,
+                'message': str(e)
+            })
+    elif request.method == 'DELETE':
+        try:
+            response = supabase.table('sponsors').delete().eq('id', sponsor_id).execute()
+
+            if response.data:
+                return jsonify({
+                    'success': True,
+                    'message': 'Sponsor deleted successfully'
+                })
+            return jsonify({
+                'success': False,
+                'message': 'Failed to delete sponsor'
+            })
+        except Exception as e:
+            print(f"Error deleting sponsor: {str(e)}")
+            return jsonify({
+                'success': False,
+                'message': str(e)
+            })
+
+@app.route('/api/download-sponsors')
+@login_required()
+def download_sponsors():
+    try:
+        response = supabase.table('sponsors').select('*').execute()
+
+        if not response.data:
+            return jsonify({
+                'success': False,
+                'message': 'No sponsor details found'
+            })
+
+        # Create CSV
+        output = io.StringIO(newline='')
+        output.write('\ufeff')  # UTF-8 BOM
+        writer = csv.writer(output, dialect='excel', quoting=csv.QUOTE_ALL)
+
+        headers = [
+            'Serial No',
+            'Sponsored By',
+            'Sponsored Category',
+            'Amount Paid',
+            'Reference ID/UTR',
+            'Transaction Date'
+        ]
+
+        writer.writerow(headers)
+
+        for sponsor in response.data:
+            row = [
+                sponsor.get('serial_no', ''),
+                sponsor.get('sponsored_by', ''),
+                sponsor.get('sponsored_category', ''),
+                sponsor.get('amount_paid', ''),
+                sponsor.get('reference_id_utr', ''),
+                sponsor.get('transaction_date', '')
+            ]
+            writer.writerow(row)
+
+        csv_output = output.getvalue()
+        output.close()
+
+        response = Response(
+            csv_output.encode('utf-8-sig'),
+            mimetype='text/csv; charset=utf-8-sig',
+            headers={
+                'Content-Disposition': 'attachment; filename=sponsor_details.csv',
+                'Content-Type': 'text/csv; charset=utf-8-sig',
+                'Cache-Control': 'no-cache'
+            }
+        )
+
+        return response
+
+    except Exception as e:
+        print(f"Error in download_sponsors: {str(e)}")
+        return jsonify({
+            'success': False,
+            'message': f"Error generating CSV: {str(e)}"
+        })
+
 if __name__ == "__main__":
     # Disable the reloader by setting use_reloader to False
     app.run(debug=False, use_reloader=False)
