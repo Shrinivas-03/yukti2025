@@ -11,6 +11,11 @@
                     shadow-[0_0_15px_rgba(0,255,255,0.3)]">
             <h1 class="text-3xl font-bold text-[#00FFFF] text-center mb-8 font-['Orbitron']">Admin Login</h1>
             
+            <!-- Loading Spinner -->
+            <div id="loadingSpinner" class="hidden justify-center items-center mb-6">
+                <div class="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#00FFFF]"></div>
+            </div>
+
             <form id="loginForm" class="space-y-6" onsubmit="handleLogin(event)">
                 <div>
                     <label class="block text-[#00FFFF] mb-2">User ID</label>
@@ -52,6 +57,11 @@ async function handleLogin(event) {
     const userId = document.getElementById('userId').value;
     const password = document.getElementById('password').value;
     const errorMessage = document.getElementById('errorMessage');
+    const loadingSpinner = document.getElementById('loadingSpinner');
+
+    // Show loading spinner
+    loadingSpinner.classList.remove('hidden');
+    loadingSpinner.classList.add('flex');
     
     try {
         const response = await fetch('/api/admin/login', {
@@ -64,6 +74,10 @@ async function handleLogin(event) {
         
         const data = await response.json();
         
+        // Hide loading spinner
+        loadingSpinner.classList.add('hidden');
+        loadingSpinner.classList.remove('flex');
+
         if (data.success) {
             window.location.href = '/admin/dashboard'; // Keep this as is
         } else {
@@ -73,6 +87,10 @@ async function handleLogin(event) {
     } catch (error) {
         errorMessage.textContent = 'An error occurred. Please try again.';
         errorMessage.classList.remove('hidden');
+
+        // Hide loading spinner in case of error
+        loadingSpinner.classList.add('hidden');
+        loadingSpinner.classList.remove('flex');
     }
 }
 </script>
