@@ -6,7 +6,7 @@
 <div class="h-0.5 bg-gradient-to-r from-[#6D28D9] via-[#3B82F6] to-[#00FFFF]"></div>
 
 <div class="min-h-screen bg-gradient-to-br from-[#1C1C1C] to-[#0A0A0A] py-12 px-4">
-    <div class="max-w-6xl mx-auto">
+    <div class="max-w-8xl mx-auto">
         <!-- Add Stats Section before the search section -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
             <!-- Total Registrations Card -->
@@ -58,13 +58,13 @@
                 <button onclick="toggleSection('stallSection')"
                         class="px-6 py-3 bg-[#6D28D9] text-white rounded-lg font-bold
                                transition-all duration-300 hover:bg-transparent hover:text-[#6D28D9] 
-                               hover:border-2 hover:border-[#6D28D9] mt-2">  <!-- Added mt-2 class -->
+                               hover:border-2 hover-border-[#6D28D9] mt-2">  <!-- Added mt-2 class -->
                     Stall Details
                 </button>
                 <button onclick="toggleSection('sponsorSection')"
                         class="px-6 py-3 bg-[#6D28D9] text-white rounded-lg font-bold
                                transition-all duration-300 hover:bg-transparent hover:text-[#6D28D9] 
-                               hover:border-2 hover:border-[#6D28D9] mt-2">
+                               hover-border-2 hover-border-[#6D28D9] mt-2">
                     Sponsor Details
                 </button>
                 <button onclick="logout()" 
@@ -96,7 +96,7 @@
                     <button onclick="searchRegistration()"
                             class="self-end px-6 py-3 bg-[#FF00FF] text-white rounded-lg font-bold
                                    transition-all duration-300 hover:bg-transparent hover:text-[#FF00FF] 
-                                   hover:border-2 hover:border-[#FF00FF]">
+                                   hover-border-2 hover-border-[#FF00FF]">
                         Search
                     </button>
                 </div>
@@ -140,7 +140,7 @@
                 {% for category in categories %}
                 <button onclick="showEvents('{{ category.id }}')"
                         class="p-4 bg-[rgba(46,46,46,0.8)] backdrop-blur-md rounded-xl border-2 border-[#00FFFF]
-                               hover:border-[#FF00FF] transition-all duration-300 text-[#00FFFF] font-bold">
+                               hover-border-[#FF00FF] transition-all duration-300 text-[#00FFFF] font-bold">
                     {{ category.name }}
                 </button>
                 {% endfor %}
@@ -154,7 +154,7 @@
                     {% for event in category.events %}
                     <button onclick="showRegistrations('{{ event.id }}')"
                             class="p-4 bg-[rgba(32,34,39,0.8)] rounded-lg border border-[#00FFFF]
-                                   hover:border-[#FF00FF] transition-all duration-300 text-white text-left">
+                                   hover-border-[#FF00FF] transition-all duration-300 text-white text-left">
                         {{ event.name }}
                     </button>
                     {% endfor %}
@@ -169,8 +169,8 @@
                         <span id="currentEventName"></span> Registrations
                     </h2>
                     <button onclick="downloadRegistrations()"
-                            class="px-4 py-2 bg-[#FF00FF] text-white rounded-lg hover:bg-transparent 
-                                   hover:text-[#FF00FF] hover:border-2 hover:border-[#FF00FF] transition-all duration-300">
+                            class="px-4 py-2 bg-[#FF00FF] text-white rounded-lg hover-bg-transparent 
+                                   hover-text-[#FF00FF] hover-border-2 hover-border-[#FF00FF] transition-all duration-300">
                         Download CSV
                     </button>
                 </div>
@@ -202,8 +202,8 @@
                 <div class="flex justify-between items-center mb-4">
                     <h2 class="text-2xl text-[#00FFFF] font-['Orbitron']">Stall Management</h2>
                     <button onclick="downloadStallDetails()"
-                            class="px-4 py-2 bg-[#FF00FF] text-white rounded-lg hover:bg-transparent 
-                                   hover:text-[#FF00FF] hover:border-2 hover:border-[#FF00FF] transition-all duration-300">
+                            class="px-4 py-2 bg-[#FF00FF] text-white rounded-lg hover-bg-transparent 
+                                   hover-text-[#FF00FF] hover-border-2 hover-border-[#FF00FF] transition-all duration-300">
                         Download CSV
                     </button>
                 </div>
@@ -220,26 +220,50 @@
                                 <th class="p-3 text-left">Amount Paid</th>
                                 <th class="p-3 text-left">Reference ID/UTR</th>
                                 <th class="p-3 text-left">Transaction Date</th>
+                                <th class="p-3 text-left">Actions</th>
                             </tr>
                         </thead>
                         <tbody id="stallTableBody">
                             <!-- Data will be populated dynamically -->
                         </tbody>
+                        <tr id="newStallRow" class="hidden">
+                            <td class="p-3">
+                                <input type="number" id="stallNo" class="w-full p-2 bg-[rgba(32,34,39,0.8)] border-2 border-[#00FFFF] rounded-lg text-white placeholder:text-gray-400 outline-none">
+                            </td>
+                            <td class="p-3">
+                                <input type="text" id="stallCategory" class="w-full p-2 bg-[rgba(32,34,39,0.8)] border-2 border-[#00FFFF] rounded-lg text-white placeholder:text-gray-400 outline-none">
+                            </td>
+                            <td class="p-3">
+                                <input type="text" id="itemsDescription" class="w-full p-2 bg-[rgba(32,34,39,0.8)] border-2 border-[#00FFFF] rounded-lg text-white placeholder:text-gray-400 outline-none">
+                            </td>
+                            <td class="p-3">
+                                <input type="text" id="stallOwner" class="w-full p-2 bg-[rgba(32,34,39,0.8)] border-2 border-[#00FFFF] rounded-lg text-white placeholder:text-gray-400 outline-none">
+                            </td>
+                            <td class="p-3">
+                                <input type="text" id="contactNumber" class="w-full p-2 bg-[rgba(32,34,39,0.8)] border-2 border-[#00FFFF] rounded-lg text-white placeholder:text-gray-400 outline-none">
+                            </td>
+                            <td class="p-3">
+                                <input type="number" id="amountPaid" class="w-full p-2 bg-[rgba(32,34,39,0.8)] border-2 border-[#00FFFF] rounded-lg text-white placeholder:text-gray-400 outline-none">
+                            </td>
+                            <td class="p-3">
+                                <input type="text" id="referenceIdUtr" class="w-full p-2 bg-[rgba(32,34,39,0.8)] border-2 border-[#00FFFF] rounded-lg text-white placeholder:text-gray-400 outline-none">
+                            </td>
+                            <td class="p-3">
+                                <input type="date" id="transactionDate" class="w-full p-2 bg-[rgba(32,34,39,0.8)] border-2 border-[#00FFFF] rounded-lg text-white placeholder:text-gray-400 outline-none">
+                            </td>
+                            <td class="p-3">
+                                <button onclick="submitNewStall()" class="px-4 py-2 bg-green-500 text-white rounded-lg hover-bg-green-600">Submit</button>
+                            </td>
+                        </tr>
                     </table>
                 </div>
 
-                <!-- Add new button below the table -->
-                <div class="mt-6 flex justify-end gap-4">
-                    <button onclick="saveStallDetails()"
-                            class="px-6 py-3 bg-blue-500 text-white rounded-lg font-bold
-                                   transition-all duration-300 hover:bg-transparent hover:text-blue-500 
-                                   hover:border-2 hover:border-blue-500">
-                        Save Changes
-                    </button>
-                    <button onclick="addNewStall()"
+                <!-- Add new stall form as a row in the table -->
+                <div class="mt-4">
+                    <button onclick="toggleNewStallRow()"
                             class="px-6 py-3 bg-green-500 text-white rounded-lg font-bold
-                                   transition-all duration-300 hover:bg-transparent hover:text-green-500 
-                                   hover:border-2 hover:border-green-500">
+                                   transition-all duration-300 hover-bg-transparent hover-text-green-500 
+                                   hover-border-2 hover-border-green-500">
                         Add New Stall +
                     </button>
                 </div>
@@ -268,26 +292,44 @@
                                 <th class="p-3 text-left">Amount Paid</th>
                                 <th class="p-3 text-left">Reference ID/UTR</th>
                                 <th class="p-3 text-left">Transaction Date</th>
+                                <th class="p-3 text-left">Actions</th>
                             </tr>
                         </thead>
                         <tbody id="sponsorTableBody">
                             <!-- Data will be populated dynamically -->
                         </tbody>
+                        <tr id="newSponsorRow" class="hidden">
+                            <td class="p-3">
+                                <input type="number" id="sponsorSerialNo" class="w-full p-2 bg-[rgba(32,34,39,0.8)] border-2 border-[#00FFFF] rounded-lg text-white placeholder:text-gray-400 outline-none">
+                            </td>
+                            <td class="p-3">
+                                <input type="text" id="sponsoredBy" class="w-full p-2 bg-[rgba(32,34,39,0.8)] border-2 border-[#00FFFF] rounded-lg text-white placeholder:text-gray-400 outline-none">
+                            </td>
+                            <td class="p-3">
+                                <input type="text" id="sponsoredCategory" class="w-full p-2 bg-[rgba(32,34,39,0.8)] border-2 border-[#00FFFF] rounded-lg text-white placeholder:text-gray-400 outline-none">
+                            </td>
+                            <td class="p-3">
+                                <input type="number" id="sponsorAmountPaid" class="w-full p-2 bg-[rgba(32,34,39,0.8)] border-2 border-[#00FFFF] rounded-lg text-white placeholder:text-gray-400 outline-none">
+                            </td>
+                            <td class="p-3">
+                                <input type="text" id="sponsorReferenceIdUtr" class="w-full p-2 bg-[rgba(32,34,39,0.8)] border-2 border-[#00FFFF] rounded-lg text-white placeholder:text-gray-400 outline-none">
+                            </td>
+                            <td class="p-3">
+                                <input type="date" id="sponsorTransactionDate" class="w-full p-2 bg-[rgba(32,34,39,0.8)] border-2 border-[#00FFFF] rounded-lg text-white placeholder:text-gray-400 outline-none">
+                            </td>
+                            <td class="p-3">
+                                <button onclick="submitNewSponsor()" class="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600">Submit</button>
+                            </td>
+                        </tr>
                     </table>
                 </div>
 
                 <!-- Add button below table -->
-                <div class="mt-6 flex justify-end gap-4">
-                    <button onclick="saveSponsorDetails()"
-                            class="px-6 py-3 bg-blue-500 text-white rounded-lg font-bold
-                                   transition-all duration-300 hover:bg-transparent hover:text-blue-500 
-                                   hover:border-2 hover:border-blue-500">
-                        Save Changes
-                    </button>
-                    <button onclick="addNewSponsor()"
+                <div class="mt-4">
+                    <button onclick="toggleNewSponsorRow()"
                             class="px-6 py-3 bg-green-500 text-white rounded-lg font-bold
-                                   transition-all duration-300 hover:bg-transparent hover:text-green-500 
-                                   hover:border-2 hover:border-green-500">
+                                   transition-all duration-300 hover-bg-transparent hover-text-green-500 
+                                   hover-border-2 hover-border-green-500">
                         Add New Sponsor +
                     </button>
                 </div>
@@ -307,7 +349,6 @@ async function searchRegistration() {
     }
 
     const ackId = `YUKTI-2025-${searchId.padStart(5, '0')}`;
-    
     try {
         const response = await fetch(`/api/admin/search/${ackId}`);
         const data = await response.json();
@@ -315,7 +356,7 @@ async function searchRegistration() {
         if (data.success) {
             document.getElementById('searchResults').classList.remove('hidden');
             document.getElementById('noResults').classList.add('hidden');
-            
+
             // Update registration details (removed nameText line)
             document.getElementById('emailText').textContent = data.registration.email;
             document.getElementById('phoneText').textContent = data.registration.phone;
@@ -325,7 +366,7 @@ async function searchRegistration() {
             document.getElementById('paymentTypeText').textContent = data.registration.payment_type || 'N/A';
             document.getElementById('referenceNumberText').textContent = 
                 data.registration.utr_number || data.registration.dd_number || 'N/A';
-            
+
             // Update events list
             const eventsList = document.getElementById('eventsList');
             eventsList.innerHTML = '';
@@ -447,60 +488,46 @@ document.addEventListener('DOMContentLoaded', function() {
     // Only fetch stats once on load
     fetchDashboardStats();
     toggleSection('searchSection');
+    fetchStallDetails(); // Fetch stall details on page load
 });
 
 // Add section toggle functionality
 function toggleSection(sectionId) {
-    // Hide all sections
     document.querySelectorAll('.section-content').forEach(section => {
         section.classList.add('hidden');
     });
-    
-    // Show selected section
     document.getElementById(sectionId).classList.remove('hidden');
-    
+
     // If showing event section, hide the registrations container
     if (sectionId === 'eventSection') {
         document.getElementById('registrationsContainer').classList.add('hidden');
     }
 }
 
-// Add these debug logs
 function showEvents(categoryId) {
-    console.log('Showing events for category:', categoryId);
-    
     // Hide all event containers
     document.querySelectorAll('.event-container').forEach(container => {
         container.classList.add('hidden');
     });
-    
-    // Show selected category's events
+
     const eventContainer = document.getElementById(`${categoryId}-events`);
     if (eventContainer) {
-        console.log('Found event container:', categoryId);
         eventContainer.classList.remove('hidden');
     } else {
         console.error('Event container not found for:', categoryId);
     }
-    
-    // Hide registrations container
-    document.getElementById('registrationsContainer').classList.add('hidden');
 }
 
 async function showRegistrations(eventId) {
-    console.log('Fetching registrations for event:', eventId);
-    currentEvent = eventId;
-    
     try {
         const response = await fetch(`/api/admin/event-registrations/${eventId}`);
         const data = await response.json();
 
         if (data.success) {
-            console.log('Received registrations:', data);
-            const container = document.getElementById('registrationsContainer');
             const tbody = document.getElementById('registrationsTableBody');
+            const container = document.getElementById('registrationsContainer');
             const eventName = document.getElementById('currentEventName');
-            
+
             container.classList.remove('hidden');
             eventName.textContent = data.eventName || 'Event';
             tbody.innerHTML = '';
@@ -508,7 +535,7 @@ async function showRegistrations(eventId) {
             data.registrations.forEach(reg => {
                 const tr = document.createElement('tr');
                 tr.className = 'border-b border-gray-700 hover:bg-[rgba(46,46,46,0.5)]';
-                
+
                 const paymentStatus = reg.payment_status || 'Pending';
                 const paymentDetails = reg.payment_type ? 
                     `${reg.payment_type.toUpperCase()}: ${reg.utr_number || reg.dd_number}` : 
@@ -541,7 +568,6 @@ async function showRegistrations(eventId) {
 
 async function downloadRegistrations() {
     if (!currentEvent) return;
-    
     try {
         window.location.href = `/api/download-registrations?event=${currentEvent}`;
     } catch (error) {
@@ -549,5 +575,543 @@ async function downloadRegistrations() {
         alert('Failed to download registrations');
     }
 }
+
+let stallsData = []; // Global variable to store stall data
+let editingStallId = null;
+
+// Function to fetch and display stall details
+async function fetchStallDetails() {
+    try {
+        const response = await fetch('/api/stalls?order=stall_no.asc');
+        const data = await response.json();
+
+        if (data.success) {
+            stallsData = data.stalls;
+            populateStallTable();
+        } else {
+            console.error('Failed to fetch stall details:', data.message);
+            alert('Failed to fetch stall details');
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        alert('Failed to fetch stall details');
+    }
+}
+
+// Function to populate the stall table
+function populateStallTable() {
+    const tbody = document.getElementById('stallTableBody');
+    tbody.innerHTML = '';
+
+    stallsData.forEach(stall => {
+        const tr = document.createElement('tr');
+        tr.className = 'border-b border-gray-700 hover-bg-[rgba(46,46,46,0.5)]';
+        tr.id = `stallRow-${stall.id}`; // Add an ID to the display row
+
+        tr.innerHTML = `
+            <td class="p-3 text-white">${stall.stall_no}</td>
+            <td class="p-3 text-white">${stall.stall_category}</td>
+            <td class="p-3 text-white">${stall.items_description}</td>
+            <td class="p-3 text-white">${stall.stall_owner}</td>
+            <td class="p-3 text-white">${stall.contact_number}</td>
+            <td class="p-3 text-white">${stall.amount_paid}</td>
+            <td class="p-3 text-white">${stall.reference_id_utr}</td>
+            <td class="p-3 text-white">${stall.transaction_date}</td>
+            <td class="p-3 text-white">
+                <button onclick="editStall('${stall.id}')" class="px-2 py-1 bg-blue-500 text-white rounded">Edit</button>
+                <button onclick="deleteStall('${stall.id}')" class="px-2 py-1 bg-red-500 text-white rounded">Delete</button>
+            </td>
+        `;
+
+        tbody.appendChild(tr);
+
+        // Create the edit row (initially hidden)
+        const editTr = document.createElement('tr');
+        editTr.className = 'hidden';
+        editTr.id = `editStallRow-${stall.id}`; // Add an ID to the edit row
+
+        editTr.innerHTML = `
+            <td class="p-3">
+                <input type="number" id="editStallNo-${stall.id}" class="w-full p-2 bg-[rgba(32,34,39,0.8)] border-2 border-[#00FFFF] rounded-lg text-white placeholder-text-gray-400 outline-none" value="${stall.stall_no}">
+            </td>
+            <td class="p-3">
+                <input type="text" id="editStallCategory-${stall.id}" class="w-full p-2 bg-[rgba(32,34,39,0.8)] border-2 border-[#00FFFF] rounded-lg text-white placeholder-text-gray-400 outline-none" value="${stall.stall_category}">
+            </td>
+            <td class="p-3">
+                <input type="text" id="editItemsDescription-${stall.id}" class="w-full p-2 bg-[rgba(32,34,39,0.8)] border-2 border-[#00FFFF] rounded-lg text-white placeholder-text-gray-400 outline-none" value="${stall.items_description}">
+            </td>
+            <td class="p-3">
+                <input type="text" id="editStallOwner-${stall.id}" class="w-full p-2 bg-[rgba(32,34,39,0.8)] border-2 border-[#00FFFF] rounded-lg text-white placeholder-text-gray-400 outline-none" value="${stall.stall_owner}">
+            </td>
+            <td class="p-3">
+                <input type="text" id="editContactNumber-${stall.id}" class="w-full p-2 bg-[rgba(32,34,39,0.8)] border-2 border-[#00FFFF] rounded-lg text-white placeholder-text-gray-400 outline-none" value="${stall.contact_number}">
+            </td>
+            <td class="p-3">
+                <input type="number" id="editAmountPaid-${stall.id}" class="w-full p-2 bg-[rgba(32,34,39,0.8)] border-2 border-[#00FFFF] rounded-lg text-white placeholder-text-gray-400 outline-none" value="${stall.amount_paid}">
+            </td>
+            <td class="p-3">
+                <input type="text" id="editReferenceIdUtr-${stall.id}" class="w-full p-2 bg-[rgba(32,34,39,0.8)] border-2 border-[#00FFFF] rounded-lg text-white placeholder-text-gray-400 outline-none" value="${stall.reference_id_utr}">
+            </td>
+            <td class="p-3">
+                <input type="date" id="editTransactionDate-${stall.id}" class="w-full p-2 bg-[rgba(32,34,39,0.8)] border-2 border-[#00FFFF] rounded-lg text-white placeholder-text-gray-400 outline-none" value="${stall.transaction_date}">
+            </td>
+            <td class="p-3">
+                <button onclick="saveEditedStall('${stall.id}')" class="px-4 py-2 bg-blue-500 text-white rounded-lg hover-bg-blue-600">Save</button>
+                <button onclick="cancelEdit('${stall.id}')" class="px-4 py-2 bg-gray-500 text-white rounded-lg hover-bg-gray-600">Cancel</button>
+            </td>
+        `;
+
+        tbody.appendChild(editTr);
+    });
+}
+
+// Function to handle adding a new stall
+function toggleNewStallRow() {
+    const newStallRow = document.getElementById('newStallRow');
+    newStallRow.classList.toggle('hidden');
+}
+
+async function submitNewStall() {
+    const stallNo = document.getElementById('stallNo').value;
+    const stallCategory = document.getElementById('stallCategory').value;
+    const itemsDescription = document.getElementById('itemsDescription').value;
+    const stallOwner = document.getElementById('stallOwner').value;
+    const contactNumber = document.getElementById('contactNumber').value;
+    const amountPaid = document.getElementById('amountPaid').value;
+    const referenceIdUtr = document.getElementById('referenceIdUtr').value;
+    const transactionDate = document.getElementById('transactionDate').value;
+
+    if (!stallNo || !stallCategory || !itemsDescription || !stallOwner || !contactNumber || !amountPaid || !referenceIdUtr || !transactionDate) {
+        alert('Please fill in all the details.');
+        return;
+    }
+
+    const newStall = {
+        stall_no: parseInt(stallNo),
+        stall_category: stallCategory,
+        items_description: itemsDescription,
+        stall_owner: stallOwner,
+        contact_number: contactNumber,
+        amount_paid: parseInt(amountPaid),
+        reference_id_utr: referenceIdUtr,
+        transaction_date: transactionDate
+    };
+
+    try {
+        const response = await fetch('/api/stalls', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(newStall)
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+            stallsData.push({ ...newStall, id: data.id });
+            alert('Stall added successfully!');
+
+            // Clear the form
+            document.getElementById('stallNo').value = '';
+            document.getElementById('stallCategory').value = '';
+            document.getElementById('itemsDescription').value = '';
+            document.getElementById('stallOwner').value = '';
+            document.getElementById('contactNumber').value = '';
+            document.getElementById('amountPaid').value = '';
+            document.getElementById('referenceIdUtr').value = '';
+            document.getElementById('transactionDate').value = '';
+
+            // Hide the form after submission
+            toggleNewStallRow();
+
+            // Re-fetch stall details to update the table
+            fetchStallDetails();
+        } else {
+            console.error('Failed to add stall:', data.message);
+            alert('Failed to add stall');
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        alert('Failed to add stall');
+    }
+}
+
+// Function to handle downloading stall details
+async function downloadStallDetails() {
+    try {
+        window.location.href = `/api/download-stalls`;
+    } catch (error) {
+        console.error('Error:', error);
+        alert('Failed to download stall details');
+    }
+}
+
+// Function to handle editing a stall
+function editStall(stallId) {
+    // Hide the display row and show the edit row
+    document.getElementById(`stallRow-${stallId}`).classList.add('hidden');
+    document.getElementById(`editStallRow-${stallId}`).classList.remove('hidden');
+}
+
+// Function to save edited stall details
+async function saveEditedStall(stallId) {
+    const stallNo = document.getElementById(`editStallNo-${stallId}`).value;
+    const stallCategory = document.getElementById(`editStallCategory-${stallId}`).value;
+    const itemsDescription = document.getElementById(`editItemsDescription-${stallId}`).value;
+    const stallOwner = document.getElementById(`editStallOwner-${stallId}`).value;
+    const contactNumber = document.getElementById(`editContactNumber-${stallId}`).value;
+    const amountPaid = document.getElementById(`editAmountPaid-${stallId}`).value;
+    const referenceIdUtr = document.getElementById(`editReferenceIdUtr-${stallId}`).value;
+    const transactionDate = document.getElementById(`editTransactionDate-${stallId}`).value;
+
+    if (!stallNo || !stallCategory || !itemsDescription || !stallOwner || !contactNumber || !amountPaid || !referenceIdUtr || !transactionDate) {
+        alert('Please fill in all the details.');
+        return;
+    }
+
+    const updatedStall = {
+        stall_no: parseInt(stallNo),
+        stall_category: stallCategory,
+        items_description: itemsDescription,
+        stall_owner: stallOwner,
+        contact_number: contactNumber,
+        amount_paid: parseInt(amountPaid),
+        reference_id_utr: referenceIdUtr,
+        transaction_date: transactionDate
+    };
+
+    try {
+        const response = await fetch(`/api/stalls/${stallId}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(updatedStall)
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+            // Update the stall in the local data
+            stallsData = stallsData.map(stall => {
+                if (stall.id === stallId) {
+                    return { ...stall, ...updatedStall };
+                }
+                return stall;
+            });
+            alert('Stall updated successfully!');
+
+            // Hide the edit row and show the display row
+            document.getElementById(`stallRow-${stallId}`).classList.remove('hidden');
+            document.getElementById(`editStallRow-${stallId}`).classList.add('hidden');
+
+            // Re-fetch stall details to update the table
+            fetchStallDetails();
+        } else {
+            console.error('Failed to update stall:', data.message);
+            alert('Failed to update stall');
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        alert('Failed to update stall');
+    }
+}
+
+// Function to cancel editing a stall
+function cancelEdit(stallId) {
+    // Hide the edit row and show the display row
+    document.getElementById(`stallRow-${stallId}`).classList.remove('hidden');
+    document.getElementById(`editStallRow-${stallId}`).classList.add('hidden');
+}
+
+// Function to handle deleting a stall
+async function deleteStall(stallId) {
+    if (confirm('Are you sure you want to delete this stall?')) {
+        try {
+            const response = await fetch(`/api/stalls/${stallId}`, {
+                method: 'DELETE'
+            });
+
+            const data = await response.json();
+
+            if (data.success) {
+                // Remove the stall from the local data
+                stallsData = stallsData.filter(stall => stall.id !== stallId);
+                populateStallTable();
+                alert('Stall deleted successfully!');
+            } else {
+                console.error('Failed to delete stall:', data.message);
+                alert('Failed to delete stall');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            alert('Failed to delete stall');
+        }
+    }
+}
+
+let sponsorsData = []; // Global variable to store sponsor data
+
+// Function to fetch and display sponsor details
+async function fetchSponsorDetails() {
+    try {
+        const response = await fetch('/api/sponsors');
+        const data = await response.json();
+
+        if (data.success) {
+            sponsorsData = data.sponsors;
+            populateSponsorTable();
+        } else {
+            console.error('Failed to fetch sponsor details:', data.message);
+            alert('Failed to fetch sponsor details');
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        alert('Failed to fetch sponsor details');
+    }
+}
+
+// Function to populate the sponsor table
+function populateSponsorTable() {
+    const tbody = document.getElementById('sponsorTableBody');
+    tbody.innerHTML = '';
+
+    sponsorsData.forEach(sponsor => {
+        const tr = document.createElement('tr');
+        tr.className = 'border-b border-gray-700 hover:bg-[rgba(46,46,46,0.5)]';
+        tr.id = `sponsorRow-${sponsor.id}`;
+
+        tr.innerHTML = `
+            <td class="p-3 text-white">${sponsor.serial_no}</td>
+            <td class="p-3 text-white">${sponsor.sponsored_by}</td>
+            <td class="p-3 text-white">${sponsor.sponsored_category}</td>
+            <td class="p-3 text-white">${sponsor.amount_paid}</td>
+            <td class="p-3 text-white">${sponsor.reference_id_utr}</td>
+            <td class="p-3 text-white">${sponsor.transaction_date}</td>
+            <td class="p-3 text-white">
+                <button onclick="editSponsor('${sponsor.id}')" class="px-2 py-1 bg-blue-500 text-white rounded">Edit</button>
+                <button onclick="deleteSponsor('${sponsor.id}')" class="px-2 py-1 bg-red-500 text-white rounded">Delete</button>
+            </td>
+        `;
+
+        tbody.appendChild(tr);
+
+        // Create the edit row (initially hidden)
+        const editTr = document.createElement('tr');
+        editTr.className = 'hidden';
+        editTr.id = `editSponsorRow-${sponsor.id}`;
+
+        editTr.innerHTML = `
+            <td class="p-3">
+                <input type="number" id="editSponsorSerialNo-${sponsor.id}" class="w-full p-2 bg-[rgba(32,34,39,0.8)] border-2 border-[#00FFFF] rounded-lg text-white placeholder:text-gray-400 outline-none" value="${sponsor.serial_no}">
+            </td>
+            <td class="p-3">
+                <input type="text" id="editSponsoredBy-${sponsor.id}" class="w-full p-2 bg-[rgba(32,34,39,0.8)] border-2 border-[#00FFFF] rounded-lg text-white placeholder:text-gray-400 outline-none" value="${sponsor.sponsored_by}">
+            </td>
+            <td class="p-3">
+                <input type="text" id="editSponsoredCategory-${sponsor.id}" class="w-full p-2 bg-[rgba(32,34,39,0.8)] border-2 border-[#00FFFF] rounded-lg text-white placeholder:text-gray-400 outline-none" value="${sponsor.sponsored_category}">
+            </td>
+            <td class="p-3">
+                <input type="number" id="editSponsorAmountPaid-${sponsor.id}" class="w-full p-2 bg-[rgba(32,34,39,0.8)] border-2 border-[#00FFFF] rounded-lg text-white placeholder:text-gray-400 outline-none" value="${sponsor.amount_paid}">
+            </td>
+            <td class="p-3">
+                <input type="text" id="editSponsorReferenceIdUtr-${sponsor.id}" class="w-full p-2 bg-[rgba(32,34,39,0.8)] border-2 border-[#00FFFF] rounded-lg text-white placeholder:text-gray-400 outline-none" value="${sponsor.reference_id_utr}">
+            </td>
+            <td class="p-3">
+                <input type="date" id="editSponsorTransactionDate-${sponsor.id}" class="w-full p-2 bg-[rgba(32,34,39,0.8)] border-2 border-[#00FFFF] rounded-lg text-white placeholder:text-gray-400 outline-none" value="${sponsor.transaction_date}">
+            </td>
+            <td class="p-3">
+                <button onclick="saveEditedSponsor('${sponsor.id}')" class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600">Save</button>
+                <button onclick="cancelEditSponsor('${sponsor.id}')" class="px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600">Cancel</button>
+            </td>
+        `;
+
+        tbody.appendChild(editTr);
+    });
+}
+
+// Function to handle adding a new sponsor
+function toggleNewSponsorRow() {
+    const newSponsorRow = document.getElementById('newSponsorRow');
+    newSponsorRow.classList.toggle('hidden');
+}
+
+async function submitNewSponsor() {
+    const serialNo = document.getElementById('sponsorSerialNo').value;
+    const sponsoredBy = document.getElementById('sponsoredBy').value;
+    const sponsoredCategory = document.getElementById('sponsoredCategory').value;
+    const amountPaid = document.getElementById('sponsorAmountPaid').value;
+    const referenceIdUtr = document.getElementById('sponsorReferenceIdUtr').value;
+    const transactionDate = document.getElementById('sponsorTransactionDate').value;
+
+    if (!serialNo || !sponsoredBy || !sponsoredCategory || !amountPaid || !referenceIdUtr || !transactionDate) {
+        alert('Please fill in all the details.');
+        return;
+    }
+
+    const newSponsor = {
+        serial_no: parseInt(serialNo),
+        sponsored_by: sponsoredBy,
+        sponsored_category: sponsoredCategory,
+        amount_paid: parseInt(amountPaid),
+        reference_id_utr: referenceIdUtr,
+        transaction_date: transactionDate
+    };
+
+    try {
+        const response = await fetch('/api/sponsors', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(newSponsor)
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+            sponsorsData.push({ ...newSponsor, id: data.id });
+            alert('Sponsor added successfully!');
+
+            // Clear the form
+            document.getElementById('sponsorSerialNo').value = '';
+            document.getElementById('sponsoredBy').value = '';
+            document.getElementById('sponsoredCategory').value = '';
+            document.getElementById('sponsorAmountPaid').value = '';
+            document.getElementById('sponsorReferenceIdUtr').value = '';
+            document.getElementById('sponsorTransactionDate').value = '';
+
+            // Hide the form after submission
+            toggleNewSponsorRow();
+
+            // Re-fetch sponsor details to update the table
+            fetchSponsorDetails();
+        } else {
+            console.error('Failed to add sponsor:', data.message);
+            alert('Failed to add sponsor');
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        alert('Failed to add sponsor');
+    }
+}
+
+// Function to handle editing a sponsor
+function editSponsor(sponsorId) {
+    // Hide the display row and show the edit row
+    document.getElementById(`sponsorRow-${sponsorId}`).classList.add('hidden');
+    document.getElementById(`editSponsorRow-${sponsorId}`).classList.remove('hidden');
+}
+
+// Function to save edited sponsor details
+async function saveEditedSponsor(sponsorId) {
+    const serialNo = document.getElementById(`editSponsorSerialNo-${sponsorId}`).value;
+    const sponsoredBy = document.getElementById(`editSponsoredBy-${sponsorId}`).value;
+    const sponsoredCategory = document.getElementById(`editSponsoredCategory-${sponsorId}`).value;
+    const amountPaid = document.getElementById(`editSponsorAmountPaid-${sponsorId}`).value;
+    const referenceIdUtr = document.getElementById(`editSponsorReferenceIdUtr-${sponsorId}`).value;
+    const transactionDate = document.getElementById(`editSponsorTransactionDate-${sponsorId}`).value;
+
+    if (!serialNo || !sponsoredBy || !sponsoredCategory || !amountPaid || !referenceIdUtr || !transactionDate) {
+        alert('Please fill in all the details.');
+        return;
+    }
+
+    const updatedSponsor = {
+        serial_no: parseInt(serialNo),
+        sponsored_by: sponsoredBy,
+        sponsored_category: sponsoredCategory,
+        amount_paid: parseInt(amountPaid),
+        reference_id_utr: referenceIdUtr,
+        transaction_date: transactionDate
+    };
+
+    try {
+        const response = await fetch(`/api/sponsors/${sponsorId}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(updatedSponsor)
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+            // Update the sponsor in the local data
+            sponsorsData = sponsorsData.map(sponsor => {
+                if (sponsor.id === sponsorId) {
+                    return { ...sponsor, ...updatedSponsor };
+                }
+                return sponsor;
+            });
+            alert('Sponsor updated successfully!');
+
+            // Hide the edit row and show the display row
+            document.getElementById(`sponsorRow-${sponsorId}`).classList.remove('hidden');
+            document.getElementById(`editSponsorRow-${sponsorId}`).classList.add('hidden');
+
+            // Re-fetch sponsor details to update the table
+            fetchSponsorDetails();
+        } else {
+            console.error('Failed to update sponsor:', data.message);
+            alert('Failed to update sponsor');
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        alert('Failed to update sponsor');
+    }
+}
+
+// Function to cancel editing a sponsor
+function cancelEditSponsor(sponsorId) {
+    // Hide the edit row and show the display row
+    document.getElementById(`sponsorRow-${sponsorId}`).classList.remove('hidden');
+    document.getElementById(`editSponsorRow-${sponsorId}`).classList.add('hidden');
+}
+
+// Function to handle deleting a sponsor
+async function deleteSponsor(sponsorId) {
+    if (confirm('Are you sure you want to delete this sponsor?')) {
+        try {
+            const response = await fetch(`/api/sponsors/${sponsorId}`, {
+                method: 'DELETE'
+            });
+
+            const data = await response.json();
+
+            if (data.success) {
+                // Remove the sponsor from the local data
+                sponsorsData = sponsorsData.filter(sponsor => sponsor.id !== sponsorId);
+                populateSponsorTable();
+                alert('Sponsor deleted successfully!');
+            } else {
+                console.error('Failed to delete sponsor:', data.message);
+                alert('Failed to delete sponsor');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            alert('Failed to delete sponsor');
+        }
+    }
+}
+
+async function downloadSponsorDetails() {
+    try {
+        window.location.href = `/api/download-sponsors`;
+    } catch (error) {
+        console.error('Error:', error);
+        alert('Failed to download sponsor details');
+    }
+}
+
+// Function to call when the page loads
+document.addEventListener('DOMContentLoaded', function() {
+    fetchDashboardStats();
+    toggleSection('searchSection');
+    fetchStallDetails(); // Fetch stall details on page load
+    fetchSponsorDetails(); // Fetch sponsor details on page load
+});
 </script>
 {% endblock %}
