@@ -367,15 +367,30 @@
 
 <!-- Update toggle description script -->
 <script>
-    // Toggle description functionality
-    function toggleDescription(button, hasCoordinators = false) {
+    let currentlyOpenCard = null; // Track currently open card
+
+    function toggleDescription(button) {
         const currentCard = button.closest('.max-w-3xl');
         const expandedContent = currentCard.querySelector('.event-description > div');
-        const coordinatorInfo = hasCoordinators ? currentCard.querySelector('.coordinator-info') : null;
         const cardPosition = currentCard.getBoundingClientRect().top + window.pageYOffset;
         
+        // If there's already an open card and it's different from the current one, close it
+        if (currentlyOpenCard && currentlyOpenCard !== currentCard) {
+            const prevButton = currentlyOpenCard.querySelector('button');
+            const prevContent = currentlyOpenCard.querySelector('.event-description > div');
+            
+            prevContent.style.opacity = '0';
+            prevButton.textContent = 'Read More';
+            
+            setTimeout(() => {
+                prevContent.style.display = 'none';
+                prevContent.classList.add('hidden');
+            }, 300);
+        }
+        
         if (expandedContent.classList.contains('hidden')) {
-            // Show content
+            // Open new card
+            expandedContent.dataset.scrollPos = window.pageYOffset;
             expandedContent.classList.remove('hidden');
             expandedContent.style.display = 'block';
             
@@ -383,41 +398,29 @@
                 expandedContent.style.opacity = '1';
                 button.textContent = 'Show Less';
                 
-                // Show coordinators with delay if they exist
-                if (coordinatorInfo) {
-                    setTimeout(() => {
-                        coordinatorInfo.classList.remove('hidden');
-                        requestAnimationFrame(() => {
-                            coordinatorInfo.style.opacity = '1';
-                        });
-                    }, 300);
-                }
-                
                 window.scrollTo({
                     top: cardPosition - 20,
                     behavior: 'smooth'
                 });
             });
+            
+            currentlyOpenCard = currentCard; // Update currently open card
         } else {
-            // Hide content
+            // Close current card
             expandedContent.style.opacity = '0';
-            if (coordinatorInfo) {
-                coordinatorInfo.style.opacity = '0';
-            }
             button.textContent = 'Read More';
             
             setTimeout(() => {
                 expandedContent.style.display = 'none';
                 expandedContent.classList.add('hidden');
-                if (coordinatorInfo) {
-                    coordinatorInfo.classList.add('hidden');
-                }
                 
                 window.scrollTo({
                     top: cardPosition - 20,
                     behavior: 'smooth'
                 });
             }, 300);
+            
+            currentlyOpenCard = null; // Clear currently open card
         }
     }
 
@@ -433,4 +436,5 @@
         });
     });
 </script>
+
 {% endblock %}

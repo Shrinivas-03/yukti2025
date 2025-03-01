@@ -807,31 +807,64 @@
 </style>
 
 <script>
+    let currentlyOpenCard = null; // Track currently open card
+
     function toggleDescription(button) {
-        // Find specific content for clicked card
         const currentCard = button.closest('.max-w-3xl');
         const expandedContent = currentCard.querySelector('.event-description > div');
+        const cardPosition = currentCard.getBoundingClientRect().top + window.pageYOffset;
+        
+        // If there's already an open card and it's different from the current one, close it
+        if (currentlyOpenCard && currentlyOpenCard !== currentCard) {
+            const prevButton = currentlyOpenCard.querySelector('button');
+            const prevContent = currentlyOpenCard.querySelector('.event-description > div');
+            
+            prevContent.style.opacity = '0';
+            prevButton.textContent = 'Read More';
+            
+            setTimeout(() => {
+                prevContent.style.display = 'none';
+                prevContent.classList.add('hidden');
+            }, 300);
+        }
         
         if (expandedContent.classList.contains('hidden')) {
-            // Show content for current card only
+            // Open new card
+            expandedContent.dataset.scrollPos = window.pageYOffset;
             expandedContent.classList.remove('hidden');
             expandedContent.style.display = 'block';
+            
             requestAnimationFrame(() => {
                 expandedContent.style.opacity = '1';
                 button.textContent = 'Show Less';
+                
+                window.scrollTo({
+                    top: cardPosition - 20,
+                    behavior: 'smooth'
+                });
             });
+            
+            currentlyOpenCard = currentCard; // Update currently open card
         } else {
-            // Hide content for current card only
+            // Close current card
             expandedContent.style.opacity = '0';
             button.textContent = 'Read More';
+            
             setTimeout(() => {
                 expandedContent.style.display = 'none';
                 expandedContent.classList.add('hidden');
+                
+                window.scrollTo({
+                    top: cardPosition - 20,
+                    behavior: 'smooth'
+                });
             }, 300);
+            
+            currentlyOpenCard = null; // Clear currently open card
         }
     }
 
-    // Initialize each card separately
+    // Initialize cards on page load
     document.addEventListener('DOMContentLoaded', function() {
         document.querySelectorAll('.max-w-3xl').forEach(card => {
             const content = card.querySelector('.event-description > div');
@@ -843,4 +876,5 @@
         });
     });
 </script>
+
 {% endblock %}
