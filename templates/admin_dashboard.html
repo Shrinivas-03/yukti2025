@@ -5,83 +5,85 @@
 {% block content %}
 <div class="h-0.5 bg-gradient-to-r from-[#6D28D9] via-[#3B82F6] to-[#00FFFF]"></div>
 
-<div class="min-h-screen bg-gradient-to-br from-[#1C1C1C] to-[#0A0A0A] py-12 px-4">
-    <div class="max-w-8xl mx-auto">
-        <!-- Add Stats Section before the search section -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-            <!-- Total Registrations Card -->
-            <div class="bg-[rgba(46,46,46,0.8)] backdrop-blur-md p-6 rounded-xl border-2 border-[#00FFFF]">
-                <h3 class="text-xl text-[#00FFFF] font-['Orbitron'] mb-4">Total Registrations</h3>
+<div class="min-h-screen bg-gradient-to-br from-[#1C1C1C] to-[#0A0A0A] py-6 sm:py-12 px-3 sm:px-4">
+    <div class="max-w-8xl mx-auto w-full">
+        <!-- Stats Section - Made responsive -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 mb-6 sm:mb-8">
+            <!-- Stats cards with responsive text -->
+            <div class="bg-[rgba(46,46,46,0.8)] backdrop-blur-md p-4 sm:p-6 rounded-xl border-2 border-[#00FFFF]">
+                <h3 class="text-lg sm:text-xl text-[#00FFFF] font-['Orbitron'] mb-3 sm:mb-4">Total Registrations</h3>
                 <div class="flex items-baseline">
-                    <span class="text-4xl font-bold text-white" id="totalRegistrations">0</span>
-                    <span class="ml-2 text-gray-400">registrations</span>
+                    <span class="text-2xl sm:text-4xl font-bold text-white" id="totalRegistrations">0</span>
+                    <span class="ml-2 text-sm sm:text-base text-gray-400">registrations</span>
                 </div>
             </div>
 
-            <!-- Payment Status Card -->
-            <div class="bg-[rgba(46,46,46,0.8)] backdrop-blur-md p-6 rounded-xl border-2 border-[#FF00FF]">
-                <h3 class="text-xl text-[#FF00FF] font-['Orbitron'] mb-4">Payment Status</h3>
+            <div class="bg-[rgba(46,46,46,0.8)] backdrop-blur-md p-4 sm:p-6 rounded-xl border-2 border-[#FF00FF]">
+                <h3 class="text-lg sm:text-xl text-[#FF00FF] font-['Orbitron'] mb-3 sm:mb-4">Payment Status</h3>
                 <div class="flex justify-between items-baseline">
                     <div>
-                        <span class="text-4xl font-bold text-white" id="totalPaid">0</span>
-                        <span class="ml-2 text-gray-400">paid</span>
+                        <span class="text-2xl sm:text-4xl font-bold text-white" id="totalPaid">0</span>
+                        <span class="ml-2 text-sm sm:text-base text-gray-400">paid</span>
                     </div>
                     <div>
-                        <span class="text-4xl font-bold text-white" id="totalPending">0</span>
-                        <span class="ml-2 text-gray-400">pending</span>
+                        <span class="text-2xl sm:text-4xl font-bold text-white" id="totalPending">0</span>
+                        <span class="ml-2 text-sm sm:text-base text-gray-400">pending</span>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="flex justify-between items-center mb-8">
-            <h1 class="text-3xl font-bold text-[#00FFFF] font-['Orbitron']">Admin Dashboard</h1>
-            <div class="flex flex-wrap items-center gap-4"> <!-- Changed from space-x-4 to flex flex-wrap and gap-4 -->
+        <!-- Header and Navigation Buttons - Made responsive -->
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6 sm:mb-8">
+            <h1 class="text-2xl sm:text-3xl font-bold text-[#00FFFF] font-['Orbitron']">Admin Dashboard</h1>
+            
+            <!-- Navigation buttons with better mobile layout -->
+            <div class="grid grid-cols-2 sm:flex flex-wrap gap-2 sm:gap-4 w-full sm:w-auto">
                 <button onclick="toggleSection('searchSection')"
-                        class="px-6 py-3 bg-[#00FFFF] text-white rounded-lg font-bold
+                        class="px-3 sm:px-6 py-2 sm:py-3 text-sm sm:text-base bg-[#00FFFF] text-white rounded-lg font-bold
                                transition-all duration-300 hover:bg-transparent hover:text-[#00FFFF] 
-                               hover:border-2 hover:border-[#00FFFF]">
-                    Search Registrations
+                               hover:border-2 hover:border-[#00FFFF] whitespace-nowrap">
+                    Search
                 </button>
                 <button onclick="toggleSection('eventSection')"
-                        class="px-6 py-3 bg-[#FF00FF] text-white rounded-lg font-bold
+                        class="px-3 sm:px-6 py-2 sm:py-3 text-sm sm:text-base bg-[#FF00FF] text-white rounded-lg font-bold
                                transition-all duration-300 hover:bg-transparent hover:text-[#FF00FF] 
-                               hover:border-2 hover:border-[#FF00FF]">
+                               hover:border-2 hover:border-[#FF00FF] whitespace-nowrap">
                     Event Reports
                 </button>
                 <a href="/utr-management" 
-                   class="inline-block px-6 py-3 bg-[#6D28D9] text-white rounded-lg font-bold
+                   class="inline-block px-3 sm:px-6 py-2 sm:py-3 text-sm sm:text-base bg-[#6D28D9] text-white rounded-lg font-bold
                           transition-all duration-300 hover:bg-transparent hover:text-[#6D28D9] 
-                          hover:border-2 hover:border-[#6D28D9]">
+                          hover:border-2 hover:border-[#6D28D9] whitespace-nowrap">
                     Payment Management
                 </a>
                 <button onclick="toggleSection('stallSection')"
-                        class="px-6 py-3 bg-[#6D28D9] text-white rounded-lg font-bold
+                        class="px-3 sm:px-6 py-2 sm:py-3 text-sm sm:text-base bg-[#6D28D9] text-white rounded-lg font-bold
                                transition-all duration-300 hover:bg-transparent hover:text-[#6D28D9] 
-                               hover:border-2 hover-border-[#6D28D9] mt-2">  <!-- Added mt-2 class -->
+                               hover:border-2 hover:border-[#6D28D9] mt-2 sm:mt-0 whitespace-nowrap">
                     Stall Details
                 </button>
                 <button onclick="toggleSection('sponsorSection')"
-                        class="px-6 py-3 bg-[#6D28D9] text-white rounded-lg font-bold
+                        class="px-3 sm:px-6 py-2 sm:py-3 text-sm sm:text-base bg-[#6D28D9] text-white rounded-lg font-bold
                                transition-all duration-300 hover:bg-transparent hover:text-[#6D28D9] 
-                               hover-border-2 hover-border-[#6D28D9] mt-2">
+                               hover:border-2 hover:border-[#6D28D9] mt-2 sm:mt-0 whitespace-nowrap">
                     Sponsor Details
                 </button>
                 <button onclick="logout()" 
-                        class="px-6 py-3 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors">
+                        class="px-3 sm:px-6 py-2 sm:py-3 text-sm sm:text-base bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors whitespace-nowrap">
                     Logout
                 </button>
             </div>
         </div>
 
-        <!-- Search Section -->
+        <!-- Search Section - Made responsive -->
         <div id="searchSection" class="section-content">
-            <div class="bg-[rgba(46,46,46,0.8)] backdrop-blur-md p-6 rounded-xl border-2 border-[#00FFFF] mb-8">
-                <div class="flex gap-4">
+            <div class="bg-[rgba(46,46,46,0.8)] backdrop-blur-md p-4 sm:p-6 rounded-xl border-2 border-[#00FFFF] mb-6 sm:mb-8">
+                <div class="flex flex-col sm:flex-row gap-3 sm:gap-4">
                     <div class="flex-1">
-                        <label class="block text-[#00FFFF] mb-2">Registration ID</label>
-                        <div class="flex gap-2">
-                            <span class="bg-[rgba(32,34,39,0.8)] text-white p-3 border-2 border-[#00FFFF] rounded-lg">
+                        <label class="block text-[#00FFFF] mb-2 text-sm sm:text-base">Registration ID</label>
+                        <div class="flex flex-col sm:flex-row gap-2">
+                            <span class="bg-[rgba(32,34,39,0.8)] text-white p-2 sm:p-3 text-sm sm:text-base border-2 border-[#00FFFF] rounded-lg whitespace-nowrap">
                                 YUKTI-2025-
                             </span>
                             <input type="text" 
@@ -89,25 +91,24 @@
                                    placeholder="00001" 
                                    maxlength="5"
                                    pattern="[0-9]{5}"
-                                   class="flex-1 p-3 bg-[rgba(32,34,39,0.8)] border-2 border-[#00FFFF] rounded-lg text-white
-                                          placeholder:text-gray-400 outline-none">
+                                   class="flex-1 p-2 sm:p-3 text-sm sm:text-base bg-[rgba(32,34,39,0.8)] border-2 border-[#00FFFF] rounded-lg text-white
+                                          placeholder:text-gray-400 outline-none min-w-[120px]">
                         </div>
                     </div>
                     <button onclick="searchRegistration()"
-                            class="self-end px-6 py-3 bg-[#FF00FF] text-white rounded-lg font-bold
+                            class="w-full sm:w-auto px-4 sm:px-6 py-2 sm:py-3 text-sm sm:text-base bg-[#FF00FF] text-white rounded-lg font-bold
                                    transition-all duration-300 hover:bg-transparent hover:text-[#FF00FF] 
-                                   hover-border-2 hover-border-[#FF00FF]">
+                                   hover:border-2 hover:border-[#FF00FF]">
                         Search
                     </button>
                 </div>
             </div>
 
-            <!-- Results Section -->
-            <div id="searchResults" class="hidden space-y-6">
-                <!-- Registration Details -->
-                <div class="bg-[rgba(46,46,46,0.8)] p-6 rounded-lg border border-[#00FFFF]">
-                    <h3 class="text-xl text-[#00FFFF] font-['Orbitron'] mb-4">Registration Details</h3>
-                    <div class="grid grid-cols-2 gap-4 text-[#C0C0C0]">
+            <!-- Results Section - Made responsive -->
+            <div id="searchResults" class="hidden space-y-4 sm:space-y-6">
+                <div class="bg-[rgba(46,46,46,0.8)] p-4 sm:p-6 rounded-lg border border-[#00FFFF]">
+                    <h3 class="text-lg sm:text-xl text-[#00FFFF] font-['Orbitron'] mb-3 sm:mb-4">Registration Details</h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 text-[#C0C0C0] text-sm sm:text-base">
                         <p><strong>Email:</strong> <span id="emailText"></span></p>
                         <p><strong>Phone:</strong> <span id="phoneText"></span></p>
                         <p><strong>College:</strong> <span id="collegeText"></span></p>
@@ -119,8 +120,8 @@
                 </div>
 
                 <!-- Events List -->
-                <div class="bg-[rgba(46,46,46,0.8)] p-6 rounded-lg border border-[#00FFFF]">
-                    <h3 class="text-xl text-[#00FFFF] font-['Orbitron'] mb-4">Registered Events</h3>
+                <div class="bg-[rgba(46,46,46,0.8)] p-4 sm:p-6 rounded-lg border border-[#00FFFF]">
+                    <h3 class="text-lg sm:text-xl text-[#00FFFF] font-['Orbitron'] mb-3 sm:mb-4">Registered Events</h3>
                     <div id="eventsList" class="space-y-4">
                         <!-- Events will be populated dynamically -->
                     </div>
@@ -133,14 +134,14 @@
             </div>
         </div>
 
-        <!-- Event Reports Section -->
+        <!-- Event Reports Section - Made responsive -->
         <div id="eventSection" class="section-content hidden">
             <!-- Event Categories -->
-            <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4 mb-8">
+            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4 mb-6 sm:mb-8">
                 {% for category in categories %}
                 <button onclick="showEvents('{{ category.id }}')"
                         class="p-4 bg-[rgba(46,46,46,0.8)] backdrop-blur-md rounded-xl border-2 border-[#00FFFF]
-                               hover-border-[#FF00FF] transition-all duration-300 text-[#00FFFF] font-bold">
+                               hover:border-[#FF00FF] transition-all duration-300 text-[#00FFFF] font-bold">
                     {{ category.name }}
                 </button>
                 {% endfor %}
@@ -150,11 +151,11 @@
             {% for category in categories %}
             <div id="{{ category.id }}-events" class="hidden event-container mb-8">
                 <h2 class="text-2xl text-[#00FFFF] mb-4 font-['Orbitron']">{{ category.name }}</h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
                     {% for event in category.events %}
                     <button onclick="showRegistrations('{{ event.id }}')"
                             class="p-4 bg-[rgba(32,34,39,0.8)] rounded-lg border border-[#00FFFF]
-                                   hover-border-[#FF00FF] transition-all duration-300 text-white text-left">
+                                   hover:border-[#FF00FF] transition-all duration-300 text-white text-left">
                         {{ event.name }}
                     </button>
                     {% endfor %}
@@ -163,20 +164,20 @@
             {% endfor %}
 
             <!-- Registrations Table -->
-            <div id="registrationsContainer" class="hidden bg-[rgba(46,46,46,0.8)] p-6 rounded-xl border-2 border-[#00FFFF]">
+            <div id="registrationsContainer" class="hidden bg-[rgba(46,46,46,0.8)] p-4 sm:p-6 rounded-xl border-2 border-[#00FFFF]">
                 <div class="flex justify-between items-center mb-4">
                     <h2 class="text-2xl text-[#00FFFF] font-['Orbitron']">
                         <span id="currentEventName"></span> Registrations
                     </h2>
                     <button onclick="downloadRegistrations()"
-                            class="px-4 py-2 bg-[#FF00FF] text-white rounded-lg hover-bg-transparent 
-                                   hover-text-[#FF00FF] hover-border-2 hover-border-[#FF00FF] transition-all duration-300">
+                            class="px-4 sm:px-6 py-2 sm:py-3 text-sm sm:text-base bg-[#FF00FF] text-white rounded-lg hover:bg-transparent 
+                                   hover:text-[#FF00FF] hover:border-2 hover:border-[#FF00FF] transition-all duration-300">
                         Download CSV
                     </button>
                 </div>
 
                 <div class="overflow-x-auto">
-                    <table class="w-full border-collapse">
+                    <table class="w-full min-w-[800px] border-collapse">
                         <thead>
                             <tr class="bg-[rgba(32,34,39,0.8)] text-[#00FFFF]">
                                 <th class="p-3 text-left">Ack ID</th>
@@ -198,18 +199,18 @@
 
         <!-- Stall Details Section -->
         <div id="stallSection" class="section-content hidden">
-            <div class="bg-[rgba(46,46,46,0.8)] p-6 rounded-xl border-2 border-[#00FFFF]">
+            <div class="bg-[rgba(46,46,46,0.8)] p-4 sm:p-6 rounded-xl border-2 border-[#00FFFF]">
                 <div class="flex justify-between items-center mb-4">
                     <h2 class="text-2xl text-[#00FFFF] font-['Orbitron']">Stall Management</h2>
                     <button onclick="downloadStallDetails()"
-                            class="px-4 py-2 bg-[#FF00FF] text-white rounded-lg hover-bg-transparent 
-                                   hover-text-[#FF00FF] hover-border-2 hover-border-[#FF00FF] transition-all duration-300">
+                            class="px-4 sm:px-6 py-2 sm:py-3 text-sm sm:text-base bg-[#FF00FF] text-white rounded-lg hover:bg-transparent 
+                                   hover:text-[#FF00FF] hover:border-2 hover:border-[#FF00FF] transition-all duration-300">
                         Download CSV
                     </button>
                 </div>
 
                 <div class="overflow-x-auto">
-                    <table class="w-full border-collapse">
+                    <table class="w-full min-w-[800px] border-collapse">
                         <thead>
                             <tr class="bg-[rgba(32,34,39,0.8)] text-[#00FFFF]">
                                 <th class="p-3 text-left">Stall No</th>
@@ -252,7 +253,7 @@
                                 <input type="date" id="transactionDate" class="w-full p-2 bg-[rgba(32,34,39,0.8)] border-2 border-[#00FFFF] rounded-lg text-white placeholder:text-gray-400 outline-none">
                             </td>
                             <td class="p-3">
-                                <button onclick="submitNewStall()" class="px-4 py-2 bg-green-500 text-white rounded-lg hover-bg-green-600">Submit</button>
+                                <button onclick="submitNewStall()" class="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600">Submit</button>
                             </td>
                         </tr>
                     </table>
@@ -262,8 +263,8 @@
                 <div class="mt-4">
                     <button onclick="toggleNewStallRow()"
                             class="px-6 py-3 bg-green-500 text-white rounded-lg font-bold
-                                   transition-all duration-300 hover-bg-transparent hover-text-green-500 
-                                   hover-border-2 hover-border-green-500">
+                                   transition-all duration-300 hover:bg-transparent hover:text-green-500 
+                                   hover:border-2 hover:border-green-500">
                         Add New Stall +
                     </button>
                 </div>
@@ -272,18 +273,18 @@
 
         <!-- Add new Sponsor Details Section -->
         <div id="sponsorSection" class="section-content hidden">
-            <div class="bg-[rgba(46,46,46,0.8)] p-6 rounded-xl border-2 border-[#00FFFF]">
+            <div class="bg-[rgba(46,46,46,0.8)] p-4 sm:p-6 rounded-xl border-2 border-[#00FFFF]">
                 <div class="flex justify-between items-center mb-4">
                     <h2 class="text-2xl text-[#00FFFF] font-['Orbitron']">Sponsor Management</h2>
                     <button onclick="downloadSponsorDetails()"
-                            class="px-4 py-2 bg-[#FF00FF] text-white rounded-lg hover:bg-transparent 
+                            class="px-4 sm:px-6 py-2 sm:py-3 text-sm sm:text-base bg-[#FF00FF] text-white rounded-lg hover:bg-transparent 
                                    hover:text-[#FF00FF] hover:border-2 hover:border-[#FF00FF] transition-all duration-300">
                         Download CSV
                     </button>
                 </div>
 
                 <div class="overflow-x-auto">
-                    <table class="w-full border-collapse">
+                    <table class="w-full min-w-[800px] border-collapse">
                         <thead>
                             <tr class="bg-[rgba(32,34,39,0.8)] text-[#00FFFF]">
                                 <th class="p-3 text-left">Serial No</th>
@@ -328,8 +329,8 @@
                 <div class="mt-4">
                     <button onclick="toggleNewSponsorRow()"
                             class="px-6 py-3 bg-green-500 text-white rounded-lg font-bold
-                                   transition-all duration-300 hover-bg-transparent hover-text-green-500 
-                                   hover-border-2 hover-border-green-500">
+                                   transition-all duration-300 hover:bg-transparent hover:text-green-500 
+                                   hover:border-2 hover:border-green-500">
                         Add New Sponsor +
                     </button>
                 </div>
@@ -605,7 +606,7 @@ function populateStallTable() {
 
     stallsData.forEach(stall => {
         const tr = document.createElement('tr');
-        tr.className = 'border-b border-gray-700 hover-bg-[rgba(46,46,46,0.5)]';
+        tr.className = 'border-b border-gray-700 hover:bg-[rgba(46,46,46,0.5)]';
         tr.id = `stallRow-${stall.id}`; // Add an ID to the display row
 
         tr.innerHTML = `

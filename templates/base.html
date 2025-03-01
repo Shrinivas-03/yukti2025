@@ -856,6 +856,24 @@
             return true;
         }
     </script>
-</body>
+    <!-- Add this script before closing body tag -->
+    <script>
+        // Scroll to top on page refresh
+        window.onbeforeunload = function () {
+            window.scrollTo(0, 0);
+        }
 
+        // Also scroll to top when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            window.scrollTo(0, 0);
+        });
+
+        // Handle browser back/forward buttons
+        window.onpageshow = function(event) {
+            if (event.persisted) {
+                window.scrollTo(0, 0);
+            }
+        };
+    </script>
+</body>
 </html>

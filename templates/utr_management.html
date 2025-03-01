@@ -5,22 +5,22 @@
 {% block content %}
 <div class="h-0.5 bg-gradient-to-r from-[#6D28D9] via-[#3B82F6] to-[#00FFFF]"></div>
 
-<div class="min-h-screen bg-gradient-to-br from-[#1C1C1C] to-[#0A0A0A] py-12 px-4">
-    <div class="max-w-3xl mx-auto">
-        <div class="bg-[rgba(46,46,46,0.8)] backdrop-blur-md p-6 rounded-xl border-2 border-[#00FFFF] 
+<div class="min-h-screen bg-gradient-to-br from-[#1C1C1C] to-[#0A0A0A] py-8 sm:py-12 px-3 sm:px-4">
+    <div class="max-w-3xl mx-auto w-full">
+        <div class="bg-[rgba(46,46,46,0.8)] backdrop-blur-md p-4 sm:p-6 rounded-xl border-2 border-[#00FFFF] 
                     shadow-[0_0_15px_rgba(0,255,255,0.3)]">
             
-            <h1 class="text-3xl font-bold text-[#00FFFF] text-center mb-8 font-['Orbitron']">
+            <h1 class="text-2xl sm:text-3xl font-bold text-[#00FFFF] text-center mb-6 sm:mb-8 font-['Orbitron']">
                 Payment Management
             </h1>
 
             <!-- Search Section -->
-            <div class="mb-8">
-                <div class="flex gap-4">
+            <div class="mb-6 sm:mb-8">
+                <div class="flex flex-col sm:flex-row gap-3 sm:gap-4">
                     <div class="flex-1">
-                        <label class="block text-[#00FFFF] mb-2">Registration ID</label>
-                        <div class="flex gap-2">
-                            <span class="bg-[rgba(32,34,39,0.8)] text-white p-3 border-2 border-[#00FFFF] rounded-lg">
+                        <label class="block text-[#00FFFF] mb-2 text-sm sm:text-base">Registration ID</label>
+                        <div class="flex gap-2 flex-wrap sm:flex-nowrap">
+                            <span class="bg-[rgba(32,34,39,0.8)] text-white p-2 sm:p-3 text-sm sm:text-base border-2 border-[#00FFFF] rounded-lg whitespace-nowrap">
                                 YUKTI-2025-
                             </span>
                             <input type="text" 
@@ -28,25 +28,37 @@
                                    placeholder="00001" 
                                    maxlength="5"
                                    pattern="[0-9]{5}"
-                                   class="flex-1 p-3 bg-[rgba(32,34,39,0.8)] border-2 border-[#00FFFF] rounded-lg text-white
-                                          placeholder:text-gray-400 outline-none">
+                                   onkeypress="handleKeyPress(event)"
+                                   class="flex-1 p-2 sm:p-3 text-sm sm:text-base bg-[rgba(32,34,39,0.8)] border-2 border-[#00FFFF] rounded-lg text-white
+                                          placeholder:text-gray-400 outline-none min-w-[120px]">
                         </div>
                     </div>
                     <button onclick="searchRegistration()"
-                            class="self-end px-6 py-3 bg-[#FF00FF] text-white rounded-lg font-bold
+                            id="searchButton"
+                            class="w-full sm:w-auto sm:self-end px-4 sm:px-6 py-2 sm:py-3 bg-[#FF00FF] text-white rounded-lg font-bold text-sm sm:text-base
                                    transition-all duration-300 hover:bg-transparent hover:text-[#FF00FF] 
-                                   hover:border-2 hover:border-[#FF00FF]">
-                        Search
+                                   hover:border-2 hover:border-[#FF00FF] relative">
+                        <span class="inline-flex items-center">
+                            <span class="button-text">Search</span>
+                            <svg class="animate-spin ml-2 h-5 w-5 hidden" 
+                                 id="searchSpinner" 
+                                 xmlns="http://www.w3.org/2000/svg" 
+                                 fill="none" 
+                                 viewBox="0 0 24 24">
+                                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
+                            </svg>
+                        </span>
                     </button>
                 </div>
                 <p id="searchError" class="text-red-500 mt-2 hidden">Registration not found</p>
             </div>
 
             <!-- Registration Details -->
-            <div id="registrationDetails" class="hidden space-y-6">
-                <div class="bg-[rgba(32,34,39,0.8)] p-6 rounded-lg border border-[#00FFFF]">
-                    <h3 class="text-xl text-[#00FFFF] font-['Orbitron'] mb-4">Registration Details</h3>
-                    <div class="grid grid-cols-2 gap-4 text-[#C0C0C0]">
+            <div id="registrationDetails" class="hidden space-y-4 sm:space-y-6">
+                <div class="bg-[rgba(32,34,39,0.8)] p-4 sm:p-6 rounded-lg border border-[#00FFFF]">
+                    <h3 class="text-lg sm:text-xl text-[#00FFFF] font-['Orbitron'] mb-3 sm:mb-4">Registration Details</h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 text-[#C0C0C0] text-sm sm:text-base">
                         <p><strong>College:</strong> <span id="collegeText"></span></p>
                         <p><strong>Email:</strong> <span id="emailText"></span></p>
                         <p><strong>Total Amount:</strong> ₹<span id="amountText"></span></p>
@@ -55,35 +67,35 @@
                 </div>
 
                 <!-- Add Event Details Section -->
-                <div class="bg-[rgba(32,34,39,0.8)] p-6 rounded-lg border border-[#00FFFF]">
-                    <h3 class="text-xl text-[#00FFFF] font-['Orbitron'] mb-4">Event Details</h3>
-                    <div id="eventsList" class="space-y-4">
+                <div class="bg-[rgba(32,34,39,0.8)] p-4 sm:p-6 rounded-lg border border-[#00FFFF]">
+                    <h3 class="text-lg sm:text-xl text-[#00FFFF] font-['Orbitron'] mb-3 sm:mb-4">Event Details</h3>
+                    <div id="eventsList" class="space-y-3 sm:space-y-4">
                         <!-- Events will be populated dynamically -->
                     </div>
                 </div>
 
                 <!-- Payment Update Form -->
-                <div id="paymentUpdateForm" class="bg-[rgba(32,34,39,0.8)] p-6 rounded-lg border border-[#00FFFF]">
-                    <h3 class="text-xl text-[#00FFFF] font-['Orbitron'] mb-4">Update Payment</h3>
-                    <div class="space-y-4">
+                <div id="paymentUpdateForm" class="bg-[rgba(32,34,39,0.8)] p-4 sm:p-6 rounded-lg border border-[#00FFFF]">
+                    <h3 class="text-lg sm:text-xl text-[#00FFFF] font-['Orbitron'] mb-3 sm:mb-4">Update Payment</h3>
+                    <div class="space-y-3 sm:space-y-4">
                         <div>
-                            <label class="block text-[#00FFFF] mb-2">Payment Type</label>
+                            <label class="block text-[#00FFFF] mb-2 text-sm sm:text-base">Payment Type</label>
                             <select id="paymentType" 
                                     onchange="updateReferenceLabel()"
-                                    class="w-full p-3 bg-[rgba(32,34,39,0.8)] border-2 border-[#00FFFF] rounded-lg text-white">
+                                    class="w-full p-2 sm:p-3 text-sm sm:text-base bg-[rgba(32,34,39,0.8)] border-2 border-[#00FFFF] rounded-lg text-white">
                                 <option value="utr">UTR Number</option>
                                 <option value="dd">DD Number</option>
                             </select>
                         </div>
                         <div>
-                            <label id="referenceLabel" class="block text-[#00FFFF] mb-2">UTR Number</label>
+                            <label id="referenceLabel" class="block text-[#00FFFF] mb-2 text-sm sm:text-base">UTR Number</label>
                             <input type="text" 
                                    id="referenceNumber" 
-                                   class="w-full p-3 bg-[rgba(32,34,39,0.8)] border-2 border-[#00FFFF] rounded-lg text-white
+                                   class="w-full p-2 sm:p-3 text-sm sm:text-base bg-[rgba(32,34,39,0.8)] border-2 border-[#00FFFF] rounded-lg text-white
                                           placeholder:text-gray-400 outline-none">
                         </div>
                         <button onclick="updatePayment()"
-                                class="w-full bg-[#FF00FF] text-white py-3 px-6 rounded-lg font-bold uppercase 
+                                class="w-full bg-[#FF00FF] text-white py-2 sm:py-3 px-4 sm:px-6 rounded-lg font-bold uppercase text-sm sm:text-base
                                        transition-all duration-300 hover:bg-transparent hover:text-[#FF00FF] 
                                        hover:border-2 hover:border-[#FF00FF]">
                             Update Payment
@@ -108,15 +120,24 @@ function updateReferenceLabel() {
 
 async function searchRegistration() {
     const searchId = document.getElementById('searchId').value;
+    const searchButton = document.getElementById('searchButton');
+    const buttonText = searchButton.querySelector('.button-text');
+    const spinner = document.getElementById('searchSpinner');
+    
     if (!searchId || searchId.length !== 5) {
         alert('Please enter a valid 5-digit number');
         return;
     }
 
-    const ackId = `YUKTI-2025-${searchId.padStart(5, '0')}`;
-    currentAckId = ackId;
-
     try {
+        // Show spinner and disable button
+        buttonText.textContent = 'Searching...';
+        spinner.classList.remove('hidden');
+        searchButton.disabled = true;
+        
+        const ackId = `YUKTI-2025-${searchId.padStart(5, '0')}`;
+        currentAckId = ackId;
+
         const response = await fetch(`/api/search-registration-utr/${ackId}`, { 
             cache: 'no-store',
             headers: {
@@ -262,6 +283,11 @@ async function searchRegistration() {
         document.getElementById('searchError').textContent = 'An error occurred';
         document.getElementById('searchError').classList.remove('hidden');
         document.getElementById('registrationDetails').classList.add('hidden');
+    } finally {
+        // Reset button state
+        buttonText.textContent = 'Search';
+        spinner.classList.add('hidden');
+        searchButton.disabled = false;
     }
 }
 
@@ -305,6 +331,14 @@ async function updatePayment() {
         }
     } catch (error) {
         alert('An error occurred. Please try again.');
+    }
+}
+
+// Add this new function to handle Enter key press
+function handleKeyPress(event) {
+    if (event.key === 'Enter') {
+        event.preventDefault();
+        searchRegistration();
     }
 }
 
