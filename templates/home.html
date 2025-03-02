@@ -329,43 +329,66 @@
         </h2>
 
         <!-- Sponsors Grid -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+        <div class="grid grid-cols-1 gap-8 max-w-6xl mx-auto">
             <!-- Title Sponsor Card -->
-            <div class="col-span-1 sm:col-span-2 lg:col-span-3">
-                <div class="bg-[rgba(20,20,20,0.95)] backdrop-blur-xl rounded-2xl p-8 sm:p-10
+            <div class="col-span-1 max-w-lg mx-auto">  <!-- Changed from max-w-sm to max-w-lg -->
+                <div class="bg-[rgba(20,20,20,0.95)] backdrop-blur-xl rounded-2xl p-6
                             border-2 border-[#00FFFF] shadow-[0_0_30px_rgba(0,255,255,0.1)]
                             transform transition-all duration-500 hover:-translate-y-2 
                             hover:shadow-[0_15px_30px_rgba(0,255,255,0.4)] hover:border-[#FF00FF]">
-                    <h3 class="text-2xl sm:text-3xl text-[#00FFFF] font-['Orbitron'] mb-2">Title Sponsor <br>By</h3>
-                    <!-- Enhanced logo container with reduced padding -->
-                    <div class="relative p-2 sm:p-4 max-w-2xl mx-auto">
-                        <!-- Background glow effect -->
+                    <h3 class="text-xl text-[#00FFFF] font-['Orbitron'] mb-2">Title Sponsor</h3>
+                    <div class="relative p-2 max-w-md mx-auto">  <!-- Changed from max-w-xs to max-w-md -->
                         <div class="absolute inset-0 bg-gradient-to-r from-[#00FFFF]/10 to-[#FF00FF]/10 rounded-xl 
                                     opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-xl"></div>
-                        
-                        <!-- Logo -->
                         <img src="{{ url_for('static', filename='assets/sponsor/webveer.png') }}" 
                              alt="WebVeer - Title Sponsor" 
-                             class="w-full h-auto max-h-48 sm:max-h-60 object-contain mx-auto
+                             class="w-full h-auto max-h-48 object-contain mx-auto  <!-- Changed max-h-32 to max-h-48 -->
+                                    filter brightness-100 hover:brightness-110 drop-shadow-[0_0_10px_rgba(0,255,255,0.3)]
+                                    transform transition-all duration-300 hover:scale-105">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Second row for Radio and Media partners -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-8 max-w-3xl mx-auto mt-8">  <!-- Changed from max-w-4xl to max-w-3xl -->
+            <!-- Radio Partner Card -->
+            <div class="col-span-1">
+                <div class="bg-[rgba(20,20,20,0.95)] backdrop-blur-xl rounded-2xl p-6
+                            border-2 border-[#00FFFF] shadow-[0_0_30px_rgba(0,255,255,0.1)]
+                            transform transition-all duration-500 hover:-translate-y-2 
+                            hover:shadow-[0_15px_30px_rgba(0,255,255,0.4)] hover:border-[#FF00FF]">
+                    <h3 class="text-xl text-[#00FFFF] font-['Orbitron'] mb-2">Radio Partner</h3>
+                    <div class="relative p-2 max-w-xs mx-auto">  <!-- Changed from max-w-sm to max-w-xs -->
+                        <div class="absolute inset-0 bg-gradient-to-r from-[#00FFFF]/10 to-[#FF00FF]/10 rounded-xl 
+                                    opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-xl"></div>
+                        <img src="{{ url_for('static', filename='assets/sponsor/red.png') }}" 
+                             alt="Red FM - Radio Partner" 
+                             class="w-full h-auto max-h-36 object-contain mx-auto  <!-- Changed max-h-40 to max-h-36 -->
                                     filter brightness-100 hover:brightness-110 drop-shadow-[0_0_10px_rgba(0,255,255,0.3)]
                                     transform transition-all duration-300 hover:scale-105">
                     </div>
                 </div>
             </div>
 
-        
-
-          
-        </div>
-
-        <!-- Sponsor CTA Button -->
-        <div class="mt-8">
-            <a href="mailto:vtuyukti.klb@gmail.com" 
-               class="inline-block px-8 py-4 bg-gradient-to-r from-[#FF00FF] to-[#00FFFF] rounded-lg
-                      font-bold uppercase tracking-wider text-white
-                      transform transition-all duration-300 hover:scale-105 hover:from-[#00FFFF] hover:to-[#FF00FF]">
-                Become a Sponsor
-            </a>
+            <!-- Media Partner Card -->
+            <div class="col-span-1">
+                <div class="bg-[rgba(20,20,20,0.95)] backdrop-blur-xl rounded-2xl p-6
+                            border-2 border-[#00FFFF] shadow-[0_0_30px_rgba(0,255,255,0.1)]
+                            transform transition-all duration-500 hover:-translate-y-2 
+                            hover:shadow-[0_15px_30px_rgba(0,255,255,0.4)] hover:border-[#FF00FF]">
+                    <h3 class="text-xl text-[#00FFFF] font-['Orbitron'] mb-2">Media Partner</h3>
+                    <div class="relative p-2 max-w-xs mx-auto">  <!-- Kept max-w-xs -->
+                        <div class="absolute inset-0 bg-gradient-to-r from-[#00FFFF]/10 to-[#FF00FF]/10 rounded-xl 
+                                    opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-xl"></div>
+                        <img src="{{ url_for('static', filename='assets/sponsor/suddi.png') }}" 
+                             alt="Suddi - Media Partner" 
+                             class="w-full h-auto max-h-36 object-contain mx-auto  <!-- Changed max-h-32 to max-h-36 -->
+                                    filter brightness-100 hover:brightness-110 drop-shadow-[0_0_10px_rgba(0,255,255,0.3)]
+                                    transform transition-all duration-300 hover:scale-105">
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </section>
