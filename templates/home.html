@@ -354,21 +354,21 @@
         </div>
 
         <!-- Second row for Radio and Media partners -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-8 max-w-2xl mx-auto mt-8">  <!-- Changed from max-w-3xl to max-w-2xl -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-8 max-w-3xl mx-auto">
             <!-- Radio Partner Card -->
-            <div class="col-span-1">
-                <div class="bg-[rgba(20,20,20,0.95)] backdrop-blur-xl rounded-2xl p-4  <!-- Changed p-6 to p-4 -->
+            <div class="col-span-1 flex justify-end">
+                <div class="bg-[rgba(20,20,20,0.95)] backdrop-blur-xl rounded-2xl p-4
                             border-2 border-[#00FFFF] shadow-[0_0_30px_rgba(0,255,255,0.1)]
                             transform transition-all duration-500 hover:-translate-y-2 
                             hover:shadow-[0_15px_30px_rgba(0,255,255,0.4)] hover:border-[#FF00FF]
-                            h-[160px] flex flex-col">  <!-- Changed from h-[200px] to h-[160px] -->
-                    <h3 class="text-lg text-[#00FFFF] font-['Orbitron'] mb-2">Radio Partner</h3>  <!-- Changed text-xl to text-lg -->
-                    <div class="relative flex-1 flex items-center justify-center overflow-hidden">  <!-- Added overflow-hidden -->
+                            h-[280px] w-[220px] flex flex-col">
+                    <h3 class="text-lg text-[#00FFFF] font-['Orbitron'] mb-2 text-center">Radio Partner</h3>
+                    <div class="relative flex-1 flex items-center justify-center overflow-hidden">
                         <div class="absolute inset-0 bg-gradient-to-r from-[#00FFFF]/10 to-[#FF00FF]/10 rounded-xl 
                                     opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-xl"></div>
                         <img src="{{ url_for('static', filename='assets/sponsor/red.png') }}" 
                              alt="Red FM - Radio Partner" 
-                             class="w-auto h-auto max-h-28 max-w-[95%] object-contain  <!-- Changed max-h-24 to max-h-28 and max-w-[90%] to max-w-[95%] -->
+                             class="w-auto h-auto max-h-48 max-w-[95%] object-contain
                                     filter brightness-100 hover:brightness-110 drop-shadow-[0_0_10px_rgba(0,255,255,0.3)]
                                     transform transition-all duration-300 hover:scale-105">
                     </div>
@@ -376,19 +376,19 @@
             </div>
 
             <!-- Media Partner Card -->
-            <div class="col-span-1">
-                <div class="bg-[rgba(20,20,20,0.95)] backdrop-blur-xl rounded-2xl p-4  <!-- Changed p-6 to p-4 -->
+            <div class="col-span-1 flex justify-start">
+                <div class="bg-[rgba(20,20,20,0.95)] backdrop-blur-xl rounded-2xl p-4
                             border-2 border-[#00FFFF] shadow-[0_0_30px_rgba(0,255,255,0.1)]
                             transform transition-all duration-500 hover:-translate-y-2 
                             hover:shadow-[0_15px_30px_rgba(0,255,255,0.4)] hover:border-[#FF00FF]
-                            h-[160px] flex flex-col">  <!-- Changed from h-[200px] to h-[160px] -->
-                    <h3 class="text-lg text-[#00FFFF] font-['Orbitron'] mb-2">Media Partner</h3>  <!-- Changed text-xl to text-lg -->
+                            h-[280px] w-[220px] flex flex-col">
+                    <h3 class="text-lg text-[#00FFFF] font-['Orbitron'] mb-2 text-center">Media Partner</h3>
                     <div class="relative flex-1 flex items-center justify-center">
                         <div class="absolute inset-0 bg-gradient-to-r from-[#00FFFF]/10 to-[#FF00FF]/10 rounded-xl 
                                     opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-xl"></div>
                         <img src="{{ url_for('static', filename='assets/sponsor/suddi.png') }}" 
                              alt="Suddi - Media Partner" 
-                             class="w-full h-auto max-h-20 object-contain  <!-- Changed max-h-24 to max-h-20 -->
+                             class="w-auto h-auto max-h-48 max-w-[95%] object-contain
                                     filter brightness-100 hover:brightness-110 drop-shadow-[0_0_10px_rgba(0,255,255,0.3)]
                                     transform transition-all duration-300 hover:scale-105">
                     </div>
