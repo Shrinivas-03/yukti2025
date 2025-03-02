@@ -250,39 +250,160 @@
             Artist Announcement
         </h2>
 
-        <!-- Enhanced Card -->
-        <div class="group bg-[rgba(46,46,46,0.7)] backdrop-blur-md rounded-xl p-8 
-                    border-2 border-[#00FFFF] shadow-[0_0_30px_rgba(0,255,255,0.1)] 
-                    transform transition-all duration-500 hover:-translate-y-2 
-                    hover:shadow-[0_15px_30px_rgba(0,255,255,0.4)] hover:border-[#FF00FF]
-                    relative overflow-hidden">
+        <!-- First Artist Card -->
+        <div class="group bg-[#0A0A0A] backdrop-blur-md rounded-xl p-4 sm:p-8 
+            border-2 border-[#00FFFF] shadow-[0_0_30px_rgba(0,255,255,0.1)] 
+            transform transition-all duration-500 hover:-translate-y-2 
+            hover:shadow-[0_15px_30px_rgba(0,255,255,0.4)] hover:border-[#FF00FF]
+            relative overflow-hidden flex flex-col-reverse sm:flex-row gap-4 sm:gap-8">
 
-            <!-- Animated shine effect -->
-            <div class="absolute inset-0 opacity-0 group-hover:opacity-100 
-                        bg-gradient-to-r from-transparent via-[rgba(255,255,255,0.1)] to-transparent
-                        -translate-x-full group-hover:translate-x-full transition-all duration-1000"></div>
+            <!-- Content Section -->
+            <div class="w-full sm:w-1/2 space-y-4 sm:space-y-6">
+                <div>
+                    <h3 class="text-2xl sm:text-3xl font-['Orbitron'] font-bold text-[#00FFFF] mb-2">
+                        Special Guest 
+                    </h3>  
+                </div>
 
-            <!-- Content -->
-            <div class="text-center space-y-6">
-                <h3 class="text-2xl sm:text-3xl text-[#00FFFF] font-['Orbitron'] 
-                           animate-pulse">Coming Soon</h3>
-                <p class="text-lg sm:text-xl text-[#C0C0C0] max-w-2xl mx-auto font-['Rajdhani']">
-                    Get ready to witness an amazing performance! The artist reveal is just around the corner.
-                    Stay tuned for more details!
-                </p>
+                <div class="space-y-4 text-gray-300">
+                    <p class="text-lg">
+                        We are thrilled to announce that popular Sandalwood actor <span class="text-[#00FFFF] font-semibold">Krishna Ajai Rao</span> will be Special Guest for the  Inaugural Event of<br> YUKTI-2025 at VTU Kalaburagi. 
+                    </p>
+                    <ul class="space-y-2">
+                        <li><span class="text-[#00FFFF]">Venue:</span> VTU Kalaburagi</li>
+                        <li><span class="text-[#00FFFF]">Date:</span> March 10, 2025</li> 
+                    </ul>
+                    <p class="text-sm text-gray-400">
+                        Follow us on Instagram <a href="https://www.instagram.com/vtu_kalaburagi_yukti_2025" class="text-[#00FFFF] hover:text-[#FF00FF]">@vtu_kalaburagi_yukti_2025</a> for updates
+                    </p>
+                    <p class="text-sm">
+                        Visit <a href="http://www.yukti.vtucpgsklb.in" class="text-[#00FFFF] hover:text-[#FF00FF]">www.yukti.vtucpgsklb.in</a> for more details
+                    </p>
+                </div> 
+            </div>
 
-                <!-- Enhanced Button -->
-                <a href="https://www.instagram.com/vtu_kalaburagi_yukti_2025" target="_blank" class="inline-block relative overflow-hidden group px-8 py-4 
-                          bg-gradient-to-r from-[#FF00FF] to-[#00FFFF] rounded-lg
-                          font-bold uppercase transform transition-all duration-300 
-                          hover:scale-105">
-                    <span class="relative z-10 text-white group-hover:text-[#1C1C1C] transition-colors duration-300">
-                        Stay Notified <span class="hidden sm:inline">→</span>
-                    </span>
-                    <div
-                        class="absolute inset-0 bg-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            <!-- Image Section -->
+            <div class="w-full sm:w-1/2 flex items-center justify-center">
+                <div class="relative w-full aspect-[3/4] max-h-[500px] rounded-xl overflow-hidden 
+                    border-2 border-[#00FFFF] transform transition-all duration-300 
+                    hover:scale-105 hover:border-[#FF00FF]">
+                    <img src="{{ url_for('static', filename='assets/sponsor/Krishna.jpg') }}" 
+                        alt="Krishna Ajai Rao" 
+                        class="w-full h-full object-contain bg-black/40">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-black/70"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Second Artist Card -->
+        <div class="group bg-[#0A0A0A] backdrop-blur-md rounded-xl p-4 sm:p-8 mt-8
+            border-2 border-[#00FFFF] shadow-[0_0_30px_rgba(0,255,255,0.1)] 
+            transform transition-all duration-500 hover:-translate-y-2 
+            hover:shadow-[0_15px_30px_rgba(0,255,255,0.4)] hover:border-[#FF00FF]
+            relative overflow-hidden flex flex-col-reverse sm:flex-row gap-4 sm:gap-8">
+
+            <!-- Content Section -->
+            <div class="w-full sm:w-1/2 space-y-4 sm:space-y-6">
+                <div>
+                    <h3 class="text-2xl sm:text-3xl font-['Orbitron'] font-bold text-[#00FFFF] mb-2">
+                        Concert Artist Revealed
+                    </h3>
+                    <p class="text-sm text-gray-400">March 10, 2025 | 6 PM onwards</p>
+                </div>
+
+                <div class="space-y-4 text-gray-300">
+                    <p class="text-lg">
+                        Get ready for an electrifying performance by renowned singer 
+                        <span class="text-[#00FFFF] font-semibold">Shanmukha Priya</span>
+                    </p>
+                    <div class="space-y-2">
+                        <p class="font-semibold text-[#00FFFF]">Achievements:</p>
+                        <ul class="list-disc list-inside space-y-1 text-gray-300">
+                            <li>Indian Idol Season 12 (2021) Finalist</li>
+                            <li>Sa Re Ga Ma Pa L'il Champs (2017)</li>
+                            <li>Padutha Theeyaga (2013)</li>
+                        </ul>
                     </div>
-                </a>
+                    <ul class="space-y-2">
+                        <li><span class="text-[#00FFFF]">Venue:</span> VTU Kalaburagi</li>
+                        <li><span class="text-[#00FFFF]">Date:</span> March 10, 2025</li>
+                        <li><span class="text-[#00FFFF]">Time:</span> 6 PM onwards</li>
+                    </ul>
+                    <p class="text-sm text-gray-400">
+                        Follow us on Instagram <a href="https://www.instagram.com/vtu_kalaburagi_yukti_2025" 
+                        class="text-[#00FFFF] hover:text-[#FF00FF]">@vtu_kalaburagi_yukti_2025</a> for updates
+                    </p>
+                </div>
+            </div>
+
+            <!-- Image Section -->
+            <div class="w-full sm:w-1/2 flex items-center justify-center">
+                <div class="relative w-full aspect-[3/4] max-h-[500px] rounded-xl overflow-hidden 
+                    border-2 border-[#00FFFF] transform transition-all duration-300 
+                    hover:scale-105 hover:border-[#FF00FF]">
+                    <img src="{{ url_for('static', filename='assets/sponsor/priya.jpg') }}" 
+                        alt="Shanmukha Priya" 
+                        class="w-full h-full object-contain bg-black/40">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-black/70"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Third Artist Card -->
+        <div class="group bg-[#0A0A0A] backdrop-blur-md rounded-xl p-4 sm:p-8 mt-8
+            border-2 border-[#00FFFF] shadow-[0_0_30px_rgba(0,255,255,0.1)] 
+            transform transition-all duration-500 hover:-translate-y-2 
+            hover:shadow-[0_15px_30px_rgba(0,255,255,0.4)] hover:border-[#FF00FF]
+            relative overflow-hidden flex flex-col-reverse sm:flex-row gap-4 sm:gap-8">
+
+            <!-- Content Section -->
+            <div class="w-full sm:w-1/2 space-y-4 sm:space-y-6">
+                <div>
+                    <h3 class="text-2xl sm:text-3xl font-['Orbitron'] font-bold text-[#00FFFF] mb-2">
+                        Special Comedy Performance
+                    </h3>
+                    <p class="text-sm text-gray-400">March 10, 2025 | 6 PM onwards</p>
+                </div>
+
+                <div class="space-y-4 text-gray-300">
+                    <p class="text-lg">
+                        Get ready to laugh out loud with renowned 
+                        <span class="text-[#00FFFF] font-semibold">Mimicry Gopi</span>, 
+                        the "Comedy King" known for his outstanding mimicry skills!
+                    </p>
+                    <div class="space-y-2">
+                        <p class="font-semibold text-[#00FFFF]">Performance Details:</p>
+                        <ul class="list-disc list-inside space-y-1 text-gray-300">
+                            <li>Live Mimicry Performance</li>
+                            <li>Stand-up Comedy</li>
+                            <li>Interactive Entertainment</li>
+                        </ul>
+                    </div>
+                    <ul class="space-y-2">
+                        <li><span class="text-[#00FFFF]">Venue:</span> VTU Kalaburagi</li>
+                        <li><span class="text-[#00FFFF]">Date:</span> March 10, 2025</li>
+                        <li><span class="text-[#00FFFF]">Time:</span> 6 PM onwards</li>
+                    </ul>
+                    <p class="text-sm text-gray-400">
+                        Follow us on Instagram <a href="https://www.instagram.com/vtu_kalaburagi_yukti_2025" 
+                        class="text-[#00FFFF] hover:text-[#FF00FF]">@vtu_kalaburagi_yukti_2025</a> for updates
+                    </p>
+                    <p class="text-sm">
+                        Visit <a href="http://www.yukti.vtucpgsklb.in" class="text-[#00FFFF] hover:text-[#FF00FF]">www.yukti.vtucpgsklb.in</a> for more details
+                    </p>
+                </div>
+            </div>
+
+            <!-- Image Section -->
+            <div class="w-full sm:w-1/2 flex items-center justify-center">
+                <div class="relative w-full aspect-[3/4] max-h-[500px] rounded-xl overflow-hidden 
+                    border-2 border-[#00FFFF] transform transition-all duration-300 
+                    hover:scale-105 hover:border-[#FF00FF]">
+                    <img src="{{ url_for('static', filename='assets/sponsor/gopi.jpg') }}" 
+                        alt="Mimicry Gopi" 
+                        class="w-full h-full object-contain bg-black/40">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-black/70"></div>
+                </div>
             </div>
         </div>
     </div>
@@ -321,31 +442,27 @@
 
     <!-- Content Container -->
     <div class="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 text-center">
-        <h2 class="text-3xl sm:text-4xl md:text-5xl font-['Orbitron'] mb-12 
+        <h2 class="text-3xl sm:text-4xl md:text-5xl font-['Orbitron'] mb-8 sm:mb-12 
                    bg-gradient-to-r from-[#00FFFF] via-[#FF00FF] to-[#00FFFF] 
                    bg-clip-text text-transparent animate-[gradient-flow_3s_ease-in-out_infinite]
                    text-center font-bold uppercase tracking-wider">
             Our Sponsors
         </h2>
 
-        <!-- Sponsors Grid -->
-        <div class="grid grid-cols-1 gap-8 max-w-6xl mx-auto">
-            <!-- Title Sponsor Card -->
-            <div class="col-span-1 max-w-lg mx-auto">  <!-- Changed from max-w-sm to max-w-lg -->
-                <div class="bg-[rgba(20,20,20,0.95)] backdrop-blur-xl rounded-2xl p-6
-                            border-2 border-[#00FFFF] shadow-[0_0_30px_rgba(0,255,255,0.1)]
+        <!-- Title Sponsor Card - Updated for better mobile display -->
+        <div class="grid grid-cols-1 gap-6 sm:gap-8 max-w-6xl mx-auto">
+            <div class="col-span-1 w-full max-w-sm sm:max-w-lg mx-auto bg-gradient-to-r from-[#00FFFF] to-[#FF00FF] p-[2px] rounded-2xl">
+                <div class="bg-[rgba(20,20,20,0.95)] backdrop-blur-xl rounded-2xl p-4 sm:p-6
                             transform transition-all duration-500 hover:-translate-y-2 
-                            hover:shadow-[0_15px_30px_rgba(0,255,255,0.4)] hover:border-[#FF00FF]">
-                    <h3 class="text-xl text-[#00FFFF] font-['Orbitron'] mb-2">Title Sponsor</h3>
-                    <div class="relative p-2 max-w-md mx-auto">  <!-- Changed from max-w-xs to max-w-md -->
-                        <div class="absolute inset-0 bg-gradient-to-r from-[#00FFFF]/10 to-[#FF00FF]/10 rounded-xl 
-                                    opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-xl"></div>
+                            hover:shadow-[0_15px_30px_rgba(0,255,255,0.4)]">
+                    <h3 class="text-lg sm:text-xl text-[#00FFFF] font-['Orbitron'] mb-2">Title Sponsor</h3>
+                    <div class="relative p-2 w-full max-w-[280px] sm:max-w-md mx-auto">
                         <img src="{{ url_for('static', filename='assets/sponsor/webveer.png') }}" 
                              alt="WebVeer - Title Sponsor" 
-                             class="w-full h-auto max-h-48 object-contain mx-auto  <!-- Changed max-h-32 to max-h-48 -->
+                             class="w-full h-auto max-h-32 sm:max-h-48 object-contain mx-auto
                                     filter brightness-100 hover:brightness-110 drop-shadow-[0_0_10px_rgba(0,255,255,0.3)]
                                     transform transition-all duration-300 hover:scale-105 mb-4">
-                        <p class="text-center text-[#C0C0C0] text-sm sm:text-base font-['Rajdhani']">
+                        <p class="text-center text-[#C0C0C0] text-xs sm:text-sm md:text-base font-['Rajdhani']">
                             WEBVEER AUTOMATION AND SERVICE PRIVATE LIMITED, GOKAK, BELAGAVI
                         </p>
                     </div>
@@ -353,43 +470,39 @@
             </div>
         </div>
 
-        <!-- Second row for Radio and Media partners -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-8 max-w-3xl mx-auto">
+        <!-- Partners Row - Updated for better mobile display -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 mt-6 sm:mt-8 max-w-3xl mx-auto">
             <!-- Radio Partner Card -->
-            <div class="col-span-1 flex justify-end">
+            <div class="flex justify-center sm:justify-end">
                 <div class="bg-[rgba(20,20,20,0.95)] backdrop-blur-xl rounded-2xl p-4
                             border-2 border-[#00FFFF] shadow-[0_0_30px_rgba(0,255,255,0.1)]
                             transform transition-all duration-500 hover:-translate-y-2 
                             hover:shadow-[0_15px_30px_rgba(0,255,255,0.4)] hover:border-[#FF00FF]
-                            h-[280px] w-[220px] flex flex-col">
-                    <h3 class="text-lg text-[#00FFFF] font-['Orbitron'] mb-2 text-center">Radio Partner</h3>
-                    <div class="relative flex-1 flex items-center justify-center overflow-hidden">
-                        <div class="absolute inset-0 bg-gradient-to-r from-[#00FFFF]/10 to-[#FF00FF]/10 rounded-xl 
-                                    opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-xl"></div>
+                            w-[180px] sm:w-[220px] h-[240px] sm:h-[280px] flex flex-col">
+                    <h3 class="text-base sm:text-lg text-[#00FFFF] font-['Orbitron'] mb-2 text-center">Radio Partner</h3>
+                    <div class="relative flex-1 flex items-center justify-center">
                         <img src="{{ url_for('static', filename='assets/sponsor/red.png') }}" 
                              alt="Red FM - Radio Partner" 
-                             class="w-auto h-auto max-h-48 max-w-[95%] object-contain
-                                    filter brightness-100 hover:brightness-110 drop-shadow-[0_0_10px_rgba(0,255,255,0.3)]
+                             class="w-auto h-auto max-h-36 sm:max-h-48 max-w-[90%] object-contain
+                                    filter brightness-100 hover:brightness-110 
                                     transform transition-all duration-300 hover:scale-105">
                     </div>
                 </div>
             </div>
 
             <!-- Media Partner Card -->
-            <div class="col-span-1 flex justify-start">
+            <div class="flex justify-center sm:justify-start">
                 <div class="bg-[rgba(20,20,20,0.95)] backdrop-blur-xl rounded-2xl p-4
                             border-2 border-[#00FFFF] shadow-[0_0_30px_rgba(0,255,255,0.1)]
                             transform transition-all duration-500 hover:-translate-y-2 
                             hover:shadow-[0_15px_30px_rgba(0,255,255,0.4)] hover:border-[#FF00FF]
-                            h-[280px] w-[220px] flex flex-col">
-                    <h3 class="text-lg text-[#00FFFF] font-['Orbitron'] mb-2 text-center">Media Partner</h3>
+                            w-[180px] sm:w-[220px] h-[240px] sm:h-[280px] flex flex-col">
+                    <h3 class="text-base sm:text-lg text-[#00FFFF] font-['Orbitron'] mb-2 text-center">Media Partner</h3>
                     <div class="relative flex-1 flex items-center justify-center">
-                        <div class="absolute inset-0 bg-gradient-to-r from-[#00FFFF]/10 to-[#FF00FF]/10 rounded-xl 
-                                    opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-xl"></div>
                         <img src="{{ url_for('static', filename='assets/sponsor/suddi.png') }}" 
                              alt="Suddi - Media Partner" 
-                             class="w-auto h-auto max-h-48 max-w-[95%] object-contain
-                                    filter brightness-100 hover:brightness-110 drop-shadow-[0_0_10px_rgba(0,255,255,0.3)]
+                             class="w-auto h-auto max-h-36 sm:max-h-48 max-w-[90%] object-contain
+                                    filter brightness-100 hover:brightness-110 
                                     transform transition-all duration-300 hover:scale-105">
                     </div>
                 </div>
@@ -397,6 +510,71 @@
         </div>
     </div>
 </section>
+
+<div class="h-0.5 bg-gradient-to-r from-[#6D28D9] via-[#3B82F6] to-[#00FFFF]"></div>
+
+<!-- Sponsors Section -->
+<section class="relative py-16 sm:py-20 overflow-hidden">
+    <!-- Multi-layered gradient background -->
+    <div class="absolute inset-0">
+        <!-- Base gradient -->
+        <div class="absolute inset-0 bg-[linear-gradient(135deg,#0A0A0A_0%,#1C1C1C_100%)]"></div>
+
+        <!-- Animated color waves -->
+        <div class="absolute inset-0 opacity-30">
+            <div class="absolute inset-0 bg-[linear-gradient(45deg,rgba(0,255,255,0.15),transparent,rgba(255,0,255,0.15))]
+                        animate-[gradient-flow_15s_ease-in-out_infinite]"></div>
+            <div class="absolute inset-0 bg-[linear-gradient(-45deg,rgba(255,0,255,0.15),transparent,rgba(0,255,255,0.15))]
+                        animate-[gradient-flow_15s_ease-in-out_infinite] delay-75"></div>
+        </div>
+
+        <!-- Radial glows -->
+        <div class="absolute inset-0">
+            <div class="absolute top-0 left-0 w-full h-full 
+                        bg-[radial-gradient(circle_at_25%_25%,rgba(0,255,255,0.15)_0%,transparent_50%)]"></div>
+            <div class="absolute bottom-0 right-0 w-full h-full 
+                        bg-[radial-gradient(circle_at_75%_75%,rgba(255,0,255,0.15)_0%,transparent_50%)]"></div>
+        </div>
+
+        <!-- Animated particles effect -->
+        <div class="absolute inset-0 opacity-20"
+            style="background-image: url('data:image/svg+xml,...'); animation: float 20s linear infinite;">
+        </div>
+    </div>
+
+    <!-- Content Container -->
+    <div class="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 text-center">
+        <h2 class="text-3xl sm:text-4xl md:text-5xl font-['Orbitron'] mb-8 sm:mb-12 
+                   bg-gradient-to-r from-[#00FFFF] via-[#FF00FF] to-[#00FFFF] 
+                   bg-clip-text text-transparent animate-[gradient-flow_3s_ease-in-out_infinite]
+                   text-center font-bold uppercase tracking-wider">
+            Event Sponsors
+        </h2>
+        <!-- Title Sponsor Card - Updated for better mobile display -->
+        <div class="grid grid-cols-1 gap-6 sm:gap-8 max-w-6xl mx-auto">
+            <div class="col-span-1 w-full max-w-sm sm:max-w-lg mx-auto bg-gradient-to-r from-[#00FFFF] to-[#FF00FF] p-[2px] rounded-2xl">
+                <div class="bg-[rgba(20,20,20,0.95)] backdrop-blur-xl rounded-2xl p-4 sm:p-6
+                            transform transition-all duration-500 hover:-translate-y-2 
+                            hover:shadow-[0_15px_30px_rgba(0,255,255,0.4)]">
+                    <h3 class="text-lg sm:text-xl text-[#00FFFF] font-['Orbitron'] mb-2">Event Organiser</h3>
+                    <div class="relative p-2 w-full max-w-[280px] sm:max-w-md mx-auto">
+                        <img src="{{ url_for('static', filename='assets/sponsor/SIM.jpg') }}" 
+                             alt="WebVeer - Title Sponsor" 
+                             class="w-full h-auto max-h-32 sm:max-h-48 object-contain mx-auto
+                                    filter brightness-100 hover:brightness-110 drop-shadow-[0_0_10px_rgba(0,255,255,0.3)]
+                                    transform transition-all duration-300 hover:scale-105 mb-4">
+                        <p class="text-center text-[#C0C0C0] text-xs sm:text-sm md:text-base font-['Rajdhani']">
+                           SIM
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+       
+        </div>
+    </div>
+</section>
+
 
 <div class="h-0.5 bg-gradient-to-r from-[#6D28D9] via-[#3B82F6] to-[#00FFFF]"></div>
 
@@ -714,7 +892,7 @@
     }
 
     @keyframes loading-bar {
-        0% {
+         0% {
             transform: translateX(-100%);
         }
 
