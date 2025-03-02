@@ -1826,4 +1826,4 @@ def download_sponsors():
 
 if __name__ == "__main__":
     # Disable the reloader by setting use_reloader to False
-    app.run(debug=False, use_reloader=False)
+    app.run(debug=True, use_reloader=False)

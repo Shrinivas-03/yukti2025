@@ -95,7 +95,7 @@
                 2<span class="inline-block text-[#FF00FF] animate-[pulse_2s_ease-in-out_infinite]">0</span>25
             </h1>
             <p class="text-lg sm:text-xl md:text-2xl lg:text-[3rem] text-[#C0C0C0] font-['Orbitron']
-                      opacity-0 animate-[fadeIn_1s_ease_forwards_0.5s]">
+                      opacity-0 animate-[fadeIn_1s_ease-forwards_0.5s]">
                 RE<span class="inline-block text-[#FF00FF] animate-[pulse_2s_ease-in-out_infinite]">IM</span>AGINING
                 TOM<span class="inline-block text-[#FF00FF] animate-[pulse_2s_ease-in-out_infinite]">ORR</span>OW
             </p>
@@ -290,6 +290,88 @@
 
 <div class="h-0.5 bg-gradient-to-r from-[#6D28D9] via-[#3B82F6] to-[#00FFFF]"></div>
 
+<!-- Sponsors Section -->
+<section class="relative py-16 sm:py-20 overflow-hidden">
+    <!-- Multi-layered gradient background -->
+    <div class="absolute inset-0">
+        <!-- Base gradient -->
+        <div class="absolute inset-0 bg-[linear-gradient(135deg,#0A0A0A_0%,#1C1C1C_100%)]"></div>
+
+        <!-- Animated color waves -->
+        <div class="absolute inset-0 opacity-30">
+            <div class="absolute inset-0 bg-[linear-gradient(45deg,rgba(0,255,255,0.15),transparent,rgba(255,0,255,0.15))]
+                        animate-[gradient-flow_15s_ease-in-out_infinite]"></div>
+            <div class="absolute inset-0 bg-[linear-gradient(-45deg,rgba(255,0,255,0.15),transparent,rgba(0,255,255,0.15))]
+                        animate-[gradient-flow_15s_ease-in-out_infinite] delay-75"></div>
+        </div>
+
+        <!-- Radial glows -->
+        <div class="absolute inset-0">
+            <div class="absolute top-0 left-0 w-full h-full 
+                        bg-[radial-gradient(circle_at_25%_25%,rgba(0,255,255,0.15)_0%,transparent_50%)]"></div>
+            <div class="absolute bottom-0 right-0 w-full h-full 
+                        bg-[radial-gradient(circle_at_75%_75%,rgba(255,0,255,0.15)_0%,transparent_50%)]"></div>
+        </div>
+
+        <!-- Animated particles effect -->
+        <div class="absolute inset-0 opacity-20"
+            style="background-image: url('data:image/svg+xml,...'); animation: float 20s linear infinite;">
+        </div>
+    </div>
+
+    <!-- Content Container -->
+    <div class="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 text-center">
+        <h2 class="text-3xl sm:text-4xl md:text-5xl font-['Orbitron'] mb-12 
+                   bg-gradient-to-r from-[#00FFFF] via-[#FF00FF] to-[#00FFFF] 
+                   bg-clip-text text-transparent animate-[gradient-flow_3s_ease-in-out_infinite]
+                   text-center font-bold uppercase tracking-wider">
+            Our Sponsors
+        </h2>
+
+        <!-- Sponsors Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+            <!-- Title Sponsor Card -->
+            <div class="col-span-1 sm:col-span-2 lg:col-span-3">
+                <div class="bg-[rgba(20,20,20,0.95)] backdrop-blur-xl rounded-2xl p-8 sm:p-10
+                            border-2 border-[#00FFFF] shadow-[0_0_30px_rgba(0,255,255,0.1)]
+                            transform transition-all duration-500 hover:-translate-y-2 
+                            hover:shadow-[0_15px_30px_rgba(0,255,255,0.4)] hover:border-[#FF00FF]">
+                    <h3 class="text-2xl sm:text-3xl text-[#00FFFF] font-['Orbitron'] mb-2">Title Sponsor <br>By</h3>
+                    <!-- Enhanced logo container with reduced padding -->
+                    <div class="relative p-2 sm:p-4 max-w-2xl mx-auto">
+                        <!-- Background glow effect -->
+                        <div class="absolute inset-0 bg-gradient-to-r from-[#00FFFF]/10 to-[#FF00FF]/10 rounded-xl 
+                                    opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-xl"></div>
+                        
+                        <!-- Logo -->
+                        <img src="{{ url_for('static', filename='assets/sponsor/webveer.png') }}" 
+                             alt="WebVeer - Title Sponsor" 
+                             class="w-full h-auto max-h-48 sm:max-h-60 object-contain mx-auto
+                                    filter brightness-100 hover:brightness-110 drop-shadow-[0_0_10px_rgba(0,255,255,0.3)]
+                                    transform transition-all duration-300 hover:scale-105">
+                    </div>
+                </div>
+            </div>
+
+        
+
+          
+        </div>
+
+        <!-- Sponsor CTA Button -->
+        <div class="mt-8">
+            <a href="mailto:vtuyukti.klb@gmail.com" 
+               class="inline-block px-8 py-4 bg-gradient-to-r from-[#FF00FF] to-[#00FFFF] rounded-lg
+                      font-bold uppercase tracking-wider text-white
+                      transform transition-all duration-300 hover:scale-105 hover:from-[#00FFFF] hover:to-[#FF00FF]">
+                Become a Sponsor
+            </a>
+        </div>
+    </div>
+</section>
+
+<div class="h-0.5 bg-gradient-to-r from-[#6D28D9] via-[#3B82F6] to-[#00FFFF]"></div>
+
 <!-- Events Section -->
 <section class="relative py-16 sm:py-20 overflow-hidden">
     <!-- Enhanced layered background with multiple gradients -->
@@ -453,99 +535,6 @@
         </div>
     </div>
 </div>
-<div class="h-0.5 bg-gradient-to-r from-[#6D28D9] via-[#3B82F6] to-[#00FFFF]"></div>
-
-<!-- Sponsors Section -->
-<section class="relative py-16 sm:py-20 overflow-hidden">
-    <!-- Multi-layered gradient background -->
-    <div class="absolute inset-0">
-        <!-- Base gradient -->
-        <div class="absolute inset-0 bg-[linear-gradient(135deg,#0A0A0A_0%,#1C1C1C_100%)]"></div>
-
-        <!-- Animated color waves -->
-        <div class="absolute inset-0 opacity-30">
-            <div class="absolute inset-0 bg-[linear-gradient(45deg,rgba(0,255,255,0.15),transparent,rgba(255,0,255,0.15))]
-                        animate-[gradient-flow_15s_ease-in-out_infinite]"></div>
-            <div class="absolute inset-0 bg-[linear-gradient(-45deg,rgba(255,0,255,0.15),transparent,rgba(0,255,255,0.15))]
-                        animate-[gradient-flow_15s_ease-in-out_infinite] delay-75"></div>
-        </div>
-
-        <!-- Radial glows -->
-        <div class="absolute inset-0">
-            <div class="absolute top-0 left-0 w-full h-full 
-                        bg-[radial-gradient(circle_at_25%_25%,rgba(0,255,255,0.15)_0%,transparent_50%)]"></div>
-            <div class="absolute bottom-0 right-0 w-full h-full 
-                        bg-[radial-gradient(circle_at_75%_75%,rgba(255,0,255,0.15)_0%,transparent_50%)]"></div>
-        </div>
-
-        <!-- Animated particles effect -->
-        <div class="absolute inset-0 opacity-20"
-            style="background-image: url('data:image/svg+xml,...'); animation: float 20s linear infinite;">
-        </div>
-    </div>
-
-    <!-- Content wrapper -->
-    <div class="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 text-center">
-        <!-- Enhanced section title -->
-        <div class="relative mb-12 sm:mb-16">
-            <h2 class="text-3xl sm:text-4xl md:text-5xl font-['Orbitron'] 
-                       bg-gradient-to-r from-[#00FFFF] via-[#FF00FF] to-[#00FFFF] 
-                       bg-clip-text text-transparent animate-[gradient-flow_3s_ease-in-out_infinite]
-                       text-center font-bold uppercase tracking-wider">
-                Our Sponsors
-            </h2>
-            <div class="absolute -bottom-4 left-1/2 transform -translate-x-1/2 w-24 h-1 
-                        bg-gradient-to-r from-[#00FFFF] to-[#FF00FF]"></div>
-        </div>
-
-        <!-- Enhanced sponsor card -->
-        <div class="group bg-[rgba(20,20,20,0.95)] backdrop-blur-xl rounded-2xl p-8 sm:p-10 
-                    border-2 border-[#00FFFF] shadow-[0_0_30px_rgba(0,255,255,0.1)]
-                    transform transition-all duration-500 hover:-translate-y-2 
-                    hover:shadow-[0_15px_30px_rgba(0,255,255,0.4)] hover:border-[#FF00FF]
-                    relative overflow-hidden max-w-2xl mx-auto">
-
-            <!-- Animated corner accents -->
-            <div class="absolute top-0 left-0 w-16 h-16 border-t-2 border-l-2 border-[#00FFFF] 
-                        opacity-50 group-hover:border-[#FF00FF] transition-colors duration-300"></div>
-            <div class="absolute bottom-0 right-0 w-16 h-16 border-b-2 border-r-2 border-[#00FFFF] 
-                        opacity-50 group-hover:border-[#FF00FF] transition-colors duration-300"></div>
-
-            <!-- Content -->
-            <div class="space-y-6 relative z-10">
-                <h3 class="text-2xl sm:text-3xl text-[#00FFFF] font-['Orbitron'] 
-                           animate-[pulse_2s_ease-in-out_infinite]">
-                    Coming Soon
-                </h3>
-                <p class="text-lg sm:text-xl text-[#C0C0C0] max-w-2xl mx-auto font-['Rajdhani']">
-                    Sponsor announcements will be made shortly. Stay tuned for exciting partnerships!
-                </p>
-
-                <!-- Enhanced CTA button -->
-                <div class="pt-4">
-                    <a href="mailto:vtuyukti.klb@gmail.com" class="inline-block relative overflow-hidden group/btn px-8 py-4 
-                              bg-gradient-to-r from-[#FF00FF] to-[#00FFFF] rounded-lg
-                              font-bold uppercase tracking-wider text-white
-                              transform transition-all duration-300 hover:scale-105">
-                        <span
-                            class="relative z-10 group-hover/btn:text-black transition-colors duration-300 font-['Orbitron']">
-                            Become a Sponsor
-                        </span>
-                        <div
-                            class="absolute inset-0 bg-white opacity-0 group-hover/btn:opacity-100 transition-opacity duration-300">
-                        </div>
-                    </a>
-                </div>
-            </div>
-
-            <!-- Animated shine effect -->
-            <div class="absolute inset-0 opacity-0 group-hover:opacity-100 
-                        bg-gradient-to-r from-transparent via-[rgba(255,255,255,0.1)] to-transparent
-                        -translate-x-full group-hover:translate-x-full transition-all duration-1000"></div>
-        </div>
-    </div>
-</section>
-
 <div class="h-0.5 bg-gradient-to-r from-[#6D28D9] via-[#3B82F6] to-[#00FFFF]"></div>
 
 <style>
