@@ -357,14 +357,15 @@
                 <div class="bg-[rgba(20,20,20,0.95)] backdrop-blur-xl rounded-2xl p-6
                             border-2 border-[#00FFFF] shadow-[0_0_30px_rgba(0,255,255,0.1)]
                             transform transition-all duration-500 hover:-translate-y-2 
-                            hover:shadow-[0_15px_30px_rgba(0,255,255,0.4)] hover:border-[#FF00FF]">
+                            hover:shadow-[0_15px_30px_rgba(0,255,255,0.4)] hover:border-[#FF00FF]
+                            h-[250px] flex flex-col">  <!-- Added fixed height and flex -->
                     <h3 class="text-xl text-[#00FFFF] font-['Orbitron'] mb-2">Radio Partner</h3>
-                    <div class="relative p-2 max-w-xs mx-auto">  <!-- Changed from max-w-sm to max-w-xs -->
+                    <div class="relative flex-1 flex items-center justify-center">  <!-- Added flex centering -->
                         <div class="absolute inset-0 bg-gradient-to-r from-[#00FFFF]/10 to-[#FF00FF]/10 rounded-xl 
                                     opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-xl"></div>
                         <img src="{{ url_for('static', filename='assets/sponsor/red.png') }}" 
                              alt="Red FM - Radio Partner" 
-                             class="w-full h-auto max-h-36 object-contain mx-auto  <!-- Changed max-h-40 to max-h-36 -->
+                             class="w-full h-auto max-h-32 object-contain
                                     filter brightness-100 hover:brightness-110 drop-shadow-[0_0_10px_rgba(0,255,255,0.3)]
                                     transform transition-all duration-300 hover:scale-105">
                     </div>
@@ -376,14 +377,15 @@
                 <div class="bg-[rgba(20,20,20,0.95)] backdrop-blur-xl rounded-2xl p-6
                             border-2 border-[#00FFFF] shadow-[0_0_30px_rgba(0,255,255,0.1)]
                             transform transition-all duration-500 hover:-translate-y-2 
-                            hover:shadow-[0_15px_30px_rgba(0,255,255,0.4)] hover:border-[#FF00FF]">
+                            hover:shadow-[0_15px_30px_rgba(0,255,255,0.4)] hover:border-[#FF00FF]
+                            h-[250px] flex flex-col">  <!-- Added fixed height and flex -->
                     <h3 class="text-xl text-[#00FFFF] font-['Orbitron'] mb-2">Media Partner</h3>
-                    <div class="relative p-2 max-w-xs mx-auto">  <!-- Kept max-w-xs -->
+                    <div class="relative flex-1 flex items-center justify-center">  <!-- Added flex centering -->
                         <div class="absolute inset-0 bg-gradient-to-r from-[#00FFFF]/10 to-[#FF00FF]/10 rounded-xl 
                                     opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-xl"></div>
                         <img src="{{ url_for('static', filename='assets/sponsor/suddi.png') }}" 
                              alt="Suddi - Media Partner" 
-                             class="w-full h-auto max-h-36 object-contain mx-auto  <!-- Changed max-h-32 to max-h-36 -->
+                             class="w-full h-auto max-h-32 object-contain
                                     filter brightness-100 hover:brightness-110 drop-shadow-[0_0_10px_rgba(0,255,255,0.3)]
                                     transform transition-all duration-300 hover:scale-105">
                     </div>
