@@ -89,16 +89,16 @@
         <!-- Festival Title -->
         <div class="space-y-4 sm:space-y-6 md:space-y-8 mt-6 sm:mt-8 md:mt-10">
             <h1 class="text-[2.5rem] sm:text-[3.5rem] md:text-[4.5rem] lg:text-[6rem] font-bold text-[#00FFFF]
-            opacity-0 transform translate-y-8 animate-[fadeIn_0.8s_ease_forwards] leading-tight 
-            font-turbo">
+               animate-[fadeIn_0.8s_ease_forwards] leading-tight font-turbo">
                 YU<span class="inline-block text-[#FF00FF] animate-[pulse_2s_ease-in-out_infinite]">K</span>TI -
                 2<span class="inline-block text-[#FF00FF] animate-[pulse_2s_ease-in-out_infinite]">0</span>25
             </h1>
-            <p class="text-lg sm:text-xl md:text-2xl lg:text-[3rem] text-[#C0C0C0] font-['Orbitron']
-                      opacity-0 animate-[fadeIn_1s_ease-forwards_0.5s]">
+
+            <h2 class="text-lg sm:text-xl md:text-2xl lg:text-[3rem] text-[#C0C0C0] font-['Orbitron']
+             animate-[fadeIn_1s_ease_forwards_0.5s]">
                 RE<span class="inline-block text-[#FF00FF] animate-[pulse_2s_ease-in-out_infinite]">IM</span>AGINING
                 TOM<span class="inline-block text-[#FF00FF] animate-[pulse_2s_ease-in-out_infinite]">ORR</span>OW
-            </p>
+            </h2>
         </div>
         <h2 class="text-xl sm:text-2xl md:text-3xl lg:text-4xl text-[#00FFFF]
                        font-['Orbitron'] tracking-wider animate-[gradient-flow_3s_linear_infinite]
@@ -279,6 +279,7 @@
                     <p class="text-sm">
                         Visit <a href="http://www.yukti.vtucpgsklb.in" class="text-[#00FFFF] hover:text-[#FF00FF]">www.yukti.vtucpgsklb.in</a> for more details
                     </p>
+                    <p class="text-sm text-gray-400">Organized by: SIM Events</p>
                 </div> 
             </div>
 
@@ -287,7 +288,7 @@
                 <div class="relative w-full aspect-[3/4] max-h-[500px] rounded-xl overflow-hidden 
                     border-2 border-[#00FFFF] transform transition-all duration-300 
                     hover:scale-105 hover:border-[#FF00FF]">
-                    <img src="{{ url_for('static', filename='assets/sponsor/Krishna.jpg') }}" 
+                    <img src="{{ url_for('static', filename='assets/sponsor/ajith.jpg') }}" 
                         alt="Krishna Ajai Rao" 
                         class="w-full h-full object-contain bg-black/40">
                     <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-black/70"></div>
@@ -308,7 +309,7 @@
                     <h3 class="text-2xl sm:text-3xl font-['Orbitron'] font-bold text-[#00FFFF] mb-2">
                         Special Musical Performance
                     </h3>
-                    <p class="text-sm text-gray-400">March 10, 2025 | 6 PM onwards</p>
+                   
                 </div>
 
                 <div class="space-y-4 text-gray-300">
@@ -333,6 +334,7 @@
                         Follow us on Instagram <a href="https://www.instagram.com/vtu_kalaburagi_yukti_2025" 
                         class="text-[#00FFFF] hover:text-[#FF00FF]">@vtu_kalaburagi_yukti_2025</a> for updates
                     </p>
+                    <p class="text-sm text-gray-400">Organized by: SIM Events</p>
                 </div>
             </div>
 
@@ -362,14 +364,14 @@
                     <h3 class="text-2xl sm:text-3xl font-['Orbitron'] font-bold text-[#00FFFF] mb-2">
                         Special Comedy Performance
                     </h3>
-                    <p class="text-sm text-gray-400">March 10, 2025 | 6 PM onwards</p>
+                   
                 </div>
 
                 <div class="space-y-4 text-gray-300">
                     <p class="text-lg">
                         Get ready to laugh out loud with renowned 
                         <span class="text-[#00FFFF] font-semibold">Mimicry Gopi</span>, 
-                        the "Comedy King" known for his outstanding mimicry skills!
+                        the "Comedy King" known for his outstanding mimicry skills.
                     </p>
                     <div class="space-y-2">
                         <p class="font-semibold text-[#00FFFF]">Performance Details:</p>
@@ -391,6 +393,7 @@
                     <p class="text-sm">
                         Visit <a href="http://www.yukti.vtucpgsklb.in" class="text-[#00FFFF] hover:text-[#FF00FF]">www.yukti.vtucpgsklb.in</a> for more details
                     </p>
+                    <p class="text-sm text-gray-400">Organized by: SIM Events</p>
                 </div>
             </div>
 
@@ -406,6 +409,123 @@
                 </div>
             </div>
         </div>
+
+        <!-- Add Fourth Artist Card after the third card -->
+        <div class="group bg-[#0A0A0A] backdrop-blur-md rounded-xl p-4 sm:p-8 mt-8
+            border-2 border-[#00FFFF] shadow-[0_0_30px_rgba(0,255,255,0.1)] 
+            transform transition-all duration-500 hover:-translate-y-2 
+            hover:shadow-[0_15px_30px_rgba(0,255,255,0.4)] hover:border-[#FF00FF]
+            relative overflow-hidden flex flex-col-reverse sm:flex-row gap-4 sm:gap-8">
+
+            <!-- Content Section -->
+            <div class="w-full sm:w-1/2 space-y-4 sm:space-y-6">
+                <div>
+                    <h3 class="text-2xl sm:text-3xl font-['Orbitron'] font-bold text-[#00FFFF] mb-2">
+                        Special Musical Performance
+                    </h3>
+                    
+                </div>
+
+                <div class="space-y-4 text-gray-300">
+                    <p class="text-lg">
+                        Get ready for a mesmerizing performance by renowned singer 
+                        <span class="text-[#00FFFF] font-semibold">Ananya Prakash</span>
+                    </p>
+                    <div class="space-y-2">
+                        <p class="font-semibold text-[#00FFFF]">Special Performance</p>
+                        <ul class="list-disc list-inside space-y-1 text-gray-300">
+                            <li>Live Musical Concert</li>
+                            <li>Bollywood & Kannada Hits</li>
+                            <li>Interactive Performance</li>
+                        </ul>
+                    </div>
+                    <ul class="space-y-2">
+                        <li><span class="text-[#00FFFF]">Venue:</span> VTU Kalaburagi</li>
+                        <li><span class="text-[#00FFFF]">Date:</span> March 11, 2025</li>
+                        <li><span class="text-[#00FFFF]">Time:</span> 6 PM onwards</li>
+                    </ul>
+                    <p class="text-sm text-gray-400">
+                        Follow us on Instagram <a href="https://www.instagram.com/vtu_kalaburagi_yukti_2025" 
+                        class="text-[#00FFFF] hover:text-[#FF00FF]">@vtu_kalaburagi_yukti_2025</a> for updates
+                    </p>
+                    <p class="text-sm">
+                        Visit <a href="http://www.yukti.vtucpgsklb.in" class="text-[#00FFFF] hover:text-[#FF00FF]">www.yukti.vtucpgsklb.in</a> for more details
+                    </p>
+                    <p class="text-sm text-gray-400">Organized by: SIM Events</p>
+                </div>
+            </div>
+
+            <!-- Image Section -->
+            <div class="w-full sm:w-1/2 flex items-center justify-center">
+                <div class="relative w-full aspect-[3/4] max-h-[500px] rounded-xl overflow-hidden 
+                    border-2 border-[#00FFFF] transform transition-all duration-300 
+                    hover:scale-105 hover:border-[#FF00FF]">
+                    <img src="{{ url_for('static', filename='assets/sponsor/ananya.jpg') }}" 
+                        alt="Ananya Prakash" 
+                        class="w-full h-full object-contain bg-black/40">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-black/70"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Add Fifth Artist Card after the fourth card -->
+        <div class="group bg-[#0A0A0A] backdrop-blur-md rounded-xl p-4 sm:p-8 mt-8
+            border-2 border-[#00FFFF] shadow-[0_0_30px_rgba(0,255,255,0.1)] 
+            transform transition-all duration-500 hover:-translate-y-2 
+            hover:shadow-[0_15px_30px_rgba(0,255,255,0.4)] hover:border-[#FF00FF]
+            relative overflow-hidden flex flex-col-reverse sm:flex-row gap-4 sm:gap-8">
+
+            <!-- Content Section -->
+            <div class="w-full sm:w-1/2 space-y-4 sm:space-y-6">
+                <div>
+                    <h3 class="text-2xl sm:text-3xl font-['Orbitron'] font-bold text-[#00FFFF] mb-2">
+                        Special Musical Performance
+                    </h3>
+                  
+                </div>
+
+                <div class="space-y-4 text-gray-300">
+                    <p class="text-lg">
+                        Get ready for an incredible musical journey with renowned playback singer 
+                        <span class="text-[#00FFFF] font-semibold">Santhosh Venky</span>
+                    </p>
+                    <div class="space-y-2">
+                        <p class="font-semibold text-[#00FFFF]">Known For:</p>
+                        <ul class="list-disc list-inside space-y-1 text-gray-300">
+                            <li>Songs in KGF: Chapter 2</li>
+                            <li>Songs in Pushpa 2: The Rule</li>
+                            <li>Live Concert Performance</li>
+                        </ul>
+                    </div>
+                    <ul class="space-y-2">
+                        <li><span class="text-[#00FFFF]">Venue:</span> VTU Kalaburagi</li>
+                        <li><span class="text-[#00FFFF]">Date:</span> March 11, 2025</li>
+                        <li><span class="text-[#00FFFF]">Time:</span> 6 PM onwards</li>
+                    </ul>
+                    <p class="text-sm text-gray-400">
+                        Follow us on Instagram <a href="https://www.instagram.com/vtu_kalaburagi_yukti_2025" 
+                        class="text-[#00FFFF] hover:text-[#FF00FF]">@vtu_kalaburagi_yukti_2025</a> for updates
+                    </p>
+                    <p class="text-sm">
+                        Visit <a href="http://www.yukti.vtucpgsklb.in" class="text-[#00FFFF] hover:text-[#FF00FF]">www.yukti.vtucpgsklb.in</a> for more details
+                    </p>
+                    <p class="text-sm text-gray-400">Organized by: SIM Events</p>
+                </div>
+            </div>
+
+            <!-- Image Section -->
+            <div class="w-full sm:w-1/2 flex items-center justify-center">
+                <div class="relative w-full aspect-[3/4] max-h-[500px] rounded-xl overflow-hidden 
+                    border-2 border-[#00FFFF] transform transition-all duration-300 
+                    hover:scale-105 hover:border-[#FF00FF]">
+                    <img src="{{ url_for('static', filename='assets/sponsor/venky.jpg') }}" 
+                        alt="Santhosh Venky" 
+                        class="w-full h-full object-contain bg-black/40">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-black/70"></div>
+                </div>
+            </div>
+        </div>
+
     </div>
 </div>
 
@@ -457,11 +577,14 @@
                             hover:shadow-[0_15px_30px_rgba(0,255,255,0.4)]">
                     <h3 class="text-lg sm:text-xl text-[#00FFFF] font-['Orbitron'] mb-2">Title Sponsor</h3>
                     <div class="relative p-2 w-full max-w-[280px] sm:max-w-md mx-auto">
-                        <img src="{{ url_for('static', filename='assets/sponsor/webveer.png') }}" 
-                             alt="WebVeer - Title Sponsor" 
-                             class="w-full h-auto max-h-32 sm:max-h-48 object-contain mx-auto
-                                    filter brightness-100 hover:brightness-110 drop-shadow-[0_0_10px_rgba(0,255,255,0.3)]
-                                    transform transition-all duration-300 hover:scale-105 mb-4">
+                        <a href="https://webveer.com/" target="_blank" rel="noopener noreferrer" 
+                           class="block hover:opacity-90 transition-opacity">
+                            <img src="{{ url_for('static', filename='assets/sponsor/webveer.png') }}" 
+                                 alt="WebVeer - Title Sponsor" 
+                                 class="w-full h-auto max-h-32 sm:max-h-48 object-contain mx-auto
+                                        filter brightness-100 hover:brightness-110 drop-shadow-[0_0_10px_rgba(0,255,255,0.3)]
+                                        transform transition-all duration-300 hover:scale-105 mb-4">
+                        </a>
                         <p class="text-center text-[#C0C0C0] text-xs sm:text-sm md:text-base font-['Rajdhani']">
                             WEBVEER AUTOMATION AND SERVICE PRIVATE LIMITED, GOKAK, BELAGAVI
                         </p>
@@ -575,7 +698,7 @@
                         transform transition-all duration-500 hover:-translate-y-2 
                         hover:shadow-[0_15px_30px_rgba(0,255,255,0.4)] hover:border-[#FF00FF]
                         w-[180px] sm:w-[200px] h-[240px] sm:h-[280px] flex flex-col">
-                <h3 class="text-base sm:text-lg text-[#00FFFF] font-['Orbitron'] mb-2 text-center">YESHASWI ELECTRIC VEHICALES</h3>
+                <h3 class="text-base sm:text-lg text-[#00FFFF] font-['Orbitron'] mb-2 text-center">Yeshaswi Electric Vehicles</h3>
                 <div class="relative flex-1 flex items-center justify-center">
                     <img src="{{ url_for('static', filename='assets/sponsor/Elec.png') }}" 
                          alt="Red FM - Radio Partner" 
@@ -767,7 +890,11 @@
     }
 
     @keyframes fadeIn {
-        to {
+        0% {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        100% {
             opacity: 1;
             transform: translateY(0);
         }
