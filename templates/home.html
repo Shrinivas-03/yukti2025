@@ -693,24 +693,48 @@
                    text-center font-bold uppercase tracking-wider">
             Event Sponsors
         </h2>
-        <!-- Radio Partner Card -->
-        <div class="flex justify-center">
-            <div class="bg-[rgba(20,20,20,0.95)] backdrop-blur-xl rounded-2xl p-4
-                        border-2 border-[#00FFFF] shadow-[0_0_30px_rgba(0,255,255,0.1)]
-                        transform transition-all duration-500 hover:-translate-y-2 
-                        hover:shadow-[0_15px_30px_rgba(0,255,255,0.4)] hover:border-[#FF00FF]
-                        w-[180px] sm:w-[200px] h-[240px] sm:h-[280px] flex flex-col">
-                <h3 class="text-base sm:text-lg text-[#00FFFF] font-['Orbitron'] mb-2 text-center">Yeshaswi Electric Vehicles</h3>
-                <div class="relative flex-1 flex items-center justify-center">
-                    <img src="{{ url_for('static', filename='assets/sponsor/Elec.png') }}" 
-                         alt="Red FM - Radio Partner" 
-                         class="w-auto h-auto max-h-36 sm:max-h-48 max-w-[90%] object-contain
-                                filter brightness-100 hover:brightness-110 
-                                transform transition-all duration-300 hover:scale-105">
+
+        <!-- Add Event Sponsors Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8 justify-items-center">
+            <!-- Existing Yeshaswi Card -->
+            <div class="flex justify-center">
+                <div class="bg-[rgba(20,20,20,0.95)] backdrop-blur-xl rounded-2xl p-4
+                            border-2 border-[#00FFFF] shadow-[0_0_30px_rgba(0,255,255,0.1)]
+                            transform transition-all duration-500 hover:-translate-y-2 
+                            hover:shadow-[0_15px_30px_rgba(0,255,255,0.4)] hover:border-[#FF00FF]
+                            w-[180px] sm:w-[200px] h-[240px] sm:h-[280px] flex flex-col">
+                    <h3 class="text-base sm:text-lg text-[#00FFFF] font-['Orbitron'] mb-2 text-center">
+                        Yeshaswi Electric Vehicles
+                    </h3>
+                    <div class="relative flex-1 flex items-center justify-center">
+                        <img src="{{ url_for('static', filename='assets/sponsor/Elec.png') }}" 
+                             alt="Yeshaswi Electric Vehicles" 
+                             class="w-auto h-auto max-h-36 sm:max-h-48 max-w-[90%] object-contain
+                                    filter brightness-100 hover:brightness-110 
+                                    transform transition-all duration-300 hover:scale-105">
+                    </div>
                 </div>
             </div>
-        </div>
-       
+
+            <!-- New Echo Card -->
+            <div class="flex justify-center">
+                <div class="bg-[rgba(20,20,20,0.95)] backdrop-blur-xl rounded-2xl p-4
+                            border-2 border-[#00FFFF] shadow-[0_0_30px_rgba(0,255,255,0.1)]
+                            transform transition-all duration-500 hover:-translate-y-2 
+                            hover:shadow-[0_15px_30px_rgba(0,255,255,0.4)] hover:border-[#FF00FF]
+                            w-[180px] sm:w-[200px] h-[240px] sm:h-[280px] flex flex-col">
+                    <h3 class="text-base sm:text-lg text-[#00FFFF] font-['Orbitron'] mb-2 text-center">
+                        Echo Brains 
+                    </h3>
+                    <div class="relative flex-1 flex items-center justify-center">
+                        <img src="{{ url_for('static', filename='assets/sponsor/echo.png') }}" 
+                             alt="Echo" 
+                             class="w-auto h-auto max-h-36 sm:max-h-48 max-w-[90%] object-contain
+                                    filter brightness-100 hover:brightness-110 
+                                    transform transition-all duration-300 hover:scale-105">
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </section>
