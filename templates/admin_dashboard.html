@@ -166,9 +166,15 @@
             <!-- Registrations Table -->
             <div id="registrationsContainer" class="hidden bg-[rgba(46,46,46,0.8)] p-4 sm:p-6 rounded-xl border-2 border-[#00FFFF]">
                 <div class="flex justify-between items-center mb-4">
-                    <h2 class="text-2xl text-[#00FFFF] font-['Orbitron']">
-                        <span id="currentEventName"></span> Registrations
-                    </h2>
+                    <div>
+                        <h2 class="text-3xl sm:text-4xl text-[#00FFFF] font-['Orbitron'] mb-2">
+                            <span id="currentEventName"></span> Registrations
+                        </h2>
+                        <p class="text-xl sm:text-2xl text-gray-300">
+                            Total Registrations: 
+                            <span id="eventRegistrationCount" class="font-bold text-[#FF00FF] text-2xl sm:text-3xl">0</span>
+                        </p>
+                    </div>
                     <button onclick="downloadRegistrations()"
                             class="px-4 sm:px-6 py-2 sm:py-3 text-sm sm:text-base bg-[#FF00FF] text-white rounded-lg hover:bg-transparent 
                                    hover:text-[#FF00FF] hover:border-2 hover:border-[#FF00FF] transition-all duration-300">
@@ -533,9 +539,11 @@ async function showRegistrations(eventId) {
             const tbody = document.getElementById('registrationsTableBody');
             const container = document.getElementById('registrationsContainer');
             const eventName = document.getElementById('currentEventName');
+            const registrationCount = document.getElementById('eventRegistrationCount');
 
             container.classList.remove('hidden');
             eventName.textContent = data.eventName || 'Event';
+            registrationCount.textContent = data.registrations.length;  // Add registration count
             tbody.innerHTML = '';
 
             data.registrations.forEach(reg => {
