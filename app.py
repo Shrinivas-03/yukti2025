@@ -758,17 +758,24 @@ def download_registrations():
                 
                 # Check if the event matches either the base name or with variant
                 if stored_event.startswith(event_name) and (not variant_suffix or variant_suffix in event.get('event', '')):
+                    # Format participant info - only names without USN
+                    participants = []
+                    if event.get('type') == 'team' and event.get('members'):
+                        participants = [m['name'] for m in event['members']]  # Only get names
+                    elif event.get('participant'):
+                        participant = event['participant']
+                        participants = [participant['name']]  # Only get name
+
+                    # Get payment reference (UTR or DD number)
+                    payment_ref = reg.get('utr_number') or reg.get('dd_number') or 'N/A'
+
                     matches.append({
-                        'ack_id': reg.get('ack_id', ''),
-                        'college': reg.get('college', ''),
-                        'email': reg.get('email', ''),
-                        'phone': reg.get('phone', ''),
-                        'event_name': event.get('event', ''),
+                        'ack_id': reg['ack_id'],
+                        'college': reg['college'],
+                        'phone': reg['phone'],
+                        'participants': '; '.join(participants),  # Join participant names
                         'event_cost': event.get('cost', 0),
-                        'payment_status': reg.get('payment_status', 'Pending'),
-                        'payment_type': reg.get('payment_type', 'N/A'),
-                        'reference_number': reg.get('utr_number') or reg.get('dd_number') or 'N/A',
-                        'registration_date': reg.get('registration_date', '')
+                        'payment_reference': payment_ref  # Added payment reference
                     })
 
         if not matches:
@@ -777,22 +784,18 @@ def download_registrations():
                 'message': 'No registrations found for this event'
             })
 
-        # Create CSV
+        # Create CSV with updated headers
         output = io.StringIO(newline='')
         output.write('\ufeff')  # UTF-8 BOM
         writer = csv.writer(output, dialect='excel', quoting=csv.QUOTE_ALL)
         
         headers = [
-            'Ack ID', 
-            'College', 
-            'Email', 
+            'Acknowledgement ID',
+            'College',
             'Phone',
-            'Event Name', 
+            'Participant Details',
             'Event Cost',
-            'Payment Status',
-            'Payment Type',
-            'Reference Number',
-            'Registration Date'
+            'Payment Reference'  # Added new header
         ]
         
         writer.writerow(headers)
@@ -801,14 +804,10 @@ def download_registrations():
             row = [
                 reg['ack_id'],
                 reg['college'],
-                reg['email'],
                 reg['phone'],
-                reg['event_name'],
+                reg['participants'],
                 f"₹{reg['event_cost']}",
-                reg['payment_status'],
-                reg['payment_type'],
-                reg['reference_number'],
-                reg['registration_date'].split('T')[0] if reg['registration_date'] else 'N/A'
+                reg['payment_reference']  # Added payment reference
             ]
             writer.writerow(row)
 

@@ -519,7 +519,12 @@ function showEvents(categoryId) {
     }
 }
 
+// Add this at the top of your script section
+let currentEvent = null;
+
+// Update the showRegistrations function
 async function showRegistrations(eventId) {
+    currentEvent = eventId; // Store current event ID
     try {
         const response = await fetch(`/api/admin/event-registrations/${eventId}`);
         const data = await response.json();
@@ -567,8 +572,12 @@ async function showRegistrations(eventId) {
     }
 }
 
+// Update the downloadRegistrations function
 async function downloadRegistrations() {
-    if (!currentEvent) return;
+    if (!currentEvent) {
+        alert('Please select an event first');
+        return;
+    }
     try {
         window.location.href = `/api/download-registrations?event=${currentEvent}`;
     } catch (error) {
