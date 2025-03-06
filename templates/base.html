@@ -471,12 +471,11 @@
                 <div class="flex items-center animate-marquee whitespace-nowrap h-full">
                     <!-- First set of items -->
                     <div class="flex items-center gap-8 mx-4">
-                        <span class="text-base sm:text-lg md:text-xl text-[#00FFFF] font-['Orbitron']">
-                            <!-- Increased text size -->
+                        <a href="{{ url_for('register_page') }}" class="text-base sm:text-lg md:text-xl text-[#00FFFF] font-['Orbitron'] hover:text-[#FF00FF] transition-colors">
                             <i class="fas fa-star-of-life fa-spin mr-2"></i>
                             Registration Started hurry up
-                        </span>
-                        <span class="text-[#FF00FF] text-xl sm:text-2xl">★</span> <!-- Increased star size -->
+                        </a>
+                        <span class="text-[#FF00FF] text-xl sm:text-2xl">★</span>
                         <span class="text-base sm:text-lg md:text-xl text-[#00FFFF] font-['Orbitron']">
                             <i class="fas fa-calendar-check mr-2"></i>
                             Event Dates: March 10-11, 2025
@@ -487,20 +486,20 @@
                             Exciting Prizes await
                         </span>
                         <span class="text-[#FF00FF] text-xl sm:text-2xl">★</span>
-                        <span class="text-base sm:text-lg md:text-xl text-[#00FFFF] font-['Orbitron'] flex items-center">
+                        <a href="{{ url_for('home') }}#artists" class="text-base sm:text-lg md:text-xl text-[#00FFFF] font-['Orbitron'] flex items-center hover:text-[#FF00FF] transition-colors">
                             <span class="mr-2 opacity-100 animate-ping">★</span>
                             Artists Announced
-                        </span>
+                        </a>
                         <span class="text-[#FF00FF] text-xl sm:text-2xl">★</span>
                        
                         
                     </div>
                     <!-- Duplicate set of items for seamless loop -->
                     <div class="flex items-center gap-8 mx-4">
-                        <span class="text-base sm:text-lg md:text-xl text-[#00FFFF] font-['Orbitron']">
+                        <a href="{{ url_for('register_page') }}" class="text-base sm:text-lg md:text-xl text-[#00FFFF] font-['Orbitron'] hover:text-[#FF00FF] transition-colors">
                             <i class="fas fa-star-of-life fa-spin mr-2"></i>
                             Registration Started hurry up
-                        </span>
+                        </a>
                         <span class="text-[#FF00FF] text-xl sm:text-2xl">★</span>
                         <span class="text-base sm:text-lg md:text-xl text-[#00FFFF] font-['Orbitron']">
                             <i class="fas fa-calendar-check mr-2"></i>
@@ -512,10 +511,10 @@
                             Exciting Prizes await
                         </span>
                         <span class="text-[#FF00FF] text-xl sm:text-2xl">★</span>
-                        <span class="text-base sm:text-lg md:text-xl text-[#00FFFF] font-['Orbitron'] flex items-center">
+                        <a href="{{ url_for('home') }}#artists" class="text-base sm:text-lg md:text-xl text-[#00FFFF] font-['Orbitron'] flex items-center hover:text-[#FF00FF] transition-colors">
                             <span class="mr-2 opacity-100 animate-ping">★</span>
                             Artists Announced
-                        </span>
+                        </a>
                        
                     </div>
                 </div>
@@ -542,35 +541,35 @@
             <div class="flex items-center animate-marquee whitespace-nowrap h-full pl-[120px] sm:pl-[140px] md:pl-[160px]">
                 <!-- First set of announcements -->
                 <div class="flex items-center gap-8 mx-4">
-                    <span class="text-base sm:text-lg md:text-xl text-[#00FFFF] font-['Orbitron']">
+                    <a href="{{ url_for('static', filename='assets/sponsor/Br.pdf') }}" class="text-base sm:text-lg md:text-xl text-[#00FFFF] font-['Orbitron'] hover:text-[#FF00FF] transition-colors">
                         <i class="fas fa-file-alt mr-2"></i>
                         Brochure Updated - Check Now!
-                    </span>
+                    </a>
                     <span class="text-[#FF00FF] text-xl sm:text-2xl">★</span>
-                    <span class="text-base sm:text-lg md:text-xl text-[#00FFFF] font-['Orbitron'] cursor-pointer underline" id="openPopup">
+                    <span class="text-base sm:text-lg md:text-xl text-[#00FFFF] font-['Orbitron'] cursor-pointer underline hover:text-[#FF00FF] transition-colors" id="openPopup">
                         Click Here for Accommodation Instructions
                     </span>
                     <span class="text-[#FF00FF] text-xl sm:text-2xl">★</span>
-                    <span class="text-base sm:text-lg md:text-xl text-[#00FFFF] font-['Orbitron']">
+                    <a href="{{ url_for('static', filename='assets/sponsor/Sc.pdf') }}" class="text-base sm:text-lg md:text-xl text-[#00FFFF] font-['Orbitron'] hover:text-[#FF00FF] transition-colors">
                         <i class="fas fa-calendar-alt mr-2"></i>
                         Event Schedule Updated
-                    </span>
+                    </a>
                 </div>
                 <!-- Duplicate for seamless loop -->
                 <div class="flex items-center gap-8 mx-4">
-                    <span class="text-base sm:text-lg md:text-xl text-[#00FFFF] font-['Orbitron']">
+                    <a href="{{ url_for('static', filename='assets/sponsor/Br.pdf') }}" class="text-base sm:text-lg md:text-xl text-[#00FFFF] font-['Orbitron'] hover:text-[#FF00FF] transition-colors">
                         <i class="fas fa-file-alt mr-2"></i>
                         Brochure Updated - Check Now!
-                    </span>
+                    </a>
                     <span class="text-[#FF00FF] text-xl sm:text-2xl">★</span>
-                    <span class="text-base sm:text-lg md:text-xl text-[#00FFFF] font-['Orbitron'] cursor-pointer underline" id="openPopupDuplicate">
+                    <span class="text-base sm:text-lg md:text-xl text-[#00FFFF] font-['Orbitron'] cursor-pointer underline hover:text-[#FF00FF] transition-colors" id="openPopupDuplicate">
                         Click Here for Accommodation Instructions
                     </span>
                     <span class="text-[#FF00FF] text-xl sm:text-2xl">★</span>
-                    <span class="text-base sm:text-lg md:text-xl text-[#00FFFF] font-['Orbitron']">
+                    <a href="{{ url_for('static', filename='assets/sponsor/Sc.pdf') }}" class="text-base sm:text-lg md:text-xl text-[#00FFFF] font-['Orbitron'] hover:text-[#FF00FF] transition-colors">
                         <i class="fas fa-calendar-alt mr-2"></i>
                         Event Schedule Updated
-                    </span>
+                    </a>
                 </div>
             </div>
         </div>
