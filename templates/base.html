@@ -467,55 +467,50 @@
                     class="absolute inset-y-0 right-0 w-12 sm:w-16 md:w-20 bg-gradient-to-l from-[#1C1C1C] to-transparent z-10">
                 </div>
 
-                <!-- Marquee content with duplicated items for seamless loop -->
+                <!-- Marquee content with mobile optimizations -->
                 <div class="flex items-center animate-marquee whitespace-nowrap h-full">
                     <!-- First set of items -->
-                    <div class="flex items-center gap-8 mx-4">
-                        <a href="{{ url_for('register_page') }}" class="text-base sm:text-lg md:text-xl text-[#00FFFF] font-['Orbitron'] hover:text-[#FF00FF] transition-colors">
-                            <i class="fas fa-star-of-life fa-spin mr-2"></i>
-                            Registration Started hurry up
-                        </a>
-                        <span class="text-[#FF00FF] text-xl sm:text-2xl">★</span>
-                        <span class="text-base sm:text-lg md:text-xl text-[#00FFFF] font-['Orbitron']">
-                            <i class="fas fa-calendar-check mr-2"></i>
-                            Event Dates: March 10-11, 2025
+                    <div class="flex items-center gap-3 sm:gap-8 mx-2 sm:mx-4">
+                        <span class="text-[11px] sm:text-lg md:text-xl text-[#00FFFF] font-['Orbitron']">
+                            <i class="fas fa-star-of-life fa-spin mr-1 sm:mr-2"></i>
+                            <span class="hidden sm:inline">Registration Started hurry up</span>
+                            <span class="inline sm:hidden">Register Now</span>
                         </span>
-                        <span class="text-[#FF00FF] text-xl sm:text-2xl">★</span>
-                        <span class="text-base sm:text-lg md:text-xl text-[#00FFFF] font-['Orbitron']">
-                            <i class="fas fa-trophy mr-2"></i>
-                            Exciting Prizes await
+                        <span class="text-[#FF00FF] text-sm sm:text-xl">★</span>
+                        <span class="text-[11px] sm:text-lg md:text-xl text-[#00FFFF] font-['Orbitron']">
+                            <i class="fas fa-calendar-check mr-1 sm:mr-2"></i>
+                            <span class="hidden sm:inline">Event Dates: March 10-11, 2025</span>
+                            <span class="inline sm:hidden">Event at Mar 10-11</span>
                         </span>
-                        <span class="text-[#FF00FF] text-xl sm:text-2xl">★</span>
-                        <a href="{{ url_for('home') }}#artists" class="text-base sm:text-lg md:text-xl text-[#00FFFF] font-['Orbitron'] flex items-center hover:text-[#FF00FF] transition-colors">
-                            <span class="mr-2 opacity-100 animate-ping">★</span>
-                            Artists Announced
-                        </a>
-                        <span class="text-[#FF00FF] text-xl sm:text-2xl">★</span>
                        
-                        
+                        <span class="text-[#FF00FF] text-sm sm:text-xl">★</span>
+                        <span class="text-[11px] sm:text-lg md:text-xl text-[#00FFFF] font-['Orbitron']">
+                            <span class="mr-1 sm:mr-2 opacity-100 animate-ping">★</span>
+                            <span class="hidden sm:inline">Artists Announced</span>
+                            <span class="inline sm:hidden">Artists Announced</span>
+                        </span>
                     </div>
-                    <!-- Duplicate set of items for seamless loop -->
-                    <div class="flex items-center gap-8 mx-4">
-                        <a href="{{ url_for('register_page') }}" class="text-base sm:text-lg md:text-xl text-[#00FFFF] font-['Orbitron'] hover:text-[#FF00FF] transition-colors">
-                            <i class="fas fa-star-of-life fa-spin mr-2"></i>
-                            Registration Started hurry up
-                        </a>
-                        <span class="text-[#FF00FF] text-xl sm:text-2xl">★</span>
-                        <span class="text-base sm:text-lg md:text-xl text-[#00FFFF] font-['Orbitron']">
-                            <i class="fas fa-calendar-check mr-2"></i>
-                            Event Dates: March 10-11, 2025
+
+                    <!-- Duplicate set with same structure -->
+                    <div class="flex items-center gap-3 sm:gap-8 mx-2 sm:mx-4">
+                        <span class="text-[11px] sm:text-lg md:text-xl text-[#00FFFF] font-['Orbitron']">
+                            <i class="fas fa-star-of-life fa-spin mr-1 sm:mr-2"></i>
+                            <span class="hidden sm:inline">Registration Started hurry up</span>
+                            <span class="inline sm:hidden">Register Now</span>
                         </span>
-                        <span class="text-[#FF00FF] text-xl sm:text-2xl">★</span>
-                        <span class="text-base sm:text-lg md:text-xl text-[#00FFFF] font-['Orbitron']">
-                            <i class="fas fa-trophy mr-2"></i>
-                            Exciting Prizes await
+                        <span class="text-[#FF00FF] text-sm sm:text-xl">★</span>
+                        <span class="text-[11px] sm:text-lg md:text-xl text-[#00FFFF] font-['Orbitron']">
+                            <i class="fas fa-calendar-check mr-1 sm:mr-2"></i>
+                            <span class="hidden sm:inline">Event Dates: March 10-11, 2025</span>
+                            <span class="inline sm:hidden"> Event at Mar 10-11</span>
                         </span>
-                        <span class="text-[#FF00FF] text-xl sm:text-2xl">★</span>
-                        <a href="{{ url_for('home') }}#artists" class="text-base sm:text-lg md:text-xl text-[#00FFFF] font-['Orbitron'] flex items-center hover:text-[#FF00FF] transition-colors">
-                            <span class="mr-2 opacity-100 animate-ping">★</span>
-                            Artists Announced
-                        </a>
                        
+                        <span class="text-[#FF00FF] text-sm sm:text-xl">★</span>
+                        <span class="text-[11px] sm:text-lg md:text-xl text-[#00FFFF] font-['Orbitron']">
+                            <span class="mr-1 sm:mr-2 opacity-100 animate-ping">★</span>
+                            <span class="hidden sm:inline">Artists Announced</span>
+                            <span class="inline sm:hidden">Artists Announced</span>
+                        </span>
                     </div>
                 </div>
             </div>
@@ -524,51 +519,61 @@
         <!-- Second Marquee - Announcements -->
         <div class="relative h-8 sm:h-10 md:h-12 overflow-hidden">
             <!-- Gradient fade edges with styled announcement text -->
-            <div class="absolute inset-y-0 left-0 w-auto bg-gradient-to-r from-[#1C1C1C] to-transparent z-10">
+            <div class="absolute inset-y-0 left-0 w-[30%] sm:w-auto bg-gradient-to-r from-[#1C1C1C] to-transparent z-10">
                 <div class="h-full flex items-center">
-                    <div class="px-4 py-1 bg-gradient-to-r from-[#FF00FF] to-[#00FFFF] rounded-r-lg
+                    <div class="w-full sm:w-auto px-2 sm:px-4 py-1 bg-gradient-to-r from-[#FF00FF] to-[#00FFFF] rounded-r-lg
                                 transform skew-x-12">
-                        <span class="block -skew-x-12 text-xs sm:text-sm md:text-base text-white 
+                        <span class="block -skew-x-12 text-[10px] sm:text-sm md:text-base text-white 
                                     font-['Orbitron'] uppercase tracking-wider whitespace-nowrap">
-                            Latest Announcements
+                            Updates
                         </span>
                     </div>
                 </div>
             </div>
             <div class="absolute inset-y-0 right-0 w-12 sm:w-16 md:w-20 bg-gradient-to-l from-[#1C1C1C] to-transparent z-10"></div>
 
-            <!-- Updated Announcements Marquee content -->
-            <div class="flex items-center animate-marquee whitespace-nowrap h-full pl-[120px] sm:pl-[140px] md:pl-[160px]">
+            <!-- Updated Announcements Marquee content with mobile optimizations -->
+            <div class="flex items-center animate-marquee whitespace-nowrap h-full pl-[30%] sm:pl-[140px] md:pl-[160px]">
                 <!-- First set of announcements -->
-                <div class="flex items-center gap-8 mx-4">
-                    <a href="{{ url_for('static', filename='assets/sponsor/Br.pdf') }}" class="text-base sm:text-lg md:text-xl text-[#00FFFF] font-['Orbitron'] hover:text-[#FF00FF] transition-colors">
-                        <i class="fas fa-file-alt mr-2"></i>
-                        Brochure Updated - Check Now!
+                <div class="flex items-center gap-3 sm:gap-8 mx-2 sm:mx-4">
+                    <a href="{{ url_for('static', filename='assets/sponsor/Br.pdf') }}" 
+                       class="text-[11px] sm:text-base md:text-xl text-[#00FFFF] font-['Orbitron'] hover:text-[#FF00FF] transition-colors">
+                        <i class="fas fa-file-alt mr-1 sm:mr-2"></i>
+                        <span class="hidden sm:inline">Brochure Updated</span>
+                        <span class="inline sm:hidden">Brochure Updated</span>
                     </a>
-                    <span class="text-[#FF00FF] text-xl sm:text-2xl">★</span>
-                    <span class="text-base sm:text-lg md:text-xl text-[#00FFFF] font-['Orbitron'] cursor-pointer underline hover:text-[#FF00FF] transition-colors" id="openPopup">
-                        Click Here for Accommodation Instructions
+                    <span class="text-[#FF00FF] text-base sm:text-xl">★</span>
+                    <span class="text-[11px] sm:text-base md:text-xl text-[#00FFFF] font-['Orbitron'] cursor-pointer underline accommodation-popup-trigger">
+                          <span class="hidden sm:inline">Click Here for Accommodation</span>
+                        <span class="inline sm:hidden">Accommodation</span>
                     </span>
-                    <span class="text-[#FF00FF] text-xl sm:text-2xl">★</span>
-                    <a href="{{ url_for('static', filename='assets/sponsor/Sc.pdf') }}" class="text-base sm:text-lg md:text-xl text-[#00FFFF] font-['Orbitron'] hover:text-[#FF00FF] transition-colors">
-                        <i class="fas fa-calendar-alt mr-2"></i>
-                        Event Schedule Updated
+                    <span class="text-[#FF00FF] text-base sm:text-xl">★</span>
+                    <a href="{{ url_for('static', filename='assets/sponsor/Sc.pdf') }}"
+                       class="text-[11px] sm:text-base md:text-xl text-[#00FFFF] font-['Orbitron'] hover:text-[#FF00FF] transition-colors">
+                        <i class="fas fa-calendar-alt mr-1 sm:mr-2"></i>
+                        <span class="hidden sm:inline">Event Schedule Updated</span>
+                        <span class="inline sm:hidden">Schedule updated</span>
                     </a>
                 </div>
-                <!-- Duplicate for seamless loop -->
-                <div class="flex items-center gap-8 mx-4">
-                    <a href="{{ url_for('static', filename='assets/sponsor/Br.pdf') }}" class="text-base sm:text-lg md:text-xl text-[#00FFFF] font-['Orbitron'] hover:text-[#FF00FF] transition-colors">
-                        <i class="fas fa-file-alt mr-2"></i>
-                        Brochure Updated - Check Now!
+                <!-- Duplicate announcement set with same structure -->
+                <div class="flex items-center gap-3 sm:gap-8 mx-2 sm:mx-4">
+                    <a href="{{ url_for('static', filename='assets/sponsor/Br.pdf') }}" 
+                       class="text-[11px] sm:text-base md:text-xl text-[#00FFFF] font-['Orbitron'] hover:text-[#FF00FF] transition-colors">
+                        <i class="fas fa-file-alt mr-1 sm:mr-2"></i>
+                        <span class="hidden sm:inline">Brochure Updated</span>
+                        <span class="inline sm:hidden">Brochure updated</span>
                     </a>
-                    <span class="text-[#FF00FF] text-xl sm:text-2xl">★</span>
-                    <span class="text-base sm:text-lg md:text-xl text-[#00FFFF] font-['Orbitron'] cursor-pointer underline hover:text-[#FF00FF] transition-colors" id="openPopupDuplicate">
-                        Click Here for Accommodation Instructions
+                    <span class="text-[#FF00FF] text-base sm:text-xl">★</span>
+                    <span class="text-[11px] sm:text-base md:text-xl text-[#00FFFF] font-['Orbitron'] cursor-pointer underline accommodation-popup-trigger">
+                        <span class="hidden sm:inline">Click Here for Accommodation</span>
+                        <span class="inline sm:hidden">Accommodation</span>
                     </span>
-                    <span class="text-[#FF00FF] text-xl sm:text-2xl">★</span>
-                    <a href="{{ url_for('static', filename='assets/sponsor/Sc.pdf') }}" class="text-base sm:text-lg md:text-xl text-[#00FFFF] font-['Orbitron'] hover:text-[#FF00FF] transition-colors">
-                        <i class="fas fa-calendar-alt mr-2"></i>
-                        Event Schedule Updated
+                    <span class="text-[#FF00FF] text-base sm:text-xl">★</span>
+                    <a href="{{ url_for('static', filename='assets/sponsor/Sc.pdf') }}"
+                       class="text-[11px] sm:text-base md:text-xl text-[#00FFFF] font-['Orbitron'] hover:text-[#FF00FF] transition-colors">
+                        <i class="fas fa-calendar-alt mr-1 sm:mr-2"></i>
+                        <span class="hidden sm:inline">Event Schedule Updated</span>
+                        <span class="inline sm:hidden">Schedule updated</span>
                     </a>
                 </div>
             </div>
@@ -900,23 +905,37 @@
             }
         };
 
-        document.getElementById("openPopup").addEventListener("click", function() {
-            document.getElementById("popup").classList.remove("hidden");
-        });
+        // Updated popup functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const popup = document.getElementById('popup');
+            const closeBtn = document.getElementById('closePopup');
+            const popupTriggers = document.querySelectorAll('.accommodation-popup-trigger');
 
-        document.getElementById("openPopupDuplicate").addEventListener("click", function() {
-            document.getElementById("popup").classList.remove("hidden");
-        });
+            // Add click event to all triggers
+            popupTriggers.forEach(trigger => {
+                trigger.addEventListener('click', () => {
+                    popup.classList.remove('hidden');
+                });
+            });
 
-        document.getElementById("closePopup").addEventListener("click", function() {
-            document.getElementById("popup").classList.add("hidden");
-        });
+            // Close button handler
+            closeBtn.addEventListener('click', () => {
+                popup.classList.add('hidden');
+            });
 
-        // Close popup when clicking outside
-        document.getElementById("popup").addEventListener("click", function(e) {
-            if (e.target === this) {
-                this.classList.add("hidden");
-            }
+            // Close on outside click
+            popup.addEventListener('click', (e) => {
+                if (e.target === popup) {
+                    popup.classList.add('hidden');
+                }
+            });
+
+            // Close on escape key
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && !popup.classList.contains('hidden')) {
+                    popup.classList.add('hidden');
+                }
+            });
         });
     </script>
 </body>
