@@ -650,40 +650,40 @@ input[type="radio"]:checked + label {
         
         const events = {
             technical: [
-                { name: "Prakalpa Prastuthi (Ideathon)", type: "team", cost: 300, minTeam: 2, maxTeam: 4 },
-                { name: "Chanaksh (Code Quest)", type: "individual", cost: 200 },
-                { name: "Robo Samara (Robo War)", type: "team", cost: 300, minTeam: 1, maxTeam: 4},
-                { name: "Robo Samara (Robo Race)", type: "team", cost: 300, minTeam: 1, maxTeam: 4},
-                { name: "Pragyan (Quiz)", type: "team", cost: 300, minTeam: 3, maxTeam: 3},
-                { name: "Vagmita (Elocution)", type: "individual", cost: 150 }
+                { name: "Prakalpa Prastuthi (Ideathon)", type: "team", cost: 300, minTeam: 2, maxTeam: 4 ,isClosed: false},
+                { name: "Chanaksh (Code Quest)", type: "individual", cost: 200,isClosed: false },
+                { name: "Robo Samara (Robo War)", type: "team", cost: 300, minTeam: 1, maxTeam: 4,isClosed: false},
+                { name: "Robo Samara (Robo Race)", type: "team", cost: 300, minTeam: 1, maxTeam: 4,isClosed: false},
+                { name: "Pragyan (Quiz)", type: "team", cost: 300, minTeam: 3, maxTeam: 3,isClosed: false},
+                { name: "Vagmita (Elocution)", type: "individual", cost: 150 ,isClosed: false}
             ],
             VisualArt: [
                 
-                { name: "Sthala Chitrapatha (Spot Photography)", type: "individual", cost: 200 },
-                { name: "Chitragatha (Short Film)", type: "team", cost: 300, minTeam: 1, maxTeam: 5 },
-                { name: "Ruprekha (Sketch Art)", type: "individual", cost: 200 },
-                { name: "Hastakala (Painting)", type: "individual", cost: 200 },
-                { name: "Swachitra (Selfie Point)", type: "team", minTeam:1 ,maxTeam:6, cost: 199 }
+                { name: "Sthala Chitrapatha (Spot Photography)", type: "individual", cost: 200 ,isClosed: false},
+                { name: "Chitragatha (Short Film)", type: "team", cost: 300, minTeam: 1, maxTeam: 5 ,isClosed: false},
+                { name: "Ruprekha (Sketch Art)", type: "individual", cost: 200,isClosed: false },
+                { name: "Hastakala (Painting)", type: "individual", cost: 200,isClosed: false },
+                { name: "Swachitra (Selfie Point)", type: "team", minTeam:1 ,maxTeam:6, cost: 199,isClosed: false }
             ],
             Cultural: [
-                { name: "Ninaad (Singing Solo)", type: "individual", cost: 200 },
-                { name: "Ninaad (Singing Group)", type: "team", cost: 500,minTeam:4, maxTeam:10 },
-                { name: "Nritya Saadhana (Dance Solo)", type: "individual", cost: 299 },
-                { name: "Nritya Saadhana (Dance Group)", type: "team", cost: 499 ,minTeam:4, maxTeam:10},
+                { name: "Ninaad (Singing Solo)", type: "individual", cost: 200 ,isClosed: false},
+                { name: "Ninaad (Singing Group)", type: "team", cost: 500,minTeam:4, maxTeam:10,isClosed: false },
+                { name: "Nritya Saadhana (Dance Solo)", type: "individual", cost: 299 ,isClosed: false},
+                { name: "Nritya Saadhana (Dance Group)", type: "team", cost: 499 ,minTeam:4, maxTeam:10,isClosed: false},
                
-                { name: "Navyataa (Ramp Walk)", type: "individual", cost: 200 }
+                { name: "Navyataa (Ramp Walk)", type: "individual", cost: 200 ,isClosed: false}
             ],
             management: [
                
-                { name: "Daksha (Best Manager)", type: "individual", cost: 200 },
-                { name: "Shreshta Vitta (Finance) ", type: "team", cost: 250 ,minTeam:1 , maxTeam:3 },
-                { name: "Manava Sansadhan (HR)", type: "individual", cost: 200 },
-                { name: "Sumedha (Start-Up)", type: "team", cost: 399 , minTeam: 2 , maxTeam:3 },
-                { name: "Vipanan (Marketing)", type: "team", cost: 200,minTeam:2 ,maxTeam:2 }
+                { name: "Daksha (Best Manager)", type: "individual", cost: 200,isClosed: false },
+                { name: "Shreshta Vitta (Finance) ", type: "team", cost: 250 ,minTeam:1 , maxTeam:3,isClosed: false },
+                { name: "Manava Sansadhan (HR)", type: "individual", cost: 200,isClosed: false },
+                { name: "Sumedha (Start-Up)", type: "team", cost: 399 , minTeam: 2 , maxTeam:3,isClosed: false },
+                { name: "Vipanan (Marketing)", type: "team", cost: 200,minTeam:2 ,maxTeam:2,isClosed: false }
             ],
             games: [
-                { name: "BGMI", type: "team", cost: 500, minTeam: 1, maxTeam: 5 },
-                { name: "Mission Talaash (Treasure Hunt)", type: "team", cost: 1000, minTeam: 5, maxTeam: 5 }
+                { name: "BGMI", type: "team", cost: 500, minTeam: 1, maxTeam: 5, isClosed: false },
+                { name: "Mission Talaash (Treasure Hunt)", type: "team", cost: 1000, minTeam: 5, maxTeam: 5 ,isClosed: false }
             ]
         };
 
@@ -770,6 +770,10 @@ input[type="radio"]:checked + label {
         }
 
         addEventBtn.addEventListener("click", function() {
+            if (currentEventSelection && currentEventSelection.isClosed) {
+                alert("Registration for this event is closed.");
+                return;
+            }
             if (currentEventSelection) {
                 let hasError = false;
 
@@ -931,52 +935,69 @@ input[type="radio"]:checked + label {
                     let div = document.createElement("div");
                     div.classList.add("event-option");
 
+                    // If event is closed, add visual indicators
+                    if (event.isClosed) {
+                        div.classList.add('opacity-50', 'cursor-not-allowed');
+                    }
+
                     let input = document.createElement("input");
                     input.type = "radio";
                     input.name = "event";
                     input.value = event.name;
                     input.id = event.name.replace(/\s+/g, "-").toLowerCase();
+                    
+                    // Completely disable closed events
+                    if (event.isClosed) {
+                        input.disabled = true;
+                        div.onclick = (e) => {
+                            e.preventDefault();
+                            alert('Registration for this event is closed.');
+                        };
+                    }
 
                     let label = document.createElement("label");
                     label.htmlFor = input.id;
-                    // Only show event name without team size or cost
-                    label.textContent = event.name;
+                    label.textContent = `${event.name} ${event.isClosed ? '(Registration Closed)' : ''}`;
+                    label.style.color = event.isClosed ? '#666' : '#C0C0C0';
 
                     div.appendChild(input);
                     div.appendChild(label);
                     eventsContainer.appendChild(div);
 
-                    input.addEventListener("change", function () {
-                        currentEventSelection = event;
-                        addEventBtn.disabled = false;
-                        
-                        if (event.type === "team") {
-                            groupSizeContainer.classList.remove("hidden");
-                            teamMembersContainer.classList.remove("hidden");
-                            individualParticipantContainer.classList.add("hidden");
+                    // Only add event listener if event is not closed
+                    if (!event.isClosed) {
+                        input.addEventListener("change", function () {
+                            currentEventSelection = event;
+                            addEventBtn.disabled = false;
                             
-                            // Set min and max based on event configuration
-                            groupSizeInput.min = event.minTeam;
-                            groupSizeInput.max = event.maxTeam;
-                            groupSizeInput.value = event.minTeam;
+                            if (event.type === "team") {
+                                groupSizeContainer.classList.remove("hidden");
+                                teamMembersContainer.classList.remove("hidden");
+                                individualParticipantContainer.classList.add("hidden");
+                                
+                                // Set min and max based on event configuration
+                                groupSizeInput.min = event.minTeam;
+                                groupSizeInput.max = event.maxTeam;
+                                groupSizeInput.value = event.minTeam;
+                                
+                                // Update label to show allowed team size
+                                const sizeLabel = groupSizeContainer.querySelector('label');
+                                sizeLabel.innerHTML = `<strong>Number of Participants (${event.minTeam}-${event.maxTeam})</strong>`;
+                            } else {
+                                groupSizeContainer.classList.add("hidden");
+                                teamMembersContainer.classList.add("hidden");
+                                individualParticipantContainer.classList.remove("hidden");
+                                individualParticipantInput.required = true;
+                                individualParticipantInput.value = ""; // clear previous value
+                                groupSizeInput.value = 1;
+                            }
                             
-                            // Update label to show allowed team size
-                            const sizeLabel = groupSizeContainer.querySelector('label');
-                            sizeLabel.innerHTML = `<strong>Number of Participants (${event.minTeam}-${event.maxTeam})</strong>`;
-                        } else {
-                            groupSizeContainer.classList.add("hidden");
-                            teamMembersContainer.classList.add("hidden");
-                            individualParticipantContainer.classList.remove("hidden");
-                            individualParticipantInput.required = true;
-                            individualParticipantInput.value = ""; // clear previous value
-                            groupSizeInput.value = 1;
-                        }
-                        
-                        generateMemberInputs(parseInt(groupSizeInput.value));
-                    });
+                            generateMemberInputs(parseInt(groupSizeInput.value));
+                        });
+                    }
                 });
             } else {
-                eventsContainer.innerHTML = '<p>Please select a category first.</p>';
+                eventsContainer.innerHTML = '<p class="text-gray-400">Please select a category first.</p>';
             }
         });
 
