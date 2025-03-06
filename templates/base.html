@@ -454,85 +454,138 @@
         </div>
     </header>
 
-    <!-- Update just the marquee section -->
-    <div
-        class="fixed top-16 sm:top-18 md:top-20 w-full z-[1999] bg-gradient-to-r from-[#1C1C1C] via-[#141414] to-[#1C1C1C] border-y border-[#00FFFF]/20 backdrop-blur-sm">
-        <div class="relative h-8 sm:h-10 md:h-12 overflow-hidden"> <!-- Adjusted heights -->
-            <!-- Gradient fade edges -->
-            <div
-                class="absolute inset-y-0 left-0 w-12 sm:w-16 md:w-20 bg-gradient-to-r from-[#1C1C1C] to-transparent z-10">
-            </div>
-            <div
-                class="absolute inset-y-0 right-0 w-12 sm:w-16 md:w-20 bg-gradient-to-l from-[#1C1C1C] to-transparent z-10">
-            </div>
-
-            <!-- Marquee content with duplicated items for seamless loop -->
-            <div class="flex items-center animate-marquee whitespace-nowrap h-full">
-                <!-- First set of items -->
-                <div class="flex items-center gap-8 mx-4">
-                    <span class="text-base sm:text-lg md:text-xl text-[#00FFFF] font-['Orbitron']">
-                        <!-- Increased text size -->
-                        <i class="fas fa-star-of-life fa-spin mr-2"></i>
-                        Registration Started hurry up
-                    </span>
-                    <span class="text-[#FF00FF] text-xl sm:text-2xl">★</span> <!-- Increased star size -->
-                    <span class="text-base sm:text-lg md:text-xl text-[#00FFFF] font-['Orbitron']">
-                        <i class="fas fa-calendar-check mr-2"></i>
-                        Event Dates: March 10-11, 2025
-                    </span>
-                    <span class="text-[#FF00FF] text-xl sm:text-2xl">★</span>
-                    <span class="text-base sm:text-lg md:text-xl text-[#00FFFF] font-['Orbitron']">
-                        <i class="fas fa-trophy mr-2"></i>
-                        Exciting Prizes await
-                    </span>
-                    <span class="text-[#FF00FF] text-xl sm:text-2xl">★</span>
-                    <span class="text-base sm:text-lg md:text-xl text-[#00FFFF] font-['Orbitron'] flex items-center">
-                        <span class="mr-2 opacity-100 animate-ping">★</span>
-                        Artists Announced
-                    </span>
-                    <span class="text-[#FF00FF] text-xl sm:text-2xl">★</span>
-                    <span class="text-base sm:text-lg md:text-xl text-[#00FFFF] font-['Orbitron'] flex items-center">
-                        <span class="mr-2 opacity-100 animate-ping">★</span>
-                        Brochure Updated
-                        
-                    </span>
-                    <span class="text-[#FF00FF] text-xl sm:text-2xl">★</span>
-                    
+    <!-- Update marquee section with two marquees -->
+    <div class="fixed top-16 sm:top-18 md:top-20 w-full z-[1999] bg-gradient-to-r from-[#1C1C1C] via-[#141414] to-[#1C1C1C] backdrop-blur-sm">
+        <!-- First Marquee - Original Content -->
+        <div class="relative h-8 sm:h-10 md:h-12 overflow-hidden border-b border-[#00FFFF]/20"> 
+            <div class="relative h-8 sm:h-10 md:h-12 overflow-hidden"> <!-- Adjusted heights -->
+                <!-- Gradient fade edges -->
+                <div
+                    class="absolute inset-y-0 left-0 w-12 sm:w-16 md:w-20 bg-gradient-to-r from-[#1C1C1C] to-transparent z-10">
                 </div>
-                <!-- Duplicate set of items for seamless loop -->
+                <div
+                    class="absolute inset-y-0 right-0 w-12 sm:w-16 md:w-20 bg-gradient-to-l from-[#1C1C1C] to-transparent z-10">
+                </div>
+
+                <!-- Marquee content with duplicated items for seamless loop -->
+                <div class="flex items-center animate-marquee whitespace-nowrap h-full">
+                    <!-- First set of items -->
+                    <div class="flex items-center gap-8 mx-4">
+                        <span class="text-base sm:text-lg md:text-xl text-[#00FFFF] font-['Orbitron']">
+                            <!-- Increased text size -->
+                            <i class="fas fa-star-of-life fa-spin mr-2"></i>
+                            Registration Started hurry up
+                        </span>
+                        <span class="text-[#FF00FF] text-xl sm:text-2xl">★</span> <!-- Increased star size -->
+                        <span class="text-base sm:text-lg md:text-xl text-[#00FFFF] font-['Orbitron']">
+                            <i class="fas fa-calendar-check mr-2"></i>
+                            Event Dates: March 10-11, 2025
+                        </span>
+                        <span class="text-[#FF00FF] text-xl sm:text-2xl">★</span>
+                        <span class="text-base sm:text-lg md:text-xl text-[#00FFFF] font-['Orbitron']">
+                            <i class="fas fa-trophy mr-2"></i>
+                            Exciting Prizes await
+                        </span>
+                        <span class="text-[#FF00FF] text-xl sm:text-2xl">★</span>
+                        <span class="text-base sm:text-lg md:text-xl text-[#00FFFF] font-['Orbitron'] flex items-center">
+                            <span class="mr-2 opacity-100 animate-ping">★</span>
+                            Artists Announced
+                        </span>
+                        <span class="text-[#FF00FF] text-xl sm:text-2xl">★</span>
+                       
+                        
+                    </div>
+                    <!-- Duplicate set of items for seamless loop -->
+                    <div class="flex items-center gap-8 mx-4">
+                        <span class="text-base sm:text-lg md:text-xl text-[#00FFFF] font-['Orbitron']">
+                            <i class="fas fa-star-of-life fa-spin mr-2"></i>
+                            Registration Started hurry up
+                        </span>
+                        <span class="text-[#FF00FF] text-xl sm:text-2xl">★</span>
+                        <span class="text-base sm:text-lg md:text-xl text-[#00FFFF] font-['Orbitron']">
+                            <i class="fas fa-calendar-check mr-2"></i>
+                            Event Dates: March 10-11, 2025
+                        </span>
+                        <span class="text-[#FF00FF] text-xl sm:text-2xl">★</span>
+                        <span class="text-base sm:text-lg md:text-xl text-[#00FFFF] font-['Orbitron']">
+                            <i class="fas fa-trophy mr-2"></i>
+                            Exciting Prizes await
+                        </span>
+                        <span class="text-[#FF00FF] text-xl sm:text-2xl">★</span>
+                        <span class="text-base sm:text-lg md:text-xl text-[#00FFFF] font-['Orbitron'] flex items-center">
+                            <span class="mr-2 opacity-100 animate-ping">★</span>
+                            Artists Announced
+                        </span>
+                       
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Second Marquee - Announcements -->
+        <div class="relative h-8 sm:h-10 md:h-12 overflow-hidden">
+            <!-- Gradient fade edges with styled announcement text -->
+            <div class="absolute inset-y-0 left-0 w-auto bg-gradient-to-r from-[#1C1C1C] to-transparent z-10">
+                <div class="h-full flex items-center">
+                    <div class="px-4 py-1 bg-gradient-to-r from-[#FF00FF] to-[#00FFFF] rounded-r-lg
+                                transform skew-x-12">
+                        <span class="block -skew-x-12 text-xs sm:text-sm md:text-base text-white 
+                                    font-['Orbitron'] uppercase tracking-wider whitespace-nowrap">
+                            Latest Announcements
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="absolute inset-y-0 right-0 w-12 sm:w-16 md:w-20 bg-gradient-to-l from-[#1C1C1C] to-transparent z-10"></div>
+
+            <!-- Updated Announcements Marquee content -->
+            <div class="flex items-center animate-marquee whitespace-nowrap h-full pl-[120px] sm:pl-[140px] md:pl-[160px]">
+                <!-- First set of announcements -->
                 <div class="flex items-center gap-8 mx-4">
                     <span class="text-base sm:text-lg md:text-xl text-[#00FFFF] font-['Orbitron']">
-                        <i class="fas fa-star-of-life fa-spin mr-2"></i>
-                        Registration Started hurry up
+                        <i class="fas fa-file-alt mr-2"></i>
+                        Brochure Updated - Check Now!
+                    </span>
+                    <span class="text-[#FF00FF] text-xl sm:text-2xl">★</span>
+                    <span class="text-base sm:text-lg md:text-xl text-[#00FFFF] font-['Orbitron'] cursor-pointer underline" id="openPopup">
+                        Click Here for Accommodation Instructions
                     </span>
                     <span class="text-[#FF00FF] text-xl sm:text-2xl">★</span>
                     <span class="text-base sm:text-lg md:text-xl text-[#00FFFF] font-['Orbitron']">
-                        <i class="fas fa-calendar-check mr-2"></i>
-                        Event Dates: March 10-11, 2025
+                        <i class="fas fa-calendar-alt mr-2"></i>
+                        Event Schedule Updated
+                    </span>
+                </div>
+                <!-- Duplicate for seamless loop -->
+                <div class="flex items-center gap-8 mx-4">
+                    <span class="text-base sm:text-lg md:text-xl text-[#00FFFF] font-['Orbitron']">
+                        <i class="fas fa-file-alt mr-2"></i>
+                        Brochure Updated - Check Now!
+                    </span>
+                    <span class="text-[#FF00FF] text-xl sm:text-2xl">★</span>
+                    <span class="text-base sm:text-lg md:text-xl text-[#00FFFF] font-['Orbitron'] cursor-pointer underline" id="openPopupDuplicate">
+                        Click Here for Accommodation Instructions
                     </span>
                     <span class="text-[#FF00FF] text-xl sm:text-2xl">★</span>
                     <span class="text-base sm:text-lg md:text-xl text-[#00FFFF] font-['Orbitron']">
-                        <i class="fas fa-trophy mr-2"></i>
-                        Exciting Prizes await
+                        <i class="fas fa-calendar-alt mr-2"></i>
+                        Event Schedule Updated
                     </span>
-                    <span class="text-[#FF00FF] text-xl sm:text-2xl">★</span>
-                    <span class="text-base sm:text-lg md:text-xl text-[#00FFFF] font-['Orbitron'] flex items-center">
-                        <span class="mr-2 opacity-100 animate-ping">★</span>
-                        Artists Announced
-                    </span>
-                    <span class="text-[#FF00FF] text-xl sm:text-2xl">★</span>
-                    <span class="text-base sm:text-lg md:text-xl text-[#00FFFF] font-['Orbitron'] flex items-center">
-                        <span class="mr-2 opacity-100 animate-ping">★</span>
-                        Brochure Updated
-                       
-                    </span>
-                    <span class="text-[#FF00FF] text-xl sm:text-2xl">★</span>
-                    
                 </div>
             </div>
         </div>
     </div>
 
+    <!-- Pop-up container -->
+    <div id="popup" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden z-[2002]">
+        <div class="bg-[#1C1C1C] text-white p-6 rounded-lg shadow-lg w-96 relative border-2 border-[#00FFFF]">
+            <button id="closePopup" class="absolute top-2 right-3 text-2xl font-bold text-[#00FFFF] hover:text-[#FF00FF]">&times;</button>
+            <h2 class="text-xl font-bold mb-4 text-center text-[#00FFFF] font-['Orbitron']">Accommodation Instructions</h2>
+            <p class="mb-2 text-gray-300">1. Participants who are seeking accommodation facilities are requested to bring their own bedspread, pillow cover, blanket, lock, and key.</p>
+            <p class="text-gray-300">2. No accommodation will be provided for spot registration participants.</p>
+        </div>
+    </div>
+    
     <!-- Dynamic Content Block -->
     <main class="min-h-screen pt-32 sm:pt-36 md:pt-40 relative z-0">
         {% block content %}{% endblock %}
@@ -847,6 +900,25 @@
                 window.scrollTo(0, 0);
             }
         };
+
+        document.getElementById("openPopup").addEventListener("click", function() {
+            document.getElementById("popup").classList.remove("hidden");
+        });
+
+        document.getElementById("openPopupDuplicate").addEventListener("click", function() {
+            document.getElementById("popup").classList.remove("hidden");
+        });
+
+        document.getElementById("closePopup").addEventListener("click", function() {
+            document.getElementById("popup").classList.add("hidden");
+        });
+
+        // Close popup when clicking outside
+        document.getElementById("popup").addEventListener("click", function(e) {
+            if (e.target === this) {
+                this.classList.add("hidden");
+            }
+        });
     </script>
 </body>
 </html>
