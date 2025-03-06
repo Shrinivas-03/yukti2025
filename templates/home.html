@@ -596,7 +596,7 @@
         </div>
 
         <!-- Partners Row - Updated for three columns -->
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 mt-6 sm:mt-8 max-w-5xl mx-auto">
+        <div class="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-5 gap-4 sm:gap-6 mt-6 sm:mt-8 max-w-5xl mx-auto">
             <!-- Event Organiser Card -->
             <div class="flex justify-center">
                 <div class="bg-[rgba(20,20,20,0.95)] backdrop-blur-xl rounded-2xl p-4
@@ -650,6 +650,42 @@
                     </div>
                 </div>
             </div>
+
+            <!-- New Publicity Partner Card -->
+            <div class="flex justify-center">
+                <div class="bg-[rgba(20,20,20,0.95)] backdrop-blur-xl rounded-2xl p-4
+                            border-2 border-[#00FFFF] shadow-[0_0_30px_rgba(0,255,255,0.1)]
+                            transform transition-all duration-500 hover:-translate-y-2 
+                            hover:shadow-[0_15px_30px_rgba(0,255,255,0.4)] hover:border-[#FF00FF]
+                            w-[180px] sm:w-[200px] h-[240px] sm:h-[280px] flex flex-col">
+                    <h3 class="text-base sm:text-lg text-[#00FFFF] font-['Orbitron'] mb-2 text-center">Publicity Partner</h3>
+                    <div class="relative flex-1 flex items-center justify-center">
+                        <img src="{{ url_for('static', filename='assets/sponsor/publicity.png') }}" 
+                             alt="Publicity Partner" 
+                             class="w-auto h-auto max-h-36 sm:max-h-48 max-w-[90%] object-contain
+                                    filter brightness-100 hover:brightness-110 
+                                    transform transition-all duration-300 hover:scale-105">
+                    </div>
+                </div>
+            </div>
+
+            <!-- New Hospitality Partner Card -->
+            <div class="flex justify-center">
+                <div class="bg-[rgba(20,20,20,0.95)] backdrop-blur-xl rounded-2xl p-4
+                            border-2 border-[#00FFFF] shadow-[0_0_30px_rgba(0,255,255,0.1)]
+                            transform transition-all duration-500 hover:-translate-y-2 
+                            hover:shadow-[0_15px_30px_rgba(0,255,255,0.4)] hover:border-[#FF00FF]
+                            w-[180px] sm:w-[200px] h-[240px] sm:h-[280px] flex flex-col">
+                    <h3 class="text-base sm:text-lg text-[#00FFFF] font-['Orbitron'] mb-2 text-center">Hospitality Partner</h3>
+                    <div class="relative flex-1 flex items-center justify-center">
+                        <img src="{{ url_for('static', filename='assets/sponsor/hopital.png') }}" 
+                             alt="Hospitality Partner" 
+                             class="w-auto h-auto max-h-36 sm:max-h-48 max-w-[90%] object-contain
+                                    filter brightness-100 hover:brightness-110 
+                                    transform transition-all duration-300 hover:scale-105">
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </section>
@@ -695,7 +731,7 @@
         </h2>
 
         <!-- Add Event Sponsors Grid -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8 justify-items-center">
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-8 justify-items-center">
             <!-- Existing Yeshaswi Card -->
             <div class="flex justify-center">
                 <div class="bg-[rgba(20,20,20,0.95)] backdrop-blur-xl rounded-2xl p-4
@@ -729,6 +765,26 @@
                     <div class="relative flex-1 flex items-center justify-center">
                         <img src="{{ url_for('static', filename='assets/sponsor/Echo.png') }}" 
                              alt="Echo" 
+                             class="w-auto h-auto max-h-36 sm:max-h-48 max-w-[90%] object-contain
+                                    filter brightness-100 hover:brightness-110 
+                                    transform transition-all duration-300 hover:scale-105">
+                    </div>
+                </div>
+            </div>
+
+            <!-- New CITY INDEX Card -->
+            <div class="flex justify-center">
+                <div class="bg-[rgba(20,20,20,0.95)] backdrop-blur-xl rounded-2xl p-4
+                            border-2 border-[#00FFFF] shadow-[0_0_30px_rgba(0,255,255,0.1)]
+                            transform transition-all duration-500 hover:-translate-y-2 
+                            hover:shadow-[0_15px_30px_rgba(0,255,255,0.4)] hover:border-[#FF00FF]
+                            w-[180px] sm:w-[200px] h-[240px] sm:h-[280px] flex flex-col">
+                    <h3 class="text-base sm:text-lg text-[#00FFFF] font-['Orbitron'] mb-2 text-center">
+                        CITY INDEX
+                    </h3>
+                    <div class="relative flex-1 flex items-center justify-center">
+                        <img src="{{ url_for('static', filename='assets/sponsor/Light.png') }}" 
+                             alt="City Index" 
                              class="w-auto h-auto max-h-36 sm:max-h-48 max-w-[90%] object-contain
                                     filter brightness-100 hover:brightness-110 
                                     transform transition-all duration-300 hover:scale-105">
