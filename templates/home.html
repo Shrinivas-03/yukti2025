@@ -534,7 +534,7 @@
 <div class="h-0.5 bg-gradient-to-r from-[#6D28D9] via-[#3B82F6] to-[#00FFFF]"></div>
 
 <!-- Sponsors Section -->
-<section class="relative py-16 sm:py-20 overflow-hidden">
+<section class="relative py-12 sm:py-16 md:py-20 overflow-hidden">
     <!-- Multi-layered gradient background -->
     <div class="absolute inset-0">
         <!-- Base gradient -->
@@ -563,7 +563,7 @@
     </div>
 
     <!-- Content Container -->
-    <div class="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 text-center">
+    <div class="relative z-10 max-w-6xl mx-auto px-3 sm:px-4 md:px-6 text-center">
         <h2 class="text-3xl sm:text-4xl md:text-5xl font-['Orbitron'] mb-8 sm:mb-12 
                    bg-gradient-to-r from-[#00FFFF] via-[#FF00FF] to-[#00FFFF] 
                    bg-clip-text text-transparent animate-[gradient-flow_3s_ease-in-out_infinite]
@@ -571,9 +571,9 @@
             Our Sponsors
         </h2>
 
-        <!-- Title Sponsor Card - Updated for better mobile display -->
-        <div class="grid grid-cols-1 gap-6 sm:gap-8 max-w-6xl mx-auto">
-            <div class="col-span-1 w-full max-w-sm sm:max-w-lg mx-auto bg-gradient-to-r from-[#00FFFF] to-[#FF00FF] p-[2px] rounded-2xl">
+        <!-- Title Sponsor Card - Enhanced Mobile Responsiveness -->
+        <div class="grid grid-cols-1 gap-4 sm:gap-6 md:gap-8 max-w-6xl mx-auto">
+            <div class="col-span-1 w-full max-w-[280px] sm:max-w-lg mx-auto bg-gradient-to-r from-[#00FFFF] to-[#FF00FF] p-[2px] rounded-2xl">
                 <div class="bg-[rgba(20,20,20,0.95)] backdrop-blur-xl rounded-2xl p-4 sm:p-6
                             transform transition-all duration-500 hover:-translate-y-2 
                             hover:shadow-[0_15px_30px_rgba(0,255,255,0.4)]">
@@ -595,92 +595,112 @@
             </div>
         </div>
 
-        <!-- Partners Row - Updated for three columns -->
-        <div class="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-5 gap-4 sm:gap-6 mt-6 sm:mt-8 max-w-5xl mx-auto">
-            <!-- Event Organiser Card -->
-            <div class="flex justify-center">
-                <div class="bg-[rgba(20,20,20,0.95)] backdrop-blur-xl rounded-2xl p-4
+        <!-- Partners Grid - Enhanced Responsive Layout -->
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4 md:gap-6 mt-4 sm:mt-6 md:mt-8">
+            <!-- Partner Cards - Updated for Better Mobile Display -->
+            <div class="flex justify-center col-span-1">
+                <div class="bg-[rgba(20,20,20,0.95)] backdrop-blur-xl rounded-xl sm:rounded-2xl p-3 sm:p-4
                             border-2 border-[#00FFFF] shadow-[0_0_30px_rgba(0,255,255,0.1)]
                             transform transition-all duration-500 hover:-translate-y-2 
                             hover:shadow-[0_15px_30px_rgba(0,255,255,0.4)] hover:border-[#FF00FF]
-                            w-[180px] sm:w-[200px] h-[240px] sm:h-[280px] flex flex-col">
-                    <h3 class="text-base sm:text-lg text-[#00FFFF] font-['Orbitron'] mb-2 text-center">Event Organiser</h3>
-                    <div class="relative flex-1 flex items-center justify-center">
+                            w-full sm:w-[180px] md:w-[200px] h-[200px] sm:h-[240px] md:h-[280px] flex flex-col">
+                    <h3 class="text-sm sm:text-base md:text-lg text-[#00FFFF] font-['Orbitron'] mb-2 text-center">
+                        Event Organiser
+                    </h3>
+                    <div class="relative flex-1 flex items-center justify-center p-2 sm:p-3">
                         <img src="{{ url_for('static', filename='assets/sponsor/SIM.jpg') }}" 
-                             alt="Event Organiser" 
-                             class="w-auto h-auto max-h-36 sm:max-h-48 max-w-[90%] object-contain
+                             alt="Event Organiser"
+                             class="w-auto h-auto max-h-24 sm:max-h-36 md:max-h-48 max-w-[85%] sm:max-w-[90%] object-contain
                                     filter brightness-100 hover:brightness-110 
                                     transform transition-all duration-300 hover:scale-105">
                     </div>
                 </div>
             </div>
-
-            <!-- Radio Partner Card -->
-            <div class="flex justify-center">
-                <div class="bg-[rgba(20,20,20,0.95)] backdrop-blur-xl rounded-2xl p-4
+            <div class="flex justify-center col-span-1">
+                <div class="bg-[rgba(20,20,20,0.95)] backdrop-blur-xl rounded-xl sm:rounded-2xl p-3 sm:p-4
                             border-2 border-[#00FFFF] shadow-[0_0_30px_rgba(0,255,255,0.1)]
                             transform transition-all duration-500 hover:-translate-y-2 
                             hover:shadow-[0_15px_30px_rgba(0,255,255,0.4)] hover:border-[#FF00FF]
-                            w-[180px] sm:w-[200px] h-[240px] sm:h-[280px] flex flex-col">
-                    <h3 class="text-base sm:text-lg text-[#00FFFF] font-['Orbitron'] mb-2 text-center">Radio Partner</h3>
-                    <div class="relative flex-1 flex items-center justify-center">
+                            w-full sm:w-[180px] md:w-[200px] h-[200px] sm:h-[240px] md:h-[280px] flex flex-col">
+                    <h3 class="text-sm sm:text-base md:text-lg text-[#00FFFF] font-['Orbitron'] mb-2 text-center">
+                        Radio Partner
+                    </h3>
+                    <div class="relative flex-1 flex items-center justify-center p-2 sm:p-3">
                         <img src="{{ url_for('static', filename='assets/sponsor/red.png') }}" 
-                             alt="Red FM - Radio Partner" 
-                             class="w-auto h-auto max-h-36 sm:max-h-48 max-w-[90%] object-contain
+                             alt="Red FM - Radio Partner"
+                             class="w-auto h-auto max-h-24 sm:max-h-36 md:max-h-48 max-w-[85%] sm:max-w-[90%] object-contain
                                     filter brightness-100 hover:brightness-110 
                                     transform transition-all duration-300 hover:scale-105">
                     </div>
                 </div>
             </div>
-
-            <!-- Media Partner Card -->
-            <div class="flex justify-center">
-                <div class="bg-[rgba(20,20,20,0.95)] backdrop-blur-xl rounded-2xl p-4
+            <div class="flex justify-center col-span-1">
+                <div class="bg-[rgba(20,20,20,0.95)] backdrop-blur-xl rounded-xl sm:rounded-2xl p-3 sm:p-4
                             border-2 border-[#00FFFF] shadow-[0_0_30px_rgba(0,255,255,0.1)]
                             transform transition-all duration-500 hover:-translate-y-2 
                             hover:shadow-[0_15px_30px_rgba(0,255,255,0.4)] hover:border-[#FF00FF]
-                            w-[180px] sm:w-[200px] h-[240px] sm:h-[280px] flex flex-col">
-                    <h3 class="text-base sm:text-lg text-[#00FFFF] font-['Orbitron'] mb-2 text-center">Media Partner</h3>
-                    <div class="relative flex-1 flex items-center justify-center">
+                            w-full sm:w-[180px] md:w-[200px] h-[200px] sm:h-[240px] md:h-[280px] flex flex-col">
+                    <h3 class="text-sm sm:text-base md:text-lg text-[#00FFFF] font-['Orbitron'] mb-2 text-center">
+                        Media Partner
+                    </h3>
+                    <div class="relative flex-1 flex items-center justify-center p-2 sm:p-3">
                         <img src="{{ url_for('static', filename='assets/sponsor/suddi.png') }}" 
-                             alt="Suddi - Media Partner" 
-                             class="w-auto h-auto max-h-36 sm:max-h-48 max-w-[90%] object-contain
+                             alt="Suddi - Media Partner"
+                             class="w-auto h-auto max-h-24 sm:max-h-36 md:max-h-48 max-w-[85%] sm:max-w-[90%] object-contain
                                     filter brightness-100 hover:brightness-110 
                                     transform transition-all duration-300 hover:scale-105">
                     </div>
                 </div>
             </div>
-
-            <!-- New Publicity Partner Card -->
-            <div class="flex justify-center">
-                <div class="bg-[rgba(20,20,20,0.95)] backdrop-blur-xl rounded-2xl p-4
+            <div class="flex justify-center col-span-1">
+                <div class="bg-[rgba(20,20,20,0.95)] backdrop-blur-xl rounded-xl sm:rounded-2xl p-3 sm:p-4
                             border-2 border-[#00FFFF] shadow-[0_0_30px_rgba(0,255,255,0.1)]
                             transform transition-all duration-500 hover:-translate-y-2 
                             hover:shadow-[0_15px_30px_rgba(0,255,255,0.4)] hover:border-[#FF00FF]
-                            w-[180px] sm:w-[200px] h-[240px] sm:h-[280px] flex flex-col">
-                    <h3 class="text-base sm:text-lg text-[#00FFFF] font-['Orbitron'] mb-2 text-center">Publicity Partner</h3>
-                    <div class="relative flex-1 flex items-center justify-center">
+                            w-full sm:w-[180px] md:w-[200px] h-[200px] sm:h-[240px] md:h-[280px] flex flex-col">
+                    <h3 class="text-sm sm:text-base md:text-lg text-[#00FFFF] font-['Orbitron'] mb-2 text-center">
+                        Publicity Partner
+                    </h3>
+                    <div class="relative flex-1 flex items-center justify-center p-2 sm:p-3">
                         <img src="{{ url_for('static', filename='assets/sponsor/publicity.png') }}" 
-                             alt="Publicity Partner" 
-                             class="w-auto h-auto max-h-36 sm:max-h-48 max-w-[90%] object-contain
+                             alt="Publicity Partner"
+                             class="w-auto h-auto max-h-24 sm:max-h-36 md:max-h-48 max-w-[85%] sm:max-w-[90%] object-contain
                                     filter brightness-100 hover:brightness-110 
                                     transform transition-all duration-300 hover:scale-105">
                     </div>
                 </div>
             </div>
-
-            <!-- New Hospitality Partner Card -->
-            <div class="flex justify-center">
-                <div class="bg-[rgba(20,20,20,0.95)] backdrop-blur-xl rounded-2xl p-4
+            <div class="flex justify-center col-span-1">
+                <div class="bg-[rgba(20,20,20,0.95)] backdrop-blur-xl rounded-xl sm:rounded-2xl p-3 sm:p-4
                             border-2 border-[#00FFFF] shadow-[0_0_30px_rgba(0,255,255,0.1)]
                             transform transition-all duration-500 hover:-translate-y-2 
                             hover:shadow-[0_15px_30px_rgba(0,255,255,0.4)] hover:border-[#FF00FF]
-                            w-[180px] sm:w-[200px] h-[240px] sm:h-[280px] flex flex-col">
-                    <h3 class="text-base sm:text-lg text-[#00FFFF] font-['Orbitron'] mb-2 text-center">Hospitality Partner</h3>
-                    <div class="relative flex-1 flex items-center justify-center">
+                            w-full sm:w-[180px] md:w-[200px] h-[200px] sm:h-[240px] md:h-[280px] flex flex-col">
+                    <h3 class="text-sm sm:text-base md:text-lg text-[#00FFFF] font-['Orbitron'] mb-2 text-center">
+                        Hospitality Partner
+                    </h3>
+                    <div class="relative flex-1 flex items-center justify-center p-2 sm:p-3">
                         <img src="{{ url_for('static', filename='assets/sponsor/hopital.png') }}" 
-                             alt="Hospitality Partner" 
-                             class="w-auto h-auto max-h-36 sm:max-h-48 max-w-[90%] object-contain
+                             alt="Hospitality Partner"
+                             class="w-auto h-auto max-h-24 sm:max-h-36 md:max-h-48 max-w-[85%] sm:max-w-[90%] object-contain
+                                    filter brightness-100 hover:brightness-110 
+                                    transform transition-all duration-300 hover:scale-105">
+                    </div>
+                </div>
+            </div>
+            <div class="flex justify-center col-span-1">
+                <div class="bg-[rgba(20,20,20,0.95)] backdrop-blur-xl rounded-xl sm:rounded-2xl p-3 sm:p-4
+                            border-2 border-[#00FFFF] shadow-[0_0_30px_rgba(0,255,255,0.1)]
+                            transform transition-all duration-500 hover:-translate-y-2 
+                            hover:shadow-[0_15px_30px_rgba(0,255,255,0.4)] hover:border-[#FF00FF]
+                            w-full sm:w-[180px] md:w-[200px] h-[200px] sm:h-[240px] md:h-[280px] flex flex-col">
+                    <h3 class="text-sm sm:text-base md:text-lg text-[#00FFFF] font-['Orbitron'] mb-2 text-center">
+                        Health Partner
+                    </h3>
+                    <div class="relative flex-1 flex items-center justify-center p-2 sm:p-3">
+                        <img src="{{ url_for('static', filename='assets/sponsor/chirayu.png') }}" 
+                             alt="Health Partner"
+                             class="w-auto h-auto max-h-24 sm:max-h-36 md:max-h-48 max-w-[85%] sm:max-w-[90%] object-contain
                                     filter brightness-100 hover:brightness-110 
                                     transform transition-all duration-300 hover:scale-105">
                     </div>
@@ -693,6 +713,132 @@
 <div class="h-0.5 bg-gradient-to-r from-[#6D28D9] via-[#3B82F6] to-[#00FFFF]"></div>
 
 <!-- Sponsors Section -->
+<section class="relative py-12 sm:py-16 md:py-20 overflow-hidden">
+    <!-- Multi-layered gradient background -->
+    <div class="absolute inset-0">
+        <!-- Base gradient -->
+        <div class="absolute inset-0 bg-[linear-gradient(135deg,#0A0A0A_0%,#1C1C1C_100%)]"></div>
+
+        <!-- Animated color waves -->
+        <div class="absolute inset-0 opacity-30">
+            <div class="absolute inset-0 bg-[linear-gradient(45deg,rgba(0,255,255,0.15),transparent,rgba(255,0,255,0.15))]
+                        animate-[gradient-flow_15s_ease-in-out_infinite]"></div>
+            <div class="absolute inset-0 bg-[linear-gradient(-45deg,rgba(255,0,255,0.15),transparent,rgba(0,255,255,0.15))]
+                        animate-[gradient-flow_15s_ease-in-out_infinite] delay-75"></div>
+        </div>
+
+        <!-- Radial glows -->
+        <div class="absolute inset-0">
+            <div class="absolute top-0 left-0 w-full h-full 
+                        bg-[radial-gradient(circle_at_25%_25%,rgba(0,255,255,0.15)_0%,transparent_50%)]"></div>
+            <div class="absolute bottom-0 right-0 w-full h-full 
+                        bg-[radial-gradient(circle_at_75%_75%,rgba(255,0,255,0.15)_0%,transparent_50%)]"></div>
+        </div>
+
+        <!-- Animated particles effect -->
+        <div class="absolute inset-0 opacity-20"
+            style="background-image: url('data:image/svg+xml,...'); animation: float 20s linear infinite;">
+        </div>
+    </div>
+
+    <!-- Content Container -->
+    <div class="relative z-10 max-w-6xl mx-auto px-3 sm:px-4 md:px-6 text-center">
+        <h2 class="text-3xl sm:text-4xl md:text-5xl font-['Orbitron'] mb-8 sm:mb-12 
+                   bg-gradient-to-r from-[#00FFFF] via-[#FF00FF] to-[#00FFFF] 
+                   bg-clip-text text-transparent animate-[gradient-flow_3s_ease-in-out_infinite]
+                   text-center font-bold uppercase tracking-wider">
+            Event Sponsors
+        </h2>
+
+        <!-- Add Event Sponsors Grid -->
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4 md:gap-6 justify-items-center">
+            <!-- Existing Yeshaswi Card -->
+            <div class="flex justify-center w-full">
+                <div class="bg-[rgba(20,20,20,0.95)] backdrop-blur-xl rounded-xl sm:rounded-2xl p-3 sm:p-4
+                            border-2 border-[#00FFFF] shadow-[0_0_30px_rgba(0,255,255,0.1)]
+                            transform transition-all duration-500 hover:-translate-y-2 
+                            hover:shadow-[0_15px_30px_rgba(0,255,255,0.4)] hover:border-[#FF00FF]
+                            w-full sm:w-[180px] md:w-[200px] h-[180px] sm:h-[240px] md:h-[280px] flex flex-col">
+                    <h3 class="text-sm sm:text-base md:text-lg text-[#00FFFF] font-['Orbitron'] mb-2 text-center">
+                        Yeshaswi Electric Vehicles
+                    </h3>
+                    <div class="relative flex-1 flex items-center justify-center p-2 sm:p-3">
+                        <img src="{{ url_for('static', filename='assets/sponsor/Elec.png') }}" 
+                             alt="Yeshaswi Electric Vehicles"
+                             class="w-auto h-auto max-h-20 sm:max-h-36 md:max-h-48 max-w-[85%] sm:max-w-[90%] object-contain
+                                    filter brightness-100 hover:brightness-110 
+                                    transform transition-all duration-300 hover:scale-105">
+                    </div>
+                </div>
+            </div>
+
+            <!-- New Echo Card -->
+            <div class="flex justify-center w-full">
+                <div class="bg-[rgba(20,20,20,0.95)] backdrop-blur-xl rounded-xl sm:rounded-2xl p-3 sm:p-4
+                            border-2 border-[#00FFFF] shadow-[0_0_30px_rgba(0,255,255,0.1)]
+                            transform transition-all duration-500 hover:-translate-y-2 
+                            hover:shadow-[0_15px_30px_rgba(0,255,255,0.4)] hover:border-[#FF00FF]
+                            w-full sm:w-[180px] md:w-[200px] h-[180px] sm:h-[240px] md:h-[280px] flex flex-col">
+                    <h3 class="text-sm sm:text-base md:text-lg text-[#00FFFF] font-['Orbitron'] mb-2 text-center">
+                        Echo Brains 
+                    </h3>
+                    <div class="relative flex-1 flex items-center justify-center p-2 sm:p-3">
+                        <img src="{{ url_for('static', filename='assets/sponsor/Echo.png') }}" 
+                             alt="Echo" 
+                             class="w-auto h-auto max-h-20 sm:max-h-36 md:max-h-48 max-w-[85%] sm:max-w-[90%] object-contain
+                                    filter brightness-100 hover:brightness-110 
+                                    transform transition-all duration-300 hover:scale-105">
+                    </div>
+                </div>
+            </div>
+
+            <!-- New CITY INDEX Card -->
+            <div class="flex justify-center w-full">
+                <div class="bg-[rgba(20,20,20,0.95)] backdrop-blur-xl rounded-xl sm:rounded-2xl p-3 sm:p-4
+                            border-2 border-[#00FFFF] shadow-[0_0_30px_rgba(0,255,255,0.1)]
+                            transform transition-all duration-500 hover:-translate-y-2 
+                            hover:shadow-[0_15px_30px_rgba(0,255,255,0.4)] hover:border-[#FF00FF]
+                            w-full sm:w-[180px] md:w-[200px] h-[180px] sm:h-[240px] md:h-[280px] flex flex-col">
+                    <h3 class="text-sm sm:text-base md:text-lg text-[#00FFFF] font-['Orbitron'] mb-2 text-center">
+                        CITY INDEX
+                    </h3>
+                    <div class="relative flex-1 flex items-center justify-center p-2 sm:p-3">
+                        <img src="{{ url_for('static', filename='assets/sponsor/Light.png') }}" 
+                             alt="City Index" 
+                             class="w-auto h-auto max-h-20 sm:max-h-36 md:max-h-48 max-w-[85%] sm:max-w-[90%] object-contain
+                                    filter brightness-100 hover:brightness-110 
+                                    transform transition-all duration-300 hover:scale-105">
+                    </div>
+                </div>
+            </div>
+
+            <!-- New Nigundgi Card -->
+            <div class="flex justify-center w-full">
+                <div class="bg-[rgba(20,20,20,0.95)] backdrop-blur-xl rounded-xl sm:rounded-2xl p-3 sm:p-4
+                            border-2 border-[#00FFFF] shadow-[0_0_30px_rgba(0,255,255,0.1)]
+                            transform transition-all duration-500 hover:-translate-y-2 
+                            hover:shadow-[0_15px_30px_rgba(0,255,255,0.4)] hover:border-[#FF00FF]
+                            w-full sm:w-[180px] md:w-[200px] h-[180px] sm:h-[240px] md:h-[280px] flex flex-col">
+                    <h3 class="text-sm sm:text-base md:text-lg text-[#00FFFF] font-['Orbitron'] mb-2 text-center">
+                        Nigundgi Tiles
+                    </h3>
+                    <div class="relative flex-1 flex items-center justify-center p-2 sm:p-3">
+                        <img src="{{ url_for('static', filename='assets/sponsor/nigudgi.png') }}" 
+                             alt="Nigundgi Tiles" 
+                             class="w-auto h-auto max-h-20 sm:max-h-36 md:max-h-48 max-w-[85%] sm:max-w-[90%] object-contain
+                                    filter brightness-100 hover:brightness-110 
+                                    transform transition-all duration-300 hover:scale-105">
+                    </div>
+                </div>
+            </div>
+
+           
+        </div>
+    </div>
+</section>
+
+<div class="h-0.5 bg-gradient-to-r from-[#6D28D9] via-[#3B82F6] to-[#00FFFF]"></div>
+<!-- Stall  Section -->
 <section class="relative py-16 sm:py-20 overflow-hidden">
     <!-- Multi-layered gradient background -->
     <div class="absolute inset-0">
@@ -727,71 +873,15 @@
                    bg-gradient-to-r from-[#00FFFF] via-[#FF00FF] to-[#00FFFF] 
                    bg-clip-text text-transparent animate-[gradient-flow_3s_ease-in-out_infinite]
                    text-center font-bold uppercase tracking-wider">
-            Event Sponsors
+            Stall Partners
         </h2>
 
         <!-- Add Event Sponsors Grid -->
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-8 justify-items-center">
-            <!-- Existing Yeshaswi Card -->
-            <div class="flex justify-center">
-                <div class="bg-[rgba(20,20,20,0.95)] backdrop-blur-xl rounded-2xl p-4
-                            border-2 border-[#00FFFF] shadow-[0_0_30px_rgba(0,255,255,0.1)]
-                            transform transition-all duration-500 hover:-translate-y-2 
-                            hover:shadow-[0_15px_30px_rgba(0,255,255,0.4)] hover:border-[#FF00FF]
-                            w-[180px] sm:w-[200px] h-[240px] sm:h-[280px] flex flex-col">
-                    <h3 class="text-base sm:text-lg text-[#00FFFF] font-['Orbitron'] mb-2 text-center">
-                        Yeshaswi Electric Vehicles
-                    </h3>
-                    <div class="relative flex-1 flex items-center justify-center">
-                        <img src="{{ url_for('static', filename='assets/sponsor/Elec.png') }}" 
-                             alt="Yeshaswi Electric Vehicles" 
-                             class="w-auto h-auto max-h-36 sm:max-h-48 max-w-[90%] object-contain
-                                    filter brightness-100 hover:brightness-110 
-                                    transform transition-all duration-300 hover:scale-105">
-                    </div>
-                </div>
-            </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 sm:gap-8 justify-items-center">
+         
 
-            <!-- New Echo Card -->
-            <div class="flex justify-center">
-                <div class="bg-[rgba(20,20,20,0.95)] backdrop-blur-xl rounded-2xl p-4
-                            border-2 border-[#00FFFF] shadow-[0_0_30px_rgba(0,255,255,0.1)]
-                            transform transition-all duration-500 hover:-translate-y-2 
-                            hover:shadow-[0_15px_30px_rgba(0,255,255,0.4)] hover:border-[#FF00FF]
-                            w-[180px] sm:w-[200px] h-[240px] sm:h-[280px] flex flex-col">
-                    <h3 class="text-base sm:text-lg text-[#00FFFF] font-['Orbitron'] mb-2 text-center">
-                        Echo Brains 
-                    </h3>
-                    <div class="relative flex-1 flex items-center justify-center">
-                        <img src="{{ url_for('static', filename='assets/sponsor/Echo.png') }}" 
-                             alt="Echo" 
-                             class="w-auto h-auto max-h-36 sm:max-h-48 max-w-[90%] object-contain
-                                    filter brightness-100 hover:brightness-110 
-                                    transform transition-all duration-300 hover:scale-105">
-                    </div>
-                </div>
-            </div>
-
-            <!-- New CITY INDEX Card -->
-            <div class="flex justify-center">
-                <div class="bg-[rgba(20,20,20,0.95)] backdrop-blur-xl rounded-2xl p-4
-                            border-2 border-[#00FFFF] shadow-[0_0_30px_rgba(0,255,255,0.1)]
-                            transform transition-all duration-500 hover:-translate-y-2 
-                            hover:shadow-[0_15px_30px_rgba(0,255,255,0.4)] hover:border-[#FF00FF]
-                            w-[180px] sm:w-[200px] h-[240px] sm:h-[280px] flex flex-col">
-                    <h3 class="text-base sm:text-lg text-[#00FFFF] font-['Orbitron'] mb-2 text-center">
-                        CITY INDEX
-                    </h3>
-                    <div class="relative flex-1 flex items-center justify-center">
-                        <img src="{{ url_for('static', filename='assets/sponsor/Light.png') }}" 
-                             alt="City Index" 
-                             class="w-auto h-auto max-h-36 sm:max-h-48 max-w-[90%] object-contain
-                                    filter brightness-100 hover:brightness-110 
-                                    transform transition-all duration-300 hover:scale-105">
-                    </div>
-                </div>
-            </div>
-        </div>
+           
+      
     </div>
 </section>
 
@@ -1210,6 +1300,44 @@
         .hero-content {
             padding-top: 2rem;
             padding-bottom: 2rem;
+        }
+    }
+
+    /* Sponsor Card Touch Optimizations */
+    @media (hover: none) and (pointer: coarse) {
+        .sponsor-card {
+            cursor: pointer;
+            min-height: 160px;
+            touch-action: manipulation;
+        }
+        
+        .sponsor-card img {
+            pointer-events: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+    }
+
+    /* Responsive Grid Gaps */
+    @media (max-width: 640px) {
+        .sponsor-grid {
+            gap: 0.75rem;
+            padding: 0 0.5rem;
+        }
+        
+        .sponsor-card {
+            padding: 0.75rem;
+        }
+        
+        .sponsor-card h3 {
+            font-size: 0.875rem;
+        }
+    }
+
+    /* Better touch targets for mobile */
+    @media (max-width: 640px) {
+        .sponsor-card {
+            min-height: 44px;
+            padding: 0.75rem;
         }
     }
 </style>
