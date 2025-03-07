@@ -651,27 +651,50 @@
             </div>
         </div>
 
-        <!-- Partners Grid - Enhanced Responsive Layout -->
-        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4 md:gap-6 mt-4 sm:mt-6 md:mt-8">
-            <!-- Partner Cards - Updated for Better Mobile Display -->
-            <div class="flex justify-center col-span-1">
-                <div class="bg-[rgba(20,20,20,0.95)] backdrop-blur-xl rounded-xl sm:rounded-2xl p-3 sm:p-4
-                            border-2 border-[#00FFFF] shadow-[0_0_30px_rgba(0,255,255,0.1)]
+        <!-- Powered By and Event Organiser Cards -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 md:gap-8 max-w-6xl mx-auto mt-8">
+            <!-- Powered By Card -->
+            <div class="col-span-1 w-full max-w-[280px] sm:max-w-lg mx-auto bg-gradient-to-r from-[#00FFFF] to-[#FF00FF] p-[2px] rounded-2xl">
+                <div class="bg-[rgba(20,20,20,0.95)] backdrop-blur-xl rounded-2xl p-4 sm:p-6
                             transform transition-all duration-500 hover:-translate-y-2 
-                            hover:shadow-[0_15px_30px_rgba(0,255,255,0.4)] hover:border-[#FF00FF]
-                            w-full sm:w-[180px] md:w-[200px] h-[200px] sm:h-[240px] md:h-[280px] flex flex-col">
-                    <h3 class="text-sm sm:text-base md:text-lg text-[#00FFFF] font-['Orbitron'] mb-2 text-center">
-                        Event Organiser
-                    </h3>
-                    <div class="relative flex-1 flex items-center justify-center p-2 sm:p-3">
-                        <img src="{{ url_for('static', filename='assets/sponsor/SIM.jpg') }}" 
-                             alt="Event Organiser"
-                             class="w-auto h-auto max-h-24 sm:max-h-36 md:max-h-48 max-w-[85%] sm:max-w-[90%] object-contain
-                                    filter brightness-100 hover:brightness-110 
-                                    transform transition-all duration-300 hover:scale-105">
+                            hover:shadow-[0_15px_30px_rgba(0,255,255,0.4)]">
+                    <h3 class="text-lg sm:text-xl text-[#00FFFF] font-['Orbitron'] mb-2">Powered By</h3>
+                    <div class="relative p-2 w-full max-w-[280px] sm:max-w-md mx-auto">
+                        <img src="{{ url_for('static', filename='assets/sponsor/blood.png') }}" 
+                             alt="Kalaburagi Blood Bank" 
+                             class="w-full h-auto max-h-32 sm:max-h-48 object-contain mx-auto
+                                    filter brightness-100 hover:brightness-110 drop-shadow-[0_0_10px_rgba(0,255,255,0.3)]
+                                    transform transition-all duration-300 hover:scale-105 mb-4">
+                        <p class="text-center text-[#C0C0C0] text-xs sm:text-sm md:text-base font-['Rajdhani']">
+                            "Donate blood, save lives—one drop at a time."
+                        </p>
                     </div>
                 </div>
             </div>
+
+            <!-- Event Organiser Card -->
+            <div class="col-span-1 w-full max-w-[280px] sm:max-w-lg mx-auto bg-gradient-to-r from-[#00FFFF] to-[#FF00FF] p-[2px] rounded-2xl">
+                <div class="bg-[rgba(20,20,20,0.95)] backdrop-blur-xl rounded-2xl p-4 sm:p-6
+                            transform transition-all duration-500 hover:-translate-y-2 
+                            hover:shadow-[0_15px_30px_rgba(0,255,255,0.4)]">
+                    <h3 class="text-lg sm:text-xl text-[#00FFFF] font-['Orbitron'] mb-2">Event Organiser</h3>
+                    <div class="relative p-2 w-full max-w-[280px] sm:max-w-md mx-auto">
+                        <img src="{{ url_for('static', filename='assets/sponsor/SIM.jpg') }}" 
+                             alt="Event Organiser" 
+                             class="w-full h-auto max-h-32 sm:max-h-48 object-contain mx-auto
+                                    filter brightness-100 hover:brightness-110 drop-shadow-[0_0_10px_rgba(0,255,255,0.3)]
+                                    transform transition-all duration-300 hover:scale-105 mb-4">
+                        <p class="text-center text-[#C0C0C0] text-xs sm:text-sm md:text-base font-['Rajdhani']">
+                            School of Innovation & Management VTU, Kalaburagi
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Partners Grid - Enhanced Responsive Layout -->
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4 md:gap-6 mt-4 sm:mt-6 md:mt-8">
+            <!-- Partner Cards - Updated for Better Mobile Display -->
             <div class="flex justify-center col-span-1">
                 <div class="bg-[rgba(20,20,20,0.95)] backdrop-blur-xl rounded-xl sm:rounded-2xl p-3 sm:p-4
                             border-2 border-[#00FFFF] shadow-[0_0_30px_rgba(0,255,255,0.1)]
@@ -1009,7 +1032,7 @@
                                 mx-auto max-w-[280px] h-[280px] flex flex-col">
                         <h3 class="text-lg text-[#00FFFF] font-['Orbitron'] mb-4">Karnataka Milk Federation (KMF)</h3>
                         <div class="flex-1 flex items-center justify-center">
-                            <img src="{{ url_for('static', filename='assets/sponsor/nandini.jpg') }}" 
+                            <img src="{{ url_for('static', filename='assets/sponsor/nandini.png') }}" 
                                  alt="Karnataka Milk Federation (KMF)" 
                                  class="max-h-36 object-contain transform transition-all duration-300 hover:scale-105">
                         </div>
