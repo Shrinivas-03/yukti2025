@@ -1325,77 +1325,47 @@ def get_event_registrations_by_id(event_id):
                 'registrations': []
             })
 
-        # Updated event name mappings to include variations
+        # Updated event mappings to be more specific with variants
         event_mappings = {
-            'Prakalpa Prastuthi': 'prakalpa_prastuthi',
-            'Prakalpa Prastuthi (Ideathon)': 'prakalpa_prastuthi',
-            'Chanaksh': 'chanaksh',
-            'Chanaksh (Code Quest)': 'chanaksh',
-            'Robo Samara (Robo War)': 'robo_samara_war',
-            'Robo Samara (Robo Race)': 'robo_samara_race',
-            'Pragyan': 'pragyan',
-            'Pragyan (Quiz)': 'pragyan',
-            'Vagmita': 'vagmita',
-            'Vagmita (Elocution)': 'vagmita',
-            'Ninaad': 'ninaad_solo',
-            'NINAAD (Singing Solo)': 'ninaad_solo',
-            'Ninaad (Singing Solo)': 'ninaad_solo',
-            'NINAAD (Singing Group)': 'ninaad_group',
-            'Ninaad (Singing Group)': 'ninaad_group',
-            'Nritya Saadhana (Dance Solo)': 'nritya_solo',
-            'Nritya Saadhana (Dance Group)': 'nritya_group',
-            'Navyataa': 'navyataa',
-            'Navyataa (Ramp Walk)': 'navyataa',
-            'Daksha': 'daksha',
-            'Daksha (Best Manager)': 'daksha',
-            'Shreshta Vitta': 'shreshta_vitta',
-            'Shreshta Vitta (Finance)': 'shreshta_vitta',
-            'Manava Sansadhan': 'manava_sansadhan',
-            'Manava Sansadhan (HR)': 'manava_sansadhan',
-            'Sumedha': 'sumedha',
-            'Sumedha (Start-Up)': 'sumedha',
-            'Vipanan': 'vipanan',
-            'Vipanan (Marketing)': 'vipanan',
-            'Sthala Chitrapatha': 'sthala_chitrapatha',
-            'Sthala Chitrapatha (Spot Photography)': 'sthala_chitrapatha',
-            'Chitragatha': 'chitragatha',
-            'Chitragatha (Short Film)': 'chitragatha',
-            'Ruprekha': 'ruprekha',
-            'Ruprekha (Sketch Art)': 'ruprekha',
-            'Hastakala': 'hastakala',
-            'Hastakala (Painting)': 'hastakala',
-            'Swachitra': 'swachitra',
-            'Swachitra (Selfie Point)': 'swachitra',
-            'BGMI': 'bgmi',
-            'Mission Talaash': 'mission_talaash',
-            'Mission Talaash (Treasure Hunt)': 'mission_talaash'
+            'ninaad_solo': ['Ninaad (Singing Solo)', 'NINAAD (Singing Solo)'],
+            'ninaad_group': ['Ninaad (Singing Group)', 'NINAAD (Singing Group)'],
+            'nritya_solo': ['Nritya Saadhana (Dance Solo)'],
+            'nritya_group': ['Nritya Saadhana (Dance Group)'],
+            'prakalpa_prastuthi': ['Prakalpa Prastuthi', 'Prakalpa Prastuthi (Ideathon)'],
+            'chanaksh': ['Chanaksh', 'Chanaksh (Code Quest)'],
+            'robo_samara_war': ['Robo Samara (Robo War)'],
+            'robo_samara_race': ['Robo Samara (Robo Race)'],
+            'pragyan': ['Pragyan', 'Pragyan (Quiz)'],
+            'vagmita': ['Vagmita', 'Vagmita (Elocution)'],
+            'navyataa': ['Navyataa', 'Navyataa (Ramp Walk)'],
+            'daksha': ['Daksha', 'Daksha (Best Manager)'],
+            'shreshta_vitta': ['Shreshta Vitta', 'Shreshta Vitta (Finance)'],
+            'manava_sansadhan': ['Manava Sansadhan', 'Manava Sansadhan (HR)'],
+            'sumedha': ['Sumedha', 'Sumedha (Start-Up)'],
+            'vipanan': ['Vipanan', 'Vipanan (Marketing)'],
+            'sthala_chitrapatha': ['Sthala Chitrapatha', 'Sthala Chitrapatha (Spot Photography)'],
+            'chitragatha': ['Chitragatha', 'Chitragatha (Short Film)'],
+            'ruprekha': ['Ruprekha', 'Ruprekha (Sketch Art)'],
+            'hastakala': ['Hastakala', 'Hastakala (Painting)'],
+            'swachitra': ['Swachitra', 'Swachitra (Selfie Point)'],
+            'bgmi': ['BGMI'],
+            'mission_talaash': ['Mission Talaash', 'Mission Talaash (Treasure Hunt)']
         }
 
-        # Create reverse mapping for event names
-        id_to_name = {v: k.split(' (')[0] for k, v in event_mappings.items()}
         event_name = get_event_name(event_id)
-
-        print(f"Looking for event: {event_name}")  # Debug log
+        valid_event_names = event_mappings.get(event_id, [])
+        print(f"Looking for event: {event_name} with variants: {valid_event_names}")
 
         event_registrations = []
         for reg in response.data:
             if not reg.get('event_details'):
                 continue
-                
+
             for event in reg['event_details']:
-                # Get stored event name and remove parentheses content
-                stored_event_name = event.get('event', '').split(' (')[0].strip()
-                print(f"Checking registration event: {stored_event_name}")  # Debug log
-
-                # Check if this event matches our target event
-                event_id_from_stored = None
-                for name_pattern, eid in event_mappings.items():
-                    if name_pattern.split(' (')[0].strip() == stored_event_name:
-                        event_id_from_stored = eid
-                        break
-
-                if event_id_from_stored == event_id:
-                    print(f"Found matching event: {stored_event_name}")  # Debug log
+                stored_event = event.get('event', '')
+                # Check if the stored event matches any of the valid variants
+                if any(variant in stored_event for variant in valid_event_names):
+                    print(f"Found matching event: {stored_event}")
                     registration = {
                         'ack_id': reg['ack_id'],
                         'college': reg['college'],
@@ -1406,7 +1376,7 @@ def get_event_registrations_by_id(event_id):
                         'dd_number': reg.get('dd_number'),
                         'event_cost': event.get('cost', 0)
                     }
-                    
+
                     # Add participant information
                     if event.get('type') == 'team' and event.get('members'):
                         participants = [f"{m['name']} ({m['usn']})" for m in event['members']]
@@ -1414,10 +1384,10 @@ def get_event_registrations_by_id(event_id):
                     elif event.get('participant'):
                         participant = event['participant']
                         registration['participants'] = [f"{participant['name']} ({participant['usn']})"]
-                        
+
                     event_registrations.append(registration)
 
-        print(f"Found {len(event_registrations)} registrations")  # Debug log
+        print(f"Found {len(event_registrations)} registrations")
 
         return jsonify({
             'success': True,
