@@ -979,18 +979,13 @@ def admin_dashboard():
         return redirect(url_for('admin'))
         
     # Updated categories with normalized event IDs
-
-        return redirect(url_for('admin'))
-    
-    # Remove any session modifications
-
     categories = [
         {
             'id': 'technical',
             'name': 'Manthana (Technical Events)',
             'events': [
                 {'id': 'prakalpa_prastuthi', 'name': 'Prakalpa Prastuthi (Ideathon)'},
-                {'id': 'chanaksh', 'name': 'Chanaksh (Code Quest)'},
+                {'id': 'chanaksh', 'name': 'Chanaksh (Code Quest)'},  # Changed from 'coding' to 'chanaksh'
                 {'id': 'robo_samara_war', 'name': 'Robo Samara (Robo War)'},
                 {'id': 'robo_samara_race', 'name': 'Robo Samara (Robo Race)'},
                 {'id': 'pragyan', 'name': 'Pragyan (Quiz)'},
@@ -1792,6 +1787,83 @@ def download_sponsors():
             'success': False,
             'message': f"Error generating CSV: {str(e)}"
         })
+
+# ...existing code...
+
+@app.route('/api/admin/event-counts')
+def get_event_counts():
+    try:
+        response = supabase.table('registrations').select('event_details').execute()
+        if not response.data:
+            return jsonify({'success': True, 'counts': {}, 'categoryTotals': {}})
+        # Initialize counters across all 5 categories
+        category_totals = {
+            'technical': 0,
+            'cultural': 0,
+            'management': 0,
+            'visual_art': 0,
+            'games': 0
+        }
+        # Updated mapping:
+        mapping = {
+            # Technical events
+            'prakalpaprastuthi': {'id': 'prakalpa_prastuthi', 'category': 'technical'},
+            'codingquest': {'id': 'chanaksh', 'category': 'technical'},
+            'codequest': {'id': 'chanaksh', 'category': 'technical'},
+            'chankshacoding': {'id': 'chanaksh', 'category': 'technical'},
+            'chanakshcodequest': {'id': 'chanaksh', 'category': 'technical'},  # Added new variant
+            'robosamararobowar': {'id': 'robo_samara_war', 'category': 'technical'},
+            'robosamararoborace': {'id': 'robo_samara_race', 'category': 'technical'},
+            'pragyan': {'id': 'pragyan', 'category': 'technical'},
+            'vagmita': {'id': 'vagmita', 'category': 'technical'},
+            # Cultural events
+            'ninaadsingingsolo': {'id': 'ninaad_solo', 'category': 'cultural'},
+            'ninaadsinginggroup': {'id': 'ninaad_group', 'category': 'cultural'},
+            'nrityasaadhanadancesolo': {'id': 'nritya_solo', 'category': 'cultural'},
+            'nrityasaadhanadancegroup': {'id': 'nritya_group', 'category': 'cultural'},
+            'navyataa': {'id': 'navyataa', 'category': 'cultural'},
+            # Management events
+            'daksha': {'id': 'daksha', 'category': 'management'},
+            'shreshtavitta': {'id': 'shreshta_vitta', 'category': 'management'},
+            'manavasansadhan': {'id': 'manava_sansadhan', 'category': 'management'},
+            'sumedha': {'id': 'sumedha', 'category': 'management'},
+            'vipanan': {'id': 'vipanan', 'category': 'management'},
+            # Visual Art events
+            'sthalachitrapatha': {'id': 'sthala_chitrapatha', 'category': 'visual_art'},
+            'chitragatha': {'id': 'chitragatha', 'category': 'visual_art'},
+            'ruprekha': {'id': 'ruprekha', 'category': 'visual_art'},
+            'hastakala': {'id': 'hastakala', 'category': 'visual_art'},
+            'swachitra': {'id': 'swachitra', 'category': 'visual_art'},
+            # Games events
+            'bgmi': {'id': 'bgmi', 'category': 'games'},
+            'missiontalaash': {'id': 'mission_talaash', 'category': 'games'}
+        }
+        event_counts = {}
+        def normalize(s):
+            return re.sub(r'\W+', '', s).lower()
+        for reg in response.data:
+            if not reg.get('event_details'):
+                continue
+            for event in reg['event_details']:
+                event_name = event.get('event', '')
+                norm_event = normalize(event_name)
+                for sub, details in mapping.items():
+                    if norm_event.startswith(sub):
+                        eid = details['id']
+                        event_counts[eid] = event_counts.get(eid, 0) + 1
+                        category_totals[details['category']] += 1
+                        break
+        # ...existing code...
+        return jsonify({'success': True, 'counts': event_counts, 'categoryTotals': category_totals})
+    except Exception as e:
+        print(f"Error fetching event counts: {str(e)}")
+        return jsonify({'success': False, 'message': f'Error fetching event counts: {str(e)}'})
+
+# ...existing code...
+
+@app.route('/event-counts')
+def event_counts_page():
+    return render_template('event_counts.html')
 
 if __name__ == "__main__":
     # Disable the reloader by setting use_reloader to False
