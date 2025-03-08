@@ -3,26 +3,79 @@
 {% block title %}Event Registration Counts - YUKTI 2025{% endblock %}
 
 {% block content %}
-<div class="container mx-auto py-6">
-    <h1 class="text-center text-[#00FFFF] font-['Orbitron'] text-3xl mb-6">Event Registration Counts</h1>
-    
-    <div class="total-counts bg-blue-100 p-4 rounded-lg shadow-md text-center">
-        <span class="block text-lg font-semibold text-gray-700">
-            Total Events: <span id="total-events" class="text-blue-600 font-bold">0</span>
-        </span>
-        <span class="block text-lg font-semibold text-gray-700 mt-2">
-            Total Registrations: <span id="total-registrations" class="text-blue-600 font-bold">0</span>
-        </span>
+<div class="h-0.5 bg-gradient-to-r from-[#6D28D9] via-[#3B82F6] to-[#00FFFF]"></div>
+
+<!-- Add background and styling wrapper -->
+<section class="relative py-12 sm:py-16 md:py-20 bg-gradient-to-br from-[#1C1C1C] to-[#0A0A0A] min-h-screen">
+    <!-- Background effects -->
+    <div class="absolute inset-0">
+        <div class="absolute inset-0 bg-[linear-gradient(45deg,rgba(0,255,255,0.1),rgba(255,0,255,0.1))] opacity-30 
+                    animate-[gradient-flow_15s_ease-in-out_infinite]"></div>
+        <div class="absolute top-0 left-0 w-full h-full 
+                    bg-[radial-gradient(circle_at_30%_30%,rgba(0,255,255,0.15)_0%,transparent_40%)]"></div>
+        <div class="absolute bottom-0 right-0 w-full h-full 
+                    bg-[radial-gradient(circle_at_70%_70%,rgba(255,0,255,0.15)_0%,transparent_40%)]"></div>
     </div>
 
-    <!-- Added refresh button so that updateCounts() can attach its event listener -->
-    <button id="refreshButton" class="my-4 bg-blue-500 px-4 py-2 text-white rounded">Refresh Counts</button>
+    <!-- Content Container -->
+    <div class="relative z-10 max-w-7xl mx-auto px-3 sm:px-4 md:px-6">
+        <h1 class="text-center text-3xl sm:text-4xl md:text-5xl font-['Orbitron'] mb-6 sm:mb-8 md:mb-12
+                   bg-gradient-to-r from-[#00FFFF] via-[#FF00FF] to-[#00FFFF] 
+                   bg-clip-text text-transparent animate-[gradient-flow_3s_ease-in-out_infinite]
+                   font-bold uppercase">
+            Event Registration Counts
+        </h1>
+        
+        <!-- Stats Cards - Improved Mobile Layout -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 mb-6 sm:mb-8 max-w-2xl mx-auto">
+            <div class="bg-[rgba(46,46,46,0.8)] backdrop-blur-md p-4 sm:p-6 rounded-xl
+                        border-2 border-[#00FFFF] shadow-[0_0_30px_rgba(0,255,255,0.1)]
+                        transform transition-all duration-300 hover:shadow-[0_15px_30px_rgba(0,255,255,0.4)]">
+                <span class="block text-lg sm:text-xl font-['Orbitron'] text-[#00FFFF] mb-2">Total Events</span>
+                <span id="total-events" class="block text-2xl sm:text-3xl font-bold text-white">0</span>
+            </div>
+            <div class="bg-[rgba(46,46,46,0.8)] backdrop-blur-md p-4 sm:p-6 rounded-xl
+                        border-2 border-[#00FFFF] shadow-[0_0_30px_rgba(0,255,255,0.1)]
+                        transform transition-all duration-300 hover:shadow-[0_15px_30px_rgba(0,255,255,0.4)]">
+                <span class="block text-lg sm:text-xl font-['Orbitron'] text-[#00FFFF] mb-2">Total Registrations</span>
+                <span id="total-registrations" class="block text-2xl sm:text-3xl font-bold text-white">0</span>
+            </div>
+        </div>
 
-    <!-- Updated grid layout: using Tailwind grid classes -->
-    <div id="eventCounts" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        <!-- Data will be populated here -->
+        <!-- Refresh Button - Mobile Optimized -->
+        <div class="text-center mb-6 sm:mb-8">
+            <button id="refreshButton" 
+                    class="w-full sm:w-auto px-4 sm:px-6 py-3 bg-gradient-to-r from-[#FF00FF] to-[#00FFFF] text-white 
+                           rounded-lg font-bold uppercase tracking-wider text-sm sm:text-base
+                           transition-all duration-300 hover:from-[#00FFFF] hover:to-[#FF00FF] 
+                           transform hover:scale-105 min-h-[44px] touch-manipulation">
+                Refresh Counts
+            </button>
+        </div>
+
+        <!-- Event Counts Grid - Mobile First Layout -->
+        <div id="eventCounts" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+            <!-- Template for dynamic content -->
+            <!-- Note: Update the updateCounts() function to use these mobile-friendly classes -->
+            <template id="category-template">
+                <div class="bg-[rgba(46,46,46,0.8)] backdrop-blur-md p-4 sm:p-6 rounded-xl
+                            border-2 border-[#00FFFF] shadow-[0_0_30px_rgba(0,255,255,0.1)]
+                            transform transition-all duration-300 hover:-translate-y-2
+                            hover:shadow-[0_15px_30px_rgba(0,255,255,0.4)]">
+                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 gap-2 sm:gap-0">
+                        <h2 class="text-base sm:text-lg md:text-xl font-['Orbitron'] text-[#00FFFF]"></h2>
+                        <span class="text-[#FF00FF] font-bold text-sm sm:text-base"></span>
+                    </div>
+                    <div class="space-y-2 text-sm sm:text-base">
+                        <!-- Event items will be inserted here -->
+                    </div>
+                </div>
+            </template>
+        </div>
     </div>
-</div>
+</section>
+
+<div class="h-0.5 bg-gradient-to-r from-[#6D28D9] via-[#3B82F6] to-[#00FFFF]"></div>
 
 <script>
     const categories = {
@@ -82,20 +135,24 @@
                         );
 
                         if (categoryEvents.length > 0) {
-                            // Each category section as a grid item with its own grid for events
                             const section = document.createElement('div');
-                            section.className = 'category-section border p-4 rounded shadow';
+                            section.className = `bg-[rgba(46,46,46,0.8)] backdrop-blur-md p-4 sm:p-6 rounded-xl 
+                                               border-2 border-[#00FFFF] shadow-[0_0_30px_rgba(0,255,255,0.1)] 
+                                               transform transition-all duration-300 hover:-translate-y-2 
+                                               hover:shadow-[0_15px_30px_rgba(0,255,255,0.4)]`;
                             
                             section.innerHTML = `
-                                <div class="category-header flex justify-between items-center mb-2">
-                                    <h2 class="category-name text-xl font-bold">${categoryName}</h2>
-                                    <span class="category-total text-sm">Total: ${data.categoryTotals[categoryId] || 0}</span>
+                                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 gap-2 sm:gap-0">
+                                    <h2 class="text-base sm:text-lg md:text-xl font-['Orbitron'] text-[#00FFFF]">${categoryName}</h2>
+                                    <span class="text-[#FF00FF] font-bold text-sm sm:text-base">Total: ${data.categoryTotals[categoryId] || 0}</span>
                                 </div>
-                                <div class="grid grid-cols-1 gap-2">
+                                <div class="space-y-2 text-sm sm:text-base">
                                     ${categoryEvents.map(([eventId, count]) => `
-                                        <div class="flex justify-between items-center bg-gray-800 p-2 rounded">
-                                            <span class="event-name">${eventNames[eventId]}</span>
-                                            <span class="event-count font-bold">${count}</span>
+                                        <div class="flex justify-between items-center bg-[rgba(32,34,39,0.8)] p-3 rounded-lg
+                                                    border border-[#00FFFF]/30 hover:border-[#FF00FF]/30 transition-colors
+                                                    min-h-[44px] touch-manipulation">
+                                            <span class="text-gray-300 flex-1 mr-2">${eventNames[eventId]}</span>
+                                            <span class="text-[#00FFFF] font-bold whitespace-nowrap">${count}</span>
                                         </div>
                                     `).join('')}
                                 </div>
@@ -144,4 +201,40 @@
     document.getElementById('refreshButton').addEventListener('click', updateCounts);
     updateCounts();
 </script>
+
+<!-- Add mobile-specific styles -->
+<style>
+    @keyframes gradient-flow {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+    }
+
+    /* Mobile touch optimizations */
+    @media (hover: none) and (pointer: coarse) {
+        button, 
+        [role="button"] {
+            cursor: pointer;
+            min-height: 44px;
+            touch-action: manipulation;
+        }
+    }
+
+    /* Better tap targets for mobile */
+    @media (max-width: 640px) {
+        .event-item {
+            min-height: 44px;
+            padding: 0.75rem;
+        }
+    }
+
+    /* Prevent text overflow on small screens */
+    @media (max-width: 480px) {
+        .event-name {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+    }
+</style>
 {% endblock %}
