@@ -803,6 +803,45 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Foundation Card -->
+            <div class="flex justify-center w-full">
+                <div class="bg-[rgba(20,20,20,0.95)] backdrop-blur-xl rounded-xl sm:rounded-2xl p-3 sm:p-4
+                            border-2 border-[#00FFFF] shadow-[0_0_30px_rgba(0,255,255,0.1)]
+                            transform transition-all duration-500 hover:-translate-y-2 
+                            hover:shadow-[0_15px_30px_rgba(0,255,255,0.4)] hover:border-[#FF00FF]
+                            w-full sm:w-[180px] md:w-[200px] h-[180px] sm:h-[240px] md:h-[280px] flex flex-col">
+                    <h3 class="text-sm sm:text-base md:text-lg text-[#00FFFF] font-['Orbitron'] mb-2 text-center">
+                        Gaming Partner
+                    </h3>
+                    <div class="relative flex-1 flex items-center justify-center p-2 sm:p-3">
+                        <img src="{{ url_for('static', filename='assets/sponsor/game.jpg') }}" 
+                                alt="Foundation" 
+                                class="w-auto h-auto max-h-20 sm:max-h-36 md:max-h-48 max-w-[85%] sm:max-w-[90%] object-contain
+                                    filter brightness-100 hover:brightness-110 
+                                    transform transition-all duration-300 hover:scale-105">
+                    </div>
+                </div>
+            </div>
+             <!-- Foundation Card -->
+             <div class="flex justify-center w-full">
+                <div class="bg-[rgba(20,20,20,0.95)] backdrop-blur-xl rounded-xl sm:rounded-2xl p-3 sm:p-4
+                            border-2 border-[#00FFFF] shadow-[0_0_30px_rgba(0,255,255,0.1)]
+                            transform transition-all duration-500 hover:-translate-y-2 
+                            hover:shadow-[0_15px_30px_rgba(0,255,255,0.4)] hover:border-[#FF00FF]
+                            w-full sm:w-[180px] md:w-[200px] h-[180px] sm:h-[240px] md:h-[280px] flex flex-col">
+                    <h3 class="text-sm sm:text-base md:text-lg text-[#00FFFF] font-['Orbitron'] mb-2 text-center">
+                        Refreshment Partner
+                    </h3>
+                    <div class="relative flex-1 flex items-center justify-center p-2 sm:p-3">
+                        <img src="{{ url_for('static', filename='assets/sponsor/dabber.jpg') }}" 
+                                alt="Foundation" 
+                                class="w-auto h-auto max-h-20 sm:max-h-36 md:max-h-48 max-w-[85%] sm:max-w-[90%] object-contain
+                                    filter brightness-100 hover:brightness-110 
+                                    transform transition-all duration-300 hover:scale-105">
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </section>
@@ -988,30 +1027,13 @@
                     </div>
                 </div>
             </div>
-            <!-- Foundation Card -->
-            <div class="flex justify-center w-full">
-                <div class="bg-[rgba(20,20,20,0.95)] backdrop-blur-xl rounded-xl sm:rounded-2xl p-3 sm:p-4
-                            border-2 border-[#00FFFF] shadow-[0_0_30px_rgba(0,255,255,0.1)]
-                            transform transition-all duration-500 hover:-translate-y-2 
-                            hover:shadow-[0_15px_30px_rgba(0,255,255,0.4)] hover:border-[#FF00FF]
-                            w-full sm:w-[180px] md:w-[200px] h-[180px] sm:h-[240px] md:h-[280px] flex flex-col">
-                    <h3 class="text-sm sm:text-base md:text-lg text-[#00FFFF] font-['Orbitron'] mb-2 text-center">
-                        Gaming Partner
-                    </h3>
-                    <div class="relative flex-1 flex items-center justify-center p-2 sm:p-3">
-                        <img src="{{ url_for('static', filename='assets/sponsor/game.jpg') }}" 
-                                alt="Foundation" 
-                                class="w-auto h-auto max-h-20 sm:max-h-36 md:max-h-48 max-w-[85%] sm:max-w-[90%] object-contain
-                                    filter brightness-100 hover:brightness-110 
-                                    transform transition-all duration-300 hover:scale-105">
-                    </div>
-                </div>
-            </div>
+            
 
            
         </div>
     </div>
 </section>
+<div class="h-0.5 bg-gradient-to-r from-[#6D28D9] via-[#3B82F6] to-[#00FFFF]"></div>
 
 <!-- Include Swiper.js Styles -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
@@ -1105,6 +1127,22 @@
                         <h3 class="text-lg text-[#00FFFF] font-['Orbitron'] mb-4">Radco</h3>
                         <div class="flex-1 flex items-center justify-center">
                             <img src="{{ url_for('static', filename='assets/sponsor/Radco.png') }}" 
+                                 alt="Radco" 
+                                 class="max-h-36 object-contain transform transition-all duration-300 hover:scale-105">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Radco Card -->
+                <div class="swiper-slide">
+                    <div class="bg-[rgba(20,20,20,0.95)] backdrop-blur-xl rounded-xl sm:rounded-2xl p-4 sm:p-6 
+                                border-2 border-[#00FFFF] shadow-[0_0_30px_rgba(0,255,255,0.1)] 
+                                transform transition-all duration-500 hover:-translate-y-2 
+                                hover:shadow-[0_15px_30px_rgba(0,255,255,0.4)] hover:border-[#FF00FF]
+                                mx-auto max-w-[280px] h-[280px] flex flex-col">
+                        <h3 class="text-lg text-[#00FFFF] font-['Orbitron'] mb-4">Pizza Hut</h3>
+                        <div class="flex-1 flex items-center justify-center">
+                            <img src="{{ url_for('static', filename='assets/sponsor/pizza.jpg') }}" 
                                  alt="Radco" 
                                  class="max-h-36 object-contain transform transition-all duration-300 hover:scale-105">
                         </div>
