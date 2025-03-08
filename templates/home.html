@@ -1164,6 +1164,22 @@
                         </div>
                     </div>
                 </div>
+
+                 <!-- chasma Card -->
+                 <div class="swiper-slide">
+                    <div class="bg-[rgba(20,20,20,0.95)] backdrop-blur-xl rounded-xl sm:rounded-2xl p-4 sm:p-6 
+                                border-2 border-[#00FFFF] shadow-[0_0_30px_rgba(0,255,255,0.1)] 
+                                transform transition-all duration-500 hover:-translate-y-2 
+                                hover:shadow-[0_15px_30px_rgba(0,255,255,0.4)] hover:border-[#FF00FF]
+                                mx-auto max-w-[280px] h-[280px] flex flex-col">
+                        <h3 class="text-lg text-[#00FFFF] font-['Orbitron'] mb-4">Proud Alumini</h3>
+                        <div class="flex-1 flex items-center justify-center">
+                            <img src="{{ url_for('static', filename='assets/sponsor/chasma.jpg') }}" 
+                                 alt="Alumini" 
+                                 class="max-h-36 object-contain transform transition-all duration-300 hover:scale-105">
+                        </div>
+                    </div>
+                </div>
             </div> 
             <!-- Add pagination and navigation -->
             <div class="swiper-pagination mt-6"></div>
@@ -1183,7 +1199,7 @@
         slidesPerView: "auto",
         loop: true,
         autoplay: {
-            delay: 1500,
+            delay: 1000,
             disableOnInteraction: false,
             pauseOnMouseEnter: true
         },
